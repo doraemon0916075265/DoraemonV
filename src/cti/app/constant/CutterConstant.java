@@ -16,7 +16,7 @@ public class CutterConstant extends AppFrameMain {
 	public static final String JL_LOGINFO_ID = "電文ID/資訊";
 	public static final String JL_EXPORTFILE = "匯出檔案路徑";
 
-	/*** KEY-VALUE(start) ***/
+	/*** key - value(start) ***/
 	public static final String KEY_ROOTPATH = "rootPath";// log檔路徑
 
 	public static final String KEY_JL_LOGFILEPATH = "jl_logFilePath";// log檔路徑
@@ -67,7 +67,7 @@ public class CutterConstant extends AppFrameMain {
 	public static final String T_TITLE = "<標題>";
 	public static final String T_BUTTON = "<按鈕>";
 	public static final String T_LENGTH = "<長度>";
-	/////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////
 	public static final String VALUE_JL_LOGFILEPATH = T_TITLE + JL_LOGFILEPATH;
 	public static final String VALUE_LOGFILEPATH = "log檔路徑";
 	public static final String VALUE_JB_LOGFILEPATH = T_BUTTON + "找log檔案";
@@ -112,7 +112,7 @@ public class CutterConstant extends AppFrameMain {
 
 	public static final String VALUE_SNAME = "s_name";
 	public static final String VALUE_FNAME = "f_name";
-	/*** KEY-VALUE(end) ***/
+	/*** key - value(end) ***/
 
 	// 正規表示法
 	public static final String PARAM_TGID = "電文ID:";
@@ -129,9 +129,6 @@ public class CutterConstant extends AppFrameMain {
 	// 初始化路徑
 	public static final String DFT_PATH_LOG = "C:\\Users\\NT83382\\Desktop\\log.txt";
 	public static final String DFT_PATH_SPEC = "C:\\Users\\NT83382\\Desktop\\spec.json";
-	public static final String DIRECTORYNAME_USERS = "USERS";
-	public static final String DIRECTORYNAME_DESKTOP = "DESKTOP";
-	public static final String DIRECTORYNAME_REGEXP_NT = "NT[0-9](.*)";
 	public static final String FILENAME_LOG = "LOG.TXT";
 	public static final String FILENAME_SPEC = "SPEC.JSON";
 	public static final String FILENAME_RESULT = "result.txt";

@@ -79,8 +79,12 @@ public class AppConstant {
 	public static final String FORMAT_EXPORTFILE_SUBTITLE = "  ☆ %s ☆" + System.lineSeparator();
 	public static final String FORMAT_EXPORTFILE_CONTENT = "%s" + System.lineSeparator();
 
-	// 路徑
+	// 檔案路徑
 	public static final String PATH_DISK_C = "C:" + File.separator;
+	public static final String DIRECTORYNAME_USERS = "USERS";
+	public static final String DIRECTORYNAME_DESKTOP = "DESKTOP";
+	public static final String DIRECTORYNAME_REGEXP_NT = "NT[0-9](.*)";
+	public static final String KEY_TARGET_PATH = "key_target_path";
 
 	// 控制位置
 	public static final int SIZE_HOR_LABEL1 = 80;// 標題項目長度

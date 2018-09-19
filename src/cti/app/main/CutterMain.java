@@ -2,6 +2,8 @@ package cti.app.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +18,11 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.FontUIResource;
 
+import org.apache.commons.lang3.StringUtils;
+
 import cti.app.constant.CutterConstant;
 import cti.app.handler.CutterHandler;
-import cti.app.handler.SimpleFileHandler;
+import cti.app.handler.AppHandler;
 
 public class CutterMain extends CutterConstant {
 	public static JLabel jl_logFilePath = new JLabel(JL_LOGFILEPATH);// log檔路徑
@@ -251,21 +255,20 @@ public class CutterMain extends CutterConstant {
 			public void actionPerformed(ActionEvent ae) {
 				try {
 					isTimerWork(true);
-					Map<String, String> m1 = new HashMap<>();
-					m1.put(KEY_SEND, jtf_logInfo_send.getText());
-					m1.put(KEY_FILL, jtf_logInfo_fill.getText());
-					m1.put(KEY_SCUT0, jtf_specSendCut0.getText());
-					m1.put(KEY_SCUT, jtf_specSendCut.getText());
-					m1.put(KEY_FCUT0, jtf_specFillCut0.getText());
-					m1.put(KEY_FCUT, jtf_specFillCut.getText());
-
-					Map<String, String> m2 = CutterHandler.analysis(m1);
-					jta_resultS.setText(m2.get(KEY_RESULTS));
-					jta_resultF.setText(m2.get(KEY_RESULTF));
-					jtf_specSendCut0.setText(m2.get(KEY_SCUT0));
-					jtf_specSendCut.setText(m2.get(KEY_SCUT));
-					jtf_specFillCut0.setText(m2.get(KEY_FCUT0));
-					jtf_specFillCut.setText(m2.get(KEY_FCUT));
+					Map<String, String> m = new HashMap<>();
+					m.put(KEY_SEND, jtf_logInfo_send.getText());
+					m.put(KEY_FILL, jtf_logInfo_fill.getText());
+					m.put(KEY_SCUT0, jtf_specSendCut0.getText());
+					m.put(KEY_SCUT, jtf_specSendCut.getText());
+					m.put(KEY_FCUT0, jtf_specFillCut0.getText());
+					m.put(KEY_FCUT, jtf_specFillCut.getText());
+					m = CutterHandler.analysis(m);
+					jta_resultS.setText(m.get(KEY_RESULTS));
+					jta_resultF.setText(m.get(KEY_RESULTF));
+					jtf_specSendCut0.setText(m.get(KEY_SCUT0));
+					jtf_specSendCut.setText(m.get(KEY_SCUT));
+					jtf_specFillCut0.setText(m.get(KEY_FCUT0));
+					jtf_specFillCut.setText(m.get(KEY_FCUT));
 					showMsg(MSG_ANALYSIS);
 				} catch (Exception e) {
 					showMsg(e.getClass().getSimpleName(), e.getMessage());
@@ -284,7 +287,7 @@ public class CutterMain extends CutterConstant {
 					m.put(KEY_RESULTS, jta_resultS.getText());
 					m.put(KEY_RESULTF, jta_resultF.getText());
 					m.put(KEY_EXPORTFILEPATH, jtf_exportFile.getText());
-					SimpleFileHandler.exportFile(m);
+					exportFile(m);
 					showMsg(MSG_EXPORTFILE + "於" + jtf_exportFile.getText());
 				} catch (Exception e) {
 					showMsg(e.getClass().getSimpleName(), e.getMessage());
@@ -356,10 +359,26 @@ public class CutterMain extends CutterConstant {
 
 	/*** 第一次開啟視窗，初始化欄位 ***/
 	private static void doInitial() {
-		Map<String, String> m = SimpleFileHandler.InitialCutter();
+		String path_desktop = AppHandler.getDesktopRootPath();
+		System.out.println("AppHandler" + AppHandler.getDesktopRootPath());
+		if (StringUtils.isNotBlank(path_desktop)) {
+			jtf_exportFile.setText(path_desktop + File.separator + FILENAME_RESULT);
+		} else {
+			jtf_exportFile.setText("");
+		}
+
+		Map<String, String> m = new HashMap<>();
+		findLogSpec(m, path_desktop);
+
+		if (StringUtils.isBlank(m.get(KEY_LOGFILEPATH))) {
+			m.put(KEY_LOGFILEPATH, DFT_PATH_LOG);
+		}
+		if (StringUtils.isBlank(m.get(KEY_SPECFILEPATH))) {
+			m.put(KEY_SPECFILEPATH, DFT_PATH_SPEC);
+		}
+
 		jtf_logFilePath.setText(m.get(KEY_LOGFILEPATH));
 		jtf_specFilePath.setText(m.get(KEY_SPECFILEPATH));
-		jtf_exportFile.setText(m.get(KEY_EXPORTFILEPATH));
 	}
 
 	/*** 取電文長度 ***/
@@ -406,6 +425,77 @@ public class CutterMain extends CutterConstant {
 			}
 
 		});
+	}
+
+	/*** 找log.txt&spec.json ***/
+	public static void findLogSpec(Map<String, String> m, String filePath) {
+		try {
+			if (StringUtils.isBlank(m.get(KEY_LOGFILEPATH)) || StringUtils.isBlank(m.get(KEY_SPECFILEPATH))) {
+				File file = new File(filePath);
+				if (file.isDirectory()) {
+					for (String fileName : file.list()) {
+						findLogSpec(m, filePath + File.separator + fileName);
+					}
+				} else {
+					String fileNameU = file.getName().toUpperCase();
+					if (FILENAME_LOG.equals(fileNameU)) {
+						m.put(KEY_LOGFILEPATH, filePath);
+					}
+					if (FILENAME_SPEC.equals(fileNameU)) {
+						m.put(KEY_SPECFILEPATH, filePath);
+					}
+				}
+			}
+		} catch (Exception e) {
+
+		}
+	}
+
+	/*** 匯出檔案 ***/
+	public static void exportFile(Map<String, String> m) throws Exception {
+		if (StringUtils.isBlank(m.get(KEY_EXPORTFILEPATH))) {
+			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_EXPORTFILEPATH, ERRMSG_ISBLANK));
+		} else if (StringUtils.isBlank(m.get(KEY_RESULTS))) {
+			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_RESULTS, ERRMSG_ISBLANK));
+		} else if (StringUtils.isBlank(m.get(KEY_RESULTF))) {
+			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_RESULTF, ERRMSG_ISBLANK));
+		}
+		String path = m.get(KEY_EXPORTFILEPATH);
+		File f;
+		File fp;
+		try {
+			f = new File(path);
+			fp = new File(f.getParent());
+		} catch (Exception e) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_EXPORTFILEPATH, ERRMSG_FORMAT));
+		}
+		boolean isValidPath = false;
+		// 判斷副檔名
+		for (String filenExtension : REGEXP_FILEEXTEN_EXPORT) {
+			if (f.getName().toUpperCase().matches(filenExtension)) {
+				isValidPath = true;
+				break;
+			}
+		}
+		if (isValidPath) {
+			if (!fp.exists()) {
+				fp.mkdirs();
+			}
+		} else {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_EXPORTFILEPATH, ERRMSG_FORMAT));
+		}
+
+		try (FileWriter fw = new FileWriter(f.getAbsolutePath())) {
+			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, VALUE_RESULTS));
+			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, m.get(KEY_RESULTS)));
+			fw.write(System.lineSeparator());
+			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, VALUE_RESULTF));
+			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, m.get(KEY_RESULTF)));
+			fw.flush();
+		} catch (Exception e) {
+			throw new Exception();
+		}
+
 	}
 
 }

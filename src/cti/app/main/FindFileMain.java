@@ -2,6 +2,8 @@ package cti.app.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -10,7 +12,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import cti.app.constant.FindFileConstant;
-import cti.app.handler.SimpleFileHandler;
+import cti.app.handler.FindFileHandler;
+import cti.app.handler.AppHandler;
 
 public class FindFileMain extends FindFileConstant {
 	public static JLabel jl_searchPath = new JLabel(JL_SEARCHPATH);// 欲查路徑
@@ -23,7 +26,7 @@ public class FindFileMain extends FindFileConstant {
 
 	public static JButton jb_searchText = new JButton(BTN_SEARCH);
 
-	public static JTextArea jta_result = new JTextArea();//
+	public static JTextArea jta_result = new JTextArea();
 
 	public static void setBegin(JPanel jp) {
 		jp.setLayout(null);
@@ -90,11 +93,27 @@ public class FindFileMain extends FindFileConstant {
 		// 查詢
 		jb_searchText.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("123");
-				jta_result.setText("123");
+			public void actionPerformed(ActionEvent ae) {
+				try {
+					isTimerWork(true);
+					Map<String, String> m = new HashMap<>();
+					m.put(KEY_SEARCHPATH, jtf_searchPath.getText());
+					m.put(KEY_SEARCHTEXT, jtf_searchText.getText());
+
+					m = FindFileHandler.findConditionFile(m);
+					System.out.println(m);
+					jta_result.setText(m.get(KEY_RESULT));
+					showMsg(MSG_ANALYSIS);
+				} catch (Exception e) {
+					showMsg(e.getClass().getSimpleName(), e.getMessage());
+					isTimerWork(false);
+				}
 			}
 		});
+
+		dbClickOnCopy(jtf_searchPath, "欲查路徑");
+		dbClickOnCopy(jtf_searchText, "字串");
+		dbClickOnCopy(jta_result, "結果");
 	}
 
 	public static void setEnd(JPanel jp) {
@@ -114,7 +133,7 @@ public class FindFileMain extends FindFileConstant {
 	}
 
 	private static void doInitial() {
-		jtf_searchPath.setText(SimpleFileHandler.getRootPath4Desktop());
+		jtf_searchPath.setText(AppHandler.getDesktopRootPath());
 	}
 
 }
