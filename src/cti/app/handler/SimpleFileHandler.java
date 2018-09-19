@@ -14,9 +14,12 @@ public class SimpleFileHandler extends CutterConstant {
 
 	public static Map<String, String> InitialCutter() {
 		Map<String, String> m = new HashMap<>();
-		if (StringUtils.isNotBlank(getRootPath4Desktop())) {
-			findAimFile(m, getRootPath4Desktop(), false);
-			m.put(KEY_EXPORTFILEPATH, getRootPath4Desktop() + File.separator + FILENAME_RESULT);
+		System.out.println("ww" + m.get("12"));
+		String path_desktop = getRootPath4Desktop();
+
+		if (StringUtils.isNotBlank(path_desktop)) {
+			findAimFile(m, path_desktop, false);
+			m.put(KEY_EXPORTFILEPATH, path_desktop + File.separator + FILENAME_RESULT);
 		}
 		if (StringUtils.isBlank(m.get(KEY_LOGFILEPATH))) {
 			m.put(KEY_LOGFILEPATH, DFT_PATH_LOG);
@@ -27,35 +30,37 @@ public class SimpleFileHandler extends CutterConstant {
 		return m;
 	}
 
+	/*** 找桌面根目錄 ***/
 	public static String getRootPath4Desktop() {
-		app_String = "";
-		findRootPath(PATH_DISK_C, false, false);
-		return app_String;
+		Map<String, String> m = new HashMap<>();
+		findRootPath(m, PATH_DISK_C, false, false);
+		if (StringUtils.isNotBlank(m.get(KEY_EXPORTFILEPATH))) {
+			return m.get(KEY_EXPORTFILEPATH);
+		} else {
+			return "";
+		}
 	}
 
-	private static ArrayList<String> findRootPath(String filePath, boolean isDir1, boolean isDir2) {
-		ArrayList<String> list = new ArrayList<>();
+	private static void findRootPath(Map<String, String> m, String filePath, boolean isDir1, boolean isDir2) {
 		File file = new File(filePath);
-		app_String = file.getAbsolutePath();
 		try {
 			if (file.isDirectory()) {
 				for (String fileName : file.list()) {
 					String fileNameU = fileName.toUpperCase();
 					String newFilePath = file.getAbsolutePath() + File.separator + fileName;
 					if (!isDir1 && DIRECTORYNAME_USERS.equals(fileNameU)) {
-						list.addAll(findRootPath(newFilePath, true, false));
+						findRootPath(m, newFilePath, true, false);
 					}
 					if (isDir1 && !isDir2 && fileNameU.matches(DIRECTORYNAME_REGEXP_NT)) {
-						list.addAll(findRootPath(newFilePath, true, true));
+						findRootPath(m, newFilePath, true, true);
 					}
 					if (isDir1 && isDir2 && DIRECTORYNAME_DESKTOP.equals(fileNameU)) {
-						app_String = newFilePath;
+						m.put(KEY_EXPORTFILEPATH, newFilePath);
 					}
 				}
 			}
-			return list;
 		} catch (Exception e) {
-			return list;
+
 		}
 	}
 
@@ -78,7 +83,7 @@ public class SimpleFileHandler extends CutterConstant {
 					if (FILENAME_SPEC.equals(fileNameU)) {
 						m.put(KEY_SPECFILEPATH, filePath);
 					}
-					if (StringUtils.isNotBlank(app_Map_SS.get(KEY_LOGFILEPATH)) && StringUtils.isNotBlank(app_Map_SS.get(KEY_SPECFILEPATH))) {
+					if (StringUtils.isNotBlank(m.get(KEY_LOGFILEPATH)) && StringUtils.isNotBlank(m.get(KEY_SPECFILEPATH))) {
 						isFoundAll = true;
 					}
 					list.add(filePath);

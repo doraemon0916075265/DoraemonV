@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,7 +77,7 @@ public class AppConstant {
 	public static final String FORMAT_EXPORTFILE_CONTENT = "%s" + System.lineSeparator();
 
 	// 路徑
-	public static final String PATH_DISK_C = "C:";
+	public static final String PATH_DISK_C = "C:" + File.separator;
 
 	// 控制位置
 	public static final int SIZE_HOR_LABEL1 = 80;// 標題項目長度
