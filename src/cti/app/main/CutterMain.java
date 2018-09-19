@@ -1,15 +1,11 @@
 package cti.app.main;
 
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,7 +15,6 @@ import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.FontUIResource;
-import javax.swing.text.JTextComponent;
 
 import cti.app.constant.CutterConstant;
 import cti.app.handler.CutterHandler;
@@ -201,8 +196,8 @@ public class CutterMain extends CutterConstant {
 		setAppStyle(jtf_exportFile, KEY_EXPORTFILEPATH, APP_COLOR_DEFAULT);
 		setAppStyle(jb_exportFile, KEY_JB_EXPORTFILE, APP_COLOR_DEFAULT);
 
-		setAppStyle4TextArea(jta_resultS, KEY_SRESULT, APP_COLOR_DEFAULT);
-		setAppStyle4TextArea(jta_resultF, KEY_FRESULT, APP_COLOR_DEFAULT);
+		setAppStyle4TextArea(jta_resultS, KEY_RESULTS, APP_COLOR_DEFAULT);
+		setAppStyle4TextArea(jta_resultF, KEY_RESULTF, APP_COLOR_DEFAULT);
 	}
 
 	public static void setListener(JPanel jp) {
@@ -265,8 +260,8 @@ public class CutterMain extends CutterConstant {
 					m1.put(KEY_FCUT, jtf_specFillCut.getText());
 
 					Map<String, String> m2 = CutterHandler.analysis(m1);
-					jta_resultS.setText(m2.get(KEY_SRESULT));
-					jta_resultF.setText(m2.get(KEY_FRESULT));
+					jta_resultS.setText(m2.get(KEY_RESULTS));
+					jta_resultF.setText(m2.get(KEY_RESULTF));
 					jtf_specSendCut0.setText(m2.get(KEY_SCUT0));
 					jtf_specSendCut.setText(m2.get(KEY_SCUT));
 					jtf_specFillCut0.setText(m2.get(KEY_FCUT0));
@@ -283,16 +278,14 @@ public class CutterMain extends CutterConstant {
 		jb_exportFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				showMsg("輸入檔案路徑");
-				Map<String, String> m = new HashMap<>();
-				m.put(KEY_SRESULT, jta_resultS.getText());
-				m.put(KEY_FRESULT, jta_resultF.getText());
-				m.put(KEY_EXPORTFILEPATH, jtf_exportFile.getText());
-
 				try {
 					isTimerWork(true);
+					Map<String, String> m = new HashMap<>();
+					m.put(KEY_RESULTS, jta_resultS.getText());
+					m.put(KEY_RESULTF, jta_resultF.getText());
+					m.put(KEY_EXPORTFILEPATH, jtf_exportFile.getText());
 					SimpleFileHandler.exportFile(m);
-					showMsg(MSG_EXPORTFILE);
+					showMsg(MSG_EXPORTFILE + "於" + jtf_exportFile.getText());
 				} catch (Exception e) {
 					showMsg(e.getClass().getSimpleName(), e.getMessage());
 					isTimerWork(false);
@@ -304,16 +297,16 @@ public class CutterMain extends CutterConstant {
 		jb_guideBook.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				showMsg("開啟說明書");
+				showMsg(MSG_OPEN_GUIDEBOOK);
 				UIManager.put("OptionPane.messageFont", new FontUIResource(APP_FONT));
 				JOptionPane.showMessageDialog(null, getGuidebookContent(), APP_GUIDEBOOK_TITLE, JOptionPane.DEFAULT_OPTION);
-				showMsg("關閉說明書");
+				showMsg(MSG_CLOSE_GUIDEBOOK);
 			}
 		});
 
 		// 取檔案路徑
-		clickOnGetPath(jb_logFilepath);
-		clickOnGetPath(jb_specFilepath);
+		btnGetPath(jb_logFilepath, jtf_logFilePath, VALUE_LOGFILEPATH);
+		btnGetPath(jb_specFilepath, jtf_specFilePath, VALUE_SPECFILEPATH);
 
 		// 取電文長度
 		inputOnChange(jtf_logInfo_send);
@@ -324,18 +317,18 @@ public class CutterMain extends CutterConstant {
 		inputOnChange(jtf_specFillCut);
 
 		// 點擊複製
-		dbClickOnCopy(jtf_logFilePath);
-		dbClickOnCopy(jtf_specFilePath);
-		dbClickOnCopy(jtf_logInfo_ID);
-		dbClickOnCopy(jtf_logInfo_send);
-		dbClickOnCopy(jtf_logInfo_fill);
-		dbClickOnCopy(jtf_specSendCut0);
-		dbClickOnCopy(jtf_specSendCut);
-		dbClickOnCopy(jtf_specFillCut0);
-		dbClickOnCopy(jtf_specFillCut);
-		dbClickOnCopy(jtf_exportFile);
-		dbClickOnCopy(jta_resultS);
-		dbClickOnCopy(jta_resultF);
+		dbClickOnCopy(jtf_logFilePath, VALUE_LOGFILEPATH);
+		dbClickOnCopy(jtf_specFilePath, VALUE_SPECFILEPATH);
+		dbClickOnCopy(jtf_logInfo_ID, VALUE_ID);
+		dbClickOnCopy(jtf_logInfo_send, VALUE_SEND);
+		dbClickOnCopy(jtf_logInfo_fill, VALUE_FILL);
+		dbClickOnCopy(jtf_specSendCut0, VALUE_SCUT0);
+		dbClickOnCopy(jtf_specSendCut, VALUE_SCUT);
+		dbClickOnCopy(jtf_specFillCut0, VALUE_FCUT0);
+		dbClickOnCopy(jtf_specFillCut, VALUE_FCUT);
+		dbClickOnCopy(jtf_exportFile, VALUE_EXPORTFILEPATH);
+		dbClickOnCopy(jta_resultS, VALUE_RESULTS);
+		dbClickOnCopy(jta_resultF, VALUE_RESULTF);
 	}
 
 	public static void setEnd(JPanel jp) {
@@ -367,25 +360,6 @@ public class CutterMain extends CutterConstant {
 		jtf_logFilePath.setText(m.get(KEY_LOGFILEPATH));
 		jtf_specFilePath.setText(m.get(KEY_SPECFILEPATH));
 		jtf_exportFile.setText(m.get(KEY_EXPORTFILEPATH));
-	}
-
-	/*** 取檔案路徑 ***/
-	private static void clickOnGetPath(JButton jb) {
-		jb.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				JFileChooser jfc = new JFileChooser();
-				if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					if (KEY_JB_LOGFILEPATH.equals(jb.getName())) {
-						jtf_logFilePath.setText(jfc.getSelectedFile().toString());
-						showMsg(MSG_SUCCESS, MSG_READFILEPATH);
-					} else if (KEY_JB_SPECFILEPATH.equals(jb.getName())) {
-						jtf_specFilePath.setText(jfc.getSelectedFile().toString());
-						showMsg(MSG_SUCCESS, MSG_READFILEPATH);
-					}
-				}
-			}
-		});
 	}
 
 	/*** 取電文長度 ***/
@@ -431,41 +405,6 @@ public class CutterMain extends CutterConstant {
 				}
 			}
 
-		});
-	}
-
-	/*** 複製 ***/
-	private static void dbClickOnCopy(JTextComponent jtc) {
-		jtc.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseReleased(MouseEvent me) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent me) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent me) {
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent me) {
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent me) {
-				mousedbClicked(me);
-			}
-
-			public void mousedbClicked(MouseEvent me) {
-				if (me.getClickCount() >= 2 && !me.isConsumed() && !jtc.getText().isEmpty()) {
-					me.isConsumed();
-					StringSelection data = new StringSelection(jtc.getText());
-					APP_CLIPBOARD.setContents(data, data);
-					showMsg(MSG_SUCCESS, String.format(FORMAT_MSG_COPIED, getKeyValueMap().get(jtc.getName())));
-				}
-			}
 		});
 	}
 

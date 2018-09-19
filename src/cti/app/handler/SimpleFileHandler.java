@@ -14,9 +14,7 @@ public class SimpleFileHandler extends CutterConstant {
 
 	public static Map<String, String> InitialCutter() {
 		Map<String, String> m = new HashMap<>();
-		System.out.println("ww" + m.get("12"));
 		String path_desktop = getRootPath4Desktop();
-
 		if (StringUtils.isNotBlank(path_desktop)) {
 			findAimFile(m, path_desktop, false);
 			m.put(KEY_EXPORTFILEPATH, path_desktop + File.separator + FILENAME_RESULT);
@@ -98,10 +96,10 @@ public class SimpleFileHandler extends CutterConstant {
 	public static void exportFile(Map<String, String> m) throws Exception {
 		if (StringUtils.isBlank(m.get(KEY_EXPORTFILEPATH))) {
 			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_EXPORTFILEPATH, ERRMSG_ISBLANK));
-		} else if (StringUtils.isBlank(m.get(KEY_SRESULT))) {
-			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_SRESULT, ERRMSG_ISBLANK));
-		} else if (StringUtils.isBlank(m.get(KEY_FRESULT))) {
-			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_FRESULT, ERRMSG_ISBLANK));
+		} else if (StringUtils.isBlank(m.get(KEY_RESULTS))) {
+			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_RESULTS, ERRMSG_ISBLANK));
+		} else if (StringUtils.isBlank(m.get(KEY_RESULTF))) {
+			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_RESULTF, ERRMSG_ISBLANK));
 		}
 		String path = m.get(KEY_EXPORTFILEPATH);
 		File f;
@@ -112,8 +110,15 @@ public class SimpleFileHandler extends CutterConstant {
 		} catch (Exception e) {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_EXPORTFILEPATH, ERRMSG_FORMAT));
 		}
-
-		if (f.getName().toUpperCase().matches(REGEXP_FILE_TXT)) {
+		boolean isValidPath = false;
+		// 判斷副檔名
+		for (String filenExtension : REGEXP_FILEEXTEN_EXPORT) {
+			if (f.getName().toUpperCase().matches(filenExtension)) {
+				isValidPath = true;
+				break;
+			}
+		}
+		if (isValidPath) {
 			if (!fp.exists()) {
 				fp.mkdirs();
 			}
@@ -122,11 +127,11 @@ public class SimpleFileHandler extends CutterConstant {
 		}
 
 		try (FileWriter fw = new FileWriter(f.getAbsolutePath())) {
-			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, VALUE_SRESULT));
-			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, m.get(KEY_SRESULT)));
+			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, VALUE_RESULTS));
+			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, m.get(KEY_RESULTS)));
 			fw.write(System.lineSeparator());
-			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, VALUE_FRESULT));
-			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, m.get(KEY_FRESULT)));
+			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, VALUE_RESULTF));
+			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, m.get(KEY_RESULTF)));
 			fw.flush();
 		} catch (Exception e) {
 			throw new Exception();

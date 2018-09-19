@@ -48,12 +48,15 @@ public class AppConstant {
 	public static final String MSG_INITIAL = "歡迎使用本程式！系統訊息顯示區塊～";
 	public static final String MSG_READFILE = "已讀檔";
 	public static final String MSG_READFILEPATH = "已取得檔案路徑";
+	public static final String MSG_GET = "已取得";
 	public static final String MSG_CLEARDATA = "已清除";
 	public static final String MSG_RESETDATA = "已重設";
 	public static final String MSG_ANALYSIS = "已解析";
 	public static final String MSG_EXPORTFILE = "已匯出";
 	public static final String MSG_SEARCH = "已查詢";
 	public static final String MSG_RUNNING = "執行中";
+	public static final String MSG_OPEN_GUIDEBOOK = "開啟說明書";
+	public static final String MSG_CLOSE_GUIDEBOOK = "關閉說明書";
 
 	// 錯誤訊息
 	public static final String ERRMSG_JSON_TRANSFER = "轉換JSON格式發生錯誤";

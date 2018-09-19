@@ -70,8 +70,8 @@ public class CutterHandler extends CutterConstant {
 		resultMap.put(KEY_SCUT, ja_sCut.toString());
 		resultMap.put(KEY_FCUT0, ja_fCut0.toString());
 		resultMap.put(KEY_FCUT, ja_fCut.toString());
-		resultMap.put(KEY_SRESULT, list1.toString());
-		resultMap.put(KEY_FRESULT, list2.toString());
+		resultMap.put(KEY_RESULTS, list1.toString());
+		resultMap.put(KEY_RESULTF, list2.toString());
 
 		return resultMap;
 	}
@@ -121,9 +121,9 @@ public class CutterHandler extends CutterConstant {
 					continue;
 				}
 				String lineU = line.toUpperCase();
-				if (lineU.matches(REGEXP_TG_NAME1)) {
-					resultMap.put(KEY_ID, Pattern.compile(REGEXP_TG_ID).matcher(lineU).replaceAll(""));
-				} else if (lineU.matches(REGEXP_TG_NAME2)) {
+				if (lineU.matches(REGEXP_ID1)) {
+					resultMap.put(KEY_ID, Pattern.compile(REGEXP_TGID).matcher(lineU).replaceAll(""));
+				} else if (lineU.matches(REGEXP_ID2)) {
 					resultMap.put(KEY_ID, lineU.replace(PARAM_TGID, ""));
 				}
 				if (isSend) {
@@ -134,10 +134,10 @@ public class CutterHandler extends CutterConstant {
 				}
 				isSend = false;
 				isFill = false;
-				if (lineU.matches(REGEXP_TG_SEND1) || lineU.matches(REGEXP_TG_SEND2)) {
+				if (lineU.matches(REGEXP_SEND1) || lineU.matches(REGEXP_SEND2)) {
 					isSend = true;
 				}
-				if (lineU.matches(REGEXP_TG_FILL1) || lineU.matches(REGEXP_TG_FILL2)) {
+				if (lineU.matches(REGEXP_FILL1) || lineU.matches(REGEXP_FILL2)) {
 					isFill = true;
 				}
 			}

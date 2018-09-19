@@ -2,13 +2,21 @@ package cti.app.main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Calendar;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.JTextComponent;
@@ -143,5 +151,54 @@ public class AppFrameMain extends AppConstant {
 			isTimerWork(false);
 		}
 		jl_msg.setText(String.format(FORMAT_MSG, APP_TABS_TITLE[jtp.getSelectedIndex()], APPMSG_SDF.format(Calendar.getInstance().getTime()), msgType, msg1, msg2));
+	}
+
+	/*** 雙擊複製 ***/
+	public static void dbClickOnCopy(JTextComponent jtc, String name) {
+		jtc.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent me) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent me) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent me) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent me) {
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent me) {
+				mousedbClicked(me);
+			}
+
+			public void mousedbClicked(MouseEvent me) {
+				if (me.getClickCount() >= 2 && !me.isConsumed() && !jtc.getText().isEmpty()) {
+					me.isConsumed();
+					StringSelection data = new StringSelection(jtc.getText());
+					APP_CLIPBOARD.setContents(data, data);
+					showMsg(MSG_SUCCESS, String.format(FORMAT_MSG_COPIED, name));
+				}
+			}
+		});
+	}
+
+	/*** 取得檔案路徑 ***/
+	public static void btnGetPath(JButton jb, JTextField jtf, String name) {
+		jb.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				JFileChooser jfc = new JFileChooser();
+				if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					jtf.setText(jfc.getSelectedFile().toString());
+					showMsg(MSG_SUCCESS, MSG_GET, name);
+				}
+			}
+		});
 	}
 }

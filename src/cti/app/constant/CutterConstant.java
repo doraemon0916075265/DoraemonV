@@ -58,8 +58,8 @@ public class CutterConstant extends AppFrameMain {
 	public static final String KEY_EXPORTFILEPATH = "jtf_exportFile";
 	public static final String KEY_JB_EXPORTFILE = "jb_exportFile";
 
-	public static final String KEY_SRESULT = "jta_resultS";
-	public static final String KEY_FRESULT = "jta_resultF";
+	public static final String KEY_RESULTS = "jta_resultS";
+	public static final String KEY_RESULTF = "jta_resultF";
 
 	public static final String KEY_SNAME = "s_name";
 	public static final String KEY_FNAME = "f_name";
@@ -107,8 +107,8 @@ public class CutterConstant extends AppFrameMain {
 	public static final String VALUE_EXPORTFILEPATH = "匯出檔案路徑";
 	public static final String VALUE_JB_EXPORTFILE = T_BUTTON + BTN_EXPORTFILE;
 
-	public static final String VALUE_SRESULT = "切上行電文結果";
-	public static final String VALUE_FRESULT = "切下行電文結果";
+	public static final String VALUE_RESULTS = "切上行電文結果";
+	public static final String VALUE_RESULTF = "切下行電文結果";
 
 	public static final String VALUE_SNAME = "s_name";
 	public static final String VALUE_FNAME = "f_name";
@@ -117,14 +117,14 @@ public class CutterConstant extends AppFrameMain {
 	// 正規表示法
 	public static final String PARAM_TGID = "電文ID:";
 	public static final String REGEXP_FORALL = "(.*)";
-	public static final String REGEXP_TG_ID = "[^0-9a-zA-Z]";
-	public static final String REGEXP_TG_NAME1 = "畫面名稱:" + REGEXP_FORALL;
-	public static final String REGEXP_TG_NAME2 = PARAM_TGID + REGEXP_FORALL;
-	public static final String REGEXP_TG_SEND1 = "送出:" + REGEXP_FORALL;
-	public static final String REGEXP_TG_SEND2 = REGEXP_FORALL + "送出";
-	public static final String REGEXP_TG_FILL1 = "收到:" + REGEXP_FORALL;
-	public static final String REGEXP_TG_FILL2 = REGEXP_FORALL + "收到";
-	public static final String REGEXP_FILE_TXT = REGEXP_FORALL + ".TXT";
+	public static final String REGEXP_TGID = "[^0-9a-zA-Z]";
+	public static final String REGEXP_ID1 = "畫面名稱:" + REGEXP_FORALL;
+	public static final String REGEXP_ID2 = PARAM_TGID + REGEXP_FORALL;
+	public static final String REGEXP_SEND1 = "送出:" + REGEXP_FORALL;
+	public static final String REGEXP_SEND2 = REGEXP_FORALL + "送出";
+	public static final String REGEXP_FILL1 = "收到:" + REGEXP_FORALL;
+	public static final String REGEXP_FILL2 = REGEXP_FORALL + "收到";
+	public static final String REGEXP_FILEEXTEN_EXPORT[] = { "(.*).TXT", "(.*).LOG" };
 
 	// 初始化路徑
 	public static final String DFT_PATH_LOG = "C:\\Users\\NT83382\\Desktop\\log.txt";
@@ -198,8 +198,8 @@ public class CutterConstant extends AppFrameMain {
 		m.put(KEY_EXPORTFILEPATH, VALUE_EXPORTFILEPATH);
 		m.put(KEY_JB_EXPORTFILE, VALUE_JB_EXPORTFILE);
 		m.put(KEY_JB_GUIDEBOOK, VALUE_JB_GUIDEBOOK);
-		m.put(KEY_SRESULT, VALUE_SRESULT);
-		m.put(KEY_FRESULT, VALUE_FRESULT);
+		m.put(KEY_RESULTS, VALUE_RESULTS);
+		m.put(KEY_RESULTF, VALUE_RESULTF);
 		m.put(KEY_SNAME, VALUE_SNAME);
 		m.put(KEY_FNAME, VALUE_FNAME);
 		return m;
