@@ -17,7 +17,7 @@ public class AppConstant {
 	// APP設定
 	public static final String APP_FRAME_TITLE = "★Hello～★";
 	public static final String APP_TAB01_TITLE = "切電文";
-	public static final String APP_TAB02_TITLE = "字串找檔案";
+	public static final String APP_TAB02_TITLE = "找檔案";
 	public static final String APP_TAB03_TITLE = "未定1";
 	public static final String APP_TAB04_TITLE = "未定2";
 	public static final String[] APP_TABS_TITLE = { APP_TAB01_TITLE, APP_TAB02_TITLE, APP_TAB03_TITLE, APP_TAB04_TITLE };

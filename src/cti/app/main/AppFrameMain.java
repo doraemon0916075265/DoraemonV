@@ -25,7 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import cti.app.constant.AppConstant;
 import cti.app.controller.CutterController;
-import cti.app.controller.TextFindFileController;
+import cti.app.controller.FindFileController;
 
 public class AppFrameMain extends AppConstant {
 	public static JFrame jf;
@@ -58,7 +58,7 @@ public class AppFrameMain extends AppConstant {
 	/*** 設定元件 ***/
 	public static void setFrameComponent() {
 		CutterController.setJPanel(jp1);
-		TextFindFileController.setJPanel(jp2);
+		FindFileController.setJPanel(jp2);
 
 		jtp.addTab(APP_TAB01_TITLE, jp1);
 		jtp.addTab(APP_TAB02_TITLE, jp2);

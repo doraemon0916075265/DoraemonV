@@ -2,9 +2,9 @@ package cti.app.controller;
 
 import javax.swing.JPanel;
 
-import cti.app.main.TextFindFileMain;
+import cti.app.main.FindFileMain;
 
-public class TextFindFileController extends TextFindFileMain {
+public class FindFileController extends FindFileMain {
 
 	public static void setJPanel(JPanel jp) {
 		setBegin(jp);

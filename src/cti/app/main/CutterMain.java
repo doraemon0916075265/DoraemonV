@@ -212,7 +212,7 @@ public class CutterMain extends CutterConstant {
 			}
 		});
 
-		// 按鈕清除
+		// 清除
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
