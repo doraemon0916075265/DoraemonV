@@ -26,17 +26,21 @@ import org.apache.commons.lang3.StringUtils;
 import cti.app.constant.AppConstant;
 import cti.app.controller.CutterController;
 import cti.app.controller.FindFileController;
+import cti.app.controller.TestController;
 
 public class AppFrameMain extends AppConstant {
 	public static JFrame jf;
 	public static JTabbedPane jtp = new JTabbedPane();
-	public static JPanel jp1 = new JPanel();
-	public static JPanel jp2 = new JPanel();
-	public static JLabel jl_msg = new JLabel();// 系統訊息
+
+	private static JPanel jpTab1 = new JPanel();
+	private static JPanel jpTab2 = new JPanel();
+	private static JPanel jpTab3 = new JPanel();
+
+	private static JLabel jl_msg = new JLabel();// 系統訊息
 
 	private static long now;
-	public static boolean isTimerOn;
-	public static long timer;
+	private static boolean isTimerOn;
+	private static long timer;
 
 	/*** 視窗初始設定 ***/
 	public static void setFrameBegin() {
@@ -57,12 +61,14 @@ public class AppFrameMain extends AppConstant {
 
 	/*** 設定元件 ***/
 	public static void setFrameComponent() {
-		CutterController.setJPanel(jp1);
-		FindFileController.setJPanel(jp2);
 
-		jtp.addTab(APP_TAB01_TITLE, jp1);
-		jtp.addTab(APP_TAB02_TITLE, jp2);
-		jtp.addTab(APP_TAB03_TITLE, new JPanel());
+		CutterController.setJPanel(jpTab1);
+		FindFileController.setJPanel(jpTab2);
+		TestController.setJPanel(jpTab3);
+
+		jtp.addTab(APP_TAB01_TITLE, jpTab1);
+		jtp.addTab(APP_TAB02_TITLE, jpTab2);
+		jtp.addTab(APP_TAB03_TITLE, jpTab3);
 		jtp.addTab(APP_TAB04_TITLE, new JPanel());
 		jtp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);// 左右滾動
 
@@ -75,7 +81,7 @@ public class AppFrameMain extends AppConstant {
 		jtp.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent ce) {
-				showMsg("歡迎進入 " + APP_TABS_TITLE[jtp.getSelectedIndex()]);
+				showMsg("歡迎進入 " + getSelectedTabName());
 			}
 		});
 	}
@@ -115,10 +121,9 @@ public class AppFrameMain extends AppConstant {
 	}
 
 	/*** 樣式：一般TextArea ***/
-	public static void setAppStyle4TextArea(JComponent jc, String name, Color fontColor) {
+	public static void setAppStyle4TextArea(JComponent jc, String name, Color fontColor, boolean isEditable) {
 		setAppStyle(jc, name, fontColor);
-		jc.setBorder(APP_COLOR_COMPONENT_BORDER);
-		((JTextComponent) jc).setEditable(false);
+		((JTextComponent) jc).setEditable(isEditable);
 	}
 
 	/*** 訊息欄 ***/
@@ -131,9 +136,9 @@ public class AppFrameMain extends AppConstant {
 			} else {
 				timeMsg = String.format(FORMAT_MSG_TIMER_MS, timer);
 			}
-			jl_msg.setText(String.format(FORMAT_MSG, APP_TABS_TITLE[jtp.getSelectedIndex()], APPMSG_SDF.format(Calendar.getInstance().getTime()), MSG_SUCCESS, msg, timeMsg));
+			jl_msg.setText(String.format(FORMAT_MSG, getSelectedTabName(), APPMSG_SDF.format(Calendar.getInstance().getTime()), MSG_SUCCESS, msg, timeMsg));
 		} else {
-			jl_msg.setText(String.format(FORMAT_MSG, APP_TABS_TITLE[jtp.getSelectedIndex()], APPMSG_SDF.format(Calendar.getInstance().getTime()), MSG_SUCCESS, msg, ""));
+			jl_msg.setText(String.format(FORMAT_MSG, getSelectedTabName(), APPMSG_SDF.format(Calendar.getInstance().getTime()), MSG_SUCCESS, msg, ""));
 		}
 	}
 
@@ -142,7 +147,7 @@ public class AppFrameMain extends AppConstant {
 		if (isTimerOn) {
 			isTimerWork(false);
 		}
-		jl_msg.setText(String.format(FORMAT_MSG, APP_TABS_TITLE[jtp.getSelectedIndex()], APPMSG_SDF.format(Calendar.getInstance().getTime()), msgType, msg, ""));
+		jl_msg.setText(String.format(FORMAT_MSG, getSelectedTabName(), APPMSG_SDF.format(Calendar.getInstance().getTime()), msgType, msg, ""));
 	}
 
 	/*** 訊息欄 ***/
@@ -150,7 +155,12 @@ public class AppFrameMain extends AppConstant {
 		if (isTimerOn) {
 			isTimerWork(false);
 		}
-		jl_msg.setText(String.format(FORMAT_MSG, APP_TABS_TITLE[jtp.getSelectedIndex()], APPMSG_SDF.format(Calendar.getInstance().getTime()), msgType, msg1, msg2));
+		jl_msg.setText(String.format(FORMAT_MSG, getSelectedTabName(), APPMSG_SDF.format(Calendar.getInstance().getTime()), msgType, msg1, msg2));
+	}
+
+	/*** 取得Tab名 ***/
+	private static String getSelectedTabName() {
+		return jtp.getSelectedIndex() >= 0 ? APP_TABS_TITLE[jtp.getSelectedIndex()] : "";
 	}
 
 	/*** 雙擊複製 ***/

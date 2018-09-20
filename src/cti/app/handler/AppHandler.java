@@ -8,7 +8,6 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import cti.app.constant.AppConstant;
-import cti.app.constant.CutterConstant;
 
 public class AppHandler extends AppConstant {
 

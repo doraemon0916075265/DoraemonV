@@ -1,5 +1,6 @@
 package cti.app.main;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -21,143 +23,147 @@ import javax.swing.plaf.FontUIResource;
 import org.apache.commons.lang3.StringUtils;
 
 import cti.app.constant.CutterConstant;
-import cti.app.handler.CutterHandler;
 import cti.app.handler.AppHandler;
+import cti.app.handler.CutterHandler;
 
 public class CutterMain extends CutterConstant {
-	public static JLabel jl_logFilePath = new JLabel(JL_LOGFILEPATH);// log檔路徑
-	public static JTextField jtf_logFilePath = new JTextField();
-	public static JButton jb_logFilepath = new JButton();
-	public static JButton jb_resetData = new JButton(BTN_RESETDATA);
+	private static JPanel jpSub1 = new JPanel();
+	private static JPanel jpSub2 = new JPanel();
 
-	public static JLabel jl_specFilePath = new JLabel(JL_SPECFILEPATH);// spec檔路徑
-	public static JTextField jtf_specFilePath = new JTextField();
-	public static JButton jb_specFilepath = new JButton();
-	public static JButton jb_clearData = new JButton(BTN_CLEARDATA);
+	private static JLabel jl_logFilePath = new JLabel(JL_LOGFILEPATH);// log檔路徑
+	private static JTextField jtf_logFilePath = new JTextField();
+	private static JButton jb_logFilepath = new JButton();
+	private static JButton jb_resetData = new JButton(BTN_RESETDATA);
 
-	public static JLabel jl_logInfo_send = new JLabel(JL_LOGINFO_SEND);// 上行電文
-	public static JTextField jtf_logInfo_send = new JTextField();
-	public static JLabel jl_logInfo_sendLen = new JLabel(LEN_0);
-	public static JButton jb_readFile = new JButton(BTN_READFILE);
+	private static JLabel jl_specFilePath = new JLabel(JL_SPECFILEPATH);// spec檔路徑
+	private static JTextField jtf_specFilePath = new JTextField();
+	private static JButton jb_specFilepath = new JButton();
+	private static JButton jb_clearData = new JButton(BTN_CLEARDATA);
 
-	public static JLabel jl_logInfo_fill = new JLabel(JL_LOGINFO_FILL);// 下行電文
-	public static JTextField jtf_logInfo_fill = new JTextField();
-	public static JLabel jl_logInfo_fillLen = new JLabel(LEN_0);
-	public static JButton jb_analysis = new JButton(BTN_ANALYSIS);
+	private static JLabel jl_logInfo_send = new JLabel(JL_LOGINFO_SEND);// 上行電文
+	private static JTextField jtf_logInfo_send = new JTextField();
+	private static JLabel jl_logInfo_sendLen = new JLabel(LEN_0);
+	private static JButton jb_readFile = new JButton(BTN_READFILE);
 
-	public static JLabel jl_specInfo_send = new JLabel(JL_SPECINFO_SEND);// 上行電文陣列
-	public static JTextField jtf_specSendCut0 = new JTextField();
-	public static JTextField jtf_specSendCut = new JTextField();
-	public static JLabel jl_specInfo_sendLen = new JLabel(String.format(FORMAT_MSG_TGLEN, LEN_0, LEN_0));
+	private static JLabel jl_logInfo_fill = new JLabel(JL_LOGINFO_FILL);// 下行電文
+	private static JTextField jtf_logInfo_fill = new JTextField();
+	private static JLabel jl_logInfo_fillLen = new JLabel(LEN_0);
+	private static JButton jb_analysis = new JButton(BTN_ANALYSIS);
 
-	public static JLabel jl_specInfo_fill = new JLabel(JL_SPECINFO_FILL);// 下行電文陣列
-	public static JTextField jtf_specFillCut0 = new JTextField();
-	public static JTextField jtf_specFillCut = new JTextField();
-	public static JLabel jl_specInfo_fillLen = new JLabel(String.format(FORMAT_MSG_TGLEN, LEN_0, LEN_0));
+	private static JLabel jl_specInfo_send = new JLabel(JL_SPECINFO_SEND);// 上行電文陣列
+	private static JTextField jtf_specSendCut0 = new JTextField();
+	private static JTextField jtf_specSendCut = new JTextField();
+	private static JLabel jl_specInfo_sendLen = new JLabel(String.format(FORMAT_MSG_TGLEN, LEN_0, LEN_0));
 
-	public static JLabel jl_logInfo_ID = new JLabel(JL_LOGINFO_ID);// 電文ID/資訊
-	public static JTextField jtf_logInfo_ID = new JTextField();
-	public static JTextField jtf_specInfo_note = new JTextField();
-	public static JButton jb_guideBook = new JButton(BTN_GUIDEBOOK);
+	private static JLabel jl_specInfo_fill = new JLabel(JL_SPECINFO_FILL);// 下行電文陣列
+	private static JTextField jtf_specFillCut0 = new JTextField();
+	private static JTextField jtf_specFillCut = new JTextField();
+	private static JLabel jl_specInfo_fillLen = new JLabel(String.format(FORMAT_MSG_TGLEN, LEN_0, LEN_0));
 
-	public static JLabel jl_exportFile = new JLabel(JL_EXPORTFILE);// 匯出檔案路徑
-	public static JTextField jtf_exportFile = new JTextField();
-	public static JButton jb_exportFile = new JButton(BTN_EXPORTFILE);
+	private static JLabel jl_logInfo_ID = new JLabel(JL_LOGINFO_ID);// 電文ID/資訊
+	private static JTextField jtf_logInfo_ID = new JTextField();
+	private static JTextField jtf_specInfo_note = new JTextField();
+	private static JButton jb_guideBook = new JButton(BTN_GUIDEBOOK);
 
-	public static JTextArea jta_resultS = new JTextArea();
-	public static JTextArea jta_resultF = new JTextArea();
+	private static JLabel jl_exportFile = new JLabel(JL_EXPORTFILE);// 匯出檔案路徑
+	private static JTextField jtf_exportFile = new JTextField();
+	private static JButton jb_exportFile = new JButton(BTN_EXPORTFILE);
+
+	private static JTextArea jta_resultS = new JTextArea(4, 93);
+	private static JTextArea jta_resultF = new JTextArea(11, 93);
 
 	public static void setBegin(JPanel jp) {
-		jp.setLayout(null);
+		jpSub1.setLayout(null);
+		jpSub1.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 325));
+		jpSub2.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 300));
 	}
 
 	public static void setPosition(JPanel jp) {
-		int row = 20;// 每一列
-		/*** 第一區 ***/
+		int row = 15;// 每一列
+		/*** 上半部，第一區 ***/
 		jl_logFilePath.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_logFilePath.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, SIZE_VER_INPUT);
 		jb_logFilepath.setBounds(SIZE_HOR_COL2 + SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, row, SIZE_HOR_BTNF, SIZE_VER_INPUT);
 		jb_resetData.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jp.add(jl_logFilePath);
-		jp.add(jtf_logFilePath);
-		jp.add(jb_logFilepath);
-		jp.add(jb_resetData);
+		jpSub1.add(jl_logFilePath);
+		jpSub1.add(jtf_logFilePath);
+		jpSub1.add(jb_logFilepath);
+		jpSub1.add(jb_resetData);
 		/*** 第二區 ***/
-		row = 60;
+		row += 40;
 		jl_specFilePath.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_specFilePath.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, SIZE_VER_INPUT);
 		jb_specFilepath.setBounds(SIZE_HOR_COL2 + SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, row, SIZE_HOR_BTNF, SIZE_VER_INPUT);
 		jb_clearData.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jp.add(jl_specFilePath);
-		jp.add(jtf_specFilePath);
-		jp.add(jb_specFilepath);
-		jp.add(jb_clearData);
+		jpSub1.add(jl_specFilePath);
+		jpSub1.add(jtf_specFilePath);
+		jpSub1.add(jb_specFilepath);
+		jpSub1.add(jb_clearData);
 		/*** 第三區 ***/
-		row = 100;
+		row += 40;
 		jl_logInfo_send.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_logInfo_send.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
 		jl_logInfo_sendLen.setBounds(SIZE_HOR_COL4 + 5, row, SIZE_HOR_COL7, SIZE_VER_INPUT);
 		jb_readFile.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jp.add(jl_logInfo_send);
-		jp.add(jtf_logInfo_send);
-		jp.add(jl_logInfo_sendLen);
-		jp.add(jb_readFile);
+		jpSub1.add(jl_logInfo_send);
+		jpSub1.add(jtf_logInfo_send);
+		jpSub1.add(jl_logInfo_sendLen);
+		jpSub1.add(jb_readFile);
 		/*** 第四區 ***/
-		row = 140;
+		row += 40;
 		jl_logInfo_fill.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_logInfo_fill.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
 		jl_logInfo_fillLen.setBounds(SIZE_HOR_COL4 + 5, row, SIZE_HOR_COL7, SIZE_VER_INPUT);
 		jb_analysis.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jp.add(jl_logInfo_fill);
-		jp.add(jtf_logInfo_fill);
-		jp.add(jl_logInfo_fillLen);
-		jp.add(jb_analysis);
+		jpSub1.add(jl_logInfo_fill);
+		jpSub1.add(jtf_logInfo_fill);
+		jpSub1.add(jl_logInfo_fillLen);
+		jpSub1.add(jb_analysis);
 		/*** 第五區 ***/
-		row = 180;
+		row += 40;
 		jl_specInfo_send.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_specSendCut0.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT2, SIZE_VER_INPUT);
 		jtf_specSendCut.setBounds(SIZE_HOR_COL3, row, SIZE_HOR_TEXT3, SIZE_VER_INPUT);
 		jl_specInfo_sendLen.setBounds(SIZE_HOR_COL4 + 5, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jp.add(jl_specInfo_send);
-		jp.add(jtf_specSendCut0);
-		jp.add(jtf_specSendCut);
-		jp.add(jl_specInfo_sendLen);
+		jpSub1.add(jl_specInfo_send);
+		jpSub1.add(jtf_specSendCut0);
+		jpSub1.add(jtf_specSendCut);
+		jpSub1.add(jl_specInfo_sendLen);
 		/*** 第六區 ***/
-		row = 220;
+		row += 40;
 		jl_specInfo_fill.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_specFillCut0.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT2, SIZE_VER_INPUT);
 		jtf_specFillCut.setBounds(SIZE_HOR_COL3, row, SIZE_HOR_TEXT3, SIZE_VER_INPUT);
 		jl_specInfo_fillLen.setBounds(SIZE_HOR_COL4 + 5, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jp.add(jl_specInfo_fill);
-		jp.add(jtf_specFillCut0);
-		jp.add(jtf_specFillCut);
-		jp.add(jl_specInfo_fillLen);
+		jpSub1.add(jl_specInfo_fill);
+		jpSub1.add(jtf_specFillCut0);
+		jpSub1.add(jtf_specFillCut);
+		jpSub1.add(jl_specInfo_fillLen);
 		/*** 第七區 ***/
-		row = 260;
+		row += 40;
 		jl_logInfo_ID.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_logInfo_ID.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT2, SIZE_VER_INPUT);
 		jtf_specInfo_note.setBounds(SIZE_HOR_COL3, row, SIZE_HOR_TEXT3, SIZE_VER_INPUT);
 		jb_guideBook.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jp.add(jl_logInfo_ID);
-		jp.add(jtf_logInfo_ID);
-		jp.add(jtf_specInfo_note);
-		jp.add(jb_guideBook);
+		jpSub1.add(jl_logInfo_ID);
+		jpSub1.add(jtf_logInfo_ID);
+		jpSub1.add(jtf_specInfo_note);
+		jpSub1.add(jb_guideBook);
 		/*** 第八區 ***/
-		row = 300;
+		row += 40;
 		jl_exportFile.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_exportFile.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
 		jb_exportFile.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jp.add(jl_exportFile);
-		jp.add(jtf_exportFile);
-		jp.add(jb_exportFile);
-		/*** 第九區 ***/
-		row = 340;
-		jta_resultS.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_RESULT, SIZE_VER_SEND);
-		jp.add(jta_resultS);
-		/*** 第十區 ***/
-		row = 430;
-		jta_resultF.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_RESULT, SIZE_VER_FILL);
-		jp.add(jta_resultF);
+		jpSub1.add(jl_exportFile);
+		jpSub1.add(jtf_exportFile);
+		jpSub1.add(jb_exportFile);
+
+		/*** 下半部 ***/
+		jpSub2.add(new JScrollPane(jta_resultS));
+		jpSub2.add(new JScrollPane(jta_resultF));
+
+		jp.add(jpSub1);
+		jp.add(jpSub2);
 	}
 
 	public static void setComponent(JPanel jp) {
@@ -200,8 +206,8 @@ public class CutterMain extends CutterConstant {
 		setAppStyle(jtf_exportFile, KEY_EXPORTFILEPATH, APP_COLOR_DEFAULT);
 		setAppStyle(jb_exportFile, KEY_JB_EXPORTFILE, APP_COLOR_DEFAULT);
 
-		setAppStyle4TextArea(jta_resultS, KEY_RESULTS, APP_COLOR_DEFAULT);
-		setAppStyle4TextArea(jta_resultF, KEY_RESULTF, APP_COLOR_DEFAULT);
+		setAppStyle4TextArea(jta_resultS, KEY_RESULTS, APP_COLOR_DEFAULT, false);
+		setAppStyle4TextArea(jta_resultF, KEY_RESULTF, APP_COLOR_DEFAULT, false);
 	}
 
 	public static void setListener(JPanel jp) {
@@ -360,7 +366,6 @@ public class CutterMain extends CutterConstant {
 	/*** 第一次開啟視窗，初始化欄位 ***/
 	private static void doInitial() {
 		String path_desktop = AppHandler.getDesktopRootPath();
-		System.out.println("AppHandler" + AppHandler.getDesktopRootPath());
 		if (StringUtils.isNotBlank(path_desktop)) {
 			jtf_exportFile.setText(path_desktop + File.separator + FILENAME_RESULT);
 		} else {
