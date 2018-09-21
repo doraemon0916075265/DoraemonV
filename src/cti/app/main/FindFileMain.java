@@ -29,6 +29,12 @@ public class FindFileMain extends FindFileConstant {
 	private static JTextField jtf_searchText = new JTextField();
 	private static JButton jb_clearData = new JButton(BTN_CLEARDATA);
 
+	private static JLabel jl_filenameExtension = new JLabel("副檔名");
+	private static JTextField jtf_filenameExtension = new JTextField();
+
+	private static JLabel jl_filenameExtension_Ignore = new JLabel("副檔名(忽略)");
+	private static JTextField jtf_filenameExtension_Ignore = new JTextField();
+
 	private static JButton jb_searchText = new JButton(BTN_SEARCH);
 
 	private static JTextArea jta_result = new JTextArea(10, 92);
@@ -60,8 +66,18 @@ public class FindFileMain extends FindFileConstant {
 		jpSub1.add(jb_clearData);
 		/*** 第三區 ***/
 		row += 40;
+		jl_filenameExtension.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
+		jtf_filenameExtension.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
 		jb_searchText.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
+		jpSub1.add(jl_filenameExtension);
+		jpSub1.add(jtf_filenameExtension);
 		jpSub1.add(jb_searchText);
+		/*** 第四區 ***/
+		row += 40;
+		jl_filenameExtension_Ignore.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
+		jtf_filenameExtension_Ignore.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
+		jpSub1.add(jl_filenameExtension_Ignore);
+		jpSub1.add(jtf_filenameExtension_Ignore);
 		/*** 下半部 ***/
 		jpSub2.add(new JScrollPane(jta_result));
 
@@ -76,7 +92,12 @@ public class FindFileMain extends FindFileConstant {
 		setAppStyle(jl_searchText, "jl_searchText", APP_COLOR_DEFAULT);
 		setAppStyle(jb_clearData, "jb_clearData", APP_COLOR_DEFAULT);
 
+		setAppStyle(jl_filenameExtension, "jl_filenameExtension", APP_COLOR_DEFAULT);
+		setAppStyle(jtf_filenameExtension, "jtf_filenameExtension", APP_COLOR_DEFAULT);
 		setAppStyle(jb_searchText, "jb_searchText", APP_COLOR_DEFAULT);
+
+		setAppStyle(jl_filenameExtension_Ignore, "jl_filenameExtension_Ignore", APP_COLOR_DEFAULT);
+		setAppStyle(jtf_filenameExtension_Ignore, "jtf_filenameExtension_Ignore", APP_COLOR_DEFAULT);
 
 		setAppStyle4TextArea(jta_result, "jta_result", APP_COLOR_DEFAULT, false);
 	}
@@ -109,7 +130,8 @@ public class FindFileMain extends FindFileConstant {
 					Map<String, String> m = new HashMap<>();
 					m.put(KEY_SEARCHPATH, jtf_searchPath.getText());
 					m.put(KEY_SEARCHTEXT, jtf_searchText.getText());
-
+					m.put(KEY_FILENAMEEXTENSION, jtf_filenameExtension.getText());
+					m.put(KEY_FILENAMEEXTENSION_IGNORE, jtf_filenameExtension_Ignore.getText());
 					m = FindFileHandler.findConditionFile(m);
 					System.out.println(m);
 					jta_result.setText(m.get(KEY_RESULT));
@@ -144,6 +166,9 @@ public class FindFileMain extends FindFileConstant {
 
 	private static void doInitial() {
 		jtf_searchPath.setText(AppHandler.getDesktopRootPath());
+		// jtf_filenameExtension.setText("[.*.txt, .*.log]");
+		jtf_filenameExtension.setText("[.*]");
+		jtf_filenameExtension_Ignore.setText("[~.*]");
 	}
 
 }

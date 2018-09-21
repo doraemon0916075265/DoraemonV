@@ -83,7 +83,7 @@ public class AppConstant {
 	public static final String PATH_DISK_C = "C:" + File.separator;
 	public static final String DIRECTORYNAME_USERS = "USERS";
 	public static final String DIRECTORYNAME_DESKTOP = "DESKTOP";
-	public static final String DIRECTORYNAME_REGEXP_NT = "NT[0-9](.*)";
+	public static final String DIRECTORYNAME_REGEXP_NT = "NT[\\d]+";
 	public static final String KEY_TARGET_PATH = "key_target_path";
 
 	// 控制位置
@@ -113,4 +113,7 @@ public class AppConstant {
 	public static final String BTN_EXPORTFILE = "匯出";
 	public static final String BTN_GUIDEBOOK = "說明書";
 	public static final String BTN_SEARCH = "查詢";
+
+	// 正規表示法
+	public static final String REGEXP_FORALL = ".*";
 }

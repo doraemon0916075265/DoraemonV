@@ -2,7 +2,6 @@ package cti.app.handler;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -44,23 +43,6 @@ public class AppHandler extends AppConstant {
 		} catch (Exception e) {
 
 		}
-	}
-
-	/*** 找目錄下的所有檔案 ***/
-	public static List<String> findAllFile(List<String> list, String filePath) {
-		File file = new File(filePath);
-		try {
-			if (file.isDirectory()) {
-				for (String fileName : file.list()) {
-					findAllFile(list, file.getAbsolutePath() + File.separator + fileName);
-				}
-			} else {
-				list.add(file.getAbsolutePath());
-			}
-		} catch (Exception e) {
-			return list;
-		}
-		return list;
 	}
 
 }

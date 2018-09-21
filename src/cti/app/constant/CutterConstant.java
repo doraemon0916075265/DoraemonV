@@ -113,7 +113,6 @@ public class CutterConstant extends AppFrameMain {
 
 	// 正規表示法
 	public static final String PARAM_TGID = "電文ID:";
-	public static final String REGEXP_FORALL = "(.*)";
 	public static final String REGEXP_TGID = "[^0-9a-zA-Z]";
 	public static final String REGEXP_ID1 = "畫面名稱:" + REGEXP_FORALL;
 	public static final String REGEXP_ID2 = PARAM_TGID + REGEXP_FORALL;
@@ -121,7 +120,7 @@ public class CutterConstant extends AppFrameMain {
 	public static final String REGEXP_SEND2 = REGEXP_FORALL + "送出";
 	public static final String REGEXP_FILL1 = "收到:" + REGEXP_FORALL;
 	public static final String REGEXP_FILL2 = REGEXP_FORALL + "收到";
-	public static final String REGEXP_FILEEXTEN_EXPORT[] = { "(.*).TXT", "(.*).LOG" };
+	public static final String REGEXP_FILEEXTEN_EXPORT[] = { REGEXP_FORALL + ".TXT", REGEXP_FORALL + ".LOG" };
 
 	// 初始化路徑
 	public static final String DFT_PATH_LOG = "C:\\Users\\NT83382\\Desktop\\log.txt";
