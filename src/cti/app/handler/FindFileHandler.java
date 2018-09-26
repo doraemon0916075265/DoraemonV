@@ -85,7 +85,8 @@ public class FindFileHandler extends FindFileConstant {
 
 				if (isRunning && StringUtils.isNotBlank(searchText)) {
 					isRunning = false;
-					try (BufferedReader brLog = new BufferedReader((new InputStreamReader(new FileInputStream(filepath), AppHandler.getFileEncoding(filepath))));) {
+					String encode = AppHandler.getFileEncoding(filepath);
+					try (BufferedReader brLog = new BufferedReader((new InputStreamReader(new FileInputStream(filepath), encode)));) {
 						String line;
 						while ((line = brLog.readLine()) != null) {
 							if (StringUtils.isBlank(line)) {
