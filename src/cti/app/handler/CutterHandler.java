@@ -104,15 +104,17 @@ public class CutterHandler extends CutterConstant {
 		if (StringUtils.isBlank(pathLog) || StringUtils.isBlank(pathSpec)) {
 			throw new FileNotFoundException(ERRMSG_HASBLANK);
 		}
+		String encodeLog = AppHandler.getFileEncoding(pathLog);
+		String encodeSpec = AppHandler.getFileEncoding(pathSpec);
 
 		// 預先判斷是否皆可正常讀檔
-		try (FileInputStream fisLog = new FileInputStream(pathLog); BufferedReader brLog = new BufferedReader(new InputStreamReader(fisLog, APP_FRAME_ENCODING));) {
+		try (BufferedReader brLog = new BufferedReader(new InputStreamReader(new FileInputStream(pathLog), encodeLog));) {
 		}
-		try (FileInputStream fisSpec = new FileInputStream(pathSpec); BufferedReader brSpec = new BufferedReader(new InputStreamReader(fisSpec, APP_FRAME_ENCODING));) {
+		try (BufferedReader brSpec = new BufferedReader(new InputStreamReader(new FileInputStream(pathSpec), encodeSpec));) {
 		}
 
 		/*** 讀log檔 ***/
-		try (FileInputStream fisLog = new FileInputStream(pathLog); BufferedReader brLog = new BufferedReader(new InputStreamReader(fisLog, APP_FRAME_ENCODING));) {
+		try (BufferedReader brLog = new BufferedReader(new InputStreamReader(new FileInputStream(pathLog), encodeLog));) {
 			String line;
 			boolean isSend = false;
 			boolean isFill = false;
@@ -146,7 +148,7 @@ public class CutterHandler extends CutterConstant {
 		}
 
 		/*** 讀spec檔 ***/
-		try (FileInputStream fisSpec = new FileInputStream(pathSpec); BufferedReader brSpec = new BufferedReader(new InputStreamReader(fisSpec, APP_FRAME_ENCODING));) {
+		try (BufferedReader brSpec = new BufferedReader(new InputStreamReader(new FileInputStream(pathSpec), encodeSpec));) {
 			String line;
 			String lineSpec = "";
 			boolean isFoundId = false;

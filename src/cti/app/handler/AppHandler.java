@@ -1,10 +1,12 @@
 package cti.app.handler;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.mozilla.universalchardet.UniversalDetector;
 
 import cti.app.constant.AppConstant;
 
@@ -43,6 +45,32 @@ public class AppHandler extends AppConstant {
 		} catch (Exception e) {
 
 		}
+	}
+
+	/*** 找編碼 ***/
+	public static String getFileEncoding(String filepath) {
+
+		try (FileInputStream fis = new FileInputStream(filepath)) {
+			/* 建立分析器 */
+			UniversalDetector detector = new UniversalDetector(null);
+			int nread;
+			byte[] buf = new byte[4096];
+			while ((nread = fis.read(buf)) > 0 && !detector.isDone()) {
+				/* 分析資料 */
+				detector.handleData(buf, 0, nread);
+			}
+			detector.dataEnd();
+
+			if (StringUtils.isBlank(detector.getDetectedCharset())) {
+				return System.getProperty("file.encoding");
+			} else {
+				return detector.getDetectedCharset();
+			}
+
+		} catch (Exception e) {
+			return System.getProperty("file.encoding");
+		}
+
 	}
 
 }

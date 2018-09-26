@@ -166,9 +166,12 @@ public class FindFileMain extends FindFileConstant {
 
 	private static void doInitial() {
 		jtf_searchPath.setText(AppHandler.getDesktopRootPath());
-		// jtf_filenameExtension.setText("[.*.txt, .*.log]");
-		jtf_filenameExtension.setText("[.*]");
-		jtf_filenameExtension_Ignore.setText("[~.*]");
+		jtf_searchPath.setText("C:\\Users\\NT83382\\Desktop\\test");
+
+		jtf_searchText.setText("");
+
+		jtf_filenameExtension.setText("[*]");
+		jtf_filenameExtension_Ignore.setText("[~*, *.vfl, *.lnk, *.rar]");
 	}
 
 }
