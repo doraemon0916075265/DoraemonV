@@ -1,4 +1,4 @@
-package cti.app;
+package cti.app.test;
 
 import java.io.FileInputStream;
 import org.mozilla.universalchardet.UniversalDetector;
