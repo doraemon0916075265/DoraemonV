@@ -29,6 +29,7 @@ public class AppConstant {
 	public static final Color APP_COLOR_LOG = Color.BLUE;
 	public static final Color APP_COLOR_SPEC = Color.MAGENTA;
 	public static final Color APP_COLOR_DEFAULT = Color.BLACK;
+	public static final Color APP_COLOR_SEARCH_CRITERIA = Color.BLUE;
 	public static final Color APP_COLOR_MSG = Color.RED;
 	public static final SimpleDateFormat APPMSG_SDF = new SimpleDateFormat("HH:mm:ss");
 	public static final Font APP_FONT = new Font("微軟正黑體", Font.PLAIN, 12);
@@ -93,10 +94,13 @@ public class AppConstant {
 	public static final int SIZE_HOR_SPACE = 5;// 空格
 	public static final int SIZE_HOR_TEXT1 = 760;// 輸入框(大)
 	public static final int SIZE_HOR_TEXT2 = 180;// 輸入框(電文頭)
+	public static final int SIZE_HOR_CALENDAR1 = 250;// 日期框
 	public static final int SIZE_HOR_RESULT = 1030;// 結果區
 	public static final int SIZE_HOR_COL3 = SIZE_HOR_COL2 + SIZE_HOR_TEXT2 + SIZE_HOR_SPACE;// 第三欄位置
 	public static final int SIZE_HOR_COL4 = SIZE_HOR_COL2 + SIZE_HOR_TEXT1;// 第四欄位置
+	public static final int SIZE_HOR_COLMID = (SIZE_HOR_COL1 + SIZE_HOR_LABEL1 + SIZE_HOR_TEXT1) / 2;
 	public static final int SIZE_HOR_TEXT3 = SIZE_HOR_COL4 - SIZE_HOR_COL3;// 輸入框(電文主要)
+	public static final int SIZE_HOR_TEXT5 = 300;
 	public static final int SIZE_HOR_COL8 = 960;// 按鈕欄位置
 	public static final int SIZE_HOR_COL7 = SIZE_HOR_COL8 - SIZE_HOR_COL4 - SIZE_HOR_SPACE;// 顯示電文長度位置
 	public static final int SIZE_HOR_BTN = 90;// 按鈕長
