@@ -2,6 +2,8 @@ package cti.app.handler;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +47,16 @@ public class AppHandler extends AppConstant {
 		} catch (Exception e) {
 
 		}
+	}
+
+	/*** Date日期加減 ***/
+	public static Date getDateCalculator(Date date, int year, int month, int day) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.YEAR, year);
+		c.add(Calendar.MONTH, month);
+		c.add(Calendar.DATE, day);
+		return c.getTime();
 	}
 
 	/*** 找編碼 ***/

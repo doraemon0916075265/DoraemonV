@@ -13,6 +13,8 @@ public class FindFileConstant extends AppFrameMain {
 	public static final String KEY_RESULT = "jta_result";
 	public static final String KEY_FILENAMEEXTENSION = "jl_filenameExtension";
 	public static final String KEY_FILENAMEEXTENSION_IGNORE = "jl_filenameExtension_Ignore";
+	public static final String KEY_MODIFYLESSTHAN = "jxdp_modifyLessThan";
+	public static final String KEY_MODIFYGREATERTHAN = "jxdp_modifyGreaterThan";
 	//////////////////////////////////////////////////////////////////////
 	public static final String VALUE_SEARCHPATH = "欲查路徑";
 	public static final String VALUE_SEARCHTEXT = "欲查字串";

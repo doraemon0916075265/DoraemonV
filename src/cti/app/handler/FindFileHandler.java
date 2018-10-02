@@ -15,32 +15,49 @@ import org.json.JSONException;
 import cti.app.constant.FindFileConstant;
 
 public class FindFileHandler extends FindFileConstant {
+	private static List<String> list = new ArrayList<>();
+
+	private static String cdtn_searchText;
+	private static String cdtn_modifyGreaterThan;
+	private static String cdtn_modifyLessThan;
+	private static JSONArray isMatchesJA;
+	private static JSONArray isMatchesIgnoreJA;
 
 	/*** FindFile：找目錄下符合條件的所有檔案 ***/
 	public static Map<String, String> findConditionFile(Map<String, String> m) throws Exception {
-		String jtf_searchPath = m.get(FindFileConstant.KEY_SEARCHPATH);
-		if (StringUtils.isBlank(jtf_searchPath)) {
+		System.out.println("收到的條件" + m);
+
+		// 所有值初始化
+		list = new ArrayList<>();
+
+		String searchPath = m.get(KEY_SEARCHPATH);
+		if (StringUtils.isBlank(searchPath)) {
 			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_SEARCHPATH, ERRMSG_ISBLANK));
 		}
-		List<String> list = new ArrayList<>();
-		String resultStr = "";
 
-		JSONArray isMatchesJA;
-		JSONArray isMatchesIgnoreJA;
+		// 初步判斷&塞值
+		cdtn_searchText = m.get(KEY_SEARCHTEXT);
 
 		try {
 			isMatchesJA = new JSONArray(m.get(KEY_FILENAMEEXTENSION));
+			m.put(FindFileConstant.KEY_FILENAMEEXTENSION, isMatchesJA.toString().replaceAll("\"", ""));
 		} catch (JSONException e) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "1", ERRMSG_FORMAT));
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "副檔名", ERRMSG_FORMAT));
 		}
+
 		try {
 			isMatchesIgnoreJA = new JSONArray(m.get(KEY_FILENAMEEXTENSION_IGNORE));
+			m.put(FindFileConstant.KEY_FILENAMEEXTENSION_IGNORE, isMatchesIgnoreJA.toString().replaceAll("\"", ""));
 		} catch (JSONException e) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "2", ERRMSG_FORMAT));
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "副檔名(忽略)", ERRMSG_FORMAT));
 		}
 
-		findAllConditionFile(list, jtf_searchPath, isMatchesJA, isMatchesIgnoreJA, m.get(KEY_SEARCHTEXT));
+		cdtn_modifyGreaterThan = m.get(KEY_MODIFYGREATERTHAN);
+		cdtn_modifyLessThan = m.get(KEY_MODIFYLESSTHAN);
 
+		// 執行迴圈
+		String resultStr = "";
+		findAllConditionFile(searchPath);
 		for (String str : list) {
 			resultStr += (str + System.lineSeparator());
 		}
@@ -56,14 +73,14 @@ public class FindFileHandler extends FindFileConstant {
 	}
 
 	/*** 找目錄下的所有檔案 ***/
-	public static List<String> findAllConditionFile(List<String> list, String filePath, JSONArray isMatchesJA, JSONArray isMatchesIgnoreJA, String searchText) {
+	public static void findAllConditionFile(String filePath) {
 		File file = new File(filePath);
 		try {
 			if (file.isDirectory()) {
 				for (String fileName : file.list()) {
-					findAllConditionFile(list, file.getAbsolutePath() + File.separator + fileName, isMatchesJA, isMatchesIgnoreJA, searchText);
+					findAllConditionFile(file.getAbsolutePath() + File.separator + fileName);
 				}
-			} else {
+			} else if (file.isFile()) {
 				String fileNameU = file.getName().toUpperCase();
 				String filepath = file.getAbsolutePath();
 
@@ -83,7 +100,21 @@ public class FindFileHandler extends FindFileConstant {
 					}
 				}
 
-				if (isRunning && StringUtils.isNotBlank(searchText)) {
+				if (isRunning && StringUtils.isNotBlank(cdtn_modifyGreaterThan)) {
+					isRunning = false;
+					if (new File(filepath).lastModified() >= APPDATE_SDF.parse(cdtn_modifyGreaterThan).getTime()) {
+						isRunning = true;
+					}
+				}
+
+				if (isRunning && StringUtils.isNotBlank(cdtn_modifyLessThan)) {
+					isRunning = false;
+					if (new File(filepath).lastModified() < APPDATE_SDF.parse(cdtn_modifyLessThan).getTime()) {
+						isRunning = true;
+					}
+				}
+
+				if (isRunning && StringUtils.isNotBlank(cdtn_searchText)) {
 					isRunning = false;
 					String encode = AppHandler.getFileEncoding(filepath);
 					try (BufferedReader brLog = new BufferedReader((new InputStreamReader(new FileInputStream(filepath), encode)));) {
@@ -93,7 +124,7 @@ public class FindFileHandler extends FindFileConstant {
 								continue;
 							}
 							String lineU = line.toUpperCase();
-							if (lineU.matches(REGEXP_FORALL + searchText + REGEXP_FORALL)) {
+							if (lineU.matches(REGEXP_FORALL + cdtn_searchText + REGEXP_FORALL)) {
 								isRunning = true;
 								break;
 							}
@@ -104,12 +135,12 @@ public class FindFileHandler extends FindFileConstant {
 				if (isRunning) {
 					list.add(filepath);
 				}
-
+			} else {
+				// 不是檔案也不是資料夾
 			}
 		} catch (Exception e) {
-			return list;
+
 		}
-		return list;
 	}
 
 }
