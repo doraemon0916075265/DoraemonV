@@ -82,7 +82,7 @@ public class FindFileHandler extends FindFileConstant {
 				}
 			} else if (file.isFile()) {
 				String fileNameU = file.getName().toUpperCase();
-				String filepath = file.getAbsolutePath();
+				String fileAbsPath = file.getAbsolutePath();
 
 				boolean isRunning = false;
 
@@ -102,29 +102,27 @@ public class FindFileHandler extends FindFileConstant {
 
 				if (isRunning && StringUtils.isNotBlank(cdtn_modifyGreaterThan)) {
 					isRunning = false;
-					if (new File(filepath).lastModified() >= APPDATE_SDF.parse(cdtn_modifyGreaterThan).getTime()) {
+					if (new File(fileAbsPath).lastModified() >= APPDATE_SDF.parse(cdtn_modifyGreaterThan).getTime()) {
 						isRunning = true;
 					}
 				}
 
 				if (isRunning && StringUtils.isNotBlank(cdtn_modifyLessThan)) {
 					isRunning = false;
-					if (new File(filepath).lastModified() < APPDATE_SDF.parse(cdtn_modifyLessThan).getTime()) {
+					if (new File(fileAbsPath).lastModified() < APPDATE_SDF.parse(cdtn_modifyLessThan).getTime()) {
 						isRunning = true;
 					}
 				}
 
 				if (isRunning && StringUtils.isNotBlank(cdtn_searchText)) {
 					isRunning = false;
-					String encode = AppHandler.getFileEncoding(filepath);
-					try (BufferedReader brLog = new BufferedReader((new InputStreamReader(new FileInputStream(filepath), encode)));) {
+					try (BufferedReader brLog = new BufferedReader((new InputStreamReader(new FileInputStream(fileAbsPath), AppHandler.getFileEncoding(fileAbsPath))));) {
 						String line;
 						while ((line = brLog.readLine()) != null) {
 							if (StringUtils.isBlank(line)) {
 								continue;
 							}
-							String lineU = line.toUpperCase();
-							if (lineU.matches(REGEXP_FORALL + cdtn_searchText + REGEXP_FORALL)) {
+							if (line.matches(AppHandler.getFuzzySearchRegexpString(cdtn_searchText, false))) {
 								isRunning = true;
 								break;
 							}
@@ -133,7 +131,7 @@ public class FindFileHandler extends FindFileConstant {
 				}
 
 				if (isRunning) {
-					list.add(filepath);
+					list.add(fileAbsPath);
 				}
 			} else {
 				// 不是檔案也不是資料夾

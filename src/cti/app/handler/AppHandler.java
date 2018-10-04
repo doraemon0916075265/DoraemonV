@@ -85,4 +85,37 @@ public class AppHandler extends AppConstant {
 
 	}
 
+	public static String getFuzzySearchRegexpString(String text, boolean isWholeWordSraech) {
+		String result = "";
+		if (isWholeWordSraech) {// 整個字組搜尋
+			result = getExchangeSpecialCharacter4Regexp(text);
+		} else {// 模糊搜尋
+			for (int i = 0; i < text.length(); i++) {
+				result += "[" + getExchangeSpecialCharacter4Regexp(text.substring(i, i + 1)) + "]";
+				result += (i == (text.length() - 1) ? "" : REGEXP_FORALL);
+			}
+		}
+		result = REGEXP_FORALL + result + REGEXP_FORALL;
+		System.out.println("正規表示法>" + result);
+		return result;
+	}
+
+	public static String getExchangeSpecialCharacter4Regexp(String input) {
+		input = input.replaceAll("\\\\", "\\\\\\\\");
+		input = input.replaceAll("\\^", "\\\\\\^");
+		input = input.replaceAll("\\$", "\\\\\\$");
+		input = input.replaceAll("\\*", "\\\\\\*");
+		input = input.replaceAll("\\+", "\\\\\\+");
+		input = input.replaceAll("\\?", "\\\\\\?");
+		input = input.replaceAll("\\{", "\\\\\\{");
+		input = input.replaceAll("\\}", "\\\\\\}");
+		input = input.replaceAll("\\.", "\\\\\\.");
+		input = input.replaceAll("\\(", "\\\\\\(");
+		input = input.replaceAll("\\)", "\\\\\\)");
+		input = input.replaceAll("\\|", "\\\\\\|");
+		input = input.replaceAll("\\[", "\\\\\\[");
+		input = input.replaceAll("\\]", "\\\\\\]");
+		return input;
+	}
+
 }

@@ -29,8 +29,8 @@ import cti.app.controller.FindFileController;
 import cti.app.controller.TestController;
 
 public class AppFrameMain extends AppConstant {
-	public static JFrame jf;
-	public static JTabbedPane jtp = new JTabbedPane();
+	private static JFrame jf;
+	private static JTabbedPane jtp = new JTabbedPane();
 
 	private static JPanel jpTab1 = new JPanel();
 	private static JPanel jpTab2 = new JPanel();

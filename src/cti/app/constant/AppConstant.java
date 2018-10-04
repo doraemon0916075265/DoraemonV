@@ -99,6 +99,7 @@ public class AppConstant {
 	public static final int SIZE_HOR_RESULT = 1030;// 結果區
 	public static final int SIZE_HOR_COL3 = SIZE_HOR_COL2 + SIZE_HOR_TEXT2 + SIZE_HOR_SPACE;// 第三欄位置
 	public static final int SIZE_HOR_COL4 = SIZE_HOR_COL2 + SIZE_HOR_TEXT1;// 第四欄位置
+	public static final int SIZE_HOR_COL4_MSG = SIZE_HOR_COL4 + 5;
 	public static final int SIZE_HOR_COLMID = (SIZE_HOR_COL1 + SIZE_HOR_LABEL1 + SIZE_HOR_TEXT1) / 2;
 	public static final int SIZE_HOR_TEXT3 = SIZE_HOR_COL4 - SIZE_HOR_COL3;// 輸入框(電文主要)
 	public static final int SIZE_HOR_TEXT5 = 300;

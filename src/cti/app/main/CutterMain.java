@@ -103,7 +103,7 @@ public class CutterMain extends CutterConstant {
 		row += 40;
 		jl_logInfo_send.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_logInfo_send.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
-		jl_logInfo_sendLen.setBounds(SIZE_HOR_COL4 + 5, row, SIZE_HOR_COL7, SIZE_VER_INPUT);
+		jl_logInfo_sendLen.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_HOR_COL7, SIZE_VER_INPUT);
 		jb_readFile.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jpSub1.add(jl_logInfo_send);
 		jpSub1.add(jtf_logInfo_send);
@@ -113,7 +113,7 @@ public class CutterMain extends CutterConstant {
 		row += 40;
 		jl_logInfo_fill.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_logInfo_fill.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
-		jl_logInfo_fillLen.setBounds(SIZE_HOR_COL4 + 5, row, SIZE_HOR_COL7, SIZE_VER_INPUT);
+		jl_logInfo_fillLen.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_HOR_COL7, SIZE_VER_INPUT);
 		jb_analysis.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jpSub1.add(jl_logInfo_fill);
 		jpSub1.add(jtf_logInfo_fill);
@@ -124,7 +124,7 @@ public class CutterMain extends CutterConstant {
 		jl_specInfo_send.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_specSendCut0.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT2, SIZE_VER_INPUT);
 		jtf_specSendCut.setBounds(SIZE_HOR_COL3, row, SIZE_HOR_TEXT3, SIZE_VER_INPUT);
-		jl_specInfo_sendLen.setBounds(SIZE_HOR_COL4 + 5, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
+		jl_specInfo_sendLen.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jpSub1.add(jl_specInfo_send);
 		jpSub1.add(jtf_specSendCut0);
 		jpSub1.add(jtf_specSendCut);
@@ -134,7 +134,7 @@ public class CutterMain extends CutterConstant {
 		jl_specInfo_fill.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_specFillCut0.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT2, SIZE_VER_INPUT);
 		jtf_specFillCut.setBounds(SIZE_HOR_COL3, row, SIZE_HOR_TEXT3, SIZE_VER_INPUT);
-		jl_specInfo_fillLen.setBounds(SIZE_HOR_COL4 + 5, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
+		jl_specInfo_fillLen.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jpSub1.add(jl_specInfo_fill);
 		jpSub1.add(jtf_specFillCut0);
 		jpSub1.add(jtf_specFillCut);

@@ -1,0 +1,9 @@
+package cti.app.test;
+
+public class SimpleTest {
+
+	public static void main(String[] args) {
+
+	}
+
+}

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,10 +30,12 @@ public class FindFileMain extends FindFileConstant {
 	private static JButton jb_resetData = new JButton(BTN_RESETDATA);
 
 	private static JLabel jl_searchCondition = new JLabel("搜尋條件");// 字串查詢
+	private static JButton jb_clearData = new JButton(BTN_CLEARDATA);
 
 	private static JLabel jl_searchText = new JLabel("字串");// 字串查詢
 	private static JTextField jtf_searchText = new JTextField();
-	private static JButton jb_clearData = new JButton(BTN_CLEARDATA);
+	private static JCheckBox jcb_searchText = new JCheckBox();
+	private static JButton jb_searchText = new JButton(BTN_SEARCH);
 
 	private static JLabel jl_filenameExtension = new JLabel("副檔名");
 	private static JTextField jtf_filenameExtension = new JTextField();
@@ -44,8 +47,6 @@ public class FindFileMain extends FindFileConstant {
 	private static JXDatePicker jxdp_modifyGreaterThan = new JXDatePicker();
 	private static JLabel jl_modifyLessThan = new JLabel("修改日(≦)");
 	private static JXDatePicker jxdp_modifyLessThan = new JXDatePicker();
-
-	private static JButton jb_searchText = new JButton(BTN_SEARCH);
 
 	private static JTextArea jta_result = new JTextArea(10, 92);
 
@@ -76,9 +77,11 @@ public class FindFileMain extends FindFileConstant {
 		row += 40;
 		jl_searchText.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_searchText.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
+		jcb_searchText.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_VER_INPUT, SIZE_VER_INPUT);
 		jb_searchText.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jpSub1.add(jl_searchText);
 		jpSub1.add(jtf_searchText);
+		jpSub1.add(jcb_searchText);
 		jpSub1.add(jb_searchText);
 		/*** 第四區 ***/
 		row += 40;
@@ -163,10 +166,18 @@ public class FindFileMain extends FindFileConstant {
 					m.put(KEY_FILENAMEEXTENSION, jtf_filenameExtension.getText());
 					m.put(KEY_FILENAMEEXTENSION_IGNORE, jtf_filenameExtension_Ignore.getText());
 					if (jxdp_modifyGreaterThan.getDate() != null) {
-						m.put(KEY_MODIFYGREATERTHAN, APPDATE_SDF.format(jxdp_modifyGreaterThan.getDate()));
+						if (new Date().after(jxdp_modifyGreaterThan.getDate())) {
+							m.put(KEY_MODIFYGREATERTHAN, APPDATE_SDF.format(jxdp_modifyGreaterThan.getDate()));
+						} else {
+							jxdp_modifyGreaterThan.setDate(null);
+						}
 					}
 					if (jxdp_modifyLessThan.getDate() != null) {
-						m.put(KEY_MODIFYLESSTHAN, APPDATE_SDF.format(AppHandler.getDateCalculator(jxdp_modifyLessThan.getDate(), 0, 0, 1)));
+						if (new Date().after(jxdp_modifyLessThan.getDate())) {
+							m.put(KEY_MODIFYLESSTHAN, APPDATE_SDF.format(AppHandler.getDateCalculator(jxdp_modifyLessThan.getDate(), 0, 0, 1)));
+						} else {
+							jxdp_modifyLessThan.setDate(null);
+						}
 					}
 
 					m = FindFileHandler.findConditionFile(m);
