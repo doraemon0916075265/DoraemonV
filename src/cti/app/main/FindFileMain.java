@@ -32,21 +32,24 @@ public class FindFileMain extends FindFileConstant {
 	private static JLabel jl_searchCondition = new JLabel("搜尋條件");// 字串查詢
 	private static JButton jb_clearData = new JButton(BTN_CLEARDATA);
 
-	private static JLabel jl_searchText = new JLabel("字串");// 字串查詢
-	private static JTextField jtf_searchText = new JTextField();
-	private static JCheckBox jcb_searchText = new JCheckBox();
-	private static JButton jb_searchText = new JButton(BTN_SEARCH);
+	private static JLabel jl_byText = new JLabel("字串");// 字串查詢
+	private static JTextField jtf_byText = new JTextField();
+	private static JCheckBox jcb_byText = new JCheckBox();
+	private static JButton jb_search = new JButton(BTN_SEARCH);
 
-	private static JLabel jl_filenameExtension = new JLabel("副檔名");
-	private static JTextField jtf_filenameExtension = new JTextField();
+	private static JLabel jl_byFilename = new JLabel("檔案名稱");// 字串查詢
+	private static JTextField jtf_byFilename = new JTextField();
 
-	private static JLabel jl_filenameExtension_Ignore = new JLabel("副檔名(忽略)");
-	private static JTextField jtf_filenameExtension_Ignore = new JTextField();
+	private static JLabel jl_byFilenameExtension = new JLabel("副檔名");
+	private static JTextField jtf_byFilenameExtension = new JTextField();
 
-	private static JLabel jl_modifyGreaterThan = new JLabel("修改日(≧)");
-	private static JXDatePicker jxdp_modifyGreaterThan = new JXDatePicker();
-	private static JLabel jl_modifyLessThan = new JLabel("修改日(≦)");
-	private static JXDatePicker jxdp_modifyLessThan = new JXDatePicker();
+	private static JLabel jl_byFilenameExtension_Ignore = new JLabel("副檔名(忽略)");
+	private static JTextField jtf_byFilenameExtension_Ignore = new JTextField();
+
+	private static JLabel jl_byModify_greaterThan = new JLabel("修改日(≧)");
+	private static JXDatePicker jxdp_byModify_greaterThan = new JXDatePicker();
+	private static JLabel jl_byModify_lessThan = new JLabel("修改日(≦)");
+	private static JXDatePicker jxdp_byModify_lessThan = new JXDatePicker();
 
 	private static JTextArea jta_result = new JTextArea(10, 92);
 
@@ -75,34 +78,40 @@ public class FindFileMain extends FindFileConstant {
 		jpSub1.add(jb_clearData);
 		/*** 第三區 ***/
 		row += 40;
-		jl_searchText.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_searchText.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
-		jcb_searchText.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_VER_INPUT, SIZE_VER_INPUT);
-		jb_searchText.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_searchText);
-		jpSub1.add(jtf_searchText);
-		jpSub1.add(jcb_searchText);
-		jpSub1.add(jb_searchText);
+		jl_byText.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
+		jtf_byText.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
+		jcb_byText.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_VER_INPUT, SIZE_VER_INPUT);
+		jb_search.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
+		jpSub1.add(jl_byText);
+		jpSub1.add(jtf_byText);
+		jpSub1.add(jcb_byText);
+		jpSub1.add(jb_search);
 		/*** 第四區 ***/
 		row += 40;
-		jl_filenameExtension.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_filenameExtension.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT5, SIZE_VER_INPUT);
-		jl_filenameExtension_Ignore.setBounds(SIZE_HOR_COLMID, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_filenameExtension_Ignore.setBounds(SIZE_HOR_COLMID + SIZE_HOR_LABEL1, row, SIZE_HOR_TEXT5, SIZE_VER_INPUT);
-		jpSub1.add(jl_filenameExtension);
-		jpSub1.add(jtf_filenameExtension);
-		jpSub1.add(jl_filenameExtension_Ignore);
-		jpSub1.add(jtf_filenameExtension_Ignore);
+		jl_byFilename.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
+		jtf_byFilename.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT5, SIZE_VER_INPUT);
+		jpSub1.add(jl_byFilename);
+		jpSub1.add(jtf_byFilename);
 		/*** 第五區 ***/
 		row += 40;
-		jl_modifyGreaterThan.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jxdp_modifyGreaterThan.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_CALENDAR1, SIZE_VER_INPUT);
-		jl_modifyLessThan.setBounds(SIZE_HOR_COLMID, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jxdp_modifyLessThan.setBounds(SIZE_HOR_COLMID + SIZE_HOR_LABEL1, row, SIZE_HOR_CALENDAR1, SIZE_VER_INPUT);
-		jpSub1.add(jl_modifyGreaterThan);
-		jpSub1.add(jxdp_modifyGreaterThan);
-		jpSub1.add(jl_modifyLessThan);
-		jpSub1.add(jxdp_modifyLessThan);
+		jl_byFilenameExtension.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
+		jtf_byFilenameExtension.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT5, SIZE_VER_INPUT);
+		jl_byFilenameExtension_Ignore.setBounds(SIZE_HOR_COLMID, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
+		jtf_byFilenameExtension_Ignore.setBounds(SIZE_HOR_COLMID + SIZE_HOR_LABEL1, row, SIZE_HOR_TEXT5, SIZE_VER_INPUT);
+		jpSub1.add(jl_byFilenameExtension);
+		jpSub1.add(jtf_byFilenameExtension);
+		jpSub1.add(jl_byFilenameExtension_Ignore);
+		jpSub1.add(jtf_byFilenameExtension_Ignore);
+		/*** 第六區 ***/
+		row += 40;
+		jl_byModify_greaterThan.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
+		jxdp_byModify_greaterThan.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_CALENDAR1, SIZE_VER_INPUT);
+		jl_byModify_lessThan.setBounds(SIZE_HOR_COLMID, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
+		jxdp_byModify_lessThan.setBounds(SIZE_HOR_COLMID + SIZE_HOR_LABEL1, row, SIZE_HOR_CALENDAR1, SIZE_VER_INPUT);
+		jpSub1.add(jl_byModify_greaterThan);
+		jpSub1.add(jxdp_byModify_greaterThan);
+		jpSub1.add(jl_byModify_lessThan);
+		jpSub1.add(jxdp_byModify_lessThan);
 		/*** 下半部 ***/
 		jpSub2.add(new JScrollPane(jta_result));
 
@@ -116,20 +125,23 @@ public class FindFileMain extends FindFileConstant {
 
 		setAppStyle(jl_searchCondition, "jl_searchCondition", APP_COLOR_SEARCH_CRITERIA);
 
-		setAppStyle(jl_searchText, "jl_searchText", APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jl_byText, "jl_byText", APP_COLOR_SEARCH_CRITERIA);
 		setAppStyle(jb_clearData, "jb_clearData", APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_filenameExtension, "jl_filenameExtension", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jtf_filenameExtension, "jtf_filenameExtension", APP_COLOR_DEFAULT);
-		setAppStyle(jb_searchText, "jb_searchText", APP_COLOR_DEFAULT);
+		setAppStyle(jl_byFilenameExtension, "jl_byFilenameExtension", APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jtf_byFilenameExtension, "jtf_byFilenameExtension", APP_COLOR_DEFAULT);
+		setAppStyle(jb_search, "jb_search", APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_filenameExtension_Ignore, "jl_filenameExtension_Ignore", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jtf_filenameExtension_Ignore, "jtf_filenameExtension_Ignore", APP_COLOR_DEFAULT);
+		setAppStyle(jl_byFilename, "jl_byFilename", APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jtf_byFilename, "jtf_byFilename", APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_modifyGreaterThan, "jl_modifyGreaterThan", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jxdp_modifyGreaterThan, "jxdp_modifyGreaterThan", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jl_modifyLessThan, "jl_modifyLessThan", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jxdp_modifyLessThan, "jxdp_modifyLessThan", APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jl_byFilenameExtension_Ignore, "jl_byFilenameExtension_Ignore", APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jtf_byFilenameExtension_Ignore, "jtf_byFilenameExtension_Ignore", APP_COLOR_DEFAULT);
+
+		setAppStyle(jl_byModify_greaterThan, "jl_byModify_greaterThan", APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jxdp_byModify_greaterThan, "jxdp_byModify_greaterThan", APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jl_byModify_lessThan, "jl_byModify_lessThan", APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jxdp_byModify_lessThan, "jxdp_byModify_lessThan", APP_COLOR_SEARCH_CRITERIA);
 
 		setAppStyle4TextArea(jta_result, "jta_result", APP_COLOR_DEFAULT, false);
 	}
@@ -154,7 +166,7 @@ public class FindFileMain extends FindFileConstant {
 		});
 
 		// 查詢
-		jb_searchText.addActionListener(new ActionListener() {
+		jb_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				try {
@@ -162,29 +174,30 @@ public class FindFileMain extends FindFileConstant {
 					jta_result.setText("");
 					Map<String, String> m = new HashMap<>();
 					m.put(KEY_SEARCHPATH, jtf_searchPath.getText());
-					m.put(KEY_SEARCHTEXT, jtf_searchText.getText());
-					m.put(KEY_FILENAMEEXTENSION, jtf_filenameExtension.getText());
-					m.put(KEY_FILENAMEEXTENSION_IGNORE, jtf_filenameExtension_Ignore.getText());
-					if (jxdp_modifyGreaterThan.getDate() != null) {
-						if (new Date().after(jxdp_modifyGreaterThan.getDate())) {
-							m.put(KEY_MODIFYGREATERTHAN, APPDATE_SDF.format(jxdp_modifyGreaterThan.getDate()));
+					m.put(KEY_BYTEXT, jtf_byText.getText());
+					m.put(KEY_BYFILENAME, jtf_byFilename.getText());
+					m.put(KEY_FILENAMEEXTENSION, jtf_byFilenameExtension.getText());
+					m.put(KEY_FILENAMEEXTENSION_IGNORE, jtf_byFilenameExtension_Ignore.getText());
+					if (jxdp_byModify_greaterThan.getDate() != null) {
+						if (new Date().after(jxdp_byModify_greaterThan.getDate())) {
+							m.put(KEY_MODIFYGREATERTHAN, APPDATE_SDF.format(jxdp_byModify_greaterThan.getDate()));
 						} else {
-							jxdp_modifyGreaterThan.setDate(null);
+							jxdp_byModify_greaterThan.setDate(null);
 						}
 					}
-					if (jxdp_modifyLessThan.getDate() != null) {
-						if (new Date().after(jxdp_modifyLessThan.getDate())) {
-							m.put(KEY_MODIFYLESSTHAN, APPDATE_SDF.format(AppHandler.getDateCalculator(jxdp_modifyLessThan.getDate(), 0, 0, 1)));
+					if (jxdp_byModify_lessThan.getDate() != null) {
+						if (new Date().after(jxdp_byModify_lessThan.getDate())) {
+							m.put(KEY_MODIFYLESSTHAN, APPDATE_SDF.format(AppHandler.getDateCalculator(jxdp_byModify_lessThan.getDate(), 0, 0, 1)));
 						} else {
-							jxdp_modifyLessThan.setDate(null);
+							jxdp_byModify_lessThan.setDate(null);
 						}
 					}
 
 					m = FindFileHandler.findConditionFile(m);
 					// System.out.println("mm" + m);
 
-					jtf_filenameExtension.setText(m.get(KEY_FILENAMEEXTENSION));
-					jtf_filenameExtension_Ignore.setText(m.get(KEY_FILENAMEEXTENSION_IGNORE));
+					jtf_byFilenameExtension.setText(m.get(KEY_FILENAMEEXTENSION));
+					jtf_byFilenameExtension_Ignore.setText(m.get(KEY_FILENAMEEXTENSION_IGNORE));
 					jta_result.setText(m.get(KEY_RESULT));
 					showMsg(MSG_ANALYSIS);
 				} catch (Exception e) {
@@ -194,7 +207,7 @@ public class FindFileMain extends FindFileConstant {
 		});
 
 		dbClickOnCopy(jtf_searchPath, "欲查路徑");
-		dbClickOnCopy(jtf_searchText, "字串");
+		dbClickOnCopy(jtf_byText, "字串");
 		dbClickOnCopy(jta_result, "結果");
 	}
 
@@ -210,23 +223,23 @@ public class FindFileMain extends FindFileConstant {
 
 	/*** 清除欄位 ***/
 	private static void clearData() {
-		jtf_searchText.setText("");
+		jtf_byText.setText("");
 		jta_result.setText("");
-		jxdp_modifyGreaterThan.setDate(null);
-		jxdp_modifyLessThan.setDate(null);
+		jxdp_byModify_greaterThan.setDate(null);
+		jxdp_byModify_lessThan.setDate(null);
 	}
 
 	private static void doInitial() {
 		jtf_searchPath.setText(AppHandler.getDesktopRootPath());
 		jtf_searchPath.setText(AppHandler.getDesktopRootPath() + "\\test");
 
-		jtf_searchText.setText("");
+		jtf_byText.setText("");
 
-		jtf_filenameExtension.setText("[*]");
-		jtf_filenameExtension_Ignore.setText("[~*,*.vfl]");
+		jtf_byFilenameExtension.setText("[*]");
+		jtf_byFilenameExtension_Ignore.setText("[~*,*.vfl]");
 
-		jxdp_modifyGreaterThan.setDate(null);
-		jxdp_modifyLessThan.setDate(null);
+		jxdp_byModify_greaterThan.setDate(null);
+		jxdp_byModify_lessThan.setDate(null);
 	}
 
 }

@@ -17,9 +17,10 @@ import cti.app.constant.FindFileConstant;
 public class FindFileHandler extends FindFileConstant {
 	private static List<String> list = new ArrayList<>();
 
-	private static String cdtn_searchText;
-	private static String cdtn_modifyGreaterThan;
-	private static String cdtn_modifyLessThan;
+	private static String byText;
+	private static String byFilename;
+	private static String byModify_greaterThan;
+	private static String byModify_lessThan;
 	private static JSONArray isMatchesJA;
 	private static JSONArray isMatchesIgnoreJA;
 
@@ -36,7 +37,8 @@ public class FindFileHandler extends FindFileConstant {
 		}
 
 		// 初步判斷&塞值
-		cdtn_searchText = m.get(KEY_SEARCHTEXT);
+		byText = m.get(KEY_BYTEXT);
+		byFilename = m.get(KEY_BYFILENAME);
 
 		try {
 			isMatchesJA = new JSONArray(m.get(KEY_FILENAMEEXTENSION));
@@ -52,8 +54,8 @@ public class FindFileHandler extends FindFileConstant {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "副檔名(忽略)", ERRMSG_FORMAT));
 		}
 
-		cdtn_modifyGreaterThan = m.get(KEY_MODIFYGREATERTHAN);
-		cdtn_modifyLessThan = m.get(KEY_MODIFYLESSTHAN);
+		byModify_greaterThan = m.get(KEY_MODIFYGREATERTHAN);
+		byModify_lessThan = m.get(KEY_MODIFYLESSTHAN);
 
 		// 執行迴圈
 		String resultStr = "";
@@ -100,21 +102,31 @@ public class FindFileHandler extends FindFileConstant {
 					}
 				}
 
-				if (isRunning && StringUtils.isNotBlank(cdtn_modifyGreaterThan)) {
-					isRunning = false;
-					if (new File(fileAbsPath).lastModified() >= APPDATE_SDF.parse(cdtn_modifyGreaterThan).getTime()) {
+				if (isRunning && StringUtils.isNotBlank(byFilename)) {
+					if (new File(fileAbsPath).getName().matches(AppHandler.getFuzzySearchRegexpString(byFilename, true))) {
 						isRunning = true;
+					} else {
+						isRunning = false;
 					}
 				}
 
-				if (isRunning && StringUtils.isNotBlank(cdtn_modifyLessThan)) {
-					isRunning = false;
-					if (new File(fileAbsPath).lastModified() < APPDATE_SDF.parse(cdtn_modifyLessThan).getTime()) {
+				if (isRunning && StringUtils.isNotBlank(byModify_greaterThan)) {
+					if (new File(fileAbsPath).lastModified() >= APPDATE_SDF.parse(byModify_greaterThan).getTime()) {
 						isRunning = true;
+					} else {
+						isRunning = false;
 					}
 				}
 
-				if (isRunning && StringUtils.isNotBlank(cdtn_searchText)) {
+				if (isRunning && StringUtils.isNotBlank(byModify_lessThan)) {
+					if (new File(fileAbsPath).lastModified() < APPDATE_SDF.parse(byModify_lessThan).getTime()) {
+						isRunning = true;
+					} else {
+						isRunning = false;
+					}
+				}
+
+				if (isRunning && StringUtils.isNotBlank(byText)) {
 					isRunning = false;
 					try (BufferedReader brLog = new BufferedReader((new InputStreamReader(new FileInputStream(fileAbsPath), AppHandler.getFileEncoding(fileAbsPath))));) {
 						String line;
@@ -122,7 +134,7 @@ public class FindFileHandler extends FindFileConstant {
 							if (StringUtils.isBlank(line)) {
 								continue;
 							}
-							if (line.matches(AppHandler.getFuzzySearchRegexpString(cdtn_searchText, false))) {
+							if (line.matches(AppHandler.getFuzzySearchRegexpString(byText, true))) {
 								isRunning = true;
 								break;
 							}

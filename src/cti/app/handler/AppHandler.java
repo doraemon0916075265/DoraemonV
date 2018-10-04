@@ -96,7 +96,7 @@ public class AppHandler extends AppConstant {
 			}
 		}
 		result = REGEXP_FORALL + result + REGEXP_FORALL;
-		System.out.println("正規表示法>" + result);
+		// System.out.println("正規表示法>" + result);
 		return result;
 	}
 

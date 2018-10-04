@@ -9,7 +9,8 @@ public class FindFileConstant extends AppFrameMain {
 
 	/*** key - value(start) ***/
 	public static final String KEY_SEARCHPATH = "jtf_searchPath";
-	public static final String KEY_SEARCHTEXT = "jtf_searchText";
+	public static final String KEY_BYTEXT = "jtf_byText";
+	public static final String KEY_BYFILENAME = "jtf_byFilename";
 	public static final String KEY_RESULT = "jta_result";
 	public static final String KEY_FILENAMEEXTENSION = "jl_filenameExtension";
 	public static final String KEY_FILENAMEEXTENSION_IGNORE = "jl_filenameExtension_Ignore";
