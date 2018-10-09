@@ -26,8 +26,6 @@ public class FindFileHandler extends FindFileConstant {
 
 	/*** FindFile：找目錄下符合條件的所有檔案 ***/
 	public static Map<String, String> findConditionFile(Map<String, String> m) throws Exception {
-		System.out.println("收到的條件" + m);
-
 		// 所有值初始化
 		list = new ArrayList<>();
 
@@ -42,14 +40,14 @@ public class FindFileHandler extends FindFileConstant {
 
 		try {
 			isMatchesJA = new JSONArray(m.get(KEY_FILENAMEEXTENSION));
-			m.put(FindFileConstant.KEY_FILENAMEEXTENSION, isMatchesJA.toString().replaceAll("\"", ""));
+			m.put(FindFileConstant.KEY_FILENAMEEXTENSION, isMatchesJA.toString().replaceAll(SIGN_DOUBLEQUOTES, ""));
 		} catch (JSONException e) {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "副檔名", ERRMSG_FORMAT));
 		}
 
 		try {
 			isMatchesIgnoreJA = new JSONArray(m.get(KEY_FILENAMEEXTENSION_IGNORE));
-			m.put(FindFileConstant.KEY_FILENAMEEXTENSION_IGNORE, isMatchesIgnoreJA.toString().replaceAll("\"", ""));
+			m.put(FindFileConstant.KEY_FILENAMEEXTENSION_IGNORE, isMatchesIgnoreJA.toString().replaceAll(SIGN_DOUBLEQUOTES, ""));
 		} catch (JSONException e) {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "副檔名(忽略)", ERRMSG_FORMAT));
 		}
@@ -75,7 +73,7 @@ public class FindFileHandler extends FindFileConstant {
 	}
 
 	/*** 找目錄下的所有檔案 ***/
-	public static void findAllConditionFile(String filePath) {
+	private static void findAllConditionFile(String filePath) {
 		File file = new File(filePath);
 		try {
 			if (file.isDirectory()) {

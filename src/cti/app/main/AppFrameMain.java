@@ -35,6 +35,7 @@ public class AppFrameMain extends AppConstant {
 	private static JPanel jpTab1 = new JPanel();
 	private static JPanel jpTab2 = new JPanel();
 	private static JPanel jpTab3 = new JPanel();
+	private static JPanel jpTab4 = new JPanel();
 
 	private static JLabel jl_msg = new JLabel();// 系統訊息
 
@@ -61,7 +62,6 @@ public class AppFrameMain extends AppConstant {
 
 	/*** 設定元件 ***/
 	public static void setFrameComponent() {
-
 		CutterController.setJPanel(jpTab1);
 		FindFileController.setJPanel(jpTab2);
 		TestController.setJPanel(jpTab3);
@@ -69,7 +69,7 @@ public class AppFrameMain extends AppConstant {
 		jtp.addTab(APP_TAB01_TITLE, jpTab1);
 		jtp.addTab(APP_TAB02_TITLE, jpTab2);
 		jtp.addTab(APP_TAB03_TITLE, jpTab3);
-		jtp.addTab(APP_TAB04_TITLE, new JPanel());
+		jtp.addTab(APP_TAB04_TITLE, jpTab4);
 		jtp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);// 左右滾動
 
 		setAppStyle(jtp, "jtp", APP_COLOR_DEFAULT);

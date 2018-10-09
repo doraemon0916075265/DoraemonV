@@ -14,7 +14,7 @@ import cti.app.constant.AppConstant;
 
 public class AppHandler extends AppConstant {
 
-	/*** 找桌面根目錄 ***/
+	/*** 取得桌面根目錄 ***/
 	public static String getDesktopRootPath() {
 		Map<String, String> m = new HashMap<>();
 		findRootPath(m, PATH_DISK_C, false, false);

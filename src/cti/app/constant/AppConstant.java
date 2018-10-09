@@ -78,7 +78,7 @@ public class AppConstant {
 	public static final String FORMAT_MSG_COPIED = "已複製 %s 至剪貼簿";
 	public static final String FORMAT_GUIDEBOOK_SUBTITLE = "☆ %s ☆" + System.lineSeparator();
 	public static final String FORMAT_GUIDEBOOK_CONTENT = "%d . %s " + System.lineSeparator();
-	public static final String FORMAT_EXPORTFILE_SUBTITLE = "  ☆ %s ☆" + System.lineSeparator();
+	public static final String FORMAT_EXPORTFILE_SUBTITLE = "☆ %s ☆" + System.lineSeparator();
 	public static final String FORMAT_EXPORTFILE_CONTENT = "%s" + System.lineSeparator();
 
 	// 檔案路徑
@@ -122,4 +122,9 @@ public class AppConstant {
 
 	// 正規表示法
 	public static final String REGEXP_FORALL = ".*";
+
+	// 符號
+	public static final String SIGN_DOUBLEQUOTES = "\"";
+	public static final String SIGN_EQUAL = "=";
+	public static final String SIGN_COMMA = ",";
 }

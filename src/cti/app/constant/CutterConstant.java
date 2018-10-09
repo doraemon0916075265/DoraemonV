@@ -12,6 +12,8 @@ public class CutterConstant extends AppFrameMain {
 	public static final String JL_SPECINFO_FILL = "下行電文陣列";
 	public static final String JL_LOGINFO_ID = "電文ID/資訊";
 	public static final String JL_EXPORTFILE = "匯出檔案路徑";
+	public static final String JCB_ISADDEQUAL_1 = "一般格式";
+	public static final String JCB_ISADDEQUAL_2 = "csv格式";
 
 	/*** key - value(start) ***/
 	public static final String KEY_ROOTPATH = "rootPath";// log檔路徑
@@ -55,11 +57,10 @@ public class CutterConstant extends AppFrameMain {
 	public static final String KEY_EXPORTFILEPATH = "jtf_exportFile";
 	public static final String KEY_JB_EXPORTFILE = "jb_exportFile";
 
+	public static final String KEY_ISADDEQUAL = "jcb_isAddEqual";
+
 	public static final String KEY_RESULTS = "jta_resultS";
 	public static final String KEY_RESULTF = "jta_resultF";
-
-	public static final String KEY_SNAME = "s_name";
-	public static final String KEY_FNAME = "f_name";
 
 	public static final String T_TITLE = "<標題>";
 	public static final String T_BUTTON = "<按鈕>";
@@ -107,8 +108,6 @@ public class CutterConstant extends AppFrameMain {
 	public static final String VALUE_RESULTS = "切上行電文結果";
 	public static final String VALUE_RESULTF = "切下行電文結果";
 
-	public static final String VALUE_SNAME = "s_name";
-	public static final String VALUE_FNAME = "f_name";
 	/*** key - value(end) ***/
 
 	// 正規表示法
@@ -120,16 +119,15 @@ public class CutterConstant extends AppFrameMain {
 	public static final String REGEXP_SEND2 = REGEXP_FORALL + "送出";
 	public static final String REGEXP_FILL1 = "收到:" + REGEXP_FORALL;
 	public static final String REGEXP_FILL2 = REGEXP_FORALL + "收到";
-	public static final String REGEXP_FILEEXTEN_EXPORT[] = { REGEXP_FORALL + ".TXT", REGEXP_FORALL + ".LOG" };
+	public static final String REGEXP_FILEEXTEN_EXPORT[] = { REGEXP_FORALL + ".TXT", REGEXP_FORALL + ".LOG", REGEXP_FORALL + ".CSV" };
 
 	// 初始化路徑
 	public static final String DFT_PATH_LOG = "C:\\Users\\NT83382\\Desktop\\log.txt";
 	public static final String DFT_PATH_SPEC = "C:\\Users\\NT83382\\Desktop\\spec.json";
 	public static final String FILENAME_LOG = "LOG.TXT";
 	public static final String FILENAME_SPEC = "SPEC.JSON";
-	public static final String FILENAME_RESULT = "result.txt";
+	public static final String FILENAME_RESULT = "result.csv";
 
-	public static final String SIGN_DOUBLEQUOTES = "\"";
 	public static final String LEN_0 = "0";
 
 	/*** 說明書 ***/

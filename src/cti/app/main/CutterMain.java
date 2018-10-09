@@ -3,12 +3,11 @@ package cti.app.main;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,10 +19,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.FontUIResource;
 
-import org.apache.commons.lang3.StringUtils;
-
 import cti.app.constant.CutterConstant;
-import cti.app.handler.AppHandler;
 import cti.app.handler.CutterHandler;
 
 public class CutterMain extends CutterConstant {
@@ -31,46 +27,47 @@ public class CutterMain extends CutterConstant {
 	private static JPanel jpSub2 = new JPanel();
 
 	private static JLabel jl_logFilePath = new JLabel(JL_LOGFILEPATH);// log檔路徑
-	private static JTextField jtf_logFilePath = new JTextField();
+	protected static JTextField jtf_logFilePath = new JTextField();
 	private static JButton jb_logFilepath = new JButton();
 	private static JButton jb_resetData = new JButton(BTN_RESETDATA);
 
 	private static JLabel jl_specFilePath = new JLabel(JL_SPECFILEPATH);// spec檔路徑
-	private static JTextField jtf_specFilePath = new JTextField();
+	protected static JTextField jtf_specFilePath = new JTextField();
 	private static JButton jb_specFilepath = new JButton();
 	private static JButton jb_clearData = new JButton(BTN_CLEARDATA);
 
 	private static JLabel jl_logInfo_send = new JLabel(JL_LOGINFO_SEND);// 上行電文
-	private static JTextField jtf_logInfo_send = new JTextField();
+	protected static JTextField jtf_logInfo_send = new JTextField();
 	private static JLabel jl_logInfo_sendLen = new JLabel(LEN_0);
 	private static JButton jb_readFile = new JButton(BTN_READFILE);
 
 	private static JLabel jl_logInfo_fill = new JLabel(JL_LOGINFO_FILL);// 下行電文
-	private static JTextField jtf_logInfo_fill = new JTextField();
+	protected static JTextField jtf_logInfo_fill = new JTextField();
 	private static JLabel jl_logInfo_fillLen = new JLabel(LEN_0);
 	private static JButton jb_analysis = new JButton(BTN_ANALYSIS);
 
 	private static JLabel jl_specInfo_send = new JLabel(JL_SPECINFO_SEND);// 上行電文陣列
-	private static JTextField jtf_specSendCut0 = new JTextField();
-	private static JTextField jtf_specSendCut = new JTextField();
+	protected static JTextField jtf_specSendCut0 = new JTextField();
+	protected static JTextField jtf_specSendCut = new JTextField();
 	private static JLabel jl_specInfo_sendLen = new JLabel(String.format(FORMAT_MSG_TGLEN, LEN_0, LEN_0));
 
 	private static JLabel jl_specInfo_fill = new JLabel(JL_SPECINFO_FILL);// 下行電文陣列
-	private static JTextField jtf_specFillCut0 = new JTextField();
-	private static JTextField jtf_specFillCut = new JTextField();
+	protected static JTextField jtf_specFillCut0 = new JTextField();
+	protected static JTextField jtf_specFillCut = new JTextField();
 	private static JLabel jl_specInfo_fillLen = new JLabel(String.format(FORMAT_MSG_TGLEN, LEN_0, LEN_0));
 
 	private static JLabel jl_logInfo_ID = new JLabel(JL_LOGINFO_ID);// 電文ID/資訊
-	private static JTextField jtf_logInfo_ID = new JTextField();
-	private static JTextField jtf_specInfo_note = new JTextField();
+	protected static JTextField jtf_logInfo_ID = new JTextField();
+	protected static JTextField jtf_specInfo_note = new JTextField();
 	private static JButton jb_guideBook = new JButton(BTN_GUIDEBOOK);
 
 	private static JLabel jl_exportFile = new JLabel(JL_EXPORTFILE);// 匯出檔案路徑
-	private static JTextField jtf_exportFile = new JTextField();
+	protected static JTextField jtf_exportFile = new JTextField();
+	protected static JCheckBox jcb_isAddEqual = new JCheckBox(JCB_ISADDEQUAL_2);
 	private static JButton jb_exportFile = new JButton(BTN_EXPORTFILE);
 
-	private static JTextArea jta_resultS = new JTextArea(4, 93);
-	private static JTextArea jta_resultF = new JTextArea(11, 93);
+	protected static JTextArea jta_resultS = new JTextArea(3, 93);
+	protected static JTextArea jta_resultF = new JTextArea(12, 93);
 
 	public static void setBegin(JPanel jp) {
 		jpSub1.setLayout(null);
@@ -154,9 +151,11 @@ public class CutterMain extends CutterConstant {
 		jl_exportFile.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_exportFile.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
 		jb_exportFile.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
+		jcb_isAddEqual.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jpSub1.add(jl_exportFile);
 		jpSub1.add(jtf_exportFile);
 		jpSub1.add(jb_exportFile);
+		jpSub1.add(jcb_isAddEqual);
 
 		/*** 下半部 ***/
 		jpSub2.add(new JScrollPane(jta_resultS));
@@ -206,6 +205,8 @@ public class CutterMain extends CutterConstant {
 		setAppStyle(jtf_exportFile, KEY_EXPORTFILEPATH, APP_COLOR_DEFAULT);
 		setAppStyle(jb_exportFile, KEY_JB_EXPORTFILE, APP_COLOR_DEFAULT);
 
+		setAppStyle(jcb_isAddEqual, "格式", APP_COLOR_DEFAULT);
+
 		setAppStyle4TextArea(jta_resultS, KEY_RESULTS, APP_COLOR_DEFAULT, false);
 		setAppStyle4TextArea(jta_resultF, KEY_RESULTF, APP_COLOR_DEFAULT, false);
 	}
@@ -216,8 +217,7 @@ public class CutterMain extends CutterConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				isTimerWork(true);
-				resetData();
-				doInitial();
+				CutterHandler.resetData();
 				showMsg(MSG_RESETDATA);
 			}
 		});
@@ -226,7 +226,7 @@ public class CutterMain extends CutterConstant {
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				clearData();
+				CutterHandler.clearData();
 				showMsg(MSG_SUCCESS, MSG_CLEARDATA);
 			}
 		});
@@ -237,16 +237,8 @@ public class CutterMain extends CutterConstant {
 			public void actionPerformed(ActionEvent ae) {
 				try {
 					isTimerWork(true);
-					clearData();
-					Map<String, String> m = CutterHandler.readFile(jtf_logFilePath.getText(), jtf_specFilePath.getText());
-					jtf_logInfo_ID.setText(m.get(KEY_ID));
-					jtf_logInfo_send.setText(m.get(KEY_SEND));
-					jtf_logInfo_fill.setText(m.get(KEY_FILL));
-					jtf_specSendCut0.setText(m.get(KEY_SCUT0));
-					jtf_specSendCut.setText(m.get(KEY_SCUT));
-					jtf_specFillCut0.setText(m.get(KEY_FCUT0));
-					jtf_specFillCut.setText(m.get(KEY_FCUT));
-					jtf_specInfo_note.setText(m.get(KEY_NOTE));
+					CutterHandler.clearData();
+					CutterHandler.readFile();
 					showMsg(MSG_READFILE);
 				} catch (Exception e) {
 					showMsg(e.getClass().getSimpleName(), "路徑", e.getMessage());
@@ -261,20 +253,7 @@ public class CutterMain extends CutterConstant {
 			public void actionPerformed(ActionEvent ae) {
 				try {
 					isTimerWork(true);
-					Map<String, String> m = new HashMap<>();
-					m.put(KEY_SEND, jtf_logInfo_send.getText());
-					m.put(KEY_FILL, jtf_logInfo_fill.getText());
-					m.put(KEY_SCUT0, jtf_specSendCut0.getText());
-					m.put(KEY_SCUT, jtf_specSendCut.getText());
-					m.put(KEY_FCUT0, jtf_specFillCut0.getText());
-					m.put(KEY_FCUT, jtf_specFillCut.getText());
-					m = CutterHandler.analysis(m);
-					jta_resultS.setText(m.get(KEY_RESULTS));
-					jta_resultF.setText(m.get(KEY_RESULTF));
-					jtf_specSendCut0.setText(m.get(KEY_SCUT0));
-					jtf_specSendCut.setText(m.get(KEY_SCUT));
-					jtf_specFillCut0.setText(m.get(KEY_FCUT0));
-					jtf_specFillCut.setText(m.get(KEY_FCUT));
+					CutterHandler.analysis();
 					showMsg(MSG_ANALYSIS);
 				} catch (Exception e) {
 					showMsg(e.getClass().getSimpleName(), e.getMessage());
@@ -293,7 +272,7 @@ public class CutterMain extends CutterConstant {
 					m.put(KEY_RESULTS, jta_resultS.getText());
 					m.put(KEY_RESULTF, jta_resultF.getText());
 					m.put(KEY_EXPORTFILEPATH, jtf_exportFile.getText());
-					exportFile(m);
+					CutterHandler.exportFile(m);
 					showMsg(MSG_EXPORTFILE + "於" + jtf_exportFile.getText());
 				} catch (Exception e) {
 					showMsg(e.getClass().getSimpleName(), e.getMessage());
@@ -310,6 +289,19 @@ public class CutterMain extends CutterConstant {
 				UIManager.put("OptionPane.messageFont", new FontUIResource(APP_FONT));
 				JOptionPane.showMessageDialog(null, getGuidebookContent(), APP_GUIDEBOOK_TITLE, JOptionPane.DEFAULT_OPTION);
 				showMsg(MSG_CLOSE_GUIDEBOOK);
+			}
+		});
+
+		// 匯出格式
+		jcb_isAddEqual.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				if (jcb_isAddEqual.isSelected()) {
+					jcb_isAddEqual.setText(JCB_ISADDEQUAL_2);
+				} else {
+					jcb_isAddEqual.setText(JCB_ISADDEQUAL_1);
+
+				}
 			}
 		});
 
@@ -335,55 +327,14 @@ public class CutterMain extends CutterConstant {
 		dbClickOnCopy(jtf_specSendCut, VALUE_SCUT);
 		dbClickOnCopy(jtf_specFillCut0, VALUE_FCUT0);
 		dbClickOnCopy(jtf_specFillCut, VALUE_FCUT);
+		dbClickOnCopy(jtf_specInfo_note, VALUE_NOTE);
 		dbClickOnCopy(jtf_exportFile, VALUE_EXPORTFILEPATH);
 		dbClickOnCopy(jta_resultS, VALUE_RESULTS);
 		dbClickOnCopy(jta_resultF, VALUE_RESULTF);
 	}
 
 	public static void setEnd(JPanel jp) {
-		doInitial();
-	}
-
-	/*** 重設欄位 ***/
-	private static void resetData() {
-		clearData();
-		jta_resultS.setText("");
-		jta_resultF.setText("");
-	}
-
-	/*** 清除欄位 ***/
-	private static void clearData() {
-		jtf_logInfo_ID.setText("");
-		jtf_logInfo_send.setText("");
-		jtf_logInfo_fill.setText("");
-		jtf_specSendCut0.setText("");
-		jtf_specSendCut.setText("");
-		jtf_specFillCut0.setText("");
-		jtf_specFillCut.setText("");
-		jtf_specInfo_note.setText("");
-	}
-
-	/*** 第一次開啟視窗，初始化欄位 ***/
-	private static void doInitial() {
-		String path_desktop = AppHandler.getDesktopRootPath();
-		if (StringUtils.isNotBlank(path_desktop)) {
-			jtf_exportFile.setText(path_desktop + File.separator + FILENAME_RESULT);
-		} else {
-			jtf_exportFile.setText("");
-		}
-
-		Map<String, String> m = new HashMap<>();
-		findLogSpec(m, path_desktop);
-
-		if (StringUtils.isBlank(m.get(KEY_LOGFILEPATH))) {
-			m.put(KEY_LOGFILEPATH, DFT_PATH_LOG);
-		}
-		if (StringUtils.isBlank(m.get(KEY_SPECFILEPATH))) {
-			m.put(KEY_SPECFILEPATH, DFT_PATH_SPEC);
-		}
-
-		jtf_logFilePath.setText(m.get(KEY_LOGFILEPATH));
-		jtf_specFilePath.setText(m.get(KEY_SPECFILEPATH));
+		CutterHandler.doInitial();
 	}
 
 	/*** 取電文長度 ***/
@@ -430,77 +381,6 @@ public class CutterMain extends CutterConstant {
 			}
 
 		});
-	}
-
-	/*** 找log.txt&spec.json ***/
-	public static void findLogSpec(Map<String, String> m, String filePath) {
-		try {
-			if (StringUtils.isBlank(m.get(KEY_LOGFILEPATH)) || StringUtils.isBlank(m.get(KEY_SPECFILEPATH))) {
-				File file = new File(filePath);
-				if (file.isDirectory()) {
-					for (String fileName : file.list()) {
-						findLogSpec(m, filePath + File.separator + fileName);
-					}
-				} else {
-					String fileNameU = file.getName().toUpperCase();
-					if (FILENAME_LOG.equals(fileNameU)) {
-						m.put(KEY_LOGFILEPATH, filePath);
-					}
-					if (FILENAME_SPEC.equals(fileNameU)) {
-						m.put(KEY_SPECFILEPATH, filePath);
-					}
-				}
-			}
-		} catch (Exception e) {
-
-		}
-	}
-
-	/*** 匯出檔案 ***/
-	public static void exportFile(Map<String, String> m) throws Exception {
-		if (StringUtils.isBlank(m.get(KEY_EXPORTFILEPATH))) {
-			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_EXPORTFILEPATH, ERRMSG_ISBLANK));
-		} else if (StringUtils.isBlank(m.get(KEY_RESULTS))) {
-			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_RESULTS, ERRMSG_ISBLANK));
-		} else if (StringUtils.isBlank(m.get(KEY_RESULTF))) {
-			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_RESULTF, ERRMSG_ISBLANK));
-		}
-		String path = m.get(KEY_EXPORTFILEPATH);
-		File f;
-		File fp;
-		try {
-			f = new File(path);
-			fp = new File(f.getParent());
-		} catch (Exception e) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_EXPORTFILEPATH, ERRMSG_FORMAT));
-		}
-		boolean isValidPath = false;
-		// 判斷副檔名
-		for (String filenExtension : REGEXP_FILEEXTEN_EXPORT) {
-			if (f.getName().toUpperCase().matches(filenExtension)) {
-				isValidPath = true;
-				break;
-			}
-		}
-		if (isValidPath) {
-			if (!fp.exists()) {
-				fp.mkdirs();
-			}
-		} else {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_EXPORTFILEPATH, ERRMSG_FORMAT));
-		}
-
-		try (FileWriter fw = new FileWriter(f.getAbsolutePath())) {
-			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, VALUE_RESULTS));
-			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, m.get(KEY_RESULTS)));
-			fw.write(System.lineSeparator());
-			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, VALUE_RESULTF));
-			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, m.get(KEY_RESULTF)));
-			fw.flush();
-		} catch (Exception e) {
-			throw new Exception();
-		}
-
 	}
 
 }
