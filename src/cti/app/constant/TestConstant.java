@@ -1,7 +1,7 @@
 package cti.app.constant;
 
-import cti.app.main.AppFrameMain;
+import cti.app.view.AppView;
 
-public class TestConstant extends AppFrameMain {
+public class TestConstant extends AppView {
 
 }

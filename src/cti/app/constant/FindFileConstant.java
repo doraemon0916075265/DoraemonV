@@ -1,8 +1,8 @@
 package cti.app.constant;
 
-import cti.app.main.AppFrameMain;
+import cti.app.view.AppView;
 
-public class FindFileConstant extends AppFrameMain {
+public class FindFileConstant extends AppView {
 	// 標題
 	public static final String JL_SEARCHPATH = "欲查路徑";
 	public static final String JL_SEARCHTEXT = "欲查查詢";

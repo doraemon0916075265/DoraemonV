@@ -1,8 +1,8 @@
 package cti.app.constant;
 
-import cti.app.main.AppFrameMain;
+import cti.app.view.AppView;
 
-public class CutterConstant extends AppFrameMain {
+public class CutterConstant extends AppView {
 	// 標題
 	public static final String JL_LOGFILEPATH = "log檔路徑";
 	public static final String JL_SPECFILEPATH = "spec檔路徑";
