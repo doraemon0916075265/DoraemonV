@@ -3,8 +3,6 @@ package cti.app.main;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -62,7 +60,7 @@ public class CutterMain extends CutterConstant {
 	private static JButton jb_guideBook = new JButton(BTN_GUIDEBOOK);
 
 	private static JLabel jl_exportFile = new JLabel(JL_EXPORTFILE);// 匯出檔案路徑
-	protected static JTextField jtf_exportFile = new JTextField();
+	protected static JTextField jtf_exportFilePath = new JTextField();
 	protected static JCheckBox jcb_isAddEqual = new JCheckBox(JCB_ISADDEQUAL_2);
 	private static JButton jb_exportFile = new JButton(BTN_EXPORTFILE);
 
@@ -73,6 +71,8 @@ public class CutterMain extends CutterConstant {
 		jpSub1.setLayout(null);
 		jpSub1.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 325));
 		jpSub2.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 300));
+		// jpSub1.setBorder(new LineBorder(ColoR.RED));
+		// JPSUB2.SETBORDER(NEW LINEBORDER(COLOR.RED));
 	}
 
 	public static void setPosition(JPanel jp) {
@@ -149,11 +149,11 @@ public class CutterMain extends CutterConstant {
 		/*** 第八區 ***/
 		row += 40;
 		jl_exportFile.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_exportFile.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
+		jtf_exportFilePath.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
 		jb_exportFile.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jcb_isAddEqual.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jpSub1.add(jl_exportFile);
-		jpSub1.add(jtf_exportFile);
+		jpSub1.add(jtf_exportFilePath);
 		jpSub1.add(jb_exportFile);
 		jpSub1.add(jcb_isAddEqual);
 
@@ -166,52 +166,61 @@ public class CutterMain extends CutterConstant {
 	}
 
 	public static void setComponent(JPanel jp) {
-		setAppStyle(jl_logFilePath, KEY_JL_LOGFILEPATH, APP_COLOR_LOG);// log檔路徑
-		setAppStyle(jtf_logFilePath, KEY_LOGFILEPATH, APP_COLOR_DEFAULT);
-		setAppStyle(jb_logFilepath, KEY_JB_LOGFILEPATH, APP_COLOR_DEFAULT);
-		setAppStyle(jb_resetData, KEY_JB_RESETDATA, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logFilePath, null, APP_COLOR_LOG);// log檔路徑
+		setAppStyle(jtf_logFilePath, NAME_LOGFILEPATH, APP_COLOR_DEFAULT);
+		setAppStyle(jb_logFilepath, null, APP_COLOR_DEFAULT);
+		setAppStyle(jb_resetData, null, APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_specFilePath, KEY_JL_SPECFILEPATH, APP_COLOR_SPEC);// spec檔路徑
-		setAppStyle(jtf_specFilePath, KEY_SPECFILEPATH, APP_COLOR_DEFAULT);
-		setAppStyle(jb_specFilepath, KEY_JB_SPECFILEPATH, APP_COLOR_DEFAULT);
-		setAppStyle(jb_clearData, KEY_JB_CLEARDATA, APP_COLOR_DEFAULT);
+		setAppStyle(jl_specFilePath, null, APP_COLOR_SPEC);// spec檔路徑
+		setAppStyle(jtf_specFilePath, NAME_SPECFILEPATH, APP_COLOR_DEFAULT);
+		setAppStyle(jb_specFilepath, null, APP_COLOR_DEFAULT);
+		setAppStyle(jb_clearData, null, APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_logInfo_send, KEY_JL_LOGINFO_SEND, APP_COLOR_LOG);// 上行電文
-		setAppStyle(jtf_logInfo_send, KEY_SEND, APP_COLOR_DEFAULT);
-		setAppStyle(jl_logInfo_sendLen, KEY_JL_LOGINFO_SENDLEN, APP_COLOR_DEFAULT);
-		setAppStyle(jb_readFile, KEY_JB_READFILE, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logInfo_send, null, APP_COLOR_LOG);// 上行電文
+		setAppStyle(jtf_logInfo_send, NAME_LOGINFO_SEND, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logInfo_sendLen, null, APP_COLOR_DEFAULT);
+		setAppStyle(jb_readFile, null, APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_logInfo_fill, KEY_JL_LOGINFO_FILL, APP_COLOR_LOG);// 下行電文
-		setAppStyle(jtf_logInfo_fill, KEY_FILL, APP_COLOR_DEFAULT);
-		setAppStyle(jl_logInfo_fillLen, KEY_JL_LOGINFO_FILLLEN, APP_COLOR_DEFAULT);
-		setAppStyle(jb_analysis, KEY_JB_ANALYSIS, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logInfo_fill, null, APP_COLOR_LOG);// 下行電文
+		setAppStyle(jtf_logInfo_fill, NAME_LOGINFO_FILL, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logInfo_fillLen, null, APP_COLOR_DEFAULT);
+		setAppStyle(jb_analysis, null, APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_specInfo_send, KEY_JL_SPECINFO_SEND, APP_COLOR_SPEC);// 上行電文
-		setAppStyle(jtf_specSendCut0, KEY_SCUT0, APP_COLOR_DEFAULT);
-		setAppStyle(jtf_specSendCut, KEY_SCUT, APP_COLOR_DEFAULT);
-		setAppStyle(jl_specInfo_sendLen, KEY_JL_SPECINFO_SENDLEN, APP_COLOR_DEFAULT);
+		setAppStyle(jl_specInfo_send, null, APP_COLOR_SPEC);// 上行電文
+		setAppStyle(jtf_specSendCut0, NAME_SPECSENDCUT0, APP_COLOR_DEFAULT);
+		setAppStyle(jtf_specSendCut, NAME_SPECSENDCUT, APP_COLOR_DEFAULT);
+		setAppStyle(jl_specInfo_sendLen, null, APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_specInfo_fill, KEY_JL_SPECINFO_FILL, APP_COLOR_SPEC);// 下行電文
-		setAppStyle(jtf_specFillCut0, KEY_FCUT0, APP_COLOR_DEFAULT);
-		setAppStyle(jtf_specFillCut, KEY_FCUT, APP_COLOR_DEFAULT);
-		setAppStyle(jl_specInfo_fillLen, KEY_JL_SPECINFO_FILLLEN, APP_COLOR_DEFAULT);
+		setAppStyle(jl_specInfo_fill, null, APP_COLOR_SPEC);// 下行電文
+		setAppStyle(jtf_specFillCut0, NAME_SPECFILLCUT0, APP_COLOR_DEFAULT);
+		setAppStyle(jtf_specFillCut, NAME_SPECFILLCUT, APP_COLOR_DEFAULT);
+		setAppStyle(jl_specInfo_fillLen, null, APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_logInfo_ID, KEY_JL_LOGINFO_ID, APP_COLOR_LOG);// 電文ID/資訊
-		setAppStyle(jtf_logInfo_ID, KEY_ID, APP_COLOR_DEFAULT);
-		setAppStyle4Info(jtf_specInfo_note, KEY_NOTE, APP_COLOR_DEFAULT);
-		setAppStyle(jb_guideBook, KEY_JB_GUIDEBOOK, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logInfo_ID, null, APP_COLOR_LOG);// 電文ID/資訊
+		setAppStyle(jtf_logInfo_ID, NAME_LOGINFO_ID, APP_COLOR_DEFAULT);
+		setAppStyle4Info(jtf_specInfo_note, NAME_SPECINFO_NOTE, APP_COLOR_DEFAULT);
+		setAppStyle(jb_guideBook, null, APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_exportFile, KEY_JL_EXPORTFILE, APP_COLOR_DEFAULT);
-		setAppStyle(jtf_exportFile, KEY_EXPORTFILEPATH, APP_COLOR_DEFAULT);
-		setAppStyle(jb_exportFile, KEY_JB_EXPORTFILE, APP_COLOR_DEFAULT);
+		setAppStyle(jl_exportFile, null, APP_COLOR_DEFAULT);
+		setAppStyle(jtf_exportFilePath, NAME_EXPORTFILEPATH, APP_COLOR_DEFAULT);
+		setAppStyle(jb_exportFile, null, APP_COLOR_DEFAULT);
 
-		setAppStyle(jcb_isAddEqual, "格式", APP_COLOR_DEFAULT);
+		setAppStyle(jcb_isAddEqual, null, APP_COLOR_DEFAULT);
 
-		setAppStyle4TextArea(jta_resultS, KEY_RESULTS, APP_COLOR_DEFAULT, false);
-		setAppStyle4TextArea(jta_resultF, KEY_RESULTF, APP_COLOR_DEFAULT, false);
+		setAppStyle4TextArea(jta_resultS, NAME_RESULTS, APP_COLOR_DEFAULT, false);
+		setAppStyle4TextArea(jta_resultF, NAME_RESULTF, APP_COLOR_DEFAULT, false);
 	}
 
 	public static void setListener(JPanel jp) {
+		// 清除
+		jb_clearData.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				CutterHandler.clearData();
+				showMsg(MSG_SUCCESS, MSG_CLEARDATA);
+			}
+		});
+
 		// 重設
 		jb_resetData.addActionListener(new ActionListener() {
 			@Override
@@ -222,26 +231,16 @@ public class CutterMain extends CutterConstant {
 			}
 		});
 
-		// 清除
-		jb_clearData.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				CutterHandler.clearData();
-				showMsg(MSG_SUCCESS, MSG_CLEARDATA);
-			}
-		});
-
 		// 讀檔
 		jb_readFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				try {
 					isTimerWork(true);
-					CutterHandler.clearData();
 					CutterHandler.readFile();
 					showMsg(MSG_READFILE);
 				} catch (Exception e) {
-					showMsg(e.getClass().getSimpleName(), "路徑", e.getMessage());
+					showMsg(e.getClass().getSimpleName(), e.getMessage());
 					isTimerWork(false);
 				}
 			}
@@ -268,12 +267,8 @@ public class CutterMain extends CutterConstant {
 			public void actionPerformed(ActionEvent ae) {
 				try {
 					isTimerWork(true);
-					Map<String, String> m = new HashMap<>();
-					m.put(KEY_RESULTS, jta_resultS.getText());
-					m.put(KEY_RESULTF, jta_resultF.getText());
-					m.put(KEY_EXPORTFILEPATH, jtf_exportFile.getText());
-					CutterHandler.exportFile(m);
-					showMsg(MSG_EXPORTFILE + "於" + jtf_exportFile.getText());
+					CutterHandler.exportFile();
+					showMsg(MSG_EXPORTFILE + "於" + jtf_exportFilePath.getText());
 				} catch (Exception e) {
 					showMsg(e.getClass().getSimpleName(), e.getMessage());
 					isTimerWork(false);
@@ -306,8 +301,8 @@ public class CutterMain extends CutterConstant {
 		});
 
 		// 取檔案路徑
-		btnGetPath(jb_logFilepath, jtf_logFilePath, VALUE_LOGFILEPATH);
-		btnGetPath(jb_specFilepath, jtf_specFilePath, VALUE_SPECFILEPATH);
+		btnGetPath(jb_logFilepath, jtf_logFilePath);
+		btnGetPath(jb_specFilepath, jtf_specFilePath);
 
 		// 取電文長度
 		inputOnChange(jtf_logInfo_send);
@@ -318,19 +313,19 @@ public class CutterMain extends CutterConstant {
 		inputOnChange(jtf_specFillCut);
 
 		// 點擊複製
-		dbClickOnCopy(jtf_logFilePath, VALUE_LOGFILEPATH);
-		dbClickOnCopy(jtf_specFilePath, VALUE_SPECFILEPATH);
-		dbClickOnCopy(jtf_logInfo_ID, VALUE_ID);
-		dbClickOnCopy(jtf_logInfo_send, VALUE_SEND);
-		dbClickOnCopy(jtf_logInfo_fill, VALUE_FILL);
-		dbClickOnCopy(jtf_specSendCut0, VALUE_SCUT0);
-		dbClickOnCopy(jtf_specSendCut, VALUE_SCUT);
-		dbClickOnCopy(jtf_specFillCut0, VALUE_FCUT0);
-		dbClickOnCopy(jtf_specFillCut, VALUE_FCUT);
-		dbClickOnCopy(jtf_specInfo_note, VALUE_NOTE);
-		dbClickOnCopy(jtf_exportFile, VALUE_EXPORTFILEPATH);
-		dbClickOnCopy(jta_resultS, VALUE_RESULTS);
-		dbClickOnCopy(jta_resultF, VALUE_RESULTF);
+		dbClickOnCopy(jtf_logFilePath);
+		dbClickOnCopy(jtf_specFilePath);
+		dbClickOnCopy(jtf_logInfo_ID);
+		dbClickOnCopy(jtf_logInfo_send);
+		dbClickOnCopy(jtf_logInfo_fill);
+		dbClickOnCopy(jtf_specSendCut0);
+		dbClickOnCopy(jtf_specSendCut);
+		dbClickOnCopy(jtf_specFillCut0);
+		dbClickOnCopy(jtf_specFillCut);
+		dbClickOnCopy(jtf_specInfo_note);
+		dbClickOnCopy(jtf_exportFilePath);
+		dbClickOnCopy(jta_resultS);
+		dbClickOnCopy(jta_resultF);
 	}
 
 	public static void setEnd(JPanel jp) {
@@ -343,39 +338,39 @@ public class CutterMain extends CutterConstant {
 
 			@Override
 			public void removeUpdate(DocumentEvent de) {
-				getIntputLen(de);
+				getIntputLen();
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent de) {
-				getIntputLen(de);
+				getIntputLen();
 			}
 
 			@Override
 			public void changedUpdate(DocumentEvent de) {
-				getIntputLen(de);
+				getIntputLen();
 			}
 
-			private void getIntputLen(DocumentEvent de) {
+			private void getIntputLen() {
 				String name = jtxf.getName();
 				String text = jtxf.getText();
-				if (KEY_SEND.equals(name)) {
+				if (NAME_LOGINFO_SEND.equals(name)) {
 					try {
 						jl_logInfo_sendLen.setText(Integer.toString(CutterHandler.getGBKLen(text)));
 					} catch (Exception e) {
 						jl_logInfo_sendLen.setText(LEN_0);
 						showMsg(e.getClass().getSimpleName(), e.getMessage());
 					}
-				} else if (KEY_FILL.equals(name)) {
+				} else if (NAME_LOGINFO_FILL.equals(name)) {
 					try {
 						jl_logInfo_fillLen.setText(Integer.toString(CutterHandler.getGBKLen(text)));
 					} catch (Exception e) {
 						jl_logInfo_fillLen.setText(LEN_0);
 						showMsg(e.getClass().getSimpleName(), e.getMessage());
 					}
-				} else if (KEY_SCUT0.equals(name) || KEY_SCUT.equals(name)) {
+				} else if (NAME_SPECSENDCUT0.equals(name) || NAME_SPECSENDCUT.equals(name)) {
 					jl_specInfo_sendLen.setText(String.format(FORMAT_MSG_TGLEN, CutterHandler.getIntegerArrayLength2String(jtf_specSendCut0.getText()), CutterHandler.getIntegerArrayLength2String(jtf_specSendCut.getText())));
-				} else if (KEY_FCUT0.equals(name) || KEY_FCUT.equals(name)) {
+				} else if (NAME_SPECFILLCUT0.equals(name) || NAME_SPECFILLCUT.equals(name)) {
 					jl_specInfo_fillLen.setText(String.format(FORMAT_MSG_TGLEN, CutterHandler.getIntegerArrayLength2String(jtf_specFillCut0.getText()), CutterHandler.getIntegerArrayLength2String(jtf_specFillCut.getText())));
 				}
 			}

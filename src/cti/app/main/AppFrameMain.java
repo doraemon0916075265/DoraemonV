@@ -72,8 +72,8 @@ public class AppFrameMain extends AppConstant {
 		jtp.addTab(APP_TAB04_TITLE, jpTab4);
 		jtp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);// 左右滾動
 
-		setAppStyle(jtp, "jtp", APP_COLOR_DEFAULT);
-		setAppStyle(jl_msg, "jl_msg", APP_COLOR_MSG);// 系統訊息
+		setAppStyle(jtp, "頁籤", APP_COLOR_DEFAULT);
+		setAppStyle(jl_msg, "系統訊息", APP_COLOR_MSG);
 	}
 
 	/*** 設定Listener ***/
@@ -103,7 +103,7 @@ public class AppFrameMain extends AppConstant {
 		}
 	}
 
-	/*** 樣式：一般 ***/
+	/*** 樣式：一般(物件,命名,顏色) ***/
 	public static void setAppStyle(JComponent jc, String name, Color fontColor) {
 		if (StringUtils.isNotBlank(name)) {
 			jc.setName(name);
@@ -112,7 +112,7 @@ public class AppFrameMain extends AppConstant {
 		jc.setForeground(fontColor);
 	}
 
-	/*** 樣式：純顯示訊息 ***/
+	/*** 樣式：純顯示訊息(物件,命名,顏色) ***/
 	public static void setAppStyle4Info(JComponent jc, String name, Color fontColor) {
 		setAppStyle(jc, name, fontColor);
 		jc.setBackground(null);
@@ -120,7 +120,7 @@ public class AppFrameMain extends AppConstant {
 		((JTextComponent) jc).setEditable(false);
 	}
 
-	/*** 樣式：一般TextArea ***/
+	/*** 樣式：一般TextArea(物件,命名,顏色,可編輯) ***/
 	public static void setAppStyle4TextArea(JComponent jc, String name, Color fontColor, boolean isEditable) {
 		setAppStyle(jc, name, fontColor);
 		((JTextComponent) jc).setEditable(isEditable);
@@ -164,7 +164,7 @@ public class AppFrameMain extends AppConstant {
 	}
 
 	/*** 雙擊複製 ***/
-	public static void dbClickOnCopy(JTextComponent jtc, String name) {
+	public static void dbClickOnCopy(JTextComponent jtc) {
 		jtc.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent me) {
@@ -192,23 +192,24 @@ public class AppFrameMain extends AppConstant {
 					me.isConsumed();
 					StringSelection data = new StringSelection(jtc.getText());
 					APP_CLIPBOARD.setContents(data, data);
-					showMsg(MSG_SUCCESS, String.format(FORMAT_MSG_COPIED, name));
+					showMsg(MSG_SUCCESS, String.format(FORMAT_MSG_COPIED, jtc.getName()));
 				}
 			}
 		});
 	}
 
 	/*** 取得檔案路徑 ***/
-	public static void btnGetPath(JButton jb, JTextField jtf, String name) {
+	public static void btnGetPath(JButton jb, JTextField jtf) {
 		jb.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				JFileChooser jfc = new JFileChooser();
 				if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					jtf.setText(jfc.getSelectedFile().toString());
-					showMsg(MSG_SUCCESS, MSG_GET, name);
+					showMsg(MSG_SUCCESS, MSG_GET + jtf.getName(), "(" + jfc.getSelectedFile().toString() + ")");
 				}
 			}
 		});
 	}
+
 }

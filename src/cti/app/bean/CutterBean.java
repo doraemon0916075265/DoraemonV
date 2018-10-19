@@ -9,9 +9,11 @@ public class CutterBean {
 	private String specSendCut;
 	private String specFillCut0;
 	private String specFillCut;
+	private String specFillName0;
+	private String specFillName;
 	private String logInfo_ID;
 	private String specInfo_note;
-	private String exportFile;
+	private String exportFilePath;
 	private boolean isAddEqual;
 	private String resultS;
 	private String resultF;
@@ -80,6 +82,22 @@ public class CutterBean {
 		this.specFillCut = specFillCut;
 	}
 
+	public String getSpecFillName0() {
+		return specFillName0;
+	}
+
+	public void setSpecFillName0(String specFillName0) {
+		this.specFillName0 = specFillName0;
+	}
+
+	public String getSpecFillName() {
+		return specFillName;
+	}
+
+	public void setSpecFillName(String specFillName) {
+		this.specFillName = specFillName;
+	}
+
 	public String getLogInfo_ID() {
 		return logInfo_ID;
 	}
@@ -96,12 +114,12 @@ public class CutterBean {
 		this.specInfo_note = specInfo_note;
 	}
 
-	public String getExportFile() {
-		return exportFile;
+	public String getExportFilePath() {
+		return exportFilePath;
 	}
 
-	public void setExportFile(String exportFile) {
-		this.exportFile = exportFile;
+	public void setExportFilePath(String exportFilePath) {
+		this.exportFilePath = exportFilePath;
 	}
 
 	public boolean isAddEqual() {

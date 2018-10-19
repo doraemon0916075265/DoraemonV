@@ -1,8 +1,8 @@
-package cti.app.controller;
+package cti.app.view;
 
 import cti.app.main.AppFrameMain;
 
-public class AppFrame extends AppFrameMain {
+public class AppView extends AppFrameMain {
 
 	public static void executeApp() {
 		setFrameBegin();

@@ -120,12 +120,12 @@ public class FindFileMain extends FindFileConstant {
 	}
 
 	public static void setComponent(JPanel jp) {
-		setAppStyle(jl_searchPath, "jl_searchPath", APP_COLOR_DEFAULT);
+		setAppStyle(jl_searchPath, "欲查路徑", APP_COLOR_DEFAULT);
 		setAppStyle(jb_resetData, "jb_resetData", APP_COLOR_DEFAULT);
 
 		setAppStyle(jl_searchCondition, "jl_searchCondition", APP_COLOR_SEARCH_CRITERIA);
 
-		setAppStyle(jl_byText, "jl_byText", APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jl_byText, "by字串", APP_COLOR_SEARCH_CRITERIA);
 		setAppStyle(jb_clearData, "jb_clearData", APP_COLOR_DEFAULT);
 
 		setAppStyle(jl_byFilenameExtension, "jl_byFilenameExtension", APP_COLOR_SEARCH_CRITERIA);
@@ -143,7 +143,7 @@ public class FindFileMain extends FindFileConstant {
 		setAppStyle(jl_byModify_lessThan, "jl_byModify_lessThan", APP_COLOR_SEARCH_CRITERIA);
 		setAppStyle(jxdp_byModify_lessThan, "jxdp_byModify_lessThan", APP_COLOR_SEARCH_CRITERIA);
 
-		setAppStyle4TextArea(jta_result, "jta_result", APP_COLOR_DEFAULT, false);
+		setAppStyle4TextArea(jta_result, "結果", APP_COLOR_DEFAULT, false);
 	}
 
 	public static void setListener(JPanel jp) {
@@ -206,9 +206,9 @@ public class FindFileMain extends FindFileConstant {
 			}
 		});
 
-		dbClickOnCopy(jtf_searchPath, "欲查路徑");
-		dbClickOnCopy(jtf_byText, "字串");
-		dbClickOnCopy(jta_result, "結果");
+		dbClickOnCopy(jtf_searchPath);
+		dbClickOnCopy(jtf_byText);
+		dbClickOnCopy(jta_result);
 	}
 
 	public static void setEnd(JPanel jp) {
@@ -230,7 +230,7 @@ public class FindFileMain extends FindFileConstant {
 	}
 
 	private static void doInitial() {
-		jtf_searchPath.setText(AppHandler.getDesktopRootPath());
+//		jtf_searchPath.setText(AppHandler.getDesktopRootPath());
 		jtf_searchPath.setText(AppHandler.getDesktopRootPath() + "\\test");
 
 		jtf_byText.setText("");

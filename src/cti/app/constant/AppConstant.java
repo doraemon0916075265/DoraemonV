@@ -86,7 +86,6 @@ public class AppConstant {
 	public static final String DIRECTORYNAME_USERS = "USERS";
 	public static final String DIRECTORYNAME_DESKTOP = "DESKTOP";
 	public static final String DIRECTORYNAME_REGEXP_NT = "NT[\\d]+";
-	public static final String KEY_TARGET_PATH = "key_target_path";
 
 	// 控制位置
 	public static final int SIZE_HOR_LABEL1 = 80;// 標題項目長度

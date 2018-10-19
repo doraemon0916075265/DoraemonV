@@ -15,100 +15,28 @@ public class CutterConstant extends AppFrameMain {
 	public static final String JCB_ISADDEQUAL_1 = "一般格式";
 	public static final String JCB_ISADDEQUAL_2 = "csv格式";
 
-	/*** key - value(start) ***/
-	public static final String KEY_ROOTPATH = "rootPath";// log檔路徑
+	public static final String SPEC_ID = "id";
+	public static final String SPEC_SCUT0 = "s_cut0";
+	public static final String SPEC_SCUT = "s_cut";
+	public static final String SPEC_FCUT0 = "f_cut0";
+	public static final String SPEC_FCUT = "f_cut";
+	public static final String SPEC_FNAME0 = "f_name0";
+	public static final String SPEC_FNAME = "f_name";
+	public static final String SPEC_NOTE = "note";
 
-	public static final String KEY_JL_LOGFILEPATH = "jl_logFilePath";// log檔路徑
-	public static final String KEY_LOGFILEPATH = "logFilePath";
-	public static final String KEY_JB_LOGFILEPATH = "jb_logFilepath";
-	public static final String KEY_JB_RESETDATA = "jb_resetData";
-
-	public static final String KEY_JL_SPECFILEPATH = "jl_specFilePath";// spec檔路徑
-	public static final String KEY_SPECFILEPATH = "specFilePath";
-	public static final String KEY_JB_SPECFILEPATH = "jb_specFilepath";
-	public static final String KEY_JB_CLEARDATA = "jb_clearData";
-
-	public static final String KEY_JL_LOGINFO_SEND = "jl_logInfo_send";// 上行電文
-	public static final String KEY_SEND = "<Key>Send";// jtf_logInfo_send
-	public static final String KEY_JL_LOGINFO_SENDLEN = "jl_logInfo_sendLen";
-	public static final String KEY_JB_READFILE = "jb_readFile";
-
-	public static final String KEY_JL_LOGINFO_FILL = "jl_logInfo_fill";// 下行電文
-	public static final String KEY_FILL = "<Key>Fill";// jtf_logInfo_fill
-	public static final String KEY_JL_LOGINFO_FILLLEN = "jl_logInfo_fillLen";
-	public static final String KEY_JB_ANALYSIS = "jb_analysis";
-
-	public static final String KEY_JL_SPECINFO_SEND = "jl_logInfo_fill";// 上行電文陣列
-	public static final String KEY_SCUT0 = "s_cut0";// jtf_specSendCut0
-	public static final String KEY_SCUT = "s_cut";// jtf_specSendCut
-	public static final String KEY_JL_SPECINFO_SENDLEN = "jl_specInfo_sendLen";
-
-	public static final String KEY_JL_SPECINFO_FILL = "jl_specInfo_fill";// 下行電文陣列
-	public static final String KEY_FCUT0 = "f_cut0";// jtf_specFillCut0
-	public static final String KEY_FCUT = "f_cut";// jtf_specFillCut
-	public static final String KEY_JL_SPECINFO_FILLLEN = "jl_specInfo_fillLen";
-
-	public static final String KEY_JL_LOGINFO_ID = "jl_logInfo_ID";// 電文ID/資訊
-	public static final String KEY_ID = "id";// jtf_logInfo_ID
-	public static final String KEY_NOTE = "note";// jtf_specInfo_note
-	public static final String KEY_JB_GUIDEBOOK = "jb_guideBook";
-
-	public static final String KEY_JL_EXPORTFILE = "jl_exportFile";
-	public static final String KEY_EXPORTFILEPATH = "jtf_exportFile";
-	public static final String KEY_JB_EXPORTFILE = "jb_exportFile";
-
-	public static final String KEY_ISADDEQUAL = "jcb_isAddEqual";
-
-	public static final String KEY_RESULTS = "jta_resultS";
-	public static final String KEY_RESULTF = "jta_resultF";
-
-	public static final String T_TITLE = "<標題>";
-	public static final String T_BUTTON = "<按鈕>";
-	public static final String T_LENGTH = "<長度>";
-	//////////////////////////////////////////////////////////////////////
-	public static final String VALUE_JL_LOGFILEPATH = T_TITLE + JL_LOGFILEPATH;
-	public static final String VALUE_LOGFILEPATH = "log檔路徑";
-	public static final String VALUE_JB_LOGFILEPATH = T_BUTTON + "找log檔案";
-	public static final String VALUE_JB_RESETDATA = T_BUTTON + BTN_RESETDATA;
-
-	public static final String VALUE_JL_SPECFILEPATH = T_TITLE + JL_SPECFILEPATH;// spec檔路徑
-	public static final String VALUE_SPECFILEPATH = "spec檔路徑";
-	public static final String VALUE_JB_SPECFILEPATH = T_BUTTON + "找spec檔案";
-	public static final String VALUE_JB_CLEARDATA = T_BUTTON + BTN_CLEARDATA;
-
-	public static final String VALUE_JL_LOGINFO_SEND = T_TITLE + JL_LOGINFO_SEND;// 上行電文
-	public static final String VALUE_SEND = "上行電文";
-	public static final String VALUE_JL_LOGINFO_SENDLEN = T_LENGTH + JL_LOGINFO_SEND;
-	public static final String VALUE_JB_READFILE = T_BUTTON + BTN_READFILE;
-
-	public static final String VALUE_JL_LOGINFO_FILL = T_TITLE + JL_LOGINFO_FILL;// 下行電文
-	public static final String VALUE_FILL = "下行電文";
-	public static final String VALUE_JL_LOGINFO_FILLLEN = T_LENGTH + JL_LOGINFO_FILL;
-	public static final String VALUE_JB_ANALYSIS = T_BUTTON + BTN_ANALYSIS;
-
-	public static final String VALUE_JL_SPECINFO_SEND = T_TITLE + JL_SPECINFO_SEND;// 上行電文陣列
-	public static final String VALUE_SCUT0 = "上行電文陣列(頭)";
-	public static final String VALUE_SCUT = "上行電文陣列(主要)";
-	public static final String VALUE_JL_SPECINFO_SENDLEN = T_LENGTH + JL_SPECINFO_SEND;
-
-	public static final String VALUE_JL_SPECINFO_FILL = T_TITLE + JL_SPECINFO_FILL;// 下行電文陣列
-	public static final String VALUE_FCUT0 = "下行電文陣列(頭)";
-	public static final String VALUE_FCUT = "下行電文陣列(主要)";
-	public static final String VALUE_JL_SPECINFO_FILLLEN = T_LENGTH + JL_SPECINFO_FILL;
-
-	public static final String VALUE_JL_LOGINFO_ID = T_TITLE + JL_LOGINFO_ID;// 電文ID/資訊
-	public static final String VALUE_ID = "電文ID";
-	public static final String VALUE_NOTE = "備註";
-	public static final String VALUE_JB_GUIDEBOOK = T_BUTTON + BTN_GUIDEBOOK;
-
-	public static final String VALUE_JL_EXPORTFILE = T_TITLE + BTN_EXPORTFILE;
-	public static final String VALUE_EXPORTFILEPATH = "匯出檔案路徑";
-	public static final String VALUE_JB_EXPORTFILE = T_BUTTON + BTN_EXPORTFILE;
-
-	public static final String VALUE_RESULTS = "切上行電文結果";
-	public static final String VALUE_RESULTF = "切下行電文結果";
-
-	/*** key - value(end) ***/
+	public static final String NAME_LOGFILEPATH = "log檔路徑";
+	public static final String NAME_SPECFILEPATH = "spec檔路徑";
+	public static final String NAME_LOGINFO_SEND = "log檔的上行電文";
+	public static final String NAME_LOGINFO_FILL = "log檔的下行電文";
+	public static final String NAME_SPECSENDCUT0 = "spec檔的上行電文(頭)";
+	public static final String NAME_SPECSENDCUT = "spec檔的上行電文(身)";
+	public static final String NAME_SPECFILLCUT0 = "spec檔的下行電文(頭)";
+	public static final String NAME_SPECFILLCUT = "spec檔的下行電文(身)";
+	public static final String NAME_LOGINFO_ID = "電文ID";
+	public static final String NAME_SPECINFO_NOTE = "電文資訊";
+	public static final String NAME_EXPORTFILEPATH = "匯出檔案路徑";
+	public static final String NAME_RESULTS = "切上行結果區";
+	public static final String NAME_RESULTF = "切下行結果區";
 
 	// 正規表示法
 	public static final String PARAM_TGID = "電文ID:";

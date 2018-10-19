@@ -132,6 +132,7 @@ public class FindFileHandler extends FindFileConstant {
 							if (StringUtils.isBlank(line)) {
 								continue;
 							}
+							// System.out.println(filePath + "," + line);
 							if (line.matches(AppHandler.getFuzzySearchRegexpString(byText, true))) {
 								isRunning = true;
 								break;

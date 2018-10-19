@@ -3,11 +3,9 @@ package cti.app.handler;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
@@ -23,34 +21,34 @@ public class CutterHandler extends CutterMain {
 
 	/*** 第一次開啟視窗，初始化欄位 ***/
 	public static void doInitial() {
+		getAllProperties();
 		String path_desktop = AppHandler.getDesktopRootPath();// 取得桌面根目錄
-		if (StringUtils.isNotBlank(path_desktop)) {
-			cb.setExportFile(path_desktop + File.separator + FILENAME_RESULT);
-		} else {
-			cb.setExportFile("");
-		}
+		cb.setLogFilePath("");
+		cb.setSpecFilePath("");
+		cb.setResultS("");
+		cb.setResultF("");
+		cb.setExportFilePath(path_desktop + File.separator + FILENAME_RESULT);
 		cb.setAddEqual(true);
-		findLogSpec(path_desktop);
-
+		findLogSpecFilepath(path_desktop);
 		setAllProperties();
 	}
 
 	/*** 找log.txt&spec.json ***/
-	private static void findLogSpec(String filePath) {
+	private static void findLogSpecFilepath(String path) {
 		try {
 			if (StringUtils.isBlank(cb.getLogFilePath()) || StringUtils.isBlank(cb.getSpecFilePath())) {
-				File file = new File(filePath);
+				File file = new File(path);
 				if (file.isDirectory()) {
 					for (String fileName : file.list()) {
-						findLogSpec(filePath + File.separator + fileName);
+						findLogSpecFilepath(path + File.separator + fileName);
 					}
 				} else {
 					String fileNameU = file.getName().toUpperCase();
 					if (FILENAME_LOG.equals(fileNameU)) {
-						cb.setLogFilePath(filePath);
+						cb.setLogFilePath(path);
 					}
 					if (FILENAME_SPEC.equals(fileNameU)) {
-						cb.setSpecFilePath(filePath);
+						cb.setSpecFilePath(path);
 					}
 				}
 			}
@@ -59,18 +57,15 @@ public class CutterHandler extends CutterMain {
 		}
 	}
 
-	/*** 重設欄位 ***/
+	/*** 重設 ***/
 	public static void resetData() {
 		clearData();
-		cb.setLogFilePath("");
-		cb.setSpecFilePath("");
-		cb.setResultS("");
-		cb.setResultF("");
 		doInitial();
 	}
 
-	/*** 清除欄位 ***/
+	/*** 清除 ***/
 	public static void clearData() {
+		getAllProperties();
 		cb.setLogInfo_send("");
 		cb.setLogInfo_fill("");
 		cb.setSpecSendCut0("");
@@ -82,61 +77,14 @@ public class CutterHandler extends CutterMain {
 		setAllProperties();
 	}
 
-	/*** 切電文 ***/
-	public static void analysis() throws Exception {
-		getAllProperties();
-		valid4Analysis();
-
-		cb.setResultS(cutterPro(cb.getLogInfo_send(), new JSONArray(cb.getSpecSendCut0()), new JSONArray(cb.getSpecSendCut())));
-		cb.setResultF(cutterPro(cb.getLogInfo_fill(), new JSONArray(cb.getSpecFillCut0()), new JSONArray(cb.getSpecFillCut())));
-
-		setAllProperties();
-	}
-
-	private static String cutterPro(String text, JSONArray arr_cut0, JSONArray arr_cut) throws UnsupportedEncodingException {
-		int cutIndex = 0;
-		StringBuffer sb = new StringBuffer();
-		int gbkLen = getGBKLen(text);
-		for (int i = 0; i < arr_cut0.length(); i++) {
-			Integer cutSize = Integer.parseInt(arr_cut0.get(i).toString());
-			String row;
-			if (cb.isAddEqual()) {
-				row = SIGN_EQUAL + SIGN_DOUBLEQUOTES;
-			} else {
-				row = SIGN_DOUBLEQUOTES;
-			}
-			row += text.substring(subStrLen(text, cutIndex), subStrLen(text, cutIndex += cutSize)) + SIGN_DOUBLEQUOTES;
-			row = (i < arr_cut0.length() - 1) ? row += SIGN_COMMA : row;
-			sb.append(row);
-			gbkLen -= cutSize;
-		}
-		while (gbkLen > arr_cut.length()) {
-			sb.append(System.lineSeparator());
-			for (int i = 0; i < arr_cut.length(); i++) {
-				Integer cutSize = Integer.parseInt(arr_cut.get(i).toString());
-				String row;
-				if (cb.isAddEqual()) {
-					row = SIGN_EQUAL + SIGN_DOUBLEQUOTES;
-				} else {
-					row = SIGN_DOUBLEQUOTES;
-				}
-				row += text.substring(subStrLen(text, cutIndex), subStrLen(text, cutIndex += cutSize)) + SIGN_DOUBLEQUOTES;
-				row = (i < arr_cut.length() - 1) ? row += SIGN_COMMA : row;
-				sb.append(row);
-				gbkLen -= cutSize;
-			}
-		}
-		return sb.toString();
-	}
-
 	/*** 讀檔 ***/
 	public static void readFile() throws Exception {
+		clearData();
 		getAllProperties();
+		valid4ReadFile();
+
 		String pathLog = cb.getLogFilePath();
 		String pathSpec = cb.getSpecFilePath();
-		if (StringUtils.isBlank(pathLog) || StringUtils.isBlank(pathSpec)) {
-			throw new FileNotFoundException(ERRMSG_HASBLANK);
-		}
 		String encodeLog = AppHandler.getFileEncoding(pathLog);
 		String encodeSpec = AppHandler.getFileEncoding(pathSpec);
 
@@ -194,16 +142,26 @@ public class CutterHandler extends CutterMain {
 			try {
 				JSONArray jsonArr = new JSONObject(lineSpec).getJSONArray("Spec");
 				for (int i = 0; i < jsonArr.length(); i++) {
-					if (getJsonValue(jsonArr.get(i), KEY_ID).equals(cb.getLogInfo_ID())) {
+					if (getJsonValue(jsonArr.get(i), SPEC_ID).equals(cb.getLogInfo_ID())) {
 						JSONObject jsonObj = new JSONObject(jsonArr.get(i).toString());
 						// 必要欄位，不塞try-catch
-						cb.setSpecSendCut0(jsonObj.get(KEY_SCUT0).toString());
-						cb.setSpecSendCut(jsonObj.get(KEY_SCUT).toString());
-						cb.setSpecFillCut0(jsonObj.get(KEY_FCUT0).toString());
-						cb.setSpecFillCut(jsonObj.get(KEY_FCUT).toString());
+						cb.setSpecSendCut0(jsonObj.get(SPEC_SCUT0).toString());
+						cb.setSpecSendCut(jsonObj.get(SPEC_SCUT).toString());
+						cb.setSpecFillCut0(jsonObj.get(SPEC_FCUT0).toString());
+						cb.setSpecFillCut(jsonObj.get(SPEC_FCUT).toString());
 						// 非必要欄位，塞try-catch
 						try {
-							cb.setSpecInfo_note(jsonObj.get(KEY_NOTE).toString());
+							cb.setSpecFillName0(jsonObj.get(SPEC_FNAME0).toString());
+						} catch (Exception e) {
+							cb.setSpecFillName0("");
+						}
+						try {
+							cb.setSpecFillName(jsonObj.get(SPEC_FNAME).toString());
+						} catch (Exception e) {
+							cb.setSpecFillName("");
+						}
+						try {
+							cb.setSpecInfo_note(jsonObj.get(SPEC_NOTE).toString());
 						} catch (Exception e) {
 							cb.setSpecInfo_note("");
 						}
@@ -212,7 +170,7 @@ public class CutterHandler extends CutterMain {
 					}
 				}
 				if (!isFoundId) {
-					throw new Exception("spec檔無" + VALUE_ID + "對應");
+					throw new Exception("spec檔無" + jtf_logInfo_ID.getName() + "對應");
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -223,23 +181,95 @@ public class CutterHandler extends CutterMain {
 		setAllProperties();
 	}
 
-	/*** 匯出檔案 ***/
-	public static void exportFile(Map<String, String> m) throws Exception {
-		if (StringUtils.isBlank(m.get(KEY_EXPORTFILEPATH))) {
-			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_EXPORTFILEPATH, ERRMSG_ISBLANK));
-		} else if (StringUtils.isBlank(m.get(KEY_RESULTS))) {
-			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_RESULTS, ERRMSG_ISBLANK));
-		} else if (StringUtils.isBlank(m.get(KEY_RESULTF))) {
-			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_RESULTF, ERRMSG_ISBLANK));
+	/*** 解析 ***/
+	public static void analysis() throws Exception {
+		getAllProperties();
+		valid4Analysis();
+		cb.setResultS(cutterPro(cb.getLogInfo_send(), new JSONArray(cb.getSpecSendCut0()), new JSONArray(cb.getSpecSendCut())));
+		cb.setResultF(cutterPro(cb.getLogInfo_fill(), new JSONArray(cb.getSpecFillCut0()), new JSONArray(cb.getSpecFillCut())));
+		setAllProperties();
+	}
+
+	private static String cutterPro(String text, JSONArray arr_cut0, JSONArray arr_cut) throws UnsupportedEncodingException {
+		int cutIndex = 0;
+		StringBuffer sb = new StringBuffer();
+		int gbkLen = getGBKLen(text);
+		for (int i = 0; i < arr_cut0.length(); i++) {
+			Integer cutSize = Integer.parseInt(arr_cut0.get(i).toString());
+			String row;
+			if (cb.isAddEqual()) {
+				row = SIGN_EQUAL + SIGN_DOUBLEQUOTES;
+			} else {
+				row = SIGN_DOUBLEQUOTES;
+			}
+			row += text.substring(subStrLen(text, cutIndex), subStrLen(text, cutIndex += cutSize)) + SIGN_DOUBLEQUOTES;
+			row = (i < arr_cut0.length() - 1) ? row += SIGN_COMMA : row;
+			sb.append(row);
+			gbkLen -= cutSize;
 		}
-		String path = m.get(KEY_EXPORTFILEPATH);
+		while (gbkLen > arr_cut.length()) {
+			sb.append(System.lineSeparator());
+			for (int i = 0; i < arr_cut.length(); i++) {
+				Integer cutSize = Integer.parseInt(arr_cut.get(i).toString());
+				String row;
+				if (cb.isAddEqual()) {
+					row = SIGN_EQUAL + SIGN_DOUBLEQUOTES;
+				} else {
+					row = SIGN_DOUBLEQUOTES;
+				}
+				row += text.substring(subStrLen(text, cutIndex), subStrLen(text, cutIndex += cutSize)) + SIGN_DOUBLEQUOTES;
+				row = (i < arr_cut.length() - 1) ? row += SIGN_COMMA : row;
+				sb.append(row);
+				gbkLen -= cutSize;
+			}
+		}
+		return sb.toString();
+	}
+
+	private static void valid4ReadFile() throws Exception {
+		if (StringUtils.isBlank(cb.getLogFilePath())) {
+			throw new Exception(jtf_logFilePath.getName() + ERRMSG_ISBLANK);
+		} else if (StringUtils.isBlank(cb.getSpecFilePath())) {
+			throw new Exception(jtf_specFilePath.getName() + ERRMSG_ISBLANK);
+		}
+	}
+
+	private static void valid4ReadFileLog() throws Exception {
+		String msg = "log檔無";
+		if (StringUtils.isBlank(cb.getLogInfo_ID())) {
+			throw new Exception(msg + jtf_logInfo_ID.getName());
+		} else if (StringUtils.isBlank(cb.getLogInfo_send())) {
+			throw new Exception(msg + jtf_logInfo_send.getName());
+		} else if (StringUtils.isBlank(cb.getLogInfo_fill())) {
+			throw new Exception(msg + jtf_logInfo_fill.getName());
+		}
+	}
+
+	private static void valid4ReadFileSpec() throws Exception {
+		String msg = "spec檔無";
+		if (StringUtils.isBlank(cb.getSpecSendCut0())) {
+			throw new Exception(msg + jtf_specSendCut0.getName());
+		} else if (StringUtils.isBlank(cb.getSpecSendCut())) {
+			throw new Exception(msg + jtf_specSendCut.getName());
+		} else if (StringUtils.isBlank(cb.getSpecFillCut0())) {
+			throw new Exception(msg + jtf_specFillCut0.getName());
+		} else if (StringUtils.isBlank(cb.getSpecFillCut())) {
+			throw new Exception(msg + jtf_specFillCut.getName());
+		}
+	}
+
+	/*** 匯出檔案 ***/
+	public static void exportFile() throws Exception {
+		getAllProperties();
+		valid4ExportFile();
+
 		File f;
 		File fp;
 		try {
-			f = new File(path);
+			f = new File(cb.getExportFilePath());
 			fp = new File(f.getParent());
 		} catch (Exception e) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_EXPORTFILEPATH, ERRMSG_FORMAT));
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_exportFilePath.getName(), ERRMSG_FORMAT));
 		}
 		boolean isValidPath = false;
 		// 判斷副檔名
@@ -254,16 +284,16 @@ public class CutterHandler extends CutterMain {
 				fp.mkdirs();
 			}
 		} else {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_EXPORTFILEPATH, ERRMSG_FORMAT));
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_exportFilePath.getName(), ERRMSG_FORMAT));
 		}
 
 		try (FileWriter fw = new FileWriter(f.getAbsolutePath())) {
 			fw.write(new String(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF }));
-			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, VALUE_RESULTS));
-			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, m.get(KEY_RESULTS)));
+			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, jta_resultS.getName()));
+			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, cb.getResultS()));
 			fw.write(System.lineSeparator());
-			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, VALUE_RESULTF));
-			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, m.get(KEY_RESULTF)));
+			fw.write(String.format(FORMAT_EXPORTFILE_SUBTITLE, jta_resultF.getName()));
+			fw.write(String.format(FORMAT_EXPORTFILE_CONTENT, cb.getResultF()));
 			fw.flush();
 		} catch (Exception e) {
 			throw new Exception();
@@ -327,90 +357,7 @@ public class CutterHandler extends CutterMain {
 		}
 	}
 
-	private static void valid4Analysis() throws Exception {
-		if (StringUtils.isBlank(cb.getLogInfo_send())) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_SEND, ERRMSG_ISBLANK));
-		} else if (StringUtils.isBlank(cb.getLogInfo_fill())) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_FILL, ERRMSG_ISBLANK));
-		} else if (StringUtils.isBlank(cb.getSpecSendCut0())) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_SCUT0, ERRMSG_ISBLANK));
-		} else if (StringUtils.isBlank(cb.getSpecSendCut())) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_SCUT, ERRMSG_ISBLANK));
-		} else if (StringUtils.isBlank(cb.getSpecFillCut0())) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_FCUT0, ERRMSG_ISBLANK));
-		} else if (StringUtils.isBlank(cb.getSpecFillCut())) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_FCUT, ERRMSG_ISBLANK));
-		}
-
-		JSONArray ja_sCut0;
-		JSONArray ja_sCut;
-		JSONArray ja_fCut0;
-		JSONArray ja_fCut;
-
-		try {
-			ja_sCut0 = new JSONArray(cb.getSpecSendCut0());
-			if (ja_sCut0.isEmpty()) {
-				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_SCUT0, ERRMSG_ARRAYISEMPTY));
-			}
-		} catch (JSONException e) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_SCUT0, ERRMSG_FORMAT));
-		}
-		cb.setSpecSendCut0(ja_sCut0.toString());
-
-		try {
-			ja_sCut = new JSONArray(cb.getSpecSendCut());
-			if (ja_sCut.isEmpty()) {
-				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_SCUT, ERRMSG_ARRAYISEMPTY));
-			}
-		} catch (JSONException e) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_SCUT, ERRMSG_FORMAT));
-		}
-		cb.setSpecSendCut(ja_sCut.toString());
-
-		try {
-			ja_fCut0 = new JSONArray(cb.getSpecFillCut0());
-			if (ja_fCut0.isEmpty()) {
-				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_FCUT0, ERRMSG_ARRAYISEMPTY));
-			}
-		} catch (JSONException e) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_FCUT0, ERRMSG_FORMAT));
-		}
-		cb.setSpecFillCut0(ja_fCut0.toString());
-
-		try {
-			ja_fCut = new JSONArray(cb.getSpecFillCut());
-			if (ja_fCut.isEmpty()) {
-				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_FCUT, ERRMSG_ARRAYISEMPTY));
-			}
-		} catch (JSONException e) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, VALUE_FCUT, ERRMSG_FORMAT));
-		}
-		cb.setSpecFillCut(ja_fCut.toString());
-	}
-
-	private static void valid4ReadFileLog() throws Exception {
-		if (StringUtils.isBlank(cb.getLogInfo_ID())) {
-			throw new Exception("log檔無" + VALUE_ID);
-		} else if (StringUtils.isBlank(cb.getLogInfo_send())) {
-			throw new Exception("log檔無" + VALUE_SEND);
-		} else if (StringUtils.isBlank(cb.getLogInfo_fill())) {
-			throw new Exception("log檔無" + VALUE_FILL);
-		}
-	}
-
-	private static void valid4ReadFileSpec() throws Exception {
-		if (StringUtils.isBlank(cb.getSpecSendCut0())) {
-			throw new Exception("spec檔無" + VALUE_SCUT0);
-		} else if (StringUtils.isBlank(cb.getSpecSendCut())) {
-			throw new Exception("spec檔無" + VALUE_SCUT);
-		} else if (StringUtils.isBlank(cb.getSpecFillCut0())) {
-			throw new Exception("spec檔無" + VALUE_FCUT0);
-		} else if (StringUtils.isBlank(cb.getSpecFillCut())) {
-			throw new Exception("spec檔無" + VALUE_FCUT);
-		}
-	}
-
-	/*** 取得所有值 ***/
+	/*** 取得所有欄位值裝在bean ***/
 	private static void getAllProperties() {
 		cb.setLogFilePath(jtf_logFilePath.getText());
 		cb.setSpecFilePath(jtf_specFilePath.getText());
@@ -422,13 +369,13 @@ public class CutterHandler extends CutterMain {
 		cb.setSpecFillCut(jtf_specFillCut.getText());
 		cb.setLogInfo_ID(jtf_logInfo_ID.getText());
 		cb.setSpecInfo_note(jtf_specInfo_note.getText());
-		cb.setExportFile(jtf_exportFile.getText());
+		cb.setExportFilePath(jtf_exportFilePath.getText());
 		cb.setAddEqual(jcb_isAddEqual.isSelected());
 		cb.setResultS(jta_resultS.getText());
 		cb.setResultF(jta_resultF.getText());
 	}
 
-	/*** 設定所有值 ***/
+	/*** 從bean中取出所有欄位值 ***/
 	private static void setAllProperties() {
 		jtf_logFilePath.setText(cb.getLogFilePath());
 		jtf_specFilePath.setText(cb.getSpecFilePath());
@@ -440,9 +387,82 @@ public class CutterHandler extends CutterMain {
 		jtf_specFillCut.setText(cb.getSpecFillCut());
 		jtf_logInfo_ID.setText(cb.getLogInfo_ID());
 		jtf_specInfo_note.setText(cb.getSpecInfo_note());
-		jtf_exportFile.setText(cb.getExportFile());
+		jtf_exportFilePath.setText(cb.getExportFilePath());
 		jcb_isAddEqual.setSelected(cb.isAddEqual());
 		jta_resultS.setText(cb.getResultS());
 		jta_resultF.setText(cb.getResultF());
+	}
+
+	/*** 欄位判斷for解析 ***/
+	private static void valid4Analysis() throws Exception {
+		if (StringUtils.isBlank(cb.getLogInfo_send())) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_logInfo_send.getName(), ERRMSG_ISBLANK));
+		} else if (StringUtils.isBlank(cb.getLogInfo_fill())) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_logInfo_fill.getName(), ERRMSG_ISBLANK));
+		} else if (StringUtils.isBlank(cb.getSpecSendCut0())) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specSendCut0.getName(), ERRMSG_ISBLANK));
+		} else if (StringUtils.isBlank(cb.getSpecSendCut())) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specSendCut.getName(), ERRMSG_ISBLANK));
+		} else if (StringUtils.isBlank(cb.getSpecFillCut0())) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specFillCut0.getName(), ERRMSG_ISBLANK));
+		} else if (StringUtils.isBlank(cb.getSpecFillCut())) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specFillCut.getName(), ERRMSG_ISBLANK));
+		}
+
+		JSONArray ja_sCut0;
+		JSONArray ja_sCut;
+		JSONArray ja_fCut0;
+		JSONArray ja_fCut;
+
+		try {
+			ja_sCut0 = new JSONArray(cb.getSpecSendCut0());
+			if (ja_sCut0.isEmpty()) {
+				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specSendCut0.getName(), ERRMSG_ARRAYISEMPTY));
+			}
+		} catch (JSONException e) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specSendCut0.getName(), ERRMSG_FORMAT));
+		}
+		cb.setSpecSendCut0(ja_sCut0.toString());
+
+		try {
+			ja_sCut = new JSONArray(cb.getSpecSendCut());
+			if (ja_sCut.isEmpty()) {
+				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specSendCut.getName(), ERRMSG_ARRAYISEMPTY));
+			}
+		} catch (JSONException e) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specSendCut.getName(), ERRMSG_FORMAT));
+		}
+		cb.setSpecSendCut(ja_sCut.toString());
+
+		try {
+			ja_fCut0 = new JSONArray(cb.getSpecFillCut0());
+			if (ja_fCut0.isEmpty()) {
+				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specFillCut0.getName(), ERRMSG_ARRAYISEMPTY));
+			}
+		} catch (JSONException e) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specFillCut0.getName(), ERRMSG_FORMAT));
+		}
+		cb.setSpecFillCut0(ja_fCut0.toString());
+
+		try {
+			ja_fCut = new JSONArray(cb.getSpecFillCut());
+			if (ja_fCut.isEmpty()) {
+				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specFillCut.getName(), ERRMSG_ARRAYISEMPTY));
+			}
+		} catch (JSONException e) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtf_specFillCut.getName(), ERRMSG_FORMAT));
+		}
+		cb.setSpecFillCut(ja_fCut.toString());
+	}
+
+	/*** 欄位判斷for匯出 ***/
+	private static void valid4ExportFile() {
+		if (StringUtils.isBlank(cb.getExportFilePath())) {
+			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, jtf_exportFilePath.getName(), ERRMSG_ISBLANK));
+		} else if (StringUtils.isBlank(cb.getResultS())) {
+			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, jta_resultS.getName(), ERRMSG_ISBLANK));
+		} else if (StringUtils.isBlank(cb.getResultF())) {
+			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, jta_resultF.getName(), ERRMSG_ISBLANK));
+		}
 	}
 }
