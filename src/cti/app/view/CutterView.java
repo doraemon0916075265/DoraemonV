@@ -21,6 +21,8 @@ import cti.app.constant.CutterConstant;
 import cti.app.handler.CutterHandler;
 
 public class CutterView extends CutterConstant {
+	private static JPanel jp = new JPanel();
+
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
 
@@ -67,7 +69,16 @@ public class CutterView extends CutterConstant {
 	protected static JTextArea jta_resultS = new JTextArea(3, 93);
 	protected static JTextArea jta_resultF = new JTextArea(12, 93);
 
-	public static void setBegin(JPanel jp) {
+	public static JPanel createView() {
+		setBegin();
+		setPosition();
+		setComponent();
+		setListener();
+		setEnd();
+		return jp;
+	}
+
+	private static void setBegin() {
 		jpSub1.setLayout(null);
 		jpSub1.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 325));
 		jpSub2.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 300));
@@ -75,7 +86,7 @@ public class CutterView extends CutterConstant {
 		// jpSub2.setBorder(new LineBorder(Color.RED));
 	}
 
-	public static void setPosition(JPanel jp) {
+	private static void setPosition() {
 		int row = 15;// 每一列
 		/*** 上半部，第一區 ***/
 		jl_logFilePath.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
@@ -165,7 +176,7 @@ public class CutterView extends CutterConstant {
 		jp.add(jpSub2);
 	}
 
-	public static void setComponent(JPanel jp) {
+	private static void setComponent() {
 		setAppStyle(jl_logFilePath, null, APP_COLOR_LOG);// log檔路徑
 		setAppStyle(jtf_logFilePath, NAME_LOGFILEPATH, APP_COLOR_DEFAULT);
 		setAppStyle(jb_logFilepath, null, APP_COLOR_DEFAULT);
@@ -211,7 +222,7 @@ public class CutterView extends CutterConstant {
 		setAppStyle4TextArea(jta_resultF, NAME_RESULTF, APP_COLOR_DEFAULT, false);
 	}
 
-	public static void setListener(JPanel jp) {
+	private static void setListener() {
 		// 清除
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
@@ -328,7 +339,7 @@ public class CutterView extends CutterConstant {
 		dbClickOnCopy(jta_resultF);
 	}
 
-	public static void setEnd(JPanel jp) {
+	private static void setEnd() {
 		CutterHandler.doInitial();
 	}
 

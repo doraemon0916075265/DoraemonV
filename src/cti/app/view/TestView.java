@@ -1,6 +1,7 @@
 package cti.app.view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
@@ -11,17 +12,28 @@ import javax.swing.border.LineBorder;
 import cti.app.constant.TestConstant;
 
 public class TestView extends TestConstant {
+	private static JPanel jp = new JPanel();
+
 	private static JTextArea jta_result = new JTextArea(10, 80);
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
 
-	public static void setBegin(JPanel jp) {
+	public static JPanel createView() {
+		setBegin();
+		setPosition();
+		setComponent();
+		setListener();
+		setEnd();
+		return jp;
 	}
 
-	public static void setPosition(JPanel jp) {
+	private static void setBegin() {
 	}
 
-	public static void setComponent(JPanel jp) {
+	private static void setPosition() {
+	}
+
+	private static void setComponent() {
 		jp.setBorder(new LineBorder(Color.RED));
 		jta_result.setBorder(new LineBorder(Color.BLUE));
 
@@ -36,11 +48,11 @@ public class TestView extends TestConstant {
 		jp.add(jpSub2);
 	}
 
-	public static void setListener(JPanel jp) {
+	private static void setListener() {
 
 	}
 
-	public static void setEnd(JPanel jp) {
+	private static void setEnd() {
 
 	}
 

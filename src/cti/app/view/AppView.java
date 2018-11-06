@@ -14,7 +14,6 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
@@ -24,18 +23,10 @@ import javax.swing.text.JTextComponent;
 import org.apache.commons.lang3.StringUtils;
 
 import cti.app.constant.AppConstant;
-import cti.app.controller.CutterController;
-import cti.app.controller.FindFileController;
-import cti.app.controller.TestController;
 
 public class AppView extends AppConstant {
 	private static JFrame jf;
 	private static JTabbedPane jtp = new JTabbedPane();
-
-	private static JPanel jpTab1 = new JPanel();
-	private static JPanel jpTab2 = new JPanel();
-	private static JPanel jpTab3 = new JPanel();
-	private static JPanel jpTab4 = new JPanel();
 
 	private static JLabel jl_msg = new JLabel();// 系統訊息
 
@@ -52,7 +43,7 @@ public class AppView extends AppConstant {
 	}
 
 	/*** 視窗初始設定 ***/
-	public static void setFrameBegin() {
+	private static void setFrameBegin() {
 		jf = new JFrame(APP_FRAME_TITLE);
 		jf.setLocale(JComponent.getDefaultLocale());
 		jf.setSize(APP_FRAME_WIDTH, APP_FRAME_HEIGHT);// 視窗大小
@@ -64,20 +55,17 @@ public class AppView extends AppConstant {
 	}
 
 	/*** 設定位置 ***/
-	public static void setFramePosition() {
+	private static void setFramePosition() {
 		jf.add(jl_msg, BorderLayout.SOUTH);
 	}
 
 	/*** 設定元件 ***/
-	public static void setFrameComponent() {
-		CutterController.setJPanel(jpTab1);
-		FindFileController.setJPanel(jpTab2);
-		TestController.setJPanel(jpTab3);
-
-		jtp.addTab(APP_TAB_NAME[0], jpTab1);
-		jtp.addTab(APP_TAB_NAME[1], jpTab2);
-		jtp.addTab(APP_TAB_NAME[2], jpTab3);
-		jtp.addTab(APP_TAB_NAME[3], jpTab4);
+	private static void setFrameComponent() {
+		jtp.addTab(APP_TAB_NAME[0], CutterView.createView());
+		jtp.addTab(APP_TAB_NAME[1], FindFileView.createView());
+		jtp.addTab(APP_TAB_NAME[2], TestView.createView());
+		jtp.addTab(APP_TAB_NAME[3], null);
+		jtp.addTab(APP_TAB_NAME[4], null);
 		jtp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);// 左右滾動
 
 		setAppStyle(jtp, "頁籤", APP_COLOR_DEFAULT);
@@ -85,7 +73,7 @@ public class AppView extends AppConstant {
 	}
 
 	/*** 設定Listener ***/
-	public static void setFrameListener() {
+	private static void setFrameListener() {
 		jtp.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent ce) {
@@ -95,7 +83,7 @@ public class AppView extends AppConstant {
 	}
 
 	/*** 視窗結尾設定 ***/
-	public static void setFrameEnd() {
+	private static void setFrameEnd() {
 		jf.add(jtp);
 		jf.setVisible(true);// 視窗顯示
 	}

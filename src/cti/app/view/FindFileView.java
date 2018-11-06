@@ -22,6 +22,8 @@ import cti.app.handler.AppHandler;
 import cti.app.handler.FindFileHandler;
 
 public class FindFileView extends FindFileConstant {
+	private static JPanel jp = new JPanel();
+
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
 
@@ -53,7 +55,16 @@ public class FindFileView extends FindFileConstant {
 
 	private static JTextArea jta_result = new JTextArea(10, 92);
 
-	public static void setBegin(JPanel jp) {
+	public static JPanel createView() {
+		setBegin();
+		setPosition();
+		setComponent();
+		setListener();
+		setEnd();
+		return jp;
+	}
+
+	public static void setBegin() {
 		jpSub1.setLayout(null);
 		jpSub1.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 415));
 		jpSub2.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 210));
@@ -61,7 +72,7 @@ public class FindFileView extends FindFileConstant {
 		// jpSub2.setBorder(new LineBorder(Color.RED));
 	}
 
-	public static void setPosition(JPanel jp) {
+	public static void setPosition() {
 		int row = 15;// 每一列
 		/*** 上半部，第一區 ***/
 		jl_searchPath.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
@@ -119,7 +130,7 @@ public class FindFileView extends FindFileConstant {
 		jp.add(jpSub2);
 	}
 
-	public static void setComponent(JPanel jp) {
+	public static void setComponent() {
 		setAppStyle(jl_searchPath, "欲查路徑", APP_COLOR_DEFAULT);
 		setAppStyle(jb_resetData, "jb_resetData", APP_COLOR_DEFAULT);
 
@@ -146,7 +157,7 @@ public class FindFileView extends FindFileConstant {
 		setAppStyle4TextArea(jta_result, "結果", APP_COLOR_DEFAULT, false);
 	}
 
-	public static void setListener(JPanel jp) {
+	public static void setListener() {
 		// 重設
 		jb_resetData.addActionListener(new ActionListener() {
 			@Override
@@ -211,7 +222,7 @@ public class FindFileView extends FindFileConstant {
 		dbClickOnCopy(jta_result);
 	}
 
-	public static void setEnd(JPanel jp) {
+	public static void setEnd() {
 		doInitial();
 	}
 
@@ -230,7 +241,7 @@ public class FindFileView extends FindFileConstant {
 	}
 
 	private static void doInitial() {
-//		jtf_searchPath.setText(AppHandler.getDesktopRootPath());
+		// jtf_searchPath.setText(AppHandler.getDesktopRootPath());
 		jtf_searchPath.setText(AppHandler.getDesktopRootPath() + "\\test");
 
 		jtf_byText.setText("");
