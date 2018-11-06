@@ -1,4 +1,4 @@
-package cti.app.main;
+package cti.app.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,7 +10,7 @@ import javax.swing.border.LineBorder;
 
 import cti.app.constant.TestConstant;
 
-public class TestMain extends TestConstant {
+public class TestView extends TestConstant {
 	private static JTextArea jta_result = new JTextArea(10, 80);
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();

@@ -2,9 +2,9 @@ package cti.app.controller;
 
 import javax.swing.JPanel;
 
-import cti.app.main.TestMain;
+import cti.app.view.TestView;
 
-public class TestController extends TestMain {
+public class TestController extends TestView {
 	public static void setJPanel(JPanel jp) {
 		setBegin(jp);
 		setPosition(jp);

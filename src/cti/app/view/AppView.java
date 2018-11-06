@@ -74,10 +74,10 @@ public class AppView extends AppConstant {
 		FindFileController.setJPanel(jpTab2);
 		TestController.setJPanel(jpTab3);
 
-		jtp.addTab(APP_TAB01_TITLE, jpTab1);
-		jtp.addTab(APP_TAB02_TITLE, jpTab2);
-		jtp.addTab(APP_TAB03_TITLE, jpTab3);
-		jtp.addTab(APP_TAB04_TITLE, jpTab4);
+		jtp.addTab(APP_TAB_NAME[0], jpTab1);
+		jtp.addTab(APP_TAB_NAME[1], jpTab2);
+		jtp.addTab(APP_TAB_NAME[2], jpTab3);
+		jtp.addTab(APP_TAB_NAME[3], jpTab4);
 		jtp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);// 左右滾動
 
 		setAppStyle(jtp, "頁籤", APP_COLOR_DEFAULT);
@@ -168,7 +168,7 @@ public class AppView extends AppConstant {
 
 	/*** 取得Tab名 ***/
 	private static String getSelectedTabName() {
-		return jtp.getSelectedIndex() >= 0 ? APP_TABS_TITLE[jtp.getSelectedIndex()] : "";
+		return jtp.getSelectedIndex() >= 0 ? APP_TAB_NAME[jtp.getSelectedIndex()] : "";
 	}
 
 	/*** 雙擊複製 ***/

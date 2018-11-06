@@ -2,9 +2,9 @@ package cti.app.controller;
 
 import javax.swing.JPanel;
 
-import cti.app.main.CutterMain;
+import cti.app.view.CutterView;
 
-public class CutterController extends CutterMain {
+public class CutterController extends CutterView {
 
 	public static void setJPanel(JPanel jp) {
 		setBegin(jp);

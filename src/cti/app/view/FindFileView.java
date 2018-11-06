@@ -1,4 +1,4 @@
-package cti.app.main;
+package cti.app.view;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -21,7 +21,7 @@ import cti.app.constant.FindFileConstant;
 import cti.app.handler.AppHandler;
 import cti.app.handler.FindFileHandler;
 
-public class FindFileMain extends FindFileConstant {
+public class FindFileView extends FindFileConstant {
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
 

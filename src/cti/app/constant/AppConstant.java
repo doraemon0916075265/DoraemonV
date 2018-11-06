@@ -16,11 +16,7 @@ import javax.swing.border.LineBorder;
 public class AppConstant {
 	// APP設定
 	public static final String APP_FRAME_TITLE = "★Hello～★";
-	public static final String APP_TAB01_TITLE = "切電文";
-	public static final String APP_TAB02_TITLE = "找檔案";
-	public static final String APP_TAB03_TITLE = "未定1";
-	public static final String APP_TAB04_TITLE = "未定2";
-	public static final String[] APP_TABS_TITLE = { APP_TAB01_TITLE, APP_TAB02_TITLE, APP_TAB03_TITLE, APP_TAB04_TITLE };
+	public final static String[] APP_TAB_NAME = { "切電文", "找檔案", "未定1", "未定2", "未定3" };
 	public static final String APP_GUIDEBOOK_TITLE = "操作說明書";
 	public static final int APP_FRAME_WIDTH = 1080;
 	public static final int APP_FRAME_HEIGHT = 720;

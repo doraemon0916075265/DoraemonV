@@ -14,9 +14,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cti.app.bean.CutterBean;
-import cti.app.main.CutterMain;
+import cti.app.view.CutterView;
 
-public class CutterHandler extends CutterMain {
+public class CutterHandler extends CutterView {
 	private static CutterBean cb = new CutterBean();
 
 	/*** 第一次開啟視窗，初始化欄位 ***/

@@ -1,4 +1,4 @@
-package cti.app.main;
+package cti.app.view;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -20,7 +20,7 @@ import javax.swing.plaf.FontUIResource;
 import cti.app.constant.CutterConstant;
 import cti.app.handler.CutterHandler;
 
-public class CutterMain extends CutterConstant {
+public class CutterView extends CutterConstant {
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
 
@@ -71,8 +71,8 @@ public class CutterMain extends CutterConstant {
 		jpSub1.setLayout(null);
 		jpSub1.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 325));
 		jpSub2.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 300));
-		// jpSub1.setBorder(new LineBorder(ColoR.RED));
-		// JPSUB2.SETBORDER(NEW LINEBORDER(COLOR.RED));
+		// jpSub1.setBorder(new LineBorder(Color.RED));
+		// jpSub2.setBorder(new LineBorder(Color.RED));
 	}
 
 	public static void setPosition(JPanel jp) {
