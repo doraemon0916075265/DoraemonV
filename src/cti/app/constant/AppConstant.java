@@ -69,7 +69,6 @@ public class AppConstant {
 	public static final String FORMAT_MSG = "[%s][%s %s] %s %s";
 	public static final String FORMAT_MSG_TIMER_S = "(執行%.3f秒)";
 	public static final String FORMAT_MSG_TIMER_MS = "(執行%d毫秒)";
-	public static final String FORMAT_MSG_TGLEN = "%s | %s";
 	public static final String FORMAT_MSG_EXCEPTION = "%s %s";
 	public static final String FORMAT_MSG_COPIED = "已複製 %s 至剪貼簿";
 	public static final String FORMAT_GUIDEBOOK_SUBTITLE = "☆ %s ☆" + System.lineSeparator();
@@ -122,4 +121,6 @@ public class AppConstant {
 	public static final String SIGN_DOUBLEQUOTES = "\"";
 	public static final String SIGN_EQUAL = "=";
 	public static final String SIGN_COMMA = ",";
+	
+	public static final String STR_ZERO = "0";
 }

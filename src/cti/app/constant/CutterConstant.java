@@ -56,8 +56,6 @@ public class CutterConstant extends AppView {
 	public static final String FILENAME_SPEC = "SPEC.JSON";
 	public static final String FILENAME_RESULT = "result.csv";
 
-	public static final String LEN_0 = "0";
-
 	/*** 說明書 ***/
 	public static StringBuffer getGuidebookContent() {
 		StringBuffer sb_guideBook = new StringBuffer();

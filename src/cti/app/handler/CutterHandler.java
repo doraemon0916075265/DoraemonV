@@ -14,11 +14,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cti.app.bean.CutterBean;
+import cti.app.service.AppService;
 import cti.app.view.CutterView;
 
 public class CutterHandler extends CutterView {
 	private static CutterBean cb = new CutterBean();
-
+	private static AppService as = new AppService();
+	
 	/*** 第一次開啟視窗，初始化欄位 ***/
 	public static void doInitial() {
 		getAllProperties();
@@ -193,7 +195,7 @@ public class CutterHandler extends CutterView {
 	private static String cutterPro(String text, JSONArray arr_cut0, JSONArray arr_cut) throws UnsupportedEncodingException {
 		int cutIndex = 0;
 		StringBuffer sb = new StringBuffer();
-		int gbkLen = getGBKLen(text);
+		int gbkLen = as.getGBKLen(text);
 		for (int i = 0; i < arr_cut0.length(); i++) {
 			Integer cutSize = Integer.parseInt(arr_cut0.get(i).toString());
 			String row;
@@ -321,39 +323,16 @@ public class CutterHandler extends CutterView {
 	private static int subStrLen(String str, int index) throws UnsupportedEncodingException {
 		if (str == null) {
 			return -1;
-		} else if (getGBKLen(str) >= index) {
+		} else if (as.getGBKLen(str) >= index) {
 			int i;
 			for (i = 0; i < str.length(); i++) {
-				if (getGBKLen(str.substring(0, i)) >= index) {
+				if (as.getGBKLen(str.substring(0, i)) >= index) {
 					break;
 				}
 			}
 			return i;
 		} else {
 			return -1;
-		}
-	}
-
-	// 取GBK長度
-	public static int getGBKLen(String str) throws UnsupportedEncodingException {
-		try {
-			return str.getBytes("GBK").length;
-		} catch (UnsupportedEncodingException e) {
-			throw new UnsupportedEncodingException("轉GBK長度錯誤");
-		}
-	}
-
-	// 取數字陣列和轉字串
-	public static String getIntegerArrayLength2String(String str) {
-		Integer cutSize = Integer.valueOf(0);
-		try {
-			JSONArray ja = new JSONArray(str);
-			for (Object obj : ja) {
-				cutSize += Integer.parseInt(obj.toString());
-			}
-			return cutSize.toString();
-		} catch (Exception e) {
-			return LEN_0;
 		}
 	}
 

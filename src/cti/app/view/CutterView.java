@@ -3,6 +3,7 @@ package cti.app.view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -13,15 +14,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.plaf.FontUIResource;
 
 import cti.app.constant.CutterConstant;
 import cti.app.handler.CutterHandler;
+import cti.app.service.AppService;
 
 public class CutterView extends CutterConstant {
 	private static JPanel jp = new JPanel();
+	private static AppService as = new AppService();
 
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
@@ -38,23 +39,23 @@ public class CutterView extends CutterConstant {
 
 	private static JLabel jl_logInfo_send = new JLabel(JL_LOGINFO_SEND);// 上行電文
 	protected static JTextField jtf_logInfo_send = new JTextField();
-	private static JLabel jl_logInfo_sendLen = new JLabel(LEN_0);
+	private static JLabel jl_logInfo_sendLen = new JLabel(STR_ZERO);
 	private static JButton jb_readFile = new JButton(BTN_READFILE);
 
 	private static JLabel jl_logInfo_fill = new JLabel(JL_LOGINFO_FILL);// 下行電文
 	protected static JTextField jtf_logInfo_fill = new JTextField();
-	private static JLabel jl_logInfo_fillLen = new JLabel(LEN_0);
+	private static JLabel jl_logInfo_fillLen = new JLabel(STR_ZERO);
 	private static JButton jb_analysis = new JButton(BTN_ANALYSIS);
 
 	private static JLabel jl_specInfo_send = new JLabel(JL_SPECINFO_SEND);// 上行電文陣列
 	protected static JTextField jtf_specSendCut0 = new JTextField();
 	protected static JTextField jtf_specSendCut = new JTextField();
-	private static JLabel jl_specInfo_sendLen = new JLabel(String.format(FORMAT_MSG_TGLEN, LEN_0, LEN_0));
+	private static JLabel jl_specInfo_sendLen = new JLabel(String.format(FORMAT_MSG_TGLEN, STR_ZERO, STR_ZERO));
 
 	private static JLabel jl_specInfo_fill = new JLabel(JL_SPECINFO_FILL);// 下行電文陣列
 	protected static JTextField jtf_specFillCut0 = new JTextField();
 	protected static JTextField jtf_specFillCut = new JTextField();
-	private static JLabel jl_specInfo_fillLen = new JLabel(String.format(FORMAT_MSG_TGLEN, LEN_0, LEN_0));
+	private static JLabel jl_specInfo_fillLen = new JLabel(String.format(FORMAT_MSG_TGLEN, STR_ZERO, STR_ZERO));
 
 	private static JLabel jl_logInfo_ID = new JLabel(JL_LOGINFO_ID);// 電文ID/資訊
 	protected static JTextField jtf_logInfo_ID = new JTextField();
@@ -316,12 +317,10 @@ public class CutterView extends CutterConstant {
 		btnGetPath(jb_specFilepath, jtf_specFilePath);
 
 		// 取電文長度
-		inputOnChange(jtf_logInfo_send);
-		inputOnChange(jtf_logInfo_fill);
-		inputOnChange(jtf_specSendCut0);
-		inputOnChange(jtf_specSendCut);
-		inputOnChange(jtf_specFillCut0);
-		inputOnChange(jtf_specFillCut);
+		as.getInputTextLength(jtf_logInfo_send, jl_logInfo_sendLen);
+		as.getInputTextLength(jtf_logInfo_fill, jl_logInfo_fillLen);
+		as.getInputIntegerArraySum(Arrays.asList(jtf_specSendCut0, jtf_specSendCut), jl_specInfo_sendLen);
+		as.getInputIntegerArraySum(Arrays.asList(jtf_specFillCut0, jtf_specFillCut), jl_specInfo_fillLen);
 
 		// 點擊複製
 		dbClickOnCopy(jtf_logFilePath);
@@ -341,52 +340,6 @@ public class CutterView extends CutterConstant {
 
 	private static void setEnd() {
 		CutterHandler.doInitial();
-	}
-
-	/*** 取電文長度 ***/
-	private static void inputOnChange(JTextField jtxf) {
-		jtxf.getDocument().addDocumentListener(new DocumentListener() {
-
-			@Override
-			public void removeUpdate(DocumentEvent de) {
-				getIntputLen();
-			}
-
-			@Override
-			public void insertUpdate(DocumentEvent de) {
-				getIntputLen();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent de) {
-				getIntputLen();
-			}
-
-			private void getIntputLen() {
-				String name = jtxf.getName();
-				String text = jtxf.getText();
-				if (NAME_LOGINFO_SEND.equals(name)) {
-					try {
-						jl_logInfo_sendLen.setText(Integer.toString(CutterHandler.getGBKLen(text)));
-					} catch (Exception e) {
-						jl_logInfo_sendLen.setText(LEN_0);
-						showMsg(e.getClass().getSimpleName(), e.getMessage());
-					}
-				} else if (NAME_LOGINFO_FILL.equals(name)) {
-					try {
-						jl_logInfo_fillLen.setText(Integer.toString(CutterHandler.getGBKLen(text)));
-					} catch (Exception e) {
-						jl_logInfo_fillLen.setText(LEN_0);
-						showMsg(e.getClass().getSimpleName(), e.getMessage());
-					}
-				} else if (NAME_SPECSENDCUT0.equals(name) || NAME_SPECSENDCUT.equals(name)) {
-					jl_specInfo_sendLen.setText(String.format(FORMAT_MSG_TGLEN, CutterHandler.getIntegerArrayLength2String(jtf_specSendCut0.getText()), CutterHandler.getIntegerArrayLength2String(jtf_specSendCut.getText())));
-				} else if (NAME_SPECFILLCUT0.equals(name) || NAME_SPECFILLCUT.equals(name)) {
-					jl_specInfo_fillLen.setText(String.format(FORMAT_MSG_TGLEN, CutterHandler.getIntegerArrayLength2String(jtf_specFillCut0.getText()), CutterHandler.getIntegerArrayLength2String(jtf_specFillCut.getText())));
-				}
-			}
-
-		});
 	}
 
 }
