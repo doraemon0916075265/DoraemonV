@@ -165,7 +165,7 @@ public class FindFileView extends FindFileConstant {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				resetData();
-				as.showMsg(MSG_RESETDATA);
+				showMsg(MSG_RESETDATA);
 			}
 		});
 
@@ -174,7 +174,7 @@ public class FindFileView extends FindFileConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				clearData();
-				as.showMsg(MSG_SUCCESS, MSG_CLEARDATA);
+				showMsg(MSG_SUCCESS, MSG_CLEARDATA);
 			}
 		});
 
@@ -183,7 +183,7 @@ public class FindFileView extends FindFileConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				try {
-					as.isTimerWork(true);
+					isTimerWork(true);
 					jta_result.setText("");
 					Map<String, String> m = new HashMap<>();
 					m.put(KEY_SEARCHPATH, jtf_searchPath.getText());
@@ -212,9 +212,9 @@ public class FindFileView extends FindFileConstant {
 					jtf_byFilenameExtension.setText(m.get(KEY_FILENAMEEXTENSION));
 					jtf_byFilenameExtension_Ignore.setText(m.get(KEY_FILENAMEEXTENSION_IGNORE));
 					jta_result.setText(m.get(KEY_RESULT));
-					as.showMsg(MSG_ANALYSIS);
+					showMsg(MSG_ANALYSIS);
 				} catch (Exception e) {
-					as.showMsg(e.getClass().getSimpleName(), e.getMessage());
+					showMsg(e.getClass().getSimpleName(), e.getMessage());
 				}
 			}
 		});
