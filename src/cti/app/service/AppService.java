@@ -212,7 +212,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 樣式：一般(物件,命名,顏色) ***/
-	public static void setAppStyle(JComponent jc, String name, Color fontColor) {
+	public void setAppStyle(JComponent jc, String name, Color fontColor) {
 		if (StringUtils.isNotBlank(name)) {
 			jc.setName(name);
 		}
@@ -221,7 +221,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 樣式：純顯示訊息(物件,命名,顏色) ***/
-	public static void setAppStyle4Info(JComponent jc, String name, Color fontColor) {
+	public void setAppStyle4Info(JComponent jc, String name, Color fontColor) {
 		setAppStyle(jc, name, fontColor);
 		jc.setBackground(null);
 		jc.setBorder(null);
@@ -229,7 +229,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 樣式：一般TextArea(物件,命名,顏色,可編輯) ***/
-	public static void setAppStyle4TextArea(JComponent jc, String name, Color fontColor, boolean isEditable) {
+	public void setAppStyle4TextArea(JComponent jc, String name, Color fontColor, boolean isEditable) {
 		setAppStyle(jc, name, fontColor);
 		((JTextComponent) jc).setEditable(isEditable);
 	}

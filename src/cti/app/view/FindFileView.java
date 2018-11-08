@@ -20,11 +20,11 @@ import org.jdesktop.swingx.JXDatePicker;
 import cti.app.constant.FindFileConstant;
 import cti.app.handler.AppHandler;
 import cti.app.handler.FindFileHandler;
-import cti.app.service.AppService;
+import cti.app.service.FindFileService;
 
 public class FindFileView extends FindFileConstant {
 	private static JPanel jp = new JPanel();
-	private static AppService as = new AppService();
+	private static FindFileService fs = new FindFileService();
 
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
@@ -133,30 +133,30 @@ public class FindFileView extends FindFileConstant {
 	}
 
 	public static void setComponent() {
-		setAppStyle(jl_searchPath, "欲查路徑", APP_COLOR_DEFAULT);
-		setAppStyle(jb_resetData, "jb_resetData", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jl_searchPath, "欲查路徑", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jb_resetData, "jb_resetData", APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_searchCondition, "jl_searchCondition", APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jl_searchCondition, "jl_searchCondition", APP_COLOR_SEARCH_CRITERIA);
 
-		setAppStyle(jl_byText, "by字串", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jb_clearData, "jb_clearData", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jl_byText, "by字串", APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jb_clearData, "jb_clearData", APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_byFilenameExtension, "jl_byFilenameExtension", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jtf_byFilenameExtension, "jtf_byFilenameExtension", APP_COLOR_DEFAULT);
-		setAppStyle(jb_search, "jb_search", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jl_byFilenameExtension, "jl_byFilenameExtension", APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jtf_byFilenameExtension, "jtf_byFilenameExtension", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jb_search, "jb_search", APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_byFilename, "jl_byFilename", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jtf_byFilename, "jtf_byFilename", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jl_byFilename, "jl_byFilename", APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jtf_byFilename, "jtf_byFilename", APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_byFilenameExtension_Ignore, "jl_byFilenameExtension_Ignore", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jtf_byFilenameExtension_Ignore, "jtf_byFilenameExtension_Ignore", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jl_byFilenameExtension_Ignore, "jl_byFilenameExtension_Ignore", APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jtf_byFilenameExtension_Ignore, "jtf_byFilenameExtension_Ignore", APP_COLOR_DEFAULT);
 
-		setAppStyle(jl_byModify_greaterThan, "jl_byModify_greaterThan", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jxdp_byModify_greaterThan, "jxdp_byModify_greaterThan", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jl_byModify_lessThan, "jl_byModify_lessThan", APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jxdp_byModify_lessThan, "jxdp_byModify_lessThan", APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jl_byModify_greaterThan, "jl_byModify_greaterThan", APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jxdp_byModify_greaterThan, "jxdp_byModify_greaterThan", APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jl_byModify_lessThan, "jl_byModify_lessThan", APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jxdp_byModify_lessThan, "jxdp_byModify_lessThan", APP_COLOR_SEARCH_CRITERIA);
 
-		setAppStyle4TextArea(jta_result, "結果", APP_COLOR_DEFAULT, false);
+		fs.setAppStyle4TextArea(jta_result, "結果", APP_COLOR_DEFAULT, false);
 	}
 
 	public static void setListener() {
@@ -219,9 +219,9 @@ public class FindFileView extends FindFileConstant {
 			}
 		});
 
-		as.dbClickOnCopy(jtf_searchPath);
-		as.dbClickOnCopy(jtf_byText);
-		as.dbClickOnCopy(jta_result);
+		fs.dbClickOnCopy(jtf_searchPath);
+		fs.dbClickOnCopy(jtf_byText);
+		fs.dbClickOnCopy(jta_result);
 	}
 
 	public static void setEnd() {
