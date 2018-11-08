@@ -20,9 +20,11 @@ import org.jdesktop.swingx.JXDatePicker;
 import cti.app.constant.FindFileConstant;
 import cti.app.handler.AppHandler;
 import cti.app.handler.FindFileHandler;
+import cti.app.service.AppService;
 
 public class FindFileView extends FindFileConstant {
 	private static JPanel jp = new JPanel();
+	private static AppService as = new AppService();
 
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
@@ -163,7 +165,7 @@ public class FindFileView extends FindFileConstant {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				resetData();
-				showMsg(MSG_RESETDATA);
+				as.showMsg(MSG_RESETDATA);
 			}
 		});
 
@@ -172,7 +174,7 @@ public class FindFileView extends FindFileConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				clearData();
-				showMsg(MSG_SUCCESS, MSG_CLEARDATA);
+				as.showMsg(MSG_SUCCESS, MSG_CLEARDATA);
 			}
 		});
 
@@ -181,7 +183,7 @@ public class FindFileView extends FindFileConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				try {
-					isTimerWork(true);
+					as.isTimerWork(true);
 					jta_result.setText("");
 					Map<String, String> m = new HashMap<>();
 					m.put(KEY_SEARCHPATH, jtf_searchPath.getText());
@@ -210,16 +212,16 @@ public class FindFileView extends FindFileConstant {
 					jtf_byFilenameExtension.setText(m.get(KEY_FILENAMEEXTENSION));
 					jtf_byFilenameExtension_Ignore.setText(m.get(KEY_FILENAMEEXTENSION_IGNORE));
 					jta_result.setText(m.get(KEY_RESULT));
-					showMsg(MSG_ANALYSIS);
+					as.showMsg(MSG_ANALYSIS);
 				} catch (Exception e) {
-					showMsg(e.getClass().getSimpleName(), e.getMessage());
+					as.showMsg(e.getClass().getSimpleName(), e.getMessage());
 				}
 			}
 		});
 
-		dbClickOnCopy(jtf_searchPath);
-		dbClickOnCopy(jtf_byText);
-		dbClickOnCopy(jta_result);
+		as.dbClickOnCopy(jtf_searchPath);
+		as.dbClickOnCopy(jtf_byText);
+		as.dbClickOnCopy(jta_result);
 	}
 
 	public static void setEnd() {

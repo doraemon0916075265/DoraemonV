@@ -50,12 +50,12 @@ public class CutterView extends CutterConstant {
 	private static JLabel jl_specInfo_send = new JLabel(JL_SPECINFO_SEND);// 上行電文陣列
 	protected static JTextField jtf_specSendCut0 = new JTextField();
 	protected static JTextField jtf_specSendCut = new JTextField();
-	private static JLabel jl_specInfo_sendLen = new JLabel(String.format(FORMAT_MSG_TGLEN, STR_ZERO, STR_ZERO));
+	private static JLabel jl_specInfo_sendLen = new JLabel(String.join(SIGN_VERTICAL_BAR01, STR_ZERO, STR_ZERO));
 
 	private static JLabel jl_specInfo_fill = new JLabel(JL_SPECINFO_FILL);// 下行電文陣列
 	protected static JTextField jtf_specFillCut0 = new JTextField();
 	protected static JTextField jtf_specFillCut = new JTextField();
-	private static JLabel jl_specInfo_fillLen = new JLabel(String.format(FORMAT_MSG_TGLEN, STR_ZERO, STR_ZERO));
+	private static JLabel jl_specInfo_fillLen = new JLabel(String.join(SIGN_VERTICAL_BAR01, STR_ZERO, STR_ZERO));
 
 	private static JLabel jl_logInfo_ID = new JLabel(JL_LOGINFO_ID);// 電文ID/資訊
 	protected static JTextField jtf_logInfo_ID = new JTextField();
@@ -313,8 +313,8 @@ public class CutterView extends CutterConstant {
 		});
 
 		// 取檔案路徑
-		btnGetPath(jb_logFilepath, jtf_logFilePath);
-		btnGetPath(jb_specFilepath, jtf_specFilePath);
+		as.btnGetPath(jb_logFilepath, jtf_logFilePath);
+		as.btnGetPath(jb_specFilepath, jtf_specFilePath);
 
 		// 取電文長度
 		as.getInputTextLength(jtf_logInfo_send, jl_logInfo_sendLen);
@@ -323,19 +323,19 @@ public class CutterView extends CutterConstant {
 		as.getInputIntegerArraySum(Arrays.asList(jtf_specFillCut0, jtf_specFillCut), jl_specInfo_fillLen);
 
 		// 點擊複製
-		dbClickOnCopy(jtf_logFilePath);
-		dbClickOnCopy(jtf_specFilePath);
-		dbClickOnCopy(jtf_logInfo_ID);
-		dbClickOnCopy(jtf_logInfo_send);
-		dbClickOnCopy(jtf_logInfo_fill);
-		dbClickOnCopy(jtf_specSendCut0);
-		dbClickOnCopy(jtf_specSendCut);
-		dbClickOnCopy(jtf_specFillCut0);
-		dbClickOnCopy(jtf_specFillCut);
-		dbClickOnCopy(jtf_specInfo_note);
-		dbClickOnCopy(jtf_exportFilePath);
-		dbClickOnCopy(jta_resultS);
-		dbClickOnCopy(jta_resultF);
+		as.dbClickOnCopy(jtf_logFilePath);
+		as.dbClickOnCopy(jtf_specFilePath);
+		as.dbClickOnCopy(jtf_logInfo_ID);
+		as.dbClickOnCopy(jtf_logInfo_send);
+		as.dbClickOnCopy(jtf_logInfo_fill);
+		as.dbClickOnCopy(jtf_specSendCut0);
+		as.dbClickOnCopy(jtf_specSendCut);
+		as.dbClickOnCopy(jtf_specFillCut0);
+		as.dbClickOnCopy(jtf_specFillCut);
+		as.dbClickOnCopy(jtf_specInfo_note);
+		as.dbClickOnCopy(jtf_exportFilePath);
+		as.dbClickOnCopy(jta_resultS);
+		as.dbClickOnCopy(jta_resultF);
 	}
 
 	private static void setEnd() {

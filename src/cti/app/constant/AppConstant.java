@@ -11,9 +11,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
 import javax.swing.border.LineBorder;
 
 public class AppConstant {
+	public static JLabel jl_msg = new JLabel();// 系統訊息
+	public static JTabbedPane jtp = new JTabbedPane();
+
 	// APP設定
 	public static final String APP_FRAME_TITLE = "★Hello～★";
 	public final static String[] APP_TAB_NAME = { "切電文", "找檔案", "未定1", "未定2", "未定3" };
@@ -120,7 +125,9 @@ public class AppConstant {
 	// 符號
 	public static final String SIGN_DOUBLEQUOTES = "\"";
 	public static final String SIGN_EQUAL = "=";
+	public static final String SIGN_VERTICAL_BAR = "|";
+	public static final String SIGN_VERTICAL_BAR01 = " | ";
 	public static final String SIGN_COMMA = ",";
-	
+
 	public static final String STR_ZERO = "0";
 }
