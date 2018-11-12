@@ -7,6 +7,7 @@ import java.awt.datatransfer.Clipboard;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,9 +84,12 @@ public class AppConstant {
 
 	// 檔案路徑
 	public static final String PATH_DISK_C = "C:" + File.separator;
-	public static final String DIRECTORYNAME_USERS = "USERS";
-	public static final String DIRECTORYNAME_DESKTOP = "DESKTOP";
-	public static final String DIRECTORYNAME_REGEXP_NT = "NT[\\d]+";
+
+	public static final List<String> DIRNAME_LIST01 = Arrays.asList("USERS");
+	public static final List<String> DIRNAME_LIST02 = Arrays.asList("CATHAY");
+	public static final List<String> DIRNAME_LIST03 = Arrays.asList("DESKTOP");
+
+	public static final String DIRNAME_EXP02 = "NT[\\d]+";
 
 	// 控制位置
 	public static final int SIZE_HOR_LABEL1 = 80;// 標題項目長度

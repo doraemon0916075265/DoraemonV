@@ -17,6 +17,11 @@ public class CutterBean {
 	private boolean isAddEqual;
 	private String resultS;
 	private String resultF;
+	private String hidden_cname;
+	private String hidden_sname0;
+	private String hidden_sname;
+	private String hidden_fname0;
+	private String hidden_fname;
 
 	public String getLogFilePath() {
 		return logFilePath;
@@ -144,6 +149,46 @@ public class CutterBean {
 
 	public void setResultF(String resultF) {
 		this.resultF = resultF;
+	}
+
+	public String getHidden_cname() {
+		return hidden_cname;
+	}
+
+	public void setHidden_cname(String hidden_cname) {
+		this.hidden_cname = hidden_cname;
+	}
+
+	public String getHidden_sname0() {
+		return hidden_sname0;
+	}
+
+	public void setHidden_sname0(String hidden_sname0) {
+		this.hidden_sname0 = hidden_sname0;
+	}
+
+	public String getHidden_sname() {
+		return hidden_sname;
+	}
+
+	public void setHidden_sname(String hidden_sname) {
+		this.hidden_sname = hidden_sname;
+	}
+
+	public String getHidden_fname0() {
+		return hidden_fname0;
+	}
+
+	public void setHidden_fname0(String hidden_fname0) {
+		this.hidden_fname0 = hidden_fname0;
+	}
+
+	public String getHidden_fname() {
+		return hidden_fname;
+	}
+
+	public void setHidden_fname(String hidden_fname) {
+		this.hidden_fname = hidden_fname;
 	}
 
 }

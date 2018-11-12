@@ -17,12 +17,13 @@ import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
 import cti.app.constant.CutterConstant;
+import cti.app.controller.CutterController;
 import cti.app.handler.CutterHandler;
 import cti.app.service.CutterService;
 
 public class CutterView extends CutterConstant {
 	private static JPanel jp = new JPanel();
-	private static CutterService cs = new CutterService();
+	public static CutterService cs = new CutterService();
 
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
@@ -69,6 +70,13 @@ public class CutterView extends CutterConstant {
 
 	protected static JTextArea jta_resultS = new JTextArea(3, 93);
 	protected static JTextArea jta_resultF = new JTextArea(12, 93);
+
+	// 隱藏欄位
+	protected static JLabel hidden_cname = new JLabel();
+	protected static JLabel hidden_sname0 = new JLabel();
+	protected static JLabel hidden_sname = new JLabel();
+	protected static JLabel hidden_fname0 = new JLabel();
+	protected static JLabel hidden_fname = new JLabel();
 
 	public static JPanel createView() {
 		setBegin();
@@ -228,7 +236,7 @@ public class CutterView extends CutterConstant {
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				CutterHandler.clearData();
+				CutterController.clearData();
 				showMsg(MSG_SUCCESS, MSG_CLEARDATA);
 			}
 		});
@@ -238,7 +246,7 @@ public class CutterView extends CutterConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				isTimerWork(true);
-				CutterHandler.resetData();
+				CutterController.resetData();
 				showMsg(MSG_RESETDATA);
 			}
 		});
@@ -339,7 +347,7 @@ public class CutterView extends CutterConstant {
 	}
 
 	private static void setEnd() {
-		CutterHandler.doInitial();
+		CutterController.doInitial();
 	}
 
 }

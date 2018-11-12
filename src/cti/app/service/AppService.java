@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,65 @@ public class AppService extends AppConstant {
 	private static long now;
 	private static boolean isTimerOn;
 	private static long timer;
+	private static String desktopRootPath;
+	private static String filePathByRootPath;
+
+	/*** 取得桌面根目錄 ***/
+	public String getDesktopRootPath() {
+		desktopRootPath = "";
+		findRootPath(PATH_DISK_C, false, false);
+		return StringUtils.isNotBlank(desktopRootPath) ? desktopRootPath : PATH_DISK_C;
+	}
+
+	/*** 遞迴：取得桌面根目錄錄 ***/
+	private static void findRootPath(String filePath, boolean isDir1, boolean isDir2) {
+		File file = new File(filePath);
+		try {
+			if (file.isDirectory()) {
+				for (String fileName : file.list()) {
+					String fileNameU = fileName.toUpperCase();
+					String newFilePath = file.getAbsolutePath() + File.separator + fileName;
+					if (!isDir1 && DIRNAME_LIST01.contains(fileNameU)) {
+						findRootPath(newFilePath, true, false);
+					}
+					if (isDir1 && !isDir2 && (fileNameU.matches(DIRNAME_EXP02) || DIRNAME_LIST02.contains(fileNameU))) {
+						findRootPath(newFilePath, true, true);
+					}
+					if (isDir1 && isDir2 && DIRNAME_LIST03.contains(fileNameU)) {
+						desktopRootPath = newFilePath;
+					}
+				}
+			}
+		} catch (Exception e) {
+
+		}
+	}
+
+	/*** 找目錄下的檔案路徑 ***/
+	public String findFilePathByRootPath(String path, String name) {
+		filePathByRootPath = "";
+		recursive4FilePathByRootPath(path, name);
+		return StringUtils.isBlank(filePathByRootPath) ? path : filePathByRootPath;
+	}
+
+	/*** 遞迴：找目錄下的檔案路徑 ***/
+	private static void recursive4FilePathByRootPath(String path, String name) {
+		try {
+			File file = new File(path);
+			if (file.isDirectory()) {
+				for (String fileName : file.list()) {
+					recursive4FilePathByRootPath(path + File.separator + fileName, name);
+				}
+			} else {
+				String fileNameU = file.getName().toUpperCase();
+				if (name.equals(fileNameU)) {
+					filePathByRootPath = path;
+				}
+			}
+		} catch (Exception e) {
+
+		}
+	}
 
 	/*** 雙擊複製到剪貼簿 ***/
 	public void dbClickOnCopy(JTextComponent jtc) {

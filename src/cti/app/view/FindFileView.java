@@ -243,8 +243,7 @@ public class FindFileView extends FindFileConstant {
 	}
 
 	private static void doInitial() {
-		// jtf_searchPath.setText(AppHandler.getDesktopRootPath());
-		jtf_searchPath.setText(AppHandler.getDesktopRootPath() + "\\test");
+		jtf_searchPath.setText(fs.getDesktopRootPath() + "\\test");
 
 		jtf_byText.setText("");
 

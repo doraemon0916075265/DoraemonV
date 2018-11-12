@@ -19,24 +19,23 @@ public class AppHandler extends AppConstant {
 		desktopRootPath = "";
 		findRootPath(PATH_DISK_C, false, false);
 		return StringUtils.isNotBlank(desktopRootPath) ? desktopRootPath : PATH_DISK_C;
-
 	}
 
 	/*** 找桌面根目錄 ***/
 	private static void findRootPath(String filePath, boolean isDir1, boolean isDir2) {
 		File file = new File(filePath);
 		try {
-			if (file.isDirectory()) {
+			if (file.isDirectory() && StringUtils.isNotBlank(desktopRootPath)) {
 				for (String fileName : file.list()) {
 					String fileNameU = fileName.toUpperCase();
 					String newFilePath = file.getAbsolutePath() + File.separator + fileName;
-					if (!isDir1 && DIRECTORYNAME_USERS.equals(fileNameU)) {
+					if (!isDir1 && DIRNAME_LIST01.contains(fileNameU)) {
 						findRootPath(newFilePath, true, false);
 					}
-					if (isDir1 && !isDir2 && fileNameU.matches(DIRECTORYNAME_REGEXP_NT)) {
+					if (isDir1 && !isDir2 && (fileNameU.matches(DIRNAME_EXP02) || DIRNAME_LIST02.contains(fileNameU))) {
 						findRootPath(newFilePath, true, true);
 					}
-					if (isDir1 && isDir2 && DIRECTORYNAME_DESKTOP.equals(fileNameU)) {
+					if (isDir1 && isDir2 && DIRNAME_LIST03.contains(fileNameU)) {
 						desktopRootPath = newFilePath;
 					}
 				}

@@ -20,50 +20,7 @@ import cti.app.view.CutterView;
 public class CutterHandler extends CutterView {
 	private static CutterBean cb = new CutterBean();
 	private static AppService as = new AppService();
-	
-	/*** 第一次開啟視窗，初始化欄位 ***/
-	public static void doInitial() {
-		getAllProperties();
-		String path_desktop = AppHandler.getDesktopRootPath();// 取得桌面根目錄
-		cb.setLogFilePath("");
-		cb.setSpecFilePath("");
-		cb.setResultS("");
-		cb.setResultF("");
-		cb.setExportFilePath(path_desktop + File.separator + FILENAME_RESULT);
-		cb.setAddEqual(true);
-		findLogSpecFilepath(path_desktop);
-		setAllProperties();
-	}
 
-	/*** 找log.txt&spec.json ***/
-	private static void findLogSpecFilepath(String path) {
-		try {
-			if (StringUtils.isBlank(cb.getLogFilePath()) || StringUtils.isBlank(cb.getSpecFilePath())) {
-				File file = new File(path);
-				if (file.isDirectory()) {
-					for (String fileName : file.list()) {
-						findLogSpecFilepath(path + File.separator + fileName);
-					}
-				} else {
-					String fileNameU = file.getName().toUpperCase();
-					if (FILENAME_LOG.equals(fileNameU)) {
-						cb.setLogFilePath(path);
-					}
-					if (FILENAME_SPEC.equals(fileNameU)) {
-						cb.setSpecFilePath(path);
-					}
-				}
-			}
-		} catch (Exception e) {
-
-		}
-	}
-
-	/*** 重設 ***/
-	public static void resetData() {
-		clearData();
-		doInitial();
-	}
 
 	/*** 清除 ***/
 	public static void clearData() {
