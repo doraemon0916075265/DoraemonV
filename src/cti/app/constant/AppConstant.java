@@ -6,11 +6,8 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
@@ -38,14 +35,6 @@ public class AppConstant {
 	public static final Font APP_FONT = new Font("微軟正黑體", Font.PLAIN, 12);
 	public static final Clipboard APP_CLIPBOARD = Toolkit.getDefaultToolkit().getSystemClipboard();
 
-	public static boolean app_boolean;
-	public static String app_String;
-	public static long app_long;
-	public static int app_int;
-	public static Integer app_Integer;
-	public static Map<String, String> app_Map_SS = new HashMap<>();
-	public static List<String> app_List_S = new ArrayList<>();
-
 	// 訊息
 	public static final String MSG_ = "";
 	public static final String MSG_SUCCESS = "完成";
@@ -67,9 +56,15 @@ public class AppConstant {
 	public static final String ERRMSG_NUMBERFORMAT = "轉換數字發生錯誤";
 	public static final String ERRMSG_FORMAT = "格式錯誤";
 	public static final String ERRMSG_LACKVALUE = "缺少";
-	public static final String ERRMSG_ISBLANK = "是空值";
+	public static final String ERRMSG_IS_BLANK = "是空值";
+	public static final String ERRMSG_NOT_A_FILE = "不是檔案";
+	public static final String ERRMSG_NOT_A_DIRECTORY = "不是資料夾";
+	public static final String ERRMSG_DIRECTORY_NOT_EXIST = "資料夾不存在";
+	public static final String ERRMSG_ILLEGAL_FILENAME_EXTENSION = "非法副檔名";
+	public static final String ERRMSG_FILE_NOT_EXIST = "檔案不存在";
 	public static final String ERRMSG_HASBLANK = "有空值";
-	public static final String ERRMSG_ARRAYISEMPTY = "是空陣列";
+	public static final String ERRMSG_ARRAY_IS_EMPTY = "是空陣列";
+	public static final String ERRMSG_DONOT_WRITE_FILE = "無法寫檔";
 
 	// 格式
 	public static final String FORMAT_MSG = "[%s][%s %s] %s %s";
@@ -127,8 +122,10 @@ public class AppConstant {
 	public static final String REGEXP_FORALL = ".*";
 
 	// 符號
-	public static final String SIGN_DOUBLEQUOTES = "\"";
+	public static final String SIGN_DBQUOTES = "\"";
 	public static final String SIGN_EQUAL = "=";
+	public static final String SIGN_EQUAL_DBQUOTES = "=\"";
+	public static final String SIGN_DBQUOTES_COMMA = "\",";
 	public static final String SIGN_VERTICAL_BAR = "|";
 	public static final String SIGN_VERTICAL_BAR01 = " | ";
 	public static final String SIGN_COMMA = ",";

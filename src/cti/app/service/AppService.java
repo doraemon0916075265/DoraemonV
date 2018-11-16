@@ -6,7 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +27,8 @@ import javax.swing.text.JTextComponent;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.mozilla.universalchardet.UniversalDetector;
 
 import cti.app.constant.AppConstant;
 
@@ -86,6 +93,111 @@ public class AppService extends AppConstant {
 			}
 		} catch (Exception e) {
 
+		}
+	}
+
+	/*** 驗證輸入框：為非空輸入框。 ***/
+	public void validateInput_Text(JTextComponent jtc) throws Exception {
+		if (StringUtils.isBlank(jtc.getText())) {
+			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, jtc.getName(), ERRMSG_IS_BLANK));
+		}
+	}
+
+	/*** 驗證輸入框：為非空陣列格式。 ***/
+	public void validateInput_Array(JTextComponent jtc) throws Exception {
+		validateInput_Text(jtc);
+		try {
+			if (new JSONArray(jtc.getText()).isEmpty()) {
+				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName(), ERRMSG_ARRAY_IS_EMPTY));
+			}
+		} catch (JSONException e) {
+			throw new JSONException(String.format(FORMAT_MSG_EXCEPTION, jtc.getName(), ERRMSG_FORMAT));
+		}
+	}
+
+	/*** 驗證輸入框：為合法檔案路徑格式。 ***/
+	public void validateInput_Filepath(JTextComponent jtc) throws Exception {
+		validateInput_Text(jtc);
+		String input = jtc.getText();
+		File f = new File(input);
+		if (!f.exists()) {
+			throw new FileNotFoundException(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_FILE_NOT_EXIST));
+		} else if (!f.isFile()) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_NOT_A_FILE));
+		}
+		// 預先判斷是否皆可正常讀檔
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(input), getFileEncoding(input)));) {
+
+		} catch (Exception e) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, "讀檔錯誤"));
+		}
+	}
+
+	/*** 驗證輸入框：為合法資料夾格式+合法檔名+合法副檔名。 ***/
+	public void validateInput_Directory(JTextComponent jtc, List<String> extensions) throws Exception {
+		validateInput_DirectoryPath(new JTextField(new File(jtc.getText()).getParent()));// 上一層是否為資料夾
+		validateInput_FilenameInExtensionList(jtc, extensions);
+	}
+
+	/*** 驗證輸入框：為合法資料夾格式。 ***/
+	public void validateInput_DirectoryPath(JTextComponent jtc) throws Exception {
+		validateInput_Text(jtc);
+		String input = jtc.getText();
+		File f = new File(input);
+		if (!f.exists()) {
+			throw new FileNotFoundException(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_DIRECTORY_NOT_EXIST));
+		} else if (!f.isDirectory()) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_NOT_A_DIRECTORY));
+		}
+	}
+
+	/*** 判斷輸入框：是否檔名在副檔名List中。 ***/
+	public void validateInput_FilenameInExtensionList(JTextComponent jtc, List<String> extensions) throws Exception {
+		validateInput_Text(jtc);
+		String filenameU = jtc.getText().toUpperCase();
+		// 未完成
+	}
+
+	/*** 轉換輸入框：驗證陣列轉字串 ***/
+	public String transInput_Array2String(JTextComponent jtc) throws Exception {
+		validateInput_Array(jtc);
+		return new JSONArray(jtc.getText()).toString();
+	}
+
+	/*** 匯出檔案 ***/
+	public void exportFile(String exportPath, List<String> contents) throws Exception {
+		try (FileWriter fw = new FileWriter(new File(exportPath).getAbsolutePath())) {
+			fw.write(new String(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF }));
+			for (String content : contents) {
+				fw.write(content);
+			}
+			fw.flush();
+		} catch (FileNotFoundException e) {
+			throw new FileNotFoundException(e.getMessage());
+		} catch (Exception e) {
+			throw new Exception(ERRMSG_DONOT_WRITE_FILE);
+		}
+	}
+
+	/*** 找編碼 ***/
+	public static String getFileEncoding(String filepath) {
+		try (FileInputStream fis = new FileInputStream(filepath)) {
+			/* 建立分析器 */
+			UniversalDetector detector = new UniversalDetector(null);
+			int nread;
+			byte[] buf = new byte[4096];
+			while ((nread = fis.read(buf)) > 0 && !detector.isDone()) {
+				/* 分析資料 */
+				detector.handleData(buf, 0, nread);
+			}
+			detector.dataEnd();
+			if (StringUtils.isBlank(detector.getDetectedCharset())) {
+				return System.getProperty("file.encoding");
+			} else {
+				return detector.getDetectedCharset();
+			}
+		} catch (Exception e) {
+			return System.getProperty("file.encoding");
 		}
 	}
 

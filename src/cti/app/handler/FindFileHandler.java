@@ -31,7 +31,7 @@ public class FindFileHandler extends FindFileConstant {
 
 		String searchPath = m.get(KEY_SEARCHPATH);
 		if (StringUtils.isBlank(searchPath)) {
-			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_SEARCHPATH, ERRMSG_ISBLANK));
+			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, VALUE_SEARCHPATH, ERRMSG_IS_BLANK));
 		}
 
 		// 初步判斷&塞值
@@ -40,14 +40,14 @@ public class FindFileHandler extends FindFileConstant {
 
 		try {
 			isMatchesJA = new JSONArray(m.get(KEY_FILENAMEEXTENSION));
-			m.put(FindFileConstant.KEY_FILENAMEEXTENSION, isMatchesJA.toString().replaceAll(SIGN_DOUBLEQUOTES, ""));
+			m.put(FindFileConstant.KEY_FILENAMEEXTENSION, isMatchesJA.toString().replaceAll(SIGN_DBQUOTES, ""));
 		} catch (JSONException e) {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "副檔名", ERRMSG_FORMAT));
 		}
 
 		try {
 			isMatchesIgnoreJA = new JSONArray(m.get(KEY_FILENAMEEXTENSION_IGNORE));
-			m.put(FindFileConstant.KEY_FILENAMEEXTENSION_IGNORE, isMatchesIgnoreJA.toString().replaceAll(SIGN_DOUBLEQUOTES, ""));
+			m.put(FindFileConstant.KEY_FILENAMEEXTENSION_IGNORE, isMatchesIgnoreJA.toString().replaceAll(SIGN_DBQUOTES, ""));
 		} catch (JSONException e) {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "副檔名(忽略)", ERRMSG_FORMAT));
 		}

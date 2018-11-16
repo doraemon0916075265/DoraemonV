@@ -14,7 +14,6 @@ public class CutterBean {
 	private String logInfo_ID;
 	private String specInfo_note;
 	private String exportFilePath;
-	private boolean isAddEqual;
 	private String resultS;
 	private String resultF;
 	private String hidden_cname;
@@ -125,14 +124,6 @@ public class CutterBean {
 
 	public void setExportFilePath(String exportFilePath) {
 		this.exportFilePath = exportFilePath;
-	}
-
-	public boolean isAddEqual() {
-		return isAddEqual;
-	}
-
-	public void setAddEqual(boolean isAddEqual) {
-		this.isAddEqual = isAddEqual;
 	}
 
 	public String getResultS() {

@@ -57,7 +57,6 @@ public class AppHandler extends AppConstant {
 
 	/*** 找編碼 ***/
 	public static String getFileEncoding(String filepath) {
-
 		try (FileInputStream fis = new FileInputStream(filepath)) {
 			/* 建立分析器 */
 			UniversalDetector detector = new UniversalDetector(null);
@@ -68,17 +67,14 @@ public class AppHandler extends AppConstant {
 				detector.handleData(buf, 0, nread);
 			}
 			detector.dataEnd();
-
 			if (StringUtils.isBlank(detector.getDetectedCharset())) {
 				return System.getProperty("file.encoding");
 			} else {
 				return detector.getDetectedCharset();
 			}
-
 		} catch (Exception e) {
 			return System.getProperty("file.encoding");
 		}
-
 	}
 
 	public static String getFuzzySearchRegexpString(String text, boolean isWholeWordSraech) {

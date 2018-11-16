@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,7 +17,6 @@ import javax.swing.plaf.FontUIResource;
 
 import cti.app.constant.CutterConstant;
 import cti.app.controller.CutterController;
-import cti.app.handler.CutterHandler;
 import cti.app.service.CutterService;
 
 public class CutterView extends CutterConstant {
@@ -65,7 +63,6 @@ public class CutterView extends CutterConstant {
 
 	private static JLabel jl_exportFile = new JLabel(JL_EXPORTFILE);// 匯出檔案路徑
 	protected static JTextField jtf_exportFilePath = new JTextField();
-	protected static JCheckBox jcb_isAddEqual = new JCheckBox(JCB_ISADDEQUAL_2);
 	private static JButton jb_exportFile = new JButton(BTN_EXPORTFILE);
 
 	protected static JTextArea jta_resultS = new JTextArea(3, 93);
@@ -171,11 +168,9 @@ public class CutterView extends CutterConstant {
 		jl_exportFile.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_exportFilePath.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
 		jb_exportFile.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jcb_isAddEqual.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jpSub1.add(jl_exportFile);
 		jpSub1.add(jtf_exportFilePath);
 		jpSub1.add(jb_exportFile);
-		jpSub1.add(jcb_isAddEqual);
 
 		/*** 下半部 ***/
 		jpSub2.add(new JScrollPane(jta_resultS));
@@ -225,8 +220,6 @@ public class CutterView extends CutterConstant {
 		cs.setAppStyle(jtf_exportFilePath, NAME_EXPORTFILEPATH, APP_COLOR_DEFAULT);
 		cs.setAppStyle(jb_exportFile, null, APP_COLOR_DEFAULT);
 
-		cs.setAppStyle(jcb_isAddEqual, null, APP_COLOR_DEFAULT);
-
 		cs.setAppStyle4TextArea(jta_resultS, NAME_RESULTS, APP_COLOR_DEFAULT, false);
 		cs.setAppStyle4TextArea(jta_resultF, NAME_RESULTF, APP_COLOR_DEFAULT, false);
 	}
@@ -246,7 +239,7 @@ public class CutterView extends CutterConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				isTimerWork(true);
-				CutterController.resetData();
+				CutterController.doInitial();
 				showMsg(MSG_RESETDATA);
 			}
 		});
@@ -255,9 +248,9 @@ public class CutterView extends CutterConstant {
 		jb_readFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
+				isTimerWork(true);
 				try {
-					isTimerWork(true);
-					CutterHandler.readFile();
+					CutterController.readFile();
 					showMsg(MSG_READFILE);
 				} catch (Exception e) {
 					showMsg(e.getClass().getSimpleName(), e.getMessage());
@@ -270,9 +263,9 @@ public class CutterView extends CutterConstant {
 		jb_analysis.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
+				isTimerWork(true);
 				try {
-					isTimerWork(true);
-					CutterHandler.analysis();
+					CutterController.analysis();
 					showMsg(MSG_ANALYSIS);
 				} catch (Exception e) {
 					showMsg(e.getClass().getSimpleName(), e.getMessage());
@@ -285,9 +278,9 @@ public class CutterView extends CutterConstant {
 		jb_exportFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
+				isTimerWork(true);
 				try {
-					isTimerWork(true);
-					CutterHandler.exportFile();
+					CutterController.export();
 					showMsg(MSG_EXPORTFILE + "於" + jtf_exportFilePath.getText());
 				} catch (Exception e) {
 					showMsg(e.getClass().getSimpleName(), e.getMessage());
@@ -302,21 +295,8 @@ public class CutterView extends CutterConstant {
 			public void actionPerformed(ActionEvent ae) {
 				showMsg(MSG_OPEN_GUIDEBOOK);
 				UIManager.put("OptionPane.messageFont", new FontUIResource(APP_FONT));
-				JOptionPane.showMessageDialog(null, getGuidebookContent(), APP_GUIDEBOOK_TITLE, JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null, CutterController.guidebook(), APP_GUIDEBOOK_TITLE, JOptionPane.DEFAULT_OPTION);
 				showMsg(MSG_CLOSE_GUIDEBOOK);
-			}
-		});
-
-		// 匯出格式
-		jcb_isAddEqual.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				if (jcb_isAddEqual.isSelected()) {
-					jcb_isAddEqual.setText(JCB_ISADDEQUAL_2);
-				} else {
-					jcb_isAddEqual.setText(JCB_ISADDEQUAL_1);
-
-				}
 			}
 		});
 
