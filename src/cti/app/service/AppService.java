@@ -115,7 +115,7 @@ public class AppService extends AppConstant {
 		}
 	}
 
-	/*** 驗證輸入框：為合法檔案路徑格式。 ***/
+	/*** 驗證輸入框：為已存在合法檔案路徑格式。 ***/
 	public void validateInput_Filepath(JTextComponent jtc) throws Exception {
 		validateInput_Text(jtc);
 		String input = jtc.getText();
@@ -133,13 +133,16 @@ public class AppService extends AppConstant {
 		}
 	}
 
-	/*** 驗證輸入框：為合法資料夾格式+合法檔名+合法副檔名。 ***/
-	public void validateInput_Directory(JTextComponent jtc, List<String> extensions) throws Exception {
-		validateInput_DirectoryPath(new JTextField(new File(jtc.getText()).getParent()));// 上一層是否為資料夾
-		validateInput_FilenameInExtensionList(jtc, extensions);
+	/*** 驗證輸入框：為匯出檔案路徑格式。 ***/
+	public void validateInput_ExportPath(JTextComponent jtc, List<String> extensions) throws Exception {
+		try {
+			validateInput_FilenameInExtensionList(new JTextField(new File(jtc.getText()).getName()), extensions);
+		} catch (Exception e) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME));
+		}
 	}
 
-	/*** 驗證輸入框：為合法資料夾格式。 ***/
+	/*** 驗證輸入框：為已存在資料夾格式。 ***/
 	public void validateInput_DirectoryPath(JTextComponent jtc) throws Exception {
 		validateInput_Text(jtc);
 		String input = jtc.getText();
@@ -151,11 +154,25 @@ public class AppService extends AppConstant {
 		}
 	}
 
-	/*** 判斷輸入框：是否檔名在副檔名List中。 ***/
+	/*** 驗證輸入框：合法檔名並在副檔名List中。 ***/
 	public void validateInput_FilenameInExtensionList(JTextComponent jtc, List<String> extensions) throws Exception {
 		validateInput_Text(jtc);
 		String filenameU = jtc.getText().toUpperCase();
-		// 未完成
+		// 比對一般檔名格式
+		if (!filenameU.matches(REGEXP_LEGAL_FILEFULLNAME)) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME));
+		}
+		// 比對特殊檔名格式
+		boolean inExtension = false;
+		for (String extension : extensions) {
+			if (filenameU.matches(String.format(FORMAT_REGEXP_LEGAL_FILENAME, extension))) {
+				inExtension = true;
+				break;
+			}
+		}
+		if (!inExtension) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME_EXTENSION));
+		}
 	}
 
 	/*** 轉換輸入框：驗證陣列轉字串 ***/

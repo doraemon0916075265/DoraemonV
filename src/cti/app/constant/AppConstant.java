@@ -65,6 +65,7 @@ public class AppConstant {
 	public static final String ERRMSG_HASBLANK = "有空值";
 	public static final String ERRMSG_ARRAY_IS_EMPTY = "是空陣列";
 	public static final String ERRMSG_DONOT_WRITE_FILE = "無法寫檔";
+	public static final String ERRMSG_ILLEGAL_FILENAME = "非法檔名";
 
 	// 格式
 	public static final String FORMAT_MSG = "[%s][%s %s] %s %s";
@@ -120,6 +121,8 @@ public class AppConstant {
 
 	// 正規表示法
 	public static final String REGEXP_FORALL = ".*";
+	public static final String REGEXP_LEGAL_FILEFULLNAME = "[\u4e00-\u9fa5\\w_]+\\.[\\w_]*";
+	public static final String FORMAT_REGEXP_LEGAL_FILENAME = "[\u4e00-\u9fa5\\w_]+\\.%s{1}";
 
 	// 符號
 	public static final String SIGN_DBQUOTES = "\"";

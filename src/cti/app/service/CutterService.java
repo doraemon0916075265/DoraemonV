@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -39,7 +38,6 @@ public class CutterService extends AppService {
 
 	// 正規表示法
 	private static final String PARAM_TGID = "電文ID:";
-	private static final String REGEXP_TGID = "[^0-9a-zA-Z]";
 	private static final String REGEXP_ID1 = "畫面名稱:" + REGEXP_FORALL;
 	private static final String REGEXP_ID2 = PARAM_TGID + REGEXP_FORALL;
 	private static final String REGEXP_SEND1 = "送出:" + REGEXP_FORALL;
@@ -47,7 +45,6 @@ public class CutterService extends AppService {
 	private static final String REGEXP_FILL1 = "收到:" + REGEXP_FORALL;
 	private static final String REGEXP_FILL2 = REGEXP_FORALL + "收到";
 
-	public final List<String> REGEXP_FILEEXTEN_EXPORT = Arrays.asList(".TXT", ".LOG", ".CSV");
 	private static final String FILENAME_RESULT = "result.csv";
 
 	/*** 取得預設匯出檔案目錄 ***/
@@ -70,7 +67,7 @@ public class CutterService extends AppService {
 				}
 				String lineU = line.toUpperCase();
 				if (lineU.matches(REGEXP_ID1)) {
-					cb.setLogInfo_ID(Pattern.compile(REGEXP_TGID).matcher(lineU).replaceAll(""));
+					cb.setLogInfo_ID(Pattern.compile("[\\W]").matcher(lineU).replaceAll(""));
 				} else if (lineU.matches(REGEXP_ID2)) {
 					cb.setLogInfo_ID(lineU.replace(PARAM_TGID, ""));
 				}

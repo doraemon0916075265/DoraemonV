@@ -1,5 +1,7 @@
 package cti.app.controller;
 
+import java.util.Arrays;
+
 import org.json.JSONArray;
 
 import cti.app.bean.CutterBean;
@@ -95,7 +97,7 @@ public class CutterController extends CutterView {
 	public static void export() throws Exception {
 		getAllProperties();
 
-		cs.validateInput_Directory(jtf_exportFilePath, cs.REGEXP_FILEEXTEN_EXPORT);
+		cs.validateInput_ExportPath(jtf_exportFilePath, Arrays.asList("TXT", "LOG", "CSV"));
 		cs.validateInput_Text(jta_resultS);
 		cs.validateInput_Text(jta_resultF);
 
