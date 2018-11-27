@@ -27,8 +27,8 @@ public class CutterView extends CutterConstant {
 	private static JPanel jpSub2 = new JPanel();
 
 	private static JLabel jl_logFilePath = new JLabel(JL_LOGFILEPATH);// log檔路徑
-	protected static JTextField jtf_logFilePath = new JTextField();
 	private static JButton jb_logFilepath = new JButton();
+	protected static JTextField jtf_logFilePath = new JTextField();
 	private static JButton jb_resetData = new JButton(BTN_RESETDATA);
 
 	private static JLabel jl_specFilePath = new JLabel(JL_SPECFILEPATH);// spec檔路徑

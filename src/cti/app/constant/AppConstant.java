@@ -134,4 +134,7 @@ public class AppConstant {
 	public static final String SIGN_COMMA = ",";
 
 	public static final String STR_ZERO = "0";
+
+	// 副檔名
+	public static final String FILENAME_EXTENSION_CSV = ".csv";
 }

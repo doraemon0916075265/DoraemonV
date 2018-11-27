@@ -45,11 +45,11 @@ public class CutterService extends AppService {
 	private static final String REGEXP_FILL1 = "收到:" + REGEXP_FORALL;
 	private static final String REGEXP_FILL2 = REGEXP_FORALL + "收到";
 
-	private static final String FILENAME_RESULT = "result.csv";
+	private static final String FILENAME_RESULT = "result";
 
 	/*** 取得預設匯出檔案目錄 ***/
-	public String getExportFilePath() {
-		return getDesktopRootPath() + File.separator + FILENAME_RESULT;
+	public String getExportFilePath(String name) {
+		return getDesktopRootPath() + File.separator + FILENAME_RESULT + (StringUtils.isBlank(name) ? "" : "_" + name) + FILENAME_EXTENSION_CSV;
 	}
 
 	/*** 讀檔 ***/
@@ -166,6 +166,7 @@ public class CutterService extends AppService {
 			}
 			validFileContent(cb, FLAG_SPEC);
 		}
+		cb.setExportFilePath(getExportFilePath(cb.getLogInfo_ID()));
 		return cb;
 	}
 

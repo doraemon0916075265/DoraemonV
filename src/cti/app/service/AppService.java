@@ -394,7 +394,7 @@ public class AppService extends AppConstant {
 				JFileChooser jfc = new JFileChooser();
 				if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					jtf.setText(jfc.getSelectedFile().toString());
-					showMsg(MSG_SUCCESS, MSG_GET + jtf.getName(), "(" + jfc.getSelectedFile().toString() + ")");
+					showMsg(MSG_SUCCESS, MSG_GET + jtf.getName(), jfc.getSelectedFile().toString());
 				}
 			}
 		});

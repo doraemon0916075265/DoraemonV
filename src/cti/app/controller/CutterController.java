@@ -58,7 +58,7 @@ public class CutterController extends CutterView {
 	/*** 初始化欄位 ***/
 	public static void doInitial() {
 		clearAllData();
-		cb.setExportFilePath(cs.getExportFilePath());
+		cb.setExportFilePath(cs.getExportFilePath(""));
 		cb.setLogFilePath(cs.findFilePathByRootPath(cs.getDesktopRootPath(), FILENAME_LOG));
 		cb.setSpecFilePath(cs.findFilePathByRootPath(cs.getDesktopRootPath(), FILENAME_SPEC));
 		setAllProperties();
