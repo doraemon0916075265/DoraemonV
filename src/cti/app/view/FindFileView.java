@@ -18,44 +18,45 @@ import javax.swing.JTextField;
 import org.jdesktop.swingx.JXDatePicker;
 
 import cti.app.constant.FindFileConstant;
+import cti.app.controller.FindFileController;
 import cti.app.handler.AppHandler;
 import cti.app.handler.FindFileHandler;
 import cti.app.service.FindFileService;
 
 public class FindFileView extends FindFileConstant {
 	private static JPanel jp = new JPanel();
-	private static FindFileService fs = new FindFileService();
+	public static FindFileService fs = new FindFileService();
 
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
 
 	private static JLabel jl_searchPath = new JLabel(JL_SEARCHPATH);// 欲查路徑
-	private static JTextField jtf_searchPath = new JTextField();
+	protected static JTextField jtf_searchPath = new JTextField();
 	private static JButton jb_resetData = new JButton(BTN_RESETDATA);
 
 	private static JLabel jl_searchCondition = new JLabel("搜尋條件");// 字串查詢
 	private static JButton jb_clearData = new JButton(BTN_CLEARDATA);
 
 	private static JLabel jl_byText = new JLabel("字串");// 字串查詢
-	private static JTextField jtf_byText = new JTextField();
+	protected static JTextField jtf_byText = new JTextField();
 	private static JCheckBox jcb_byText = new JCheckBox();
 	private static JButton jb_search = new JButton(BTN_SEARCH);
 
 	private static JLabel jl_byFilename = new JLabel("檔案名稱");// 字串查詢
-	private static JTextField jtf_byFilename = new JTextField();
+	protected static JTextField jtf_byFilename = new JTextField();
 
 	private static JLabel jl_byFilenameExtension = new JLabel("副檔名");
-	private static JTextField jtf_byFilenameExtension = new JTextField();
+	protected static JTextField jtf_byFilenameExtension = new JTextField();
 
 	private static JLabel jl_byFilenameExtension_Ignore = new JLabel("副檔名(忽略)");
-	private static JTextField jtf_byFilenameExtension_Ignore = new JTextField();
+	protected static JTextField jtf_byFilenameExtension_Ignore = new JTextField();
 
 	private static JLabel jl_byModify_greaterThan = new JLabel("修改日(≧)");
-	private static JXDatePicker jxdp_byModify_greaterThan = new JXDatePicker();
+	protected static JXDatePicker jxdp_byModify_greaterThan = new JXDatePicker();
 	private static JLabel jl_byModify_lessThan = new JLabel("修改日(≦)");
-	private static JXDatePicker jxdp_byModify_lessThan = new JXDatePicker();
+	protected static JXDatePicker jxdp_byModify_lessThan = new JXDatePicker();
 
-	private static JTextArea jta_result = new JTextArea(10, 92);
+	protected static JTextArea jta_result = new JTextArea(10, 92);
 
 	public static JPanel createView() {
 		setBegin();
@@ -74,7 +75,7 @@ public class FindFileView extends FindFileConstant {
 		// jpSub2.setBorder(new LineBorder(Color.RED));
 	}
 
-	public static void setPosition() {
+	private static void setPosition() {
 		int row = 15;// 每一列
 		/*** 上半部，第一區 ***/
 		jl_searchPath.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
@@ -132,7 +133,7 @@ public class FindFileView extends FindFileConstant {
 		jp.add(jpSub2);
 	}
 
-	public static void setComponent() {
+	private static void setComponent() {
 		fs.setAppStyle(jl_searchPath, "欲查路徑", APP_COLOR_DEFAULT);
 		fs.setAppStyle(jb_resetData, "jb_resetData", APP_COLOR_DEFAULT);
 
@@ -159,12 +160,13 @@ public class FindFileView extends FindFileConstant {
 		fs.setAppStyle4TextArea(jta_result, "結果", APP_COLOR_DEFAULT, false);
 	}
 
-	public static void setListener() {
+	private static void setListener() {
 		// 重設
 		jb_resetData.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				resetData();
+			public void actionPerformed(ActionEvent ae) {
+				isTimerWork(true);
+				FindFileController.doInitial();
 				showMsg(MSG_RESETDATA);
 			}
 		});
@@ -173,7 +175,7 @@ public class FindFileView extends FindFileConstant {
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				clearData();
+				FindFileController.clearData();
 				showMsg(MSG_SUCCESS, MSG_CLEARDATA);
 			}
 		});
@@ -221,37 +223,12 @@ public class FindFileView extends FindFileConstant {
 
 		fs.dbClickOnCopy(jtf_searchPath);
 		fs.dbClickOnCopy(jtf_byText);
+		fs.dbClickOnCopy(jtf_byFilename);
 		fs.dbClickOnCopy(jta_result);
 	}
 
-	public static void setEnd() {
-		doInitial();
-	}
-
-	/*** 重設欄位 ***/
-	private static void resetData() {
-		clearData();
-		doInitial();
-	}
-
-	/*** 清除欄位 ***/
-	private static void clearData() {
-		jtf_byText.setText("");
-		jta_result.setText("");
-		jxdp_byModify_greaterThan.setDate(null);
-		jxdp_byModify_lessThan.setDate(null);
-	}
-
-	private static void doInitial() {
-		jtf_searchPath.setText(fs.getDesktopRootPath() + "\\test");
-
-		jtf_byText.setText("");
-
-		jtf_byFilenameExtension.setText("[*]");
-		jtf_byFilenameExtension_Ignore.setText("[~*,*.vfl]");
-
-		jxdp_byModify_greaterThan.setDate(null);
-		jxdp_byModify_lessThan.setDate(null);
+	private static void setEnd() {
+		FindFileController.doInitial();
 	}
 
 }

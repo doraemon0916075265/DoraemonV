@@ -30,31 +30,6 @@ public class CutterController extends CutterView {
 		setAllProperties();
 	}
 
-	/*** 清除所有 ***/
-	public static void clearAllData() {
-		getAllProperties();
-		cb.setLogFilePath("");
-		cb.setSpecFilePath("");
-		cb.setLogInfo_send("");
-		cb.setLogInfo_fill("");
-		cb.setSpecSendCut0("");
-		cb.setSpecSendCut("");
-		cb.setSpecFillCut0("");
-		cb.setSpecFillCut("");
-		cb.setLogInfo_ID("");
-		cb.setSpecInfo_note("");
-		cb.setExportFilePath("");
-		cb.setResultS("");
-		cb.setResultF("");
-		// 隱藏欄位
-		cb.setHidden_cname("");
-		cb.setHidden_sname("");
-		cb.setHidden_sname("");
-		cb.setHidden_fname("");
-		cb.setHidden_fname("");
-		setAllProperties();
-	}
-
 	/*** 初始化欄位 ***/
 	public static void doInitial() {
 		clearAllData();
@@ -128,6 +103,31 @@ public class CutterController extends CutterView {
 		sb.append(String.format(FORMAT_GUIDEBOOK_CONTENT, i++, "點兩下輸入框，可以複製內容"));
 		sb.append(String.format(FORMAT_GUIDEBOOK_CONTENT, i++, "最底部是''系統訊息顯示區''：[時間 主要訊息] 詳細訊息"));
 		return sb;
+	}
+
+	/*** 清除所有 ***/
+	private static void clearAllData() {
+		getAllProperties();
+		cb.setLogFilePath("");
+		cb.setSpecFilePath("");
+		cb.setLogInfo_send("");
+		cb.setLogInfo_fill("");
+		cb.setSpecSendCut0("");
+		cb.setSpecSendCut("");
+		cb.setSpecFillCut0("");
+		cb.setSpecFillCut("");
+		cb.setLogInfo_ID("");
+		cb.setSpecInfo_note("");
+		cb.setExportFilePath("");
+		cb.setResultS("");
+		cb.setResultF("");
+		// 隱藏欄位
+		cb.setHidden_cname("");
+		cb.setHidden_sname("");
+		cb.setHidden_sname("");
+		cb.setHidden_fname("");
+		cb.setHidden_fname("");
+		setAllProperties();
 	}
 
 	/*** 從欄位中取出所有值塞入bean ***/
