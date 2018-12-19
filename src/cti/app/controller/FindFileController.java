@@ -11,8 +11,8 @@ public class FindFileController extends FindFileView {
 		getAllProperties();
 		ffb.setByText("");
 		ffb.setByFilename("");
-		ffb.setByModify_greaterThan("");
-		ffb.setByModify_lessThan("");
+		ffb.setByModify_greaterThan(null);
+		ffb.setByModify_lessThan(null);
 		setAllProperties();
 	}
 
@@ -20,8 +20,8 @@ public class FindFileController extends FindFileView {
 	public static void doInitial() {
 		clearAllData();
 		ffb.setSearchPath(fs.getDesktopRootPath());
-		ffb.setByFilenameExtension("[*]");
-		ffb.setByFilenameExtension_Ignore("[~*,*.vfl]");
+		ffb.setByFilenameExtension("[\"*\"]");
+		ffb.setByFilenameExtension_Ignore("[\"~*\",\"*.vfl\"]");
 		ffb.setByModify_greaterThan(null);
 		ffb.setByModify_lessThan(null);
 		setAllProperties();
@@ -35,9 +35,21 @@ public class FindFileController extends FindFileView {
 		ffb.setByFilename("");
 		ffb.setByFilenameExtension("");
 		ffb.setByFilenameExtension_Ignore("");
-		ffb.setByModify_greaterThan("");
-		ffb.setByModify_lessThan("");
+		ffb.setByModify_greaterThan(null);
+		ffb.setByModify_lessThan(null);
 		ffb.setResult("");
+		setAllProperties();
+	}
+
+	public static void findConditionFile() throws Exception {
+		ffb.setResult("");
+		getAllProperties();
+		fs.validateInput_Text(jtf_searchPath);
+		ffb.setByFilenameExtension(fs.transInput_SimpleArray2String(jtf_byFilenameExtension));
+		ffb.setByFilenameExtension_Ignore(fs.transInput_SimpleArray2String(jtf_byFilenameExtension_Ignore));
+		fs.validateInput_byModifyDate(jxdp_byModify_greaterThan, jxdp_byModify_lessThan);
+
+		ffb = fs.findConditionFile(ffb);
 		setAllProperties();
 	}
 
@@ -48,8 +60,8 @@ public class FindFileController extends FindFileView {
 		ffb.setByFilename(jtf_byFilename.getText());
 		ffb.setByFilenameExtension(jtf_byFilenameExtension.getText());
 		ffb.setByFilenameExtension_Ignore(jtf_byFilenameExtension_Ignore.getText());
-		// ffb.setByModify_greaterThan(APPDATE_SDF.format(jxdp_byModify_greaterThan.getDate()));
-		// ffb.setByModify_lessThan(APPDATE_SDF.format(jxdp_byModify_lessThan.getDate()));
+		ffb.setByModify_greaterThan(jxdp_byModify_greaterThan.getDate());
+		ffb.setByModify_lessThan(jxdp_byModify_lessThan.getDate());
 		ffb.setResult(jta_result.getText());
 	}
 
@@ -60,8 +72,9 @@ public class FindFileController extends FindFileView {
 		jtf_byFilename.setText(ffb.getByFilename());
 		jtf_byFilenameExtension.setText(ffb.getByFilenameExtension());
 		jtf_byFilenameExtension_Ignore.setText(ffb.getByFilenameExtension_Ignore());
-		// ffb.setByModify_greaterThan(APPDATE_SDF.format(jxdp_byModify_greaterThan.getDate()));
-		// ffb.setByModify_lessThan(APPDATE_SDF.format(jxdp_byModify_lessThan.getDate()));
+		jxdp_byModify_greaterThan.setDate(ffb.getByModify_greaterThan());
+		jxdp_byModify_lessThan.setDate(ffb.getByModify_lessThan());
 		jta_result.setText(ffb.getResult());
 	}
+
 }

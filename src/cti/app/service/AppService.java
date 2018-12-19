@@ -26,6 +26,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jdesktop.swingx.JXDatePicker;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.mozilla.universalchardet.UniversalDetector;
@@ -38,6 +39,8 @@ public class AppService extends AppConstant {
 	private static long timer;
 	private static String desktopRootPath;
 	private static String filePathByRootPath;
+
+	protected static final String INIT_JSONARRRAY = new JSONArray().toString();
 
 	/*** 取得桌面根目錄 ***/
 	public String getDesktopRootPath() {
@@ -115,6 +118,15 @@ public class AppService extends AppConstant {
 		}
 	}
 
+	/*** 驗證輸入框：陣列格式。 ***/
+	public void validateInput_SimpleArray(JTextComponent jtc) throws Exception {
+		try {
+			new JSONArray(jtc.getText());
+		} catch (Exception e) {
+			throw new JSONException(String.format(FORMAT_MSG_EXCEPTION, jtc.getName(), ERRMSG_FORMAT));
+		}
+	}
+
 	/*** 驗證輸入框：為已存在合法檔案路徑格式。 ***/
 	public void validateInput_Filepath(JTextComponent jtc) throws Exception {
 		validateInput_Text(jtc);
@@ -130,6 +142,20 @@ public class AppService extends AppConstant {
 
 		} catch (Exception e) {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, "讀檔錯誤"));
+		}
+	}
+
+	/*** 驗證輸入框：為合法修改日期格式。 ***/
+	public void validateInput_byModifyDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan) throws Exception {
+		validateInput_BeinEndDate(jxdpGreaterThan, jxdpLessThan);
+	}
+
+	/*** 驗證輸入框：為合法起訖日期格式。 ***/
+	public void validateInput_BeinEndDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan) throws Exception {
+		if (jxdpGreaterThan.getDate() != null && jxdpLessThan.getDate() != null) {
+			if (jxdpGreaterThan.getDate().after(jxdpLessThan.getDate())) {
+				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "起日不可大於起訖日", ""));
+			}
 		}
 	}
 
@@ -177,7 +203,17 @@ public class AppService extends AppConstant {
 
 	/*** 轉換輸入框：驗證陣列轉字串 ***/
 	public String transInput_Array2String(JTextComponent jtc) throws Exception {
+		transInput_SimpleArray2String(jtc);
 		validateInput_Array(jtc);
+		return new JSONArray(jtc.getText()).toString();
+	}
+
+	/*** 轉換輸入框：驗證陣列轉字串 ***/
+	public String transInput_SimpleArray2String(JTextComponent jtc) throws Exception {
+		if (StringUtils.isBlank(jtc.getText())) {
+			jtc.setText(INIT_JSONARRRAY);
+		}
+		validateInput_SimpleArray(jtc);
 		return new JSONArray(jtc.getText()).toString();
 	}
 

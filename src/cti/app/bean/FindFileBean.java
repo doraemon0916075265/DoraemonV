@@ -1,13 +1,15 @@
 package cti.app.bean;
 
+import java.util.Date;
+
 public class FindFileBean {
 	private String searchPath;
 	private String byText;
 	private String byFilename;
 	private String byFilenameExtension;
 	private String byFilenameExtension_Ignore;
-	private String byModify_greaterThan;
-	private String byModify_lessThan;
+	private Date byModify_greaterThan;
+	private Date byModify_lessThan;
 	private String result;
 
 	public String getSearchPath() {
@@ -50,19 +52,19 @@ public class FindFileBean {
 		this.byFilenameExtension_Ignore = byFilenameExtension_Ignore;
 	}
 
-	public String getByModify_greaterThan() {
+	public Date getByModify_greaterThan() {
 		return byModify_greaterThan;
 	}
 
-	public void setByModify_greaterThan(String byModify_greaterThan) {
+	public void setByModify_greaterThan(Date byModify_greaterThan) {
 		this.byModify_greaterThan = byModify_greaterThan;
 	}
 
-	public String getByModify_lessThan() {
+	public Date getByModify_lessThan() {
 		return byModify_lessThan;
 	}
 
-	public void setByModify_lessThan(String byModify_lessThan) {
+	public void setByModify_lessThan(Date byModify_lessThan) {
 		this.byModify_lessThan = byModify_lessThan;
 	}
 

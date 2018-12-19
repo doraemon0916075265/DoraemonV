@@ -3,9 +3,6 @@ package cti.app.view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,8 +16,6 @@ import org.jdesktop.swingx.JXDatePicker;
 
 import cti.app.constant.FindFileConstant;
 import cti.app.controller.FindFileController;
-import cti.app.handler.AppHandler;
-import cti.app.handler.FindFileHandler;
 import cti.app.service.FindFileService;
 
 public class FindFileView extends FindFileConstant {
@@ -34,26 +29,26 @@ public class FindFileView extends FindFileConstant {
 	protected static JTextField jtf_searchPath = new JTextField();
 	private static JButton jb_resetData = new JButton(BTN_RESETDATA);
 
-	private static JLabel jl_searchCondition = new JLabel("搜尋條件");// 字串查詢
+	private static JLabel jl_searchCondition = new JLabel(JL_SEARCHCONDITION);
 	private static JButton jb_clearData = new JButton(BTN_CLEARDATA);
 
-	private static JLabel jl_byText = new JLabel("字串");// 字串查詢
+	private static JLabel jl_byText = new JLabel(JL_BYTEXT);// 字串查詢
 	protected static JTextField jtf_byText = new JTextField();
 	private static JCheckBox jcb_byText = new JCheckBox();
 	private static JButton jb_search = new JButton(BTN_SEARCH);
 
-	private static JLabel jl_byFilename = new JLabel("檔案名稱");// 字串查詢
+	private static JLabel jl_byFilename = new JLabel(JL_BYFILENAME);// 檔名查詢
 	protected static JTextField jtf_byFilename = new JTextField();
 
-	private static JLabel jl_byFilenameExtension = new JLabel("副檔名");
+	private static JLabel jl_byFilenameExtension = new JLabel(JL_BYFILENAMEEXTENSION);
 	protected static JTextField jtf_byFilenameExtension = new JTextField();
 
-	private static JLabel jl_byFilenameExtension_Ignore = new JLabel("副檔名(忽略)");
+	private static JLabel jl_byFilenameExtension_Ignore = new JLabel(JL_BYFILENAMEEXTENSION_IGNORE);
 	protected static JTextField jtf_byFilenameExtension_Ignore = new JTextField();
 
-	private static JLabel jl_byModify_greaterThan = new JLabel("修改日(≧)");
+	private static JLabel jl_byModify_greaterThan = new JLabel(JL_BYMODIFY_GREATERTHAN);
 	protected static JXDatePicker jxdp_byModify_greaterThan = new JXDatePicker();
-	private static JLabel jl_byModify_lessThan = new JLabel("修改日(≦)");
+	private static JLabel jl_byModify_lessThan = new JLabel(JL_BYMODIFY_LESSTHAN);
 	protected static JXDatePicker jxdp_byModify_lessThan = new JXDatePicker();
 
 	protected static JTextArea jta_result = new JTextArea(10, 92);
@@ -134,30 +129,32 @@ public class FindFileView extends FindFileConstant {
 	}
 
 	private static void setComponent() {
-		fs.setAppStyle(jl_searchPath, "欲查路徑", APP_COLOR_DEFAULT);
-		fs.setAppStyle(jb_resetData, "jb_resetData", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jl_searchPath, null, APP_COLOR_DEFAULT);
+		fs.setAppStyle(jtf_searchPath, NAME_SEARCHPATH, APP_COLOR_DEFAULT);
+		fs.setAppStyle(jb_resetData, null, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_searchCondition, "jl_searchCondition", APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jl_searchCondition, null, APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jb_clearData, null, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_byText, "by字串", APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jb_clearData, "jb_clearData", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jl_byText, null, APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jtf_byText, NAME_BYTEXT, APP_COLOR_DEFAULT);
+		fs.setAppStyle(jb_search, null, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_byFilenameExtension, "jl_byFilenameExtension", APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jtf_byFilenameExtension, "jtf_byFilenameExtension", APP_COLOR_DEFAULT);
-		fs.setAppStyle(jb_search, "jb_search", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jl_byFilename, null, APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jtf_byFilename, NAME_BYFILENAME, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_byFilename, "jl_byFilename", APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jtf_byFilename, "jtf_byFilename", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jl_byFilenameExtension, null, APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jtf_byFilenameExtension, NAME_BYFILENAMEEXTENSION, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_byFilenameExtension_Ignore, "jl_byFilenameExtension_Ignore", APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jtf_byFilenameExtension_Ignore, "jtf_byFilenameExtension_Ignore", APP_COLOR_DEFAULT);
+		fs.setAppStyle(jl_byFilenameExtension_Ignore, null, APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jtf_byFilenameExtension_Ignore, NAME_BYFILENAMEEXTENSION_IGNORE, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_byModify_greaterThan, "jl_byModify_greaterThan", APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jxdp_byModify_greaterThan, "jxdp_byModify_greaterThan", APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jl_byModify_lessThan, "jl_byModify_lessThan", APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jxdp_byModify_lessThan, "jxdp_byModify_lessThan", APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jl_byModify_greaterThan, null, APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jxdp_byModify_greaterThan, NAME_BYMODIFY_GREATERTHAN, APP_COLOR_DEFAULT);
+		fs.setAppStyle(jl_byModify_lessThan, null, APP_COLOR_SEARCH_CRITERIA);
+		fs.setAppStyle(jxdp_byModify_lessThan, NAME_BYMODIFY_LESSTHAN, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle4TextArea(jta_result, "結果", APP_COLOR_DEFAULT, false);
+		fs.setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
 	}
 
 	private static void setListener() {
@@ -184,37 +181,10 @@ public class FindFileView extends FindFileConstant {
 		jb_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
+				isTimerWork(true);
 				try {
-					isTimerWork(true);
-					jta_result.setText("");
-					Map<String, String> m = new HashMap<>();
-					m.put(KEY_SEARCHPATH, jtf_searchPath.getText());
-					m.put(KEY_BYTEXT, jtf_byText.getText());
-					m.put(KEY_BYFILENAME, jtf_byFilename.getText());
-					m.put(KEY_FILENAMEEXTENSION, jtf_byFilenameExtension.getText());
-					m.put(KEY_FILENAMEEXTENSION_IGNORE, jtf_byFilenameExtension_Ignore.getText());
-					if (jxdp_byModify_greaterThan.getDate() != null) {
-						if (new Date().after(jxdp_byModify_greaterThan.getDate())) {
-							m.put(KEY_MODIFYGREATERTHAN, APPDATE_SDF.format(jxdp_byModify_greaterThan.getDate()));
-						} else {
-							jxdp_byModify_greaterThan.setDate(null);
-						}
-					}
-					if (jxdp_byModify_lessThan.getDate() != null) {
-						if (new Date().after(jxdp_byModify_lessThan.getDate())) {
-							m.put(KEY_MODIFYLESSTHAN, APPDATE_SDF.format(AppHandler.getDateCalculator(jxdp_byModify_lessThan.getDate(), 0, 0, 1)));
-						} else {
-							jxdp_byModify_lessThan.setDate(null);
-						}
-					}
-
-					m = FindFileHandler.findConditionFile(m);
-					// System.out.println("mm" + m);
-
-					jtf_byFilenameExtension.setText(m.get(KEY_FILENAMEEXTENSION));
-					jtf_byFilenameExtension_Ignore.setText(m.get(KEY_FILENAMEEXTENSION_IGNORE));
-					jta_result.setText(m.get(KEY_RESULT));
-					showMsg(MSG_ANALYSIS);
+					FindFileController.findConditionFile();
+					showMsg(MSG_SEARCH);
 				} catch (Exception e) {
 					showMsg(e.getClass().getSimpleName(), e.getMessage());
 				}

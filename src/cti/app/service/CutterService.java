@@ -34,8 +34,6 @@ public class CutterService extends AppService {
 	private static final String SPEC_FNAME0 = "f_name0";
 	private static final String SPEC_FNAME = "f_name";
 
-	private static final String INIT_JSONARRRAY = new JSONArray().toString();
-
 	// 正規表示法
 	private static final String PARAM_TGID = "電文ID:";
 	private static final String REGEXP_ID1 = "畫面名稱:" + REGEXP_FORALL;
@@ -189,6 +187,7 @@ public class CutterService extends AppService {
 			gbkLen -= cutSize;
 		}
 
+		sb.append(System.lineSeparator());
 		sb.append(System.lineSeparator());
 		sb.append(addTgHeader(name));// 下行表頭
 

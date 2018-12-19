@@ -263,6 +263,7 @@ public class CutterView extends CutterConstant {
 		jb_analysis.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
+
 				isTimerWork(true);
 				try {
 					CutterController.analysis();
