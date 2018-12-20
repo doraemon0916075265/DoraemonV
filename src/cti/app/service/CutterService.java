@@ -27,6 +27,7 @@ public class CutterService extends AppService {
 	private static final String SPEC_FCUT0 = "f_cut0";
 	private static final String SPEC_FCUT = "f_cut";
 	private static final String SPEC_NOTE = "note";
+	private static final String SPEC_OWNER = "owner";
 	// 隱藏欄位
 	private static final String SPEC_CNAME = "cname";
 	private static final String SPEC_SNAME0 = "s_name0";
@@ -120,14 +121,11 @@ public class CutterService extends AppService {
 						} catch (Exception e) {
 							cb.setSpecFillName("");
 						}
-						try {
-							cb.setSpecInfo_note(jsonObj.get(SPEC_NOTE).toString());
-						} catch (Exception e) {
-							cb.setSpecInfo_note("");
-						}
 						// 隱藏欄位，非必要欄位，塞try-catch
+						String note = "";
 						try {
 							cb.setHidden_cname(jsonObj.get(SPEC_CNAME).toString());
+							note += StringUtils.isNotBlank(jsonObj.get(SPEC_CNAME).toString()) ? "名稱：" + jsonObj.get(SPEC_CNAME).toString() + "," : "";
 						} catch (Exception e) {
 							cb.setHidden_cname("");
 						}
@@ -151,6 +149,19 @@ public class CutterService extends AppService {
 						} catch (Exception e) {
 							cb.setHidden_fname(INIT_JSONARRRAY);
 						}
+						try {
+							note += StringUtils.isNotBlank(jsonObj.get(SPEC_OWNER).toString()) ? "負責人：" + jsonObj.get(SPEC_OWNER).toString() + "," : "";
+						} catch (Exception e) {
+
+						}
+						// note最後塞
+						try {
+							note += "note：" + jsonObj.get(SPEC_NOTE).toString();
+							cb.setSpecInfo_note(note);
+						} catch (Exception e) {
+							cb.setSpecInfo_note(note + "note：");
+						}
+
 						isFoundId = true;
 						break;
 					}

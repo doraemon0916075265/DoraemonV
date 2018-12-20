@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 
 import cti.app.bean.FindFileBean;
-import cti.app.handler.AppHandler;
 
 public class FindFileService extends AppService {
 	private static List<String> list = new ArrayList<>();
@@ -57,7 +56,7 @@ public class FindFileService extends AppService {
 				}
 
 				if (isRunning && StringUtils.isNotBlank(ffb.getByFilename())) {
-					if (new File(fileAbsPath).getName().matches(AppHandler.getFuzzySearchRegexpString(ffb.getByFilename(), true))) {
+					if (new File(fileAbsPath).getName().matches(getFuzzySearchRegexpString(ffb.getByFilename(), true))) {
 						isRunning = true;
 					} else {
 						isRunning = false;
@@ -82,14 +81,14 @@ public class FindFileService extends AppService {
 
 				if (isRunning && StringUtils.isNotBlank(ffb.getByText())) {
 					isRunning = false;
-					try (BufferedReader brLog = new BufferedReader((new InputStreamReader(new FileInputStream(fileAbsPath), AppHandler.getFileEncoding(fileAbsPath))));) {
+					try (BufferedReader brLog = new BufferedReader((new InputStreamReader(new FileInputStream(fileAbsPath), getFileEncoding(fileAbsPath))));) {
 						String line;
 						while ((line = brLog.readLine()) != null) {
 							if (StringUtils.isBlank(line)) {
 								continue;
 							}
 							// System.out.println(filePath + "," + line);
-							if (line.matches(AppHandler.getFuzzySearchRegexpString(ffb.getByText(), true))) {
+							if (line.matches(getFuzzySearchRegexpString(ffb.getByText(), true))) {
 								isRunning = true;
 								break;
 							}
@@ -106,6 +105,40 @@ public class FindFileService extends AppService {
 		} catch (Exception e) {
 
 		}
+	}
+
+	private static String getFuzzySearchRegexpString(String text, boolean isWholeWordSraech) {
+		String result = "";
+		if (isWholeWordSraech) {// 整個字組搜尋
+			result = getExchangeSpecialCharacter4Regexp(text);
+		} else {// 模糊搜尋
+			for (int i = 0; i < text.length(); i++) {
+				result += "[" + getExchangeSpecialCharacter4Regexp(text.substring(i, i + 1)) + "]";
+				result += (i == (text.length() - 1) ? "" : REGEXP_FORALL);
+			}
+		}
+		result = REGEXP_FORALL + result + REGEXP_FORALL;
+		// System.out.println("正規表示法>" + result);
+		return result;
+	}
+
+	/*** 轉換正規表示法中的特殊字元 ***/
+	private static String getExchangeSpecialCharacter4Regexp(String input) {
+		input = input.replaceAll("\\\\", "\\\\\\\\");
+		input = input.replaceAll("\\^", "\\\\\\^");
+		input = input.replaceAll("\\$", "\\\\\\$");
+		input = input.replaceAll("\\*", "\\\\\\*");
+		input = input.replaceAll("\\+", "\\\\\\+");
+		input = input.replaceAll("\\?", "\\\\\\?");
+		input = input.replaceAll("\\{", "\\\\\\{");
+		input = input.replaceAll("\\}", "\\\\\\}");
+		input = input.replaceAll("\\.", "\\\\\\.");
+		input = input.replaceAll("\\(", "\\\\\\(");
+		input = input.replaceAll("\\)", "\\\\\\)");
+		input = input.replaceAll("\\|", "\\\\\\|");
+		input = input.replaceAll("\\[", "\\\\\\[");
+		input = input.replaceAll("\\]", "\\\\\\]");
+		return input;
 	}
 
 	private static String changeUerRegexp(String input) {
