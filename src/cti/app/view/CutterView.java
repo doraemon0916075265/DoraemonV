@@ -65,8 +65,8 @@ public class CutterView extends CutterConstant {
 	protected static JTextField jtf_exportFilePath = new JTextField();
 	private static JButton jb_exportFile = new JButton(BTN_EXPORTFILE);
 
-	protected static JTextArea jta_resultS = new JTextArea(3, 93);
-	protected static JTextArea jta_resultF = new JTextArea(12, 93);
+	protected static JTextArea jta_resultS = new JTextArea(5, 93);
+	protected static JTextArea jta_resultF = new JTextArea(10, 93);
 
 	// 隱藏欄位
 	protected static JLabel hidden_cname = new JLabel();

@@ -21,13 +21,13 @@ public class CutterService extends AppService {
 	private static final String FLAG_LOG = "LOG";
 	private static final String FLAG_SPEC = "SPEC";
 
-	private static final String SPEC_ID = "id";
-	private static final String SPEC_SCUT0 = "s_cut0";
-	private static final String SPEC_SCUT = "s_cut";
-	private static final String SPEC_FCUT0 = "f_cut0";
-	private static final String SPEC_FCUT = "f_cut";
-	private static final String SPEC_NOTE = "note";
-	private static final String SPEC_OWNER = "owner";
+	private static final String TAG_ID = "id";
+	private static final String TAG_SCUT0 = "s_cut0";
+	private static final String TAG_SCUT = "s_cut";
+	private static final String TAG_FCUT0 = "f_cut0";
+	private static final String TAG_FCUT = "f_cut";
+	private static final String TAG_NOTE = "note";
+	private static final String TAG_OWNER = "owner";
 	// 隱藏欄位
 	private static final String SPEC_CNAME = "cname";
 	private static final String SPEC_SNAME0 = "s_name0";
@@ -35,14 +35,14 @@ public class CutterService extends AppService {
 	private static final String SPEC_FNAME0 = "f_name0";
 	private static final String SPEC_FNAME = "f_name";
 
-	private static final String SPEC_SCNAME0 = "s_cname0";
-	private static final String SPEC_SENAME0 = "s_ename0";
-	private static final String SPEC_SCNAME = "s_cname";
-	private static final String SPEC_SENAME = "s_ename";
-	private static final String SPEC_FCNAME0 = "f_cname0";
-	private static final String SPEC_FENAME0 = "f_ename0";
-	private static final String SPEC_FCNAME = "f_cname";
-	private static final String SPEC_FENAME = "f_ename";
+	private static final String TAG_SCNAME0 = "s_cname0";
+	private static final String TAG_SENAME0 = "s_ename0";
+	private static final String TAG_SCNAME = "s_cname";
+	private static final String TAG_SENAME = "s_ename";
+	private static final String TAG_FCNAME0 = "f_cname0";
+	private static final String TAG_FENAME0 = "f_ename0";
+	private static final String TAG_FCNAME = "f_cname";
+	private static final String TAG_FENAME = "f_ename";
 
 	// 正規表示法
 	private static final String PARAM_TGID = "電文ID:";
@@ -112,13 +112,14 @@ public class CutterService extends AppService {
 			try {
 				JSONArray jsonArr = new JSONObject(lineSpec).getJSONArray("Spec");
 				for (int i = 0; i < jsonArr.length(); i++) {
-					if (getJsonValue(jsonArr.get(i), SPEC_ID).equals(cb.getLogInfo_ID())) {
+					if (getJsonValue(jsonArr.get(i), TAG_ID).equals(cb.getLogInfo_ID())) {
 						JSONObject jsonObj = new JSONObject(jsonArr.get(i).toString());
 						// 必要欄位，不塞try-catch
-						cb.setSpecSendCut0(jsonObj.get(SPEC_SCUT0).toString());
-						cb.setSpecSendCut(jsonObj.get(SPEC_SCUT).toString());
-						cb.setSpecFillCut0(jsonObj.get(SPEC_FCUT0).toString());
-						cb.setSpecFillCut(jsonObj.get(SPEC_FCUT).toString());
+						cb.setSpecSendCut0(jsonObj.get(TAG_SCUT0).toString());
+						cb.setSpecSendCut(jsonObj.get(TAG_SCUT).toString());
+						cb.setSpecFillCut0(jsonObj.get(TAG_FCUT0).toString());
+						cb.setSpecFillCut(jsonObj.get(TAG_FCUT).toString());
+
 						// 非必要欄位，塞try-catch
 						try {
 							cb.setSpecFillName0(jsonObj.get(SPEC_FNAME0).toString());
@@ -159,13 +160,13 @@ public class CutterService extends AppService {
 							cb.setHidden_fname(INIT_JSONARRRAY);
 						}
 						try {
-							note += StringUtils.isNotBlank(jsonObj.get(SPEC_OWNER).toString()) ? "負責人：" + jsonObj.get(SPEC_OWNER).toString() + "," : "";
+							note += StringUtils.isNotBlank(jsonObj.get(TAG_OWNER).toString()) ? "負責人：" + jsonObj.get(TAG_OWNER).toString() + "," : "";
 						} catch (Exception e) {
 
 						}
 						// note最後塞
 						try {
-							note += "note：" + jsonObj.get(SPEC_NOTE).toString();
+							note += "note：" + jsonObj.get(TAG_NOTE).toString();
 							cb.setSpecInfo_note(note);
 						} catch (Exception e) {
 							cb.setSpecInfo_note(note + "note：");
