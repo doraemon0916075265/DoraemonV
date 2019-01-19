@@ -35,6 +35,15 @@ public class CutterService extends AppService {
 	private static final String SPEC_FNAME0 = "f_name0";
 	private static final String SPEC_FNAME = "f_name";
 
+	private static final String SPEC_SCNAME0 = "s_cname0";
+	private static final String SPEC_SENAME0 = "s_ename0";
+	private static final String SPEC_SCNAME = "s_cname";
+	private static final String SPEC_SENAME = "s_ename";
+	private static final String SPEC_FCNAME0 = "f_cname0";
+	private static final String SPEC_FENAME0 = "f_ename0";
+	private static final String SPEC_FCNAME = "f_cname";
+	private static final String SPEC_FENAME = "f_ename";
+
 	// 正規表示法
 	private static final String PARAM_TGID = "電文ID:";
 	private static final String REGEXP_ID1 = "畫面名稱:" + REGEXP_FORALL;
@@ -285,10 +294,10 @@ public class CutterService extends AppService {
 	/*** 匯出檔案 ***/
 	public void exportFile(CutterBean cb) throws Exception {
 		List<String> contents = new ArrayList<>();
-		contents.add(String.format(FORMAT_EXPORTFILE_SUBTITLE, "上行電文結果"));
+		contents.add(String.format(FORMAT_EXPORTFILE_SUBTITLE, "Send or Up"));
 		contents.add(String.format(FORMAT_EXPORTFILE_CONTENT, cb.getResultS()));
 		contents.add(System.lineSeparator());
-		contents.add(String.format(FORMAT_EXPORTFILE_SUBTITLE, "下行電文結果"));
+		contents.add(String.format(FORMAT_EXPORTFILE_SUBTITLE, "Fill or Down"));
 		contents.add(String.format(FORMAT_EXPORTFILE_CONTENT, cb.getResultF()));
 		exportFile(cb.getExportFilePath(), contents);
 	}
