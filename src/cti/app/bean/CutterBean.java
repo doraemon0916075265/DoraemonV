@@ -9,8 +9,6 @@ public class CutterBean {
 	private String specSendCut;
 	private String specFillCut0;
 	private String specFillCut;
-	private String specFillName0;
-	private String specFillName;
 	private String logInfo_ID;
 	private String specInfo_note;
 	private String exportFilePath;
@@ -88,22 +86,6 @@ public class CutterBean {
 
 	public void setSpecFillCut(String specFillCut) {
 		this.specFillCut = specFillCut;
-	}
-
-	public String getSpecFillName0() {
-		return specFillName0;
-	}
-
-	public void setSpecFillName0(String specFillName0) {
-		this.specFillName0 = specFillName0;
-	}
-
-	public String getSpecFillName() {
-		return specFillName;
-	}
-
-	public void setSpecFillName(String specFillName) {
-		this.specFillName = specFillName;
 	}
 
 	public String getLogInfo_ID() {

@@ -29,7 +29,7 @@ public class CutterService extends AppService {
 	private static final String TAG_NOTE = "note";
 	private static final String TAG_OWNER = "owner";
 	// 隱藏欄位
-	private static final String SPEC_CNAME = "cname";
+	private static final String TAG_CNAME = "cname";
 	private static final String TAG_SCNAME0 = "s_cname0";
 	private static final String TAG_SENAME0 = "s_ename0";
 	private static final String TAG_SCNAME = "s_cname";
@@ -115,26 +115,7 @@ public class CutterService extends AppService {
 						cb.setSpecFillCut0(jsonObj.get(TAG_FCUT0).toString());
 						cb.setSpecFillCut(jsonObj.get(TAG_FCUT).toString());
 
-						// 非必要欄位，塞try-catch
-						// try {
-						// cb.setSpecFillName0(jsonObj.get(SPEC_FNAME0).toString());
-						// } catch (Exception e) {
-						// cb.setSpecFillName0("");
-						// }
-						// try {
-						// cb.setSpecFillName(jsonObj.get(SPEC_FNAME).toString());
-						// } catch (Exception e) {
-						// cb.setSpecFillName("");
-						// }
 						// 隱藏欄位，非必要欄位，塞try-catch
-						String note = "";
-						try {
-							cb.setHidden_cname(jsonObj.get(SPEC_CNAME).toString());
-							note += StringUtils.isNotBlank(jsonObj.get(SPEC_CNAME).toString()) ? "名稱：" + jsonObj.get(SPEC_CNAME).toString() + "," : "";
-						} catch (Exception e) {
-							cb.setHidden_cname("");
-						}
-
 						try {
 							cb.setHidden_scname0(vaildObject_Array2String(jsonObj.get(TAG_SCNAME0)));
 						} catch (Exception e) {
@@ -179,17 +160,23 @@ public class CutterService extends AppService {
 							cb.setHidden_fename(INIT_JSONARRRAY);
 						}
 
+						// note最後塞
+						String note = "";
+						try {
+							cb.setHidden_cname(jsonObj.get(TAG_CNAME).toString());
+							note += StringUtils.isNotBlank(jsonObj.get(TAG_CNAME).toString()) ? "電文名稱：" + jsonObj.get(TAG_CNAME).toString() + "," : "";
+						} catch (Exception e) {
+							cb.setHidden_cname("");
+						}
 						try {
 							note += StringUtils.isNotBlank(jsonObj.get(TAG_OWNER).toString()) ? "負責人：" + jsonObj.get(TAG_OWNER).toString() + "," : "";
 						} catch (Exception e) {
-
 						}
-						// note最後塞
 						try {
-							note += "note：" + jsonObj.get(TAG_NOTE).toString();
+							note += StringUtils.isNotBlank(jsonObj.get(TAG_OWNER).toString()) ? "note：" + jsonObj.get(TAG_NOTE).toString() : "";
 							cb.setSpecInfo_note(note);
 						} catch (Exception e) {
-							cb.setSpecInfo_note(note + "note：");
+							cb.setSpecInfo_note("");
 						}
 
 						isFoundId = true;
