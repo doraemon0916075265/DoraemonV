@@ -161,23 +161,28 @@ public class CutterService extends AppService {
 						}
 
 						// note最後塞
-						String note = "";
+						List<String> subNote = new ArrayList<>();
 						try {
 							cb.setHidden_cname(jsonObj.get(TAG_CNAME).toString());
-							note += StringUtils.isNotBlank(jsonObj.get(TAG_CNAME).toString()) ? "電文名稱：" + jsonObj.get(TAG_CNAME).toString() + "," : "";
+							if (StringUtils.isNotBlank(jsonObj.get(TAG_CNAME).toString())) {
+								subNote.add("電文名稱：" + jsonObj.get(TAG_CNAME).toString());
+							}
 						} catch (Exception e) {
 							cb.setHidden_cname("");
 						}
 						try {
-							note += StringUtils.isNotBlank(jsonObj.get(TAG_OWNER).toString()) ? "負責人：" + jsonObj.get(TAG_OWNER).toString() + "," : "";
+							if (StringUtils.isNotBlank(jsonObj.get(TAG_OWNER).toString())) {
+								subNote.add("負責人：" + jsonObj.get(TAG_OWNER).toString());
+							}
 						} catch (Exception e) {
 						}
 						try {
-							note += StringUtils.isNotBlank(jsonObj.get(TAG_OWNER).toString()) ? "note：" + jsonObj.get(TAG_NOTE).toString() : "";
-							cb.setSpecInfo_note(note);
+							if (StringUtils.isNotBlank(jsonObj.get(TAG_NOTE).toString())) {
+								subNote.add("note：" + jsonObj.get(TAG_NOTE).toString());
+							}
 						} catch (Exception e) {
-							cb.setSpecInfo_note("");
 						}
+						cb.setSpecInfo_note(String.join(SIGN_COMMA, subNote));
 
 						isFoundId = true;
 						break;
