@@ -77,7 +77,10 @@ public class AppConstant {
 	public static final String FORMAT_GUIDEBOOK_CONTENT = "%d . %s " + System.lineSeparator();
 	public static final String FORMAT_EXPORTFILE_SUBTITLE = "☆ %s ☆" + System.lineSeparator();
 	public static final String FORMAT_EXPORTFILE_CONTENT = "%s" + System.lineSeparator();
-
+	
+	public static final String FORMAT_CSV_CELL = "=\"%s\",";
+	public static final String FORMAT_CSV_CELLHEADER = "=\"[%s]\",";
+	
 	// 檔案路徑
 	public static final String PATH_DISK_C = "C:" + File.separator;
 

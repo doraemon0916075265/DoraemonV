@@ -17,10 +17,14 @@ public class CutterBean {
 	private String resultS;
 	private String resultF;
 	private String hidden_cname;
-	private String hidden_sname0;
-	private String hidden_sname;
-	private String hidden_fname0;
-	private String hidden_fname;
+	private String hidden_scname0;
+	private String hidden_scname;
+	private String hidden_fcname0;
+	private String hidden_fcname;
+	private String hidden_sename0;
+	private String hidden_sename;
+	private String hidden_fename0;
+	private String hidden_fename;
 
 	public String getLogFilePath() {
 		return logFilePath;
@@ -150,36 +154,68 @@ public class CutterBean {
 		this.hidden_cname = hidden_cname;
 	}
 
-	public String getHidden_sname0() {
-		return hidden_sname0;
+	public String getHidden_scname0() {
+		return hidden_scname0;
 	}
 
-	public void setHidden_sname0(String hidden_sname0) {
-		this.hidden_sname0 = hidden_sname0;
+	public void setHidden_scname0(String hidden_scname0) {
+		this.hidden_scname0 = hidden_scname0;
 	}
 
-	public String getHidden_sname() {
-		return hidden_sname;
+	public String getHidden_scname() {
+		return hidden_scname;
 	}
 
-	public void setHidden_sname(String hidden_sname) {
-		this.hidden_sname = hidden_sname;
+	public void setHidden_scname(String hidden_scname) {
+		this.hidden_scname = hidden_scname;
 	}
 
-	public String getHidden_fname0() {
-		return hidden_fname0;
+	public String getHidden_fcname0() {
+		return hidden_fcname0;
 	}
 
-	public void setHidden_fname0(String hidden_fname0) {
-		this.hidden_fname0 = hidden_fname0;
+	public void setHidden_fcname0(String hidden_fcname0) {
+		this.hidden_fcname0 = hidden_fcname0;
 	}
 
-	public String getHidden_fname() {
-		return hidden_fname;
+	public String getHidden_fcname() {
+		return hidden_fcname;
 	}
 
-	public void setHidden_fname(String hidden_fname) {
-		this.hidden_fname = hidden_fname;
+	public void setHidden_fcname(String hidden_fcname) {
+		this.hidden_fcname = hidden_fcname;
+	}
+
+	public String getHidden_sename0() {
+		return hidden_sename0;
+	}
+
+	public void setHidden_sename0(String hidden_sename0) {
+		this.hidden_sename0 = hidden_sename0;
+	}
+
+	public String getHidden_sename() {
+		return hidden_sename;
+	}
+
+	public void setHidden_sename(String hidden_sename) {
+		this.hidden_sename = hidden_sename;
+	}
+
+	public String getHidden_fename0() {
+		return hidden_fename0;
+	}
+
+	public void setHidden_fename0(String hidden_fename0) {
+		this.hidden_fename0 = hidden_fename0;
+	}
+
+	public String getHidden_fename() {
+		return hidden_fename;
+	}
+
+	public void setHidden_fename(String hidden_fename) {
+		this.hidden_fename = hidden_fename;
 	}
 
 }

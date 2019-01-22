@@ -30,11 +30,6 @@ public class CutterService extends AppService {
 	private static final String TAG_OWNER = "owner";
 	// 隱藏欄位
 	private static final String SPEC_CNAME = "cname";
-	private static final String SPEC_SNAME0 = "s_name0";
-	private static final String SPEC_SNAME = "s_name";
-	private static final String SPEC_FNAME0 = "f_name0";
-	private static final String SPEC_FNAME = "f_name";
-
 	private static final String TAG_SCNAME0 = "s_cname0";
 	private static final String TAG_SENAME0 = "s_ename0";
 	private static final String TAG_SCNAME = "s_cname";
@@ -121,16 +116,16 @@ public class CutterService extends AppService {
 						cb.setSpecFillCut(jsonObj.get(TAG_FCUT).toString());
 
 						// 非必要欄位，塞try-catch
-						try {
-							cb.setSpecFillName0(jsonObj.get(SPEC_FNAME0).toString());
-						} catch (Exception e) {
-							cb.setSpecFillName0("");
-						}
-						try {
-							cb.setSpecFillName(jsonObj.get(SPEC_FNAME).toString());
-						} catch (Exception e) {
-							cb.setSpecFillName("");
-						}
+						// try {
+						// cb.setSpecFillName0(jsonObj.get(SPEC_FNAME0).toString());
+						// } catch (Exception e) {
+						// cb.setSpecFillName0("");
+						// }
+						// try {
+						// cb.setSpecFillName(jsonObj.get(SPEC_FNAME).toString());
+						// } catch (Exception e) {
+						// cb.setSpecFillName("");
+						// }
 						// 隱藏欄位，非必要欄位，塞try-catch
 						String note = "";
 						try {
@@ -139,26 +134,51 @@ public class CutterService extends AppService {
 						} catch (Exception e) {
 							cb.setHidden_cname("");
 						}
+
 						try {
-							cb.setHidden_sname0(vaildObject_Array2String(jsonObj.get(SPEC_SNAME0)));
+							cb.setHidden_scname0(vaildObject_Array2String(jsonObj.get(TAG_SCNAME0)));
 						} catch (Exception e) {
-							cb.setHidden_sname0(INIT_JSONARRRAY);
+							cb.setHidden_scname0(INIT_JSONARRRAY);
 						}
 						try {
-							cb.setHidden_sname(vaildObject_Array2String(jsonObj.get(SPEC_SNAME)));
+							cb.setHidden_sename0(vaildObject_Array2String(jsonObj.get(TAG_SENAME0)));
 						} catch (Exception e) {
-							cb.setHidden_sname(INIT_JSONARRRAY);
+							cb.setHidden_sename0(INIT_JSONARRRAY);
+						}
+
+						try {
+							cb.setHidden_scname(vaildObject_Array2String(jsonObj.get(TAG_SCNAME)));
+						} catch (Exception e) {
+							cb.setHidden_scname(INIT_JSONARRRAY);
 						}
 						try {
-							cb.setHidden_fname0(vaildObject_Array2String(jsonObj.get(SPEC_FNAME0)));
+							cb.setHidden_sename(vaildObject_Array2String(jsonObj.get(TAG_SENAME)));
 						} catch (Exception e) {
-							cb.setHidden_fname0(INIT_JSONARRRAY);
+							cb.setHidden_sename(INIT_JSONARRRAY);
+						}
+
+						try {
+							cb.setHidden_fcname0(vaildObject_Array2String(jsonObj.get(TAG_FCNAME0)));
+						} catch (Exception e) {
+							cb.setHidden_fcname0(INIT_JSONARRRAY);
 						}
 						try {
-							cb.setHidden_fname(vaildObject_Array2String(jsonObj.get(SPEC_FNAME)));
+							cb.setHidden_fename0(vaildObject_Array2String(jsonObj.get(TAG_FENAME0)));
 						} catch (Exception e) {
-							cb.setHidden_fname(INIT_JSONARRRAY);
+							cb.setHidden_fename0(INIT_JSONARRRAY);
 						}
+
+						try {
+							cb.setHidden_fcname(vaildObject_Array2String(jsonObj.get(TAG_FCNAME)));
+						} catch (Exception e) {
+							cb.setHidden_fcname(INIT_JSONARRRAY);
+						}
+						try {
+							cb.setHidden_fename(vaildObject_Array2String(jsonObj.get(TAG_FENAME)));
+						} catch (Exception e) {
+							cb.setHidden_fename(INIT_JSONARRRAY);
+						}
+
 						try {
 							note += StringUtils.isNotBlank(jsonObj.get(TAG_OWNER).toString()) ? "負責人：" + jsonObj.get(TAG_OWNER).toString() + "," : "";
 						} catch (Exception e) {
@@ -189,34 +209,40 @@ public class CutterService extends AppService {
 		return cb;
 	}
 
+	// 組欄位頭
+
 	// 驗證物件為陣列並轉換成字串
 	private String vaildObject_Array2String(Object object) {
 		return new JSONArray(object.toString()).toString();
 	}
 
 	/*** 主要切電文 ***/
-	public String cutterPro(String telegram, JSONArray cut0, JSONArray cut, JSONArray name0, JSONArray name) throws Exception {
+	public String cutterPro(String telegram, JSONArray cut0, JSONArray cut, List<JSONArray> head0, List<JSONArray> head) throws Exception {
 		int cutIndex = 0;
 		StringBuffer sb = new StringBuffer();
 		int gbkLen = getGBKLen(telegram);
 
-		sb.append(addTgHeader(name0));// 上行表頭
+		for (JSONArray jarr0 : head0) {
+			sb.append(addTgHeader(jarr0));// 上行表頭
+		}
 
 		for (Object obj : cut0) {
 			Integer cutSize = Integer.parseInt(obj.toString());
-			sb.append(SIGN_EQUAL_DBQUOTES + telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize)) + SIGN_DBQUOTES_COMMA);
+			sb.append(String.format(FORMAT_CSV_CELL, telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize))));
 			gbkLen -= cutSize;
 		}
 
 		sb.append(System.lineSeparator());
 		sb.append(System.lineSeparator());
-		sb.append(addTgHeader(name));// 下行表頭
+		for (JSONArray jarr : head) {
+			sb.append(addTgHeader(jarr));// 下行表頭
+		}
 
 		try {
 			while (gbkLen > cut.length()) {
 				for (Object obj : cut) {
 					Integer cutSize = Integer.parseInt(obj.toString());
-					sb.append(SIGN_EQUAL_DBQUOTES + telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize)) + SIGN_DBQUOTES_COMMA);
+					sb.append(String.format(FORMAT_CSV_CELL, telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize))));
 					gbkLen -= cutSize;
 				}
 				sb.append(System.lineSeparator());
@@ -232,7 +258,7 @@ public class CutterService extends AppService {
 		StringBuffer sb = new StringBuffer();
 		if (!arr.isEmpty()) {
 			for (Object obj : arr) {
-				sb.append(SIGN_EQUAL_DBQUOTES + obj.toString() + SIGN_DBQUOTES_COMMA);
+				sb.append(String.format(FORMAT_CSV_CELLHEADER, obj.toString()));
 			}
 			sb.append(System.lineSeparator());
 		}

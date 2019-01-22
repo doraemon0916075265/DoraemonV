@@ -70,10 +70,14 @@ public class CutterView extends CutterConstant {
 
 	// 隱藏欄位
 	protected static JLabel hidden_cname = new JLabel();
-	protected static JLabel hidden_sname0 = new JLabel();
-	protected static JLabel hidden_sname = new JLabel();
-	protected static JLabel hidden_fname0 = new JLabel();
-	protected static JLabel hidden_fname = new JLabel();
+	protected static JLabel hidden_scname0 = new JLabel();
+	protected static JLabel hidden_scname = new JLabel();
+	protected static JLabel hidden_fcname0 = new JLabel();
+	protected static JLabel hidden_fcname = new JLabel();
+	protected static JLabel hidden_sename0 = new JLabel();
+	protected static JLabel hidden_sename = new JLabel();
+	protected static JLabel hidden_fename0 = new JLabel();
+	protected static JLabel hidden_fename = new JLabel();
 
 	public static JPanel createView() {
 		setBegin();

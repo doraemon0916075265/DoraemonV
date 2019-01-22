@@ -1,6 +1,7 @@
 package cti.app.controller;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.json.JSONArray;
 
@@ -23,10 +24,14 @@ public class CutterController extends CutterView {
 		cb.setSpecInfo_note("");
 		// 隱藏欄位
 		cb.setHidden_cname("");
-		cb.setHidden_sname("");
-		cb.setHidden_sname("");
-		cb.setHidden_fname("");
-		cb.setHidden_fname("");
+		cb.setHidden_scname("");
+		cb.setHidden_scname0("");
+		cb.setHidden_fcname("");
+		cb.setHidden_fcname0("");
+		cb.setHidden_sename("");
+		cb.setHidden_sename0("");
+		cb.setHidden_fename("");
+		cb.setHidden_fename0("");
 		setAllProperties();
 	}
 
@@ -62,8 +67,13 @@ public class CutterController extends CutterView {
 		cb.setSpecFillCut0(cs.transInput_Array2String(jtf_specFillCut0));
 		cb.setSpecFillCut(cs.transInput_Array2String(jtf_specFillCut));
 
-		cb.setResultS(cs.cutterPro(cb.getLogInfo_send(), new JSONArray(cb.getSpecSendCut0()), new JSONArray(cb.getSpecSendCut()), new JSONArray(cb.getHidden_sname0()), new JSONArray(cb.getHidden_sname())));
-		cb.setResultF(cs.cutterPro(cb.getLogInfo_fill(), new JSONArray(cb.getSpecFillCut0()), new JSONArray(cb.getSpecFillCut()), new JSONArray(cb.getHidden_fname0()), new JSONArray(cb.getHidden_fname())));
+		List<JSONArray> shead0 = Arrays.asList(new JSONArray(cb.getHidden_scname0()), new JSONArray(cb.getHidden_sename0()));
+		List<JSONArray> shead = Arrays.asList(new JSONArray(cb.getHidden_scname()), new JSONArray(cb.getHidden_sename()));
+		List<JSONArray> fhead0 = Arrays.asList(new JSONArray(cb.getHidden_fcname0()), new JSONArray(cb.getHidden_fename0()));
+		List<JSONArray> fhead = Arrays.asList(new JSONArray(cb.getHidden_fcname()), new JSONArray(cb.getHidden_fename()));
+
+		cb.setResultS(cs.cutterPro(cb.getLogInfo_send(), new JSONArray(cb.getSpecSendCut0()), new JSONArray(cb.getSpecSendCut()), shead0, shead));
+		cb.setResultF(cs.cutterPro(cb.getLogInfo_fill(), new JSONArray(cb.getSpecFillCut0()), new JSONArray(cb.getSpecFillCut()), fhead0, fhead));
 
 		setAllProperties();
 	}
@@ -123,10 +133,14 @@ public class CutterController extends CutterView {
 		cb.setResultF("");
 		// 隱藏欄位
 		cb.setHidden_cname("");
-		cb.setHidden_sname("");
-		cb.setHidden_sname("");
-		cb.setHidden_fname("");
-		cb.setHidden_fname("");
+		cb.setHidden_scname("");
+		cb.setHidden_scname("");
+		cb.setHidden_fcname("");
+		cb.setHidden_fcname("");
+		cb.setHidden_sename("");
+		cb.setHidden_sename("");
+		cb.setHidden_fename("");
+		cb.setHidden_fename("");
 		setAllProperties();
 	}
 
@@ -147,10 +161,14 @@ public class CutterController extends CutterView {
 		cb.setResultF(jta_resultF.getText());
 		// 隱藏欄位
 		cb.setHidden_cname(hidden_cname.getText());
-		cb.setHidden_sname(hidden_sname0.getText());
-		cb.setHidden_sname(hidden_sname.getText());
-		cb.setHidden_fname(hidden_fname0.getText());
-		cb.setHidden_fname(hidden_fname.getText());
+		cb.setHidden_scname(hidden_scname0.getText());
+		cb.setHidden_scname(hidden_scname.getText());
+		cb.setHidden_fcname(hidden_fcname0.getText());
+		cb.setHidden_fcname(hidden_fcname.getText());
+		cb.setHidden_sename(hidden_sename0.getText());
+		cb.setHidden_sename(hidden_sename.getText());
+		cb.setHidden_fename(hidden_fename0.getText());
+		cb.setHidden_fename(hidden_fename.getText());
 	}
 
 	/*** 從bean中取出所有值塞入欄位 ***/
@@ -170,10 +188,14 @@ public class CutterController extends CutterView {
 		jta_resultF.setText(cb.getResultF());
 		// 隱藏欄位
 		hidden_cname.setText(cb.getHidden_cname());
-		hidden_sname0.setText(cb.getHidden_sname0());
-		hidden_sname.setText(cb.getHidden_sname());
-		hidden_fname.setText(cb.getHidden_fname());
-		hidden_fname0.setText(cb.getHidden_fname0());
+		hidden_scname0.setText(cb.getHidden_scname0());
+		hidden_scname.setText(cb.getHidden_scname());
+		hidden_fcname.setText(cb.getHidden_fcname());
+		hidden_fcname0.setText(cb.getHidden_fcname0());
+		hidden_sename0.setText(cb.getHidden_sename0());
+		hidden_sename.setText(cb.getHidden_sename());
+		hidden_fename.setText(cb.getHidden_fename());
+		hidden_fename0.setText(cb.getHidden_fename0());
 	}
 
 }
