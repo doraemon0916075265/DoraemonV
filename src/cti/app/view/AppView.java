@@ -1,6 +1,7 @@
 package cti.app.view;
 
 import java.awt.BorderLayout;
+import java.util.Arrays;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -13,7 +14,6 @@ import cti.app.service.AppService;
 
 public class AppView extends AppService {
 	private static JFrame jf;
-	private static AppService as = new AppService();
 
 	public static void executeApp() {
 		setFrameBegin();
@@ -43,14 +43,14 @@ public class AppView extends AppService {
 	/*** 設定元件 ***/
 	private static void setFrameComponent() {
 		jtp.addTab(APP_TAB_NAME[0], CutterView.createView());
-		jtp.addTab(APP_TAB_NAME[1], FindFileView.createView());
-		jtp.addTab(APP_TAB_NAME[2], TestView.createView());
+		jtp.addTab(APP_TAB_NAME[1], SpecInfoView.createView());
+		jtp.addTab(APP_TAB_NAME[2], FindFileView.createView());
 		jtp.addTab(APP_TAB_NAME[3], new JPanel());
 		jtp.addTab(APP_TAB_NAME[4], new JPanel());
 		jtp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);// 左右滾動
 
-		as.setAppStyle(jtp, "頁籤", APP_COLOR_DEFAULT);
-		as.setAppStyle(jl_msg, "系統訊息", APP_COLOR_MSG);
+		setAppStyle(jtp, APP_TAB, APP_COLOR_DEFAULT);
+		setAppStyle(jl_msg, APP_MSG, APP_COLOR_MSG);
 	}
 
 	/*** 設定Listener ***/
@@ -58,7 +58,7 @@ public class AppView extends AppService {
 		jtp.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent ce) {
-				showMsg("歡迎進入 " + getSelectedTabName());
+				showMsg(MSG_SUCCESS, Arrays.asList(MSG_WELCOME));
 			}
 		});
 	}

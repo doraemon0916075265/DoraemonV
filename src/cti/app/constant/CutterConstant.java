@@ -32,5 +32,4 @@ public class CutterConstant extends CutterService {
 	public static final String DFT_PATH_SPEC = "C:\\Users\\NT83382\\Desktop\\spec.json";
 	public static final String FILENAME_LOG = "LOG.TXT";
 	public static final String FILENAME_SPEC = "SPEC.JSON";
-
 }

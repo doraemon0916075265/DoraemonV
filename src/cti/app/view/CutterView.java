@@ -17,51 +17,49 @@ import javax.swing.plaf.FontUIResource;
 
 import cti.app.constant.CutterConstant;
 import cti.app.controller.CutterController;
-import cti.app.service.CutterService;
 
 public class CutterView extends CutterConstant {
 	private static JPanel jp = new JPanel();
-	public static CutterService cs = new CutterService();
 
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
 
-	private static JLabel jl_logFilePath = new JLabel(JL_LOGFILEPATH);// log檔路徑
+	private static JLabel jl_logFilePath = new JLabel(JL_LOGFILEPATH); // log檔路徑
 	private static JButton jb_logFilepath = new JButton();
 	protected static JTextField jtf_logFilePath = new JTextField();
 	private static JButton jb_resetData = new JButton(BTN_RESETDATA);
 
-	private static JLabel jl_specFilePath = new JLabel(JL_SPECFILEPATH);// spec檔路徑
+	private static JLabel jl_specFilePath = new JLabel(JL_SPECFILEPATH); // spec檔路徑
 	protected static JTextField jtf_specFilePath = new JTextField();
 	private static JButton jb_specFilepath = new JButton();
 	private static JButton jb_clearData = new JButton(BTN_CLEARDATA);
 
-	private static JLabel jl_logInfo_send = new JLabel(JL_LOGINFO_SEND);// 上行電文
+	private static JLabel jl_logInfo_send = new JLabel(JL_LOGINFO_SEND); // 上行電文
 	protected static JTextField jtf_logInfo_send = new JTextField();
 	private static JLabel jl_logInfo_sendLen = new JLabel(STR_ZERO);
 	private static JButton jb_readFile = new JButton(BTN_READFILE);
 
-	private static JLabel jl_logInfo_fill = new JLabel(JL_LOGINFO_FILL);// 下行電文
+	private static JLabel jl_logInfo_fill = new JLabel(JL_LOGINFO_FILL); // 下行電文
 	protected static JTextField jtf_logInfo_fill = new JTextField();
 	private static JLabel jl_logInfo_fillLen = new JLabel(STR_ZERO);
 	private static JButton jb_analysis = new JButton(BTN_ANALYSIS);
 
-	private static JLabel jl_specInfo_send = new JLabel(JL_SPECINFO_SEND);// 上行電文陣列
+	private static JLabel jl_specInfo_send = new JLabel(JL_SPECINFO_SEND); // 上行電文陣列
 	protected static JTextField jtf_specSendCut0 = new JTextField();
 	protected static JTextField jtf_specSendCut = new JTextField();
 	private static JLabel jl_specInfo_sendLen = new JLabel(String.join(SIGN_VERTICAL_BAR01, STR_ZERO, STR_ZERO));
 
-	private static JLabel jl_specInfo_fill = new JLabel(JL_SPECINFO_FILL);// 下行電文陣列
+	private static JLabel jl_specInfo_fill = new JLabel(JL_SPECINFO_FILL); // 下行電文陣列
 	protected static JTextField jtf_specFillCut0 = new JTextField();
 	protected static JTextField jtf_specFillCut = new JTextField();
 	private static JLabel jl_specInfo_fillLen = new JLabel(String.join(SIGN_VERTICAL_BAR01, STR_ZERO, STR_ZERO));
 
-	private static JLabel jl_logInfo_ID = new JLabel(JL_LOGINFO_ID);// 電文ID/資訊
+	private static JLabel jl_logInfo_ID = new JLabel(JL_LOGINFO_ID); // 電文ID/資訊
 	protected static JTextField jtf_logInfo_ID = new JTextField();
 	protected static JTextField jtf_specInfo_note = new JTextField();
 	private static JButton jb_guideBook = new JButton(BTN_GUIDEBOOK);
 
-	private static JLabel jl_exportFile = new JLabel(JL_EXPORTFILE);// 匯出檔案路徑
+	private static JLabel jl_exportFile = new JLabel(JL_EXPORTFILE); // 匯出檔案路徑
 	protected static JTextField jtf_exportFilePath = new JTextField();
 	private static JButton jb_exportFile = new JButton(BTN_EXPORTFILE);
 
@@ -185,66 +183,65 @@ public class CutterView extends CutterConstant {
 	}
 
 	private static void setComponent() {
-		cs.setAppStyle(jl_logFilePath, null, APP_COLOR_LOG);// log檔路徑
-		cs.setAppStyle(jtf_logFilePath, NAME_LOGFILEPATH, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jb_logFilepath, null, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jb_resetData, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logFilePath, null, APP_COLOR_LOG);// log檔路徑
+		setAppStyle(jtf_logFilePath, NAME_LOGFILEPATH, APP_COLOR_DEFAULT);
+		setAppStyle(jb_logFilepath, null, APP_COLOR_DEFAULT);
+		setAppStyle(jb_resetData, null, APP_COLOR_DEFAULT);
 
-		cs.setAppStyle(jl_specFilePath, null, APP_COLOR_SPEC);// spec檔路徑
-		cs.setAppStyle(jtf_specFilePath, NAME_SPECFILEPATH, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jb_specFilepath, null, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jb_clearData, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_specFilePath, null, APP_COLOR_SPEC);// spec檔路徑
+		setAppStyle(jtf_specFilePath, NAME_SPECFILEPATH, APP_COLOR_DEFAULT);
+		setAppStyle(jb_specFilepath, null, APP_COLOR_DEFAULT);
+		setAppStyle(jb_clearData, null, APP_COLOR_DEFAULT);
 
-		cs.setAppStyle(jl_logInfo_send, null, APP_COLOR_LOG);// 上行電文
-		cs.setAppStyle(jtf_logInfo_send, NAME_LOGINFO_SEND, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jl_logInfo_sendLen, null, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jb_readFile, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logInfo_send, null, APP_COLOR_LOG);// 上行電文
+		setAppStyle(jtf_logInfo_send, NAME_LOGINFO_SEND, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logInfo_sendLen, null, APP_COLOR_DEFAULT);
+		setAppStyle(jb_readFile, null, APP_COLOR_DEFAULT);
 
-		cs.setAppStyle(jl_logInfo_fill, null, APP_COLOR_LOG);// 下行電文
-		cs.setAppStyle(jtf_logInfo_fill, NAME_LOGINFO_FILL, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jl_logInfo_fillLen, null, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jb_analysis, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logInfo_fill, null, APP_COLOR_LOG);// 下行電文
+		setAppStyle(jtf_logInfo_fill, NAME_LOGINFO_FILL, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logInfo_fillLen, null, APP_COLOR_DEFAULT);
+		setAppStyle(jb_analysis, null, APP_COLOR_DEFAULT);
 
-		cs.setAppStyle(jl_specInfo_send, null, APP_COLOR_SPEC);// 上行電文
-		cs.setAppStyle(jtf_specSendCut0, NAME_SPECSENDCUT0, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jtf_specSendCut, NAME_SPECSENDCUT, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jl_specInfo_sendLen, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_specInfo_send, null, APP_COLOR_SPEC);// 上行電文
+		setAppStyle(jtf_specSendCut0, NAME_SPECSENDCUT0, APP_COLOR_DEFAULT);
+		setAppStyle(jtf_specSendCut, NAME_SPECSENDCUT, APP_COLOR_DEFAULT);
+		setAppStyle(jl_specInfo_sendLen, null, APP_COLOR_DEFAULT);
 
-		cs.setAppStyle(jl_specInfo_fill, null, APP_COLOR_SPEC);// 下行電文
-		cs.setAppStyle(jtf_specFillCut0, NAME_SPECFILLCUT0, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jtf_specFillCut, NAME_SPECFILLCUT, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jl_specInfo_fillLen, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_specInfo_fill, null, APP_COLOR_SPEC);// 下行電文
+		setAppStyle(jtf_specFillCut0, NAME_SPECFILLCUT0, APP_COLOR_DEFAULT);
+		setAppStyle(jtf_specFillCut, NAME_SPECFILLCUT, APP_COLOR_DEFAULT);
+		setAppStyle(jl_specInfo_fillLen, null, APP_COLOR_DEFAULT);
 
-		cs.setAppStyle(jl_logInfo_ID, null, APP_COLOR_LOG);// 電文ID/資訊
-		cs.setAppStyle(jtf_logInfo_ID, NAME_LOGINFO_ID, APP_COLOR_DEFAULT);
-		cs.setAppStyle4Info(jtf_specInfo_note, NAME_SPECINFO_NOTE, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jb_guideBook, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_logInfo_ID, null, APP_COLOR_LOG);// 電文ID/資訊
+		setAppStyle(jtf_logInfo_ID, NAME_LOGINFO_ID, APP_COLOR_DEFAULT);
+		setAppStyle4Info(jtf_specInfo_note, NAME_SPECINFO_NOTE, APP_COLOR_DEFAULT);
+		setAppStyle(jb_guideBook, null, APP_COLOR_DEFAULT);
 
-		cs.setAppStyle(jl_exportFile, null, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jtf_exportFilePath, NAME_EXPORTFILEPATH, APP_COLOR_DEFAULT);
-		cs.setAppStyle(jb_exportFile, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_exportFile, null, APP_COLOR_DEFAULT);
+		setAppStyle(jtf_exportFilePath, NAME_EXPORTFILEPATH, APP_COLOR_DEFAULT);
+		setAppStyle(jb_exportFile, null, APP_COLOR_DEFAULT);
 
-		cs.setAppStyle4TextArea(jta_resultS, NAME_RESULTS, APP_COLOR_DEFAULT, false);
-		cs.setAppStyle4TextArea(jta_resultF, NAME_RESULTF, APP_COLOR_DEFAULT, false);
+		setAppStyle4TextArea(jta_resultS, NAME_RESULTS, APP_COLOR_DEFAULT, false);
+		setAppStyle4TextArea(jta_resultF, NAME_RESULTF, APP_COLOR_DEFAULT, false);
 	}
 
 	private static void setListener() {
+		// 重設
+		jb_resetData.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				CutterController.doInitial();
+				showMsg(MSG_RESETDATA);
+			}
+		});
+
 		// 清除
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				CutterController.clearData();
-				showMsg(MSG_SUCCESS, MSG_CLEARDATA);
-			}
-		});
-
-		// 重設
-		jb_resetData.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				isTimerWork(true);
-				CutterController.doInitial();
-				showMsg(MSG_RESETDATA);
+				showMsg(MSG_CLEARDATA);
 			}
 		});
 
@@ -257,8 +254,7 @@ public class CutterView extends CutterConstant {
 					CutterController.readFile();
 					showMsg(MSG_READFILE);
 				} catch (Exception e) {
-					showMsg(e.getClass().getSimpleName(), e.getMessage());
-					isTimerWork(false);
+					showMsg(e);
 				}
 			}
 		});
@@ -267,15 +263,24 @@ public class CutterView extends CutterConstant {
 		jb_analysis.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-
 				isTimerWork(true);
 				try {
 					CutterController.analysis();
 					showMsg(MSG_ANALYSIS);
 				} catch (Exception e) {
-					showMsg(e.getClass().getSimpleName(), e.getMessage());
-					isTimerWork(false);
+					showMsg(e);
 				}
+			}
+		});
+
+		// 說明書
+		jb_guideBook.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				showMsg(MSG_OPEN_GUIDEBOOK);
+				UIManager.put("OptionPane.messageFont", new FontUIResource(APP_FONT));
+				JOptionPane.showMessageDialog(null, CutterController.guidebook(), APP_GUIDEBOOK_TITLE, JOptionPane.DEFAULT_OPTION);
+				showMsg(MSG_CLOSE_GUIDEBOOK);
 			}
 		});
 
@@ -288,47 +293,35 @@ public class CutterView extends CutterConstant {
 					CutterController.export();
 					showMsg(MSG_EXPORTFILE + "於" + jtf_exportFilePath.getText());
 				} catch (Exception e) {
-					showMsg(e.getClass().getSimpleName(), e.getMessage());
-					isTimerWork(false);
+					showMsg(e);
 				}
 			}
 		});
 
-		// 導覽
-		jb_guideBook.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				showMsg(MSG_OPEN_GUIDEBOOK);
-				UIManager.put("OptionPane.messageFont", new FontUIResource(APP_FONT));
-				JOptionPane.showMessageDialog(null, CutterController.guidebook(), APP_GUIDEBOOK_TITLE, JOptionPane.DEFAULT_OPTION);
-				showMsg(MSG_CLOSE_GUIDEBOOK);
-			}
-		});
-
 		// 取檔案路徑
-		cs.btnGetPath(jb_logFilepath, jtf_logFilePath);
-		cs.btnGetPath(jb_specFilepath, jtf_specFilePath);
+		btnGetPath(jb_logFilepath, jtf_logFilePath);
+		btnGetPath(jb_specFilepath, jtf_specFilePath);
 
 		// 取電文長度
-		cs.getInputTextLength(jtf_logInfo_send, jl_logInfo_sendLen);
-		cs.getInputTextLength(jtf_logInfo_fill, jl_logInfo_fillLen);
-		cs.getInputIntegerArraySum(Arrays.asList(jtf_specSendCut0, jtf_specSendCut), jl_specInfo_sendLen);
-		cs.getInputIntegerArraySum(Arrays.asList(jtf_specFillCut0, jtf_specFillCut), jl_specInfo_fillLen);
+		getInputTextLength(jtf_logInfo_send, jl_logInfo_sendLen);
+		getInputTextLength(jtf_logInfo_fill, jl_logInfo_fillLen);
+		getInputIntegerArraySum(Arrays.asList(jtf_specSendCut0, jtf_specSendCut), jl_specInfo_sendLen);
+		getInputIntegerArraySum(Arrays.asList(jtf_specFillCut0, jtf_specFillCut), jl_specInfo_fillLen);
 
 		// 點擊複製
-		cs.dbClickOnCopy(jtf_logFilePath);
-		cs.dbClickOnCopy(jtf_specFilePath);
-		cs.dbClickOnCopy(jtf_logInfo_ID);
-		cs.dbClickOnCopy(jtf_logInfo_send);
-		cs.dbClickOnCopy(jtf_logInfo_fill);
-		cs.dbClickOnCopy(jtf_specSendCut0);
-		cs.dbClickOnCopy(jtf_specSendCut);
-		cs.dbClickOnCopy(jtf_specFillCut0);
-		cs.dbClickOnCopy(jtf_specFillCut);
-		cs.dbClickOnCopy(jtf_specInfo_note);
-		cs.dbClickOnCopy(jtf_exportFilePath);
-		cs.dbClickOnCopy(jta_resultS);
-		cs.dbClickOnCopy(jta_resultF);
+		dbClickOnCopy(jtf_logFilePath);
+		dbClickOnCopy(jtf_specFilePath);
+		dbClickOnCopy(jtf_logInfo_ID);
+		dbClickOnCopy(jtf_logInfo_send);
+		dbClickOnCopy(jtf_logInfo_fill);
+		dbClickOnCopy(jtf_specSendCut0);
+		dbClickOnCopy(jtf_specSendCut);
+		dbClickOnCopy(jtf_specFillCut0);
+		dbClickOnCopy(jtf_specFillCut);
+		dbClickOnCopy(jtf_specInfo_note);
+		dbClickOnCopy(jtf_exportFilePath);
+		dbClickOnCopy(jta_resultS);
+		dbClickOnCopy(jta_resultF);
 	}
 
 	private static void setEnd() {

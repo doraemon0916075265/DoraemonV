@@ -15,7 +15,7 @@ import cti.app.bean.FindFileBean;
 public class FindFileService extends AppService {
 	private static List<String> list = new ArrayList<>();
 
-	public FindFileBean findConditionFile(FindFileBean ffb) {
+	public static FindFileBean findConditionFile(FindFileBean ffb) {
 		list = new ArrayList<>();
 
 		String resultStr = "";

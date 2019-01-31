@@ -19,7 +19,7 @@ public class AppConstant {
 
 	// APP設定
 	public static final String APP_FRAME_TITLE = "★Hello～★";
-	public final static String[] APP_TAB_NAME = { "切電文", "找檔案", "未定1", "未定2", "未定3" };
+	public final static String[] APP_TAB_NAME = { "切電文", "Spec", "找檔案", "未定2", "未定3" };
 	public static final String APP_GUIDEBOOK_TITLE = "操作說明書";
 	public static final int APP_FRAME_WIDTH = 1080;
 	public static final int APP_FRAME_HEIGHT = 720;
@@ -29,11 +29,14 @@ public class AppConstant {
 	public static final Color APP_COLOR_SPEC = Color.MAGENTA;
 	public static final Color APP_COLOR_DEFAULT = Color.BLACK;
 	public static final Color APP_COLOR_SEARCH_CRITERIA = Color.BLUE;
-	public static final Color APP_COLOR_MSG = Color.RED;
+	public static final Color APP_COLOR_MSG = Color.BLUE; // 成功訊息
+	public static final Color APP_COLOR_ERRMSG = Color.RED; // 錯誤訊息
 	public static final SimpleDateFormat APPMSG_SDF = new SimpleDateFormat("HH:mm:ss");
 	public static final SimpleDateFormat APPDATE_SDF = new SimpleDateFormat("yyyy/MM/dd");
 	public static final Font APP_FONT = new Font("微軟正黑體", Font.PLAIN, 12);
 	public static final Clipboard APP_CLIPBOARD = Toolkit.getDefaultToolkit().getSystemClipboard();
+	public static final String APP_TAB = "頁籤";
+	public static final String APP_MSG = "系統訊息";
 
 	// 訊息
 	public static final String MSG_ = "";
@@ -50,6 +53,7 @@ public class AppConstant {
 	public static final String MSG_RUNNING = "執行中";
 	public static final String MSG_OPEN_GUIDEBOOK = "開啟說明書";
 	public static final String MSG_CLOSE_GUIDEBOOK = "關閉說明書";
+	public static final String MSG_WELCOME = "歡迎進入";
 
 	// 錯誤訊息
 	public static final String ERRMSG_JSON_TRANSFER = "轉換JSON格式發生錯誤";
@@ -68,7 +72,8 @@ public class AppConstant {
 	public static final String ERRMSG_ILLEGAL_FILENAME = "非法檔名";
 
 	// 格式
-	public static final String FORMAT_MSG = "[%s][%s %s] %s %s";
+	public static final String FORMAT_MSG_HEADER = "[%s][%s %s]";
+	public static final String FORMAT_MSG = "%s %s %s";
 	public static final String FORMAT_MSG_TIMER_S = "(執行%.3f秒)";
 	public static final String FORMAT_MSG_TIMER_MS = "(執行%d毫秒)";
 	public static final String FORMAT_MSG_EXCEPTION = "%s %s";
@@ -77,10 +82,10 @@ public class AppConstant {
 	public static final String FORMAT_GUIDEBOOK_CONTENT = "%d . %s " + System.lineSeparator();
 	public static final String FORMAT_EXPORTFILE_SUBTITLE = "☆ %s ☆" + System.lineSeparator();
 	public static final String FORMAT_EXPORTFILE_CONTENT = "%s" + System.lineSeparator();
-	
+
 	public static final String FORMAT_CSV_CELL = "=\"%s\",";
 	public static final String FORMAT_CSV_CELLHEADER = "=\"[%s]\",";
-	
+
 	// 檔案路徑
 	public static final String PATH_DISK_C = "C:" + File.separator;
 
@@ -128,6 +133,7 @@ public class AppConstant {
 	public static final String FORMAT_REGEXP_LEGAL_FILENAME = "[\u4e00-\u9fa5\\w_]+\\.%s{1}";
 
 	// 符號
+	public static final String SIGN_SPACE = " ";
 	public static final String SIGN_DBQUOTES = "\"";
 	public static final String SIGN_EQUAL = "=";
 	public static final String SIGN_EQUAL_DBQUOTES = "=\"";
@@ -140,4 +146,25 @@ public class AppConstant {
 
 	// 副檔名
 	public static final String FILENAME_EXTENSION_CSV = ".csv";
+
+	// spec檔標籤
+	protected static final String TAG_ID = "id";
+	protected static final String TAG_SCUT0 = "s_cut0";
+	protected static final String TAG_SCUT = "s_cut";
+	protected static final String TAG_FCUT0 = "f_cut0";
+	protected static final String TAG_FCUT = "f_cut";
+	protected static final String TAG_NOTE = "note";
+	protected static final String TAG_OWNER = "owner";
+	protected static final String TAG_CNAME = "cname";
+	protected static final String TAG_SCNAME0 = "s_cname0";
+	protected static final String TAG_SENAME0 = "s_ename0";
+	protected static final String TAG_SCNAME = "s_cname";
+	protected static final String TAG_SENAME = "s_ename";
+	protected static final String TAG_FCNAME0 = "f_cname0";
+	protected static final String TAG_FENAME0 = "f_ename0";
+	protected static final String TAG_FCNAME = "f_cname";
+	protected static final String TAG_FENAME = "f_ename";
+	protected static final String TAG_FORMAT = "format";
+	
+
 }

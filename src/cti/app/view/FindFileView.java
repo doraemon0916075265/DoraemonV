@@ -129,32 +129,32 @@ public class FindFileView extends FindFileConstant {
 	}
 
 	private static void setComponent() {
-		fs.setAppStyle(jl_searchPath, null, APP_COLOR_DEFAULT);
-		fs.setAppStyle(jtf_searchPath, NAME_SEARCHPATH, APP_COLOR_DEFAULT);
-		fs.setAppStyle(jb_resetData, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_searchPath, null, APP_COLOR_DEFAULT);
+		setAppStyle(jtf_searchPath, NAME_SEARCHPATH, APP_COLOR_DEFAULT);
+		setAppStyle(jb_resetData, null, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_searchCondition, null, APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jb_clearData, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_searchCondition, null, APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jb_clearData, null, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_byText, null, APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jtf_byText, NAME_BYTEXT, APP_COLOR_DEFAULT);
-		fs.setAppStyle(jb_search, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_byText, null, APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jtf_byText, NAME_BYTEXT, APP_COLOR_DEFAULT);
+		setAppStyle(jb_search, null, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_byFilename, null, APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jtf_byFilename, NAME_BYFILENAME, APP_COLOR_DEFAULT);
+		setAppStyle(jl_byFilename, null, APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jtf_byFilename, NAME_BYFILENAME, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_byFilenameExtension, null, APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jtf_byFilenameExtension, NAME_BYFILENAMEEXTENSION, APP_COLOR_DEFAULT);
+		setAppStyle(jl_byFilenameExtension, null, APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jtf_byFilenameExtension, NAME_BYFILENAMEEXTENSION, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_byFilenameExtension_Ignore, null, APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jtf_byFilenameExtension_Ignore, NAME_BYFILENAMEEXTENSION_IGNORE, APP_COLOR_DEFAULT);
+		setAppStyle(jl_byFilenameExtension_Ignore, null, APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jtf_byFilenameExtension_Ignore, NAME_BYFILENAMEEXTENSION_IGNORE, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle(jl_byModify_greaterThan, null, APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jxdp_byModify_greaterThan, NAME_BYMODIFY_GREATERTHAN, APP_COLOR_DEFAULT);
-		fs.setAppStyle(jl_byModify_lessThan, null, APP_COLOR_SEARCH_CRITERIA);
-		fs.setAppStyle(jxdp_byModify_lessThan, NAME_BYMODIFY_LESSTHAN, APP_COLOR_DEFAULT);
+		setAppStyle(jl_byModify_greaterThan, null, APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jxdp_byModify_greaterThan, NAME_BYMODIFY_GREATERTHAN, APP_COLOR_DEFAULT);
+		setAppStyle(jl_byModify_lessThan, null, APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jxdp_byModify_lessThan, NAME_BYMODIFY_LESSTHAN, APP_COLOR_DEFAULT);
 
-		fs.setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
+		setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
 	}
 
 	private static void setListener() {
@@ -173,7 +173,7 @@ public class FindFileView extends FindFileConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				FindFileController.clearData();
-				showMsg(MSG_SUCCESS, MSG_CLEARDATA);
+				showMsg(MSG_CLEARDATA);
 			}
 		});
 
@@ -186,15 +186,15 @@ public class FindFileView extends FindFileConstant {
 					FindFileController.findConditionFile();
 					showMsg(MSG_SEARCH);
 				} catch (Exception e) {
-					showMsg(e.getClass().getSimpleName(), e.getMessage());
+					showMsg(e);
 				}
 			}
 		});
 
-		fs.dbClickOnCopy(jtf_searchPath);
-		fs.dbClickOnCopy(jtf_byText);
-		fs.dbClickOnCopy(jtf_byFilename);
-		fs.dbClickOnCopy(jta_result);
+		dbClickOnCopy(jtf_searchPath);
+		dbClickOnCopy(jtf_byText);
+		dbClickOnCopy(jtf_byFilename);
+		dbClickOnCopy(jta_result);
 	}
 
 	private static void setEnd() {

@@ -21,24 +21,6 @@ public class CutterService extends AppService {
 	private static final String FLAG_LOG = "LOG";
 	private static final String FLAG_SPEC = "SPEC";
 
-	private static final String TAG_ID = "id";
-	private static final String TAG_SCUT0 = "s_cut0";
-	private static final String TAG_SCUT = "s_cut";
-	private static final String TAG_FCUT0 = "f_cut0";
-	private static final String TAG_FCUT = "f_cut";
-	private static final String TAG_NOTE = "note";
-	private static final String TAG_OWNER = "owner";
-	// 隱藏欄位
-	private static final String TAG_CNAME = "cname";
-	private static final String TAG_SCNAME0 = "s_cname0";
-	private static final String TAG_SENAME0 = "s_ename0";
-	private static final String TAG_SCNAME = "s_cname";
-	private static final String TAG_SENAME = "s_ename";
-	private static final String TAG_FCNAME0 = "f_cname0";
-	private static final String TAG_FENAME0 = "f_ename0";
-	private static final String TAG_FCNAME = "f_cname";
-	private static final String TAG_FENAME = "f_ename";
-
 	// 正規表示法
 	private static final String PARAM_TGID = "電文ID:";
 	private static final String REGEXP_ID1 = "畫面名稱:" + REGEXP_FORALL;
@@ -51,12 +33,12 @@ public class CutterService extends AppService {
 	private static final String FILENAME_RESULT = "result";
 
 	/*** 取得預設匯出檔案目錄 ***/
-	public String getExportFilePath(String name) {
+	public static String getExportFilePath(String name) {
 		return getDesktopRootPath() + File.separator + FILENAME_RESULT + (StringUtils.isBlank(name) ? "" : "_" + name) + FILENAME_EXTENSION_CSV;
 	}
 
 	/*** 讀檔 ***/
-	public CutterBean readFileInfo(CutterBean cb) throws Exception {
+	public static CutterBean readFileInfo(CutterBean cb) throws Exception {
 		String pathLog = cb.getLogFilePath();
 		String pathSpec = cb.getSpecFilePath();
 		/*** 讀log檔 ***/
@@ -204,12 +186,12 @@ public class CutterService extends AppService {
 	// 組欄位頭
 
 	// 驗證物件為陣列並轉換成字串
-	private String vaildObject_Array2String(Object object) {
+	private static String vaildObject_Array2String(Object object) {
 		return new JSONArray(object.toString()).toString();
 	}
 
 	/*** 主要切電文 ***/
-	public String cutterPro(String telegram, JSONArray cut0, JSONArray cut, List<JSONArray> head0, List<JSONArray> head) throws Exception {
+	public static String cutterPro(String telegram, JSONArray cut0, JSONArray cut, List<JSONArray> head0, List<JSONArray> head) throws Exception {
 		int cutIndex = 0;
 		StringBuffer sb = new StringBuffer();
 		int gbkLen = getGBKLen(telegram);
@@ -246,7 +228,7 @@ public class CutterService extends AppService {
 	}
 
 	// 組表頭顯示
-	private String addTgHeader(JSONArray arr) {
+	private static String addTgHeader(JSONArray arr) {
 		StringBuffer sb = new StringBuffer();
 		if (!arr.isEmpty()) {
 			for (Object obj : arr) {
@@ -294,7 +276,7 @@ public class CutterService extends AppService {
 		return sb.toString();
 	}
 
-	private int subStrLen(String str, int index) throws UnsupportedEncodingException {
+	private static int subStrLen(String str, int index) throws UnsupportedEncodingException {
 		if (str == null) {
 			return -1;
 		} else if (getGBKLen(str) >= index) {
@@ -311,7 +293,7 @@ public class CutterService extends AppService {
 	}
 
 	/*** 匯出檔案 ***/
-	public void exportFile(CutterBean cb) throws Exception {
+	public static void exportFile(CutterBean cb) throws Exception {
 		List<String> contents = new ArrayList<>();
 		contents.add(String.format(FORMAT_EXPORTFILE_SUBTITLE, "Send or Up"));
 		contents.add(String.format(FORMAT_EXPORTFILE_CONTENT, cb.getResultS()));
@@ -322,7 +304,7 @@ public class CutterService extends AppService {
 	}
 
 	/*** 驗證檔案內容 ***/
-	private void validFileContent(CutterBean cb, String type) throws Exception {
+	private static void validFileContent(CutterBean cb, String type) throws Exception {
 		String msg;
 		if (FLAG_LOG.equals(type)) {
 			msg = "log檔無";

@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -43,7 +44,7 @@ public class AppService extends AppConstant {
 	protected static final String INIT_JSONARRRAY = new JSONArray().toString();
 
 	/*** 取得桌面根目錄 ***/
-	public String getDesktopRootPath() {
+	public static String getDesktopRootPath() {
 		desktopRootPath = "";
 		findRootPath(PATH_DISK_C, false, false);
 		return StringUtils.isNotBlank(desktopRootPath) ? desktopRootPath : PATH_DISK_C;
@@ -74,7 +75,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 找目錄下的檔案路徑 ***/
-	public String findFilePathByRootPath(String path, String name) {
+	public static String findFilePathByRootPath(String path, String name) {
 		filePathByRootPath = "";
 		recursive4FilePathByRootPath(path, name);
 		return StringUtils.isBlank(filePathByRootPath) ? path : filePathByRootPath;
@@ -100,14 +101,14 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 驗證輸入框：為非空輸入框。 ***/
-	public void validateInput_Text(JTextComponent jtc) throws Exception {
+	public static void validateInput_Text(JTextComponent jtc) throws Exception {
 		if (StringUtils.isBlank(jtc.getText())) {
 			throw new NullPointerException(String.format(FORMAT_MSG_EXCEPTION, jtc.getName(), ERRMSG_IS_BLANK));
 		}
 	}
 
 	/*** 驗證輸入框：為非空陣列格式。 ***/
-	public void validateInput_Array(JTextComponent jtc) throws Exception {
+	public static void validateInput_Array(JTextComponent jtc) throws Exception {
 		validateInput_Text(jtc);
 		try {
 			if (new JSONArray(jtc.getText()).isEmpty()) {
@@ -119,7 +120,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 驗證輸入框：陣列格式。 ***/
-	public void validateInput_SimpleArray(JTextComponent jtc) throws Exception {
+	public static void validateInput_SimpleArray(JTextComponent jtc) throws Exception {
 		try {
 			new JSONArray(jtc.getText());
 		} catch (Exception e) {
@@ -128,7 +129,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 驗證輸入框：為已存在合法檔案路徑格式。 ***/
-	public void validateInput_Filepath(JTextComponent jtc) throws Exception {
+	public static void validateInput_FilePath(JTextComponent jtc) throws Exception {
 		validateInput_Text(jtc);
 		String input = jtc.getText();
 		File f = new File(input);
@@ -146,12 +147,12 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 驗證輸入框：為合法修改日期格式。 ***/
-	public void validateInput_byModifyDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan) throws Exception {
+	public static void validateInput_byModifyDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan) throws Exception {
 		validateInput_BeinEndDate(jxdpGreaterThan, jxdpLessThan);
 	}
 
 	/*** 驗證輸入框：為合法起訖日期格式。 ***/
-	public void validateInput_BeinEndDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan) throws Exception {
+	public static void validateInput_BeinEndDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan) throws Exception {
 		if (jxdpGreaterThan.getDate() != null && jxdpLessThan.getDate() != null) {
 			if (jxdpGreaterThan.getDate().after(jxdpLessThan.getDate())) {
 				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "起日不可大於起訖日", ""));
@@ -160,7 +161,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 驗證輸入框：為匯出檔案路徑格式。 ***/
-	public void validateInput_ExportPath(JTextComponent jtc, List<String> extensions) throws Exception {
+	public static void validateInput_ExportPath(JTextComponent jtc, List<String> extensions) throws Exception {
 		try {
 			validateInput_FilenameInExtensionList(new JTextField(new File(jtc.getText()).getName()), extensions);
 		} catch (Exception e) {
@@ -169,7 +170,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 驗證輸入框：為已存在資料夾格式。 ***/
-	public void validateInput_DirectoryPath(JTextComponent jtc) throws Exception {
+	public static void validateInput_DirectoryPath(JTextComponent jtc) throws Exception {
 		validateInput_Text(jtc);
 		String input = jtc.getText();
 		File f = new File(input);
@@ -181,7 +182,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 驗證輸入框：合法檔名並在副檔名List中。 ***/
-	public void validateInput_FilenameInExtensionList(JTextComponent jtc, List<String> extensions) throws Exception {
+	public static void validateInput_FilenameInExtensionList(JTextComponent jtc, List<String> extensions) throws Exception {
 		validateInput_Text(jtc);
 		String filenameU = jtc.getText().toUpperCase();
 		// 比對一般檔名格式
@@ -202,14 +203,14 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 轉換輸入框：驗證陣列轉字串 ***/
-	public String transInput_Array2String(JTextComponent jtc) throws Exception {
+	public static String transInput_Array2String(JTextComponent jtc) throws Exception {
 		transInput_SimpleArray2String(jtc);
 		validateInput_Array(jtc);
 		return new JSONArray(jtc.getText()).toString();
 	}
 
 	/*** 轉換輸入框：驗證陣列轉字串 ***/
-	public String transInput_SimpleArray2String(JTextComponent jtc) throws Exception {
+	public static String transInput_SimpleArray2String(JTextComponent jtc) throws Exception {
 		if (StringUtils.isBlank(jtc.getText())) {
 			jtc.setText(INIT_JSONARRRAY);
 		}
@@ -218,7 +219,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 匯出檔案 ***/
-	public void exportFile(String exportPath, List<String> contents) throws Exception {
+	public static void exportFile(String exportPath, List<String> contents) throws Exception {
 		try (FileWriter fw = new FileWriter(new File(exportPath).getAbsolutePath())) {
 			fw.write(new String(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF }));
 			for (String content : contents) {
@@ -255,7 +256,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 雙擊複製到剪貼簿 ***/
-	public void dbClickOnCopy(JTextComponent jtc) {
+	public static void dbClickOnCopy(JTextComponent jtc) {
 		jtc.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent me) {
@@ -283,14 +284,14 @@ public class AppService extends AppConstant {
 					me.isConsumed();
 					StringSelection data = new StringSelection(jtc.getText());
 					APP_CLIPBOARD.setContents(data, data);
-					showMsg(MSG_SUCCESS, String.format(FORMAT_MSG_COPIED, jtc.getName()));
+					showMsg(String.format(FORMAT_MSG_COPIED, jtc.getName()));
 				}
 			}
 		});
 	}
 
 	/*** 取電文長度(輸入,輸出) ***/
-	public void getInputTextLength(JTextComponent input, JLabel output) {
+	public static void getInputTextLength(JTextComponent input, JLabel output) {
 		input.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void removeUpdate(DocumentEvent de) {
@@ -318,7 +319,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 取電文長度(輸入,輸出) ***/
-	public void getInputIntegerArraySum(List<JTextComponent> inputs, JLabel output) {
+	public static void getInputIntegerArraySum(List<JTextComponent> inputs, JLabel output) {
 		for (JTextComponent input : inputs) {
 			input.getDocument().addDocumentListener(new DocumentListener() {
 				@Override
@@ -366,7 +367,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 取GBK長度 ***/
-	public int getGBKLen(String str) throws UnsupportedEncodingException {
+	public static int getGBKLen(String str) throws UnsupportedEncodingException {
 		try {
 			return str.getBytes("GBK").length;
 		} catch (UnsupportedEncodingException e) {
@@ -385,37 +386,36 @@ public class AppService extends AppConstant {
 		}
 	}
 
-	/*** 訊息欄 ***/
+	/*** 訊息欄Start ***/
 	public static void showMsg(String msg) {
+		showMsg(MSG_SUCCESS, Arrays.asList(msg));
+	}
+
+	public static void showMsg(List<String> list) {
+		showMsg(MSG_SUCCESS, list);
+	}
+
+	public static void showMsg(Exception e) {
+		isTimerWork(false);
+		showMsg(e.getClass().getSimpleName(), Arrays.asList(e.getMessage()));
+	}
+
+	public static void showMsg(String msgType, List<String> list) {
+		String timeMsg = "";
 		if (isTimerOn) {
 			isTimerWork(false);
-			String timeMsg = "";
-			if (timer >= 1000L) {
-				timeMsg = String.format(FORMAT_MSG_TIMER_S, timer / 1000d);
-			} else {
-				timeMsg = String.format(FORMAT_MSG_TIMER_MS, timer);
-			}
-			jl_msg.setText(String.format(FORMAT_MSG, getSelectedTabName(), APPMSG_SDF.format(System.currentTimeMillis()), MSG_SUCCESS, msg, timeMsg));
+			timeMsg = (timer >= 1000L) ? (String.format(FORMAT_MSG_TIMER_S, timer / 1000d)) : (String.format(FORMAT_MSG_TIMER_MS, timer));
+		}
+		if (MSG_SUCCESS.equals(msgType)) {
+			setAppStyle(jl_msg, APP_MSG, APP_COLOR_MSG);
 		} else {
-			jl_msg.setText(String.format(FORMAT_MSG, getSelectedTabName(), APPMSG_SDF.format(System.currentTimeMillis()), MSG_SUCCESS, msg, ""));
+			setAppStyle(jl_msg, APP_MSG, APP_COLOR_ERRMSG);
 		}
+		String msgHeader = String.format(FORMAT_MSG_HEADER, getSelectedTabName(), APPMSG_SDF.format(System.currentTimeMillis()), msgType);
+		jl_msg.setText(String.format(FORMAT_MSG, msgHeader, String.join(SIGN_SPACE, list), timeMsg).trim());
 	}
 
-	/*** 訊息欄 ***/
-	public static void showMsg(String msgType, String msg) {
-		if (isTimerOn) {
-			isTimerWork(false);
-		}
-		jl_msg.setText(String.format(FORMAT_MSG, getSelectedTabName(), APPMSG_SDF.format(System.currentTimeMillis()), msgType, msg, ""));
-	}
-
-	/*** 訊息欄 ***/
-	public static void showMsg(String msgType, String msg1, String msg2) {
-		if (isTimerOn) {
-			isTimerWork(false);
-		}
-		jl_msg.setText(String.format(FORMAT_MSG, getSelectedTabName(), APPMSG_SDF.format(System.currentTimeMillis()), msgType, msg1, msg2));
-	}
+	/*** 訊息欄End ***/
 
 	/*** 取得Tab名 ***/
 	public static String getSelectedTabName() {
@@ -423,21 +423,21 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 取得檔案路徑 ***/
-	public void btnGetPath(JButton jb, JTextField jtf) {
+	public static void btnGetPath(JButton jb, JTextField jtf) {
 		jb.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				JFileChooser jfc = new JFileChooser();
 				if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					jtf.setText(jfc.getSelectedFile().toString());
-					showMsg(MSG_SUCCESS, MSG_GET + jtf.getName(), jfc.getSelectedFile().toString());
+					showMsg(MSG_GET + jtf.getName() + SIGN_SPACE + jfc.getSelectedFile().toString());
 				}
 			}
 		});
 	}
 
 	/*** 樣式：一般(物件,命名,顏色) ***/
-	public void setAppStyle(JComponent jc, String name, Color fontColor) {
+	public static void setAppStyle(JComponent jc, String name, Color fontColor) {
 		if (StringUtils.isNotBlank(name)) {
 			jc.setName(name);
 		}
@@ -446,7 +446,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 樣式：純顯示訊息(物件,命名,顏色) ***/
-	public void setAppStyle4Info(JComponent jc, String name, Color fontColor) {
+	public static void setAppStyle4Info(JComponent jc, String name, Color fontColor) {
 		setAppStyle(jc, name, fontColor);
 		jc.setBackground(null);
 		jc.setBorder(null);
@@ -454,7 +454,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 樣式：一般TextArea(物件,命名,顏色,可編輯) ***/
-	public void setAppStyle4TextArea(JComponent jc, String name, Color fontColor, boolean isEditable) {
+	public static void setAppStyle4TextArea(JComponent jc, String name, Color fontColor, boolean isEditable) {
 		setAppStyle(jc, name, fontColor);
 		((JTextComponent) jc).setEditable(isEditable);
 	}

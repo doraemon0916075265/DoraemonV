@@ -38,9 +38,9 @@ public class CutterController extends CutterView {
 	/*** 初始化欄位 ***/
 	public static void doInitial() {
 		clearAllData();
-		cb.setExportFilePath(cs.getExportFilePath(""));
-		cb.setLogFilePath(cs.findFilePathByRootPath(cs.getDesktopRootPath(), FILENAME_LOG));
-		cb.setSpecFilePath(cs.findFilePathByRootPath(cs.getDesktopRootPath(), FILENAME_SPEC));
+		cb.setExportFilePath(getExportFilePath(""));
+		cb.setLogFilePath(findFilePathByRootPath(getDesktopRootPath(), FILENAME_LOG));
+		cb.setSpecFilePath(findFilePathByRootPath(getDesktopRootPath(), FILENAME_SPEC));
 		setAllProperties();
 	}
 
@@ -49,9 +49,9 @@ public class CutterController extends CutterView {
 		clearData();
 		getAllProperties();
 
-		cs.validateInput_Filepath(jtf_logFilePath);
-		cs.validateInput_Filepath(jtf_specFilePath);
-		cb = cs.readFileInfo(cb);
+		validateInput_FilePath(jtf_logFilePath);
+		validateInput_FilePath(jtf_specFilePath);
+		cb = readFileInfo(cb);
 
 		setAllProperties();
 	}
@@ -60,20 +60,20 @@ public class CutterController extends CutterView {
 	public static void analysis() throws Exception {
 		getAllProperties();
 
-		cs.validateInput_Text(jtf_logInfo_send);
-		cs.validateInput_Text(jtf_logInfo_fill);
-		cb.setSpecSendCut0(cs.transInput_Array2String(jtf_specSendCut0));
-		cb.setSpecSendCut(cs.transInput_Array2String(jtf_specSendCut));
-		cb.setSpecFillCut0(cs.transInput_Array2String(jtf_specFillCut0));
-		cb.setSpecFillCut(cs.transInput_Array2String(jtf_specFillCut));
+		validateInput_Text(jtf_logInfo_send);
+		validateInput_Text(jtf_logInfo_fill);
+		cb.setSpecSendCut0(transInput_Array2String(jtf_specSendCut0));
+		cb.setSpecSendCut(transInput_Array2String(jtf_specSendCut));
+		cb.setSpecFillCut0(transInput_Array2String(jtf_specFillCut0));
+		cb.setSpecFillCut(transInput_Array2String(jtf_specFillCut));
 
 		List<JSONArray> shead0 = Arrays.asList(new JSONArray(cb.getHidden_scname0()), new JSONArray(cb.getHidden_sename0()));
 		List<JSONArray> shead = Arrays.asList(new JSONArray(cb.getHidden_scname()), new JSONArray(cb.getHidden_sename()));
 		List<JSONArray> fhead0 = Arrays.asList(new JSONArray(cb.getHidden_fcname0()), new JSONArray(cb.getHidden_fename0()));
 		List<JSONArray> fhead = Arrays.asList(new JSONArray(cb.getHidden_fcname()), new JSONArray(cb.getHidden_fename()));
 
-		cb.setResultS(cs.cutterPro(cb.getLogInfo_send(), new JSONArray(cb.getSpecSendCut0()), new JSONArray(cb.getSpecSendCut()), shead0, shead));
-		cb.setResultF(cs.cutterPro(cb.getLogInfo_fill(), new JSONArray(cb.getSpecFillCut0()), new JSONArray(cb.getSpecFillCut()), fhead0, fhead));
+		cb.setResultS(cutterPro(cb.getLogInfo_send(), new JSONArray(cb.getSpecSendCut0()), new JSONArray(cb.getSpecSendCut()), shead0, shead));
+		cb.setResultF(cutterPro(cb.getLogInfo_fill(), new JSONArray(cb.getSpecFillCut0()), new JSONArray(cb.getSpecFillCut()), fhead0, fhead));
 
 		setAllProperties();
 	}
@@ -82,11 +82,11 @@ public class CutterController extends CutterView {
 	public static void export() throws Exception {
 		getAllProperties();
 
-		cs.validateInput_ExportPath(jtf_exportFilePath, Arrays.asList("TXT", "LOG", "CSV"));
-		cs.validateInput_Text(jta_resultS);
-		cs.validateInput_Text(jta_resultF);
+		validateInput_ExportPath(jtf_exportFilePath, Arrays.asList("TXT", "LOG", "CSV"));
+		validateInput_Text(jta_resultS);
+		validateInput_Text(jta_resultF);
 
-		cs.exportFile(cb);
+		exportFile(cb);
 	}
 
 	/*** 說明書 ***/

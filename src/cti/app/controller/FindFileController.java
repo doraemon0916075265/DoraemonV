@@ -19,7 +19,7 @@ public class FindFileController extends FindFileView {
 	/*** 初始化欄位 ***/
 	public static void doInitial() {
 		clearAllData();
-		ffb.setSearchPath(fs.getDesktopRootPath());
+		ffb.setSearchPath(getDesktopRootPath());
 		ffb.setByFilenameExtension("[\"*\"]");
 		ffb.setByFilenameExtension_Ignore("[\"~*\",\"*.vfl\"]");
 		ffb.setByModify_greaterThan(null);
@@ -44,12 +44,12 @@ public class FindFileController extends FindFileView {
 	public static void findConditionFile() throws Exception {
 		ffb.setResult("");
 		getAllProperties();
-		fs.validateInput_Text(jtf_searchPath);
-		ffb.setByFilenameExtension(fs.transInput_SimpleArray2String(jtf_byFilenameExtension));
-		ffb.setByFilenameExtension_Ignore(fs.transInput_SimpleArray2String(jtf_byFilenameExtension_Ignore));
-		fs.validateInput_byModifyDate(jxdp_byModify_greaterThan, jxdp_byModify_lessThan);
+		validateInput_DirectoryPath(jtf_searchPath);
+		ffb.setByFilenameExtension(transInput_SimpleArray2String(jtf_byFilenameExtension));
+		ffb.setByFilenameExtension_Ignore(transInput_SimpleArray2String(jtf_byFilenameExtension_Ignore));
+		validateInput_byModifyDate(jxdp_byModify_greaterThan, jxdp_byModify_lessThan);
 
-		ffb = fs.findConditionFile(ffb);
+		ffb = findConditionFile(ffb);
 		setAllProperties();
 	}
 
