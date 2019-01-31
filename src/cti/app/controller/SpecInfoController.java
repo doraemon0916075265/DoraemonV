@@ -4,29 +4,41 @@ import cti.app.bean.SpecInfoBean;
 import cti.app.view.SpecInfoView;
 
 public class SpecInfoController extends SpecInfoView {
-	private static SpecInfoBean tb = new SpecInfoBean();
+	private static SpecInfoBean sib = new SpecInfoBean();
 
-	public static void doInitial() {
+	/*** 清除 ***/
+	public static void clearData() {
 		getAllProperties();
-		tb.setSpecFilePath(findFilePathByRootPath(getDesktopRootPath(), FILENAME_SPEC));
-		tb.setResult("");
+		sib.setResult("");
 		setAllProperties();
 	}
 
-	public static void readFile() {
+	/*** 初始化欄位 ***/
+	public static void doInitial() {
 		getAllProperties();
+		sib.setSpecFilePath(findFilePathByRootPath(getDesktopRootPath(), FILENAME_SPEC));
+		sib.setResult("");
+		setAllProperties();
+	}
+
+	/*** 讀檔 ***/
+	public static void readFile() throws Exception {
+		clearData();
+		getAllProperties();
+		validateInput_FilePath(jtf_specFilePath);
+		sib = readFileInfo(sib);
 		setAllProperties();
 	}
 
 	/*** 從欄位中取出所有值塞入bean ***/
 	private static void getAllProperties() {
-		tb.setSpecFilePath(jtf_specFilePath.getText());
-		tb.setResult(jta_result.getText());
+		sib.setSpecFilePath(jtf_specFilePath.getText());
+		sib.setResult(jta_result.getText());
 	}
 
 	/*** 從bean中取出所有值塞入欄位 ***/
 	private static void setAllProperties() {
-		jtf_specFilePath.setText(tb.getSpecFilePath());
-		jta_result.setText(tb.getResult());
+		jtf_specFilePath.setText(sib.getSpecFilePath());
+		jta_result.setText(sib.getResult());
 	}
 }

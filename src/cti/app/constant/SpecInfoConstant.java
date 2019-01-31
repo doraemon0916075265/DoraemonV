@@ -1,8 +1,8 @@
 package cti.app.constant;
 
-import cti.app.service.AppService;
+import cti.app.service.SpecInfoService;
 
-public class SpecInfoConstant extends AppService {
+public class SpecInfoConstant extends SpecInfoService {
 	public static final String JL_SPECFILEPATH = "spec檔路徑";
 	public static final String NAME_SPECFILEPATH = "spec檔路徑";
 	public static final String NAME_RESULT = "結果區";
