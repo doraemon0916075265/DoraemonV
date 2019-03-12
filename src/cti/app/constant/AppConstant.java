@@ -31,8 +31,8 @@ public class AppConstant {
 	public static final Color APP_COLOR_SEARCH_CRITERIA = Color.BLUE;
 	public static final Color APP_COLOR_MSG = Color.BLUE; // 成功訊息
 	public static final Color APP_COLOR_ERRMSG = Color.RED; // 錯誤訊息
-	public static final SimpleDateFormat APPMSG_SDF = new SimpleDateFormat("HH:mm:ss");
-	public static final SimpleDateFormat APPDATE_SDF = new SimpleDateFormat("yyyy/MM/dd");
+	public static final SimpleDateFormat APP_MSG_FMT = new SimpleDateFormat("HH:mm:ss");
+	public static final SimpleDateFormat APP_DATE_FMT = new SimpleDateFormat("yyyy/MM/dd");
 	public static final Font APP_FONT = new Font("微軟正黑體", Font.PLAIN, 12);
 	public static final Clipboard APP_CLIPBOARD = Toolkit.getDefaultToolkit().getSystemClipboard();
 	public static final String APP_TAB = "頁籤";
@@ -165,6 +165,5 @@ public class AppConstant {
 	protected static final String TAG_FCNAME = "f_cname";
 	protected static final String TAG_FENAME = "f_ename";
 	protected static final String TAG_FORMAT = "format";
-	
 
 }

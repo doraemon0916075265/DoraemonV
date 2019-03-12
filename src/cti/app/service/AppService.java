@@ -411,7 +411,7 @@ public class AppService extends AppConstant {
 		} else {
 			setAppStyle(jl_msg, APP_MSG, APP_COLOR_ERRMSG);
 		}
-		String msgHeader = String.format(FORMAT_MSG_HEADER, getSelectedTabName(), APPMSG_SDF.format(System.currentTimeMillis()), msgType);
+		String msgHeader = String.format(FORMAT_MSG_HEADER, getSelectedTabName(), APP_MSG_FMT.format(System.currentTimeMillis()), msgType);
 		jl_msg.setText(String.format(FORMAT_MSG, msgHeader, String.join(SIGN_SPACE, list), timeMsg).trim());
 	}
 
