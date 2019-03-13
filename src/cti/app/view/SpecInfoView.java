@@ -41,8 +41,8 @@ public class SpecInfoView extends SpecInfoConstant {
 		jpSub1.setLayout(null);
 		jpSub1.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 90));
 		jpSub2.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 535));
-		jpSub1.setBorder(new LineBorder(Color.RED));
-		jpSub2.setBorder(new LineBorder(Color.RED));
+//		jpSub1.setBorder(new LineBorder(Color.RED));
+//		jpSub2.setBorder(new LineBorder(Color.RED));
 	}
 
 	private static void setPosition() {
