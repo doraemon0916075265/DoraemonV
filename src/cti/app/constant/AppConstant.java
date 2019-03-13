@@ -166,4 +166,6 @@ public class AppConstant {
 	protected static final String TAG_FENAME = "f_ename";
 	protected static final String TAG_FORMAT = "format";
 
+	//clearData型態
+	protected static final String CLEAR_ALL = "ALL";
 }

@@ -139,10 +139,17 @@ public class AppService extends AppConstant {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_NOT_A_FILE));
 		}
 		// 預先判斷是否皆可正常讀檔
+		boolean isFileNull = true;
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(input), getFileEncoding(input)));) {
-
+			if (isFileNull = (br.readLine() == null)) {
+				throw new Exception();
+			}
 		} catch (Exception e) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, "讀檔錯誤"));
+			if (isFileNull) {
+				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, "檔案內容是空值"));
+			} else {
+				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, "讀檔錯誤"));
+			}
 		}
 	}
 

@@ -240,7 +240,7 @@ public class CutterView extends CutterConstant {
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				CutterController.clearData();
+				CutterController.clearData(null);
 				showMsg(MSG_CLEARDATA);
 			}
 		});

@@ -12,8 +12,15 @@ public class CutterController extends CutterView {
 	private static CutterBean cb = new CutterBean();
 
 	/*** 清除 ***/
-	public static void clearData() {
+	public static void clearData(String type) {
 		getAllProperties();
+		if (CLEAR_ALL.equals(type)) {
+			cb.setLogFilePath("");
+			cb.setSpecFilePath("");
+			cb.setExportFilePath("");
+			cb.setResultS("");
+			cb.setResultF("");
+		}
 		cb.setLogInfo_send("");
 		cb.setLogInfo_fill("");
 		cb.setSpecSendCut0("");
@@ -37,16 +44,17 @@ public class CutterController extends CutterView {
 
 	/*** 初始化欄位 ***/
 	public static void doInitial() {
-		clearAllData();
+		clearData(CLEAR_ALL);
 		cb.setExportFilePath(getExportFilePath(""));
-		cb.setLogFilePath(findFilePathByRootPath(getDesktopRootPath(), FILENAME_LOG));
-		cb.setSpecFilePath(findFilePathByRootPath(getDesktopRootPath(), FILENAME_SPEC));
+		String desktopRootPath = getDesktopRootPath();
+		cb.setLogFilePath(findFilePathByRootPath(desktopRootPath, FILENAME_LOG));
+		cb.setSpecFilePath(findFilePathByRootPath(desktopRootPath, FILENAME_SPEC));
 		setAllProperties();
 	}
 
 	/*** 讀檔 ***/
 	public static void readFile() throws Exception {
-		clearData();
+		clearData(null);
 		getAllProperties();
 
 		validateInput_FilePath(jtf_logFilePath);
@@ -113,35 +121,6 @@ public class CutterController extends CutterView {
 		sb.append(String.format(FORMAT_GUIDEBOOK_CONTENT, i++, "點兩下輸入框，可以複製內容"));
 		sb.append(String.format(FORMAT_GUIDEBOOK_CONTENT, i++, "最底部是''系統訊息顯示區''：[時間 主要訊息] 詳細訊息"));
 		return sb;
-	}
-
-	/*** 清除所有 ***/
-	private static void clearAllData() {
-		getAllProperties();
-		cb.setLogFilePath("");
-		cb.setSpecFilePath("");
-		cb.setLogInfo_send("");
-		cb.setLogInfo_fill("");
-		cb.setSpecSendCut0("");
-		cb.setSpecSendCut("");
-		cb.setSpecFillCut0("");
-		cb.setSpecFillCut("");
-		cb.setLogInfo_ID("");
-		cb.setSpecInfo_note("");
-		cb.setExportFilePath("");
-		cb.setResultS("");
-		cb.setResultF("");
-		// 隱藏欄位
-		cb.setHidden_cname("");
-		cb.setHidden_scname("");
-		cb.setHidden_scname("");
-		cb.setHidden_fcname("");
-		cb.setHidden_fcname("");
-		cb.setHidden_sename("");
-		cb.setHidden_sename("");
-		cb.setHidden_fename("");
-		cb.setHidden_fename("");
-		setAllProperties();
 	}
 
 	/*** 從欄位中取出所有值塞入bean ***/
