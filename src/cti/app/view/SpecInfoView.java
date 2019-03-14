@@ -111,7 +111,7 @@ public class SpecInfoView extends SpecInfoConstant {
 			}
 		});
 
-		// 選id
+		// 下拉選單for id
 		jcb_specID.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
