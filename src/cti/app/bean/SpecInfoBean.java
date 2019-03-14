@@ -2,6 +2,7 @@ package cti.app.bean;
 
 public class SpecInfoBean {
 	private String specFilePath;
+	private String specID;
 	private String result;
 
 	public String getSpecFilePath() {
@@ -10,6 +11,14 @@ public class SpecInfoBean {
 
 	public void setSpecFilePath(String specFilePath) {
 		this.specFilePath = specFilePath;
+	}
+
+	public String getSpecID() {
+		return specID;
+	}
+
+	public void setSpecID(String specID) {
+		this.specID = specID;
 	}
 
 	public String getResult() {

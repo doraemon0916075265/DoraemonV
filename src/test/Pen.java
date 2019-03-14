@@ -1,4 +1,4 @@
-package cti.app.test;
+package test;
 
 public class Pen {
 	String color;

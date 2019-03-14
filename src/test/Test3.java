@@ -1,4 +1,4 @@
-package cti.app.test;
+package test;
 
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;

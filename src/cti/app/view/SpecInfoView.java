@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,6 +25,9 @@ public class SpecInfoView extends SpecInfoConstant {
 	protected static JTextField jtf_specFilePath = new JTextField();
 	private static JButton jb_specFilepath = new JButton();
 	private static JButton jb_resetData = new JButton(BTN_RESETDATA);
+	private static JLabel jl_specID = new JLabel("ID選單");
+	protected static JComboBox<String> jcb_specID = new JComboBox<String>();
+
 	private static JButton jb_readFile = new JButton(BTN_READFILE);
 
 	protected static JTextArea jta_result = new JTextArea(30, 93);
@@ -58,7 +62,11 @@ public class SpecInfoView extends SpecInfoConstant {
 		jpSub1.add(jb_resetData);
 		/*** 第二區 ***/
 		row += 40;
+		jl_specID.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
+		jcb_specID.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jb_readFile.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
+		jpSub1.add(jl_specID);
+		jpSub1.add(jcb_specID);
 		jpSub1.add(jb_readFile);
 		/*** 下半部 ***/
 		jpSub2.add(new JScrollPane(jta_result));
@@ -72,8 +80,9 @@ public class SpecInfoView extends SpecInfoConstant {
 		setAppStyle(jtf_specFilePath, NAME_SPECFILEPATH, APP_COLOR_DEFAULT);
 		setAppStyle(jb_specFilepath, null, APP_COLOR_DEFAULT);
 		setAppStyle(jb_resetData, null, APP_COLOR_DEFAULT);
+		setAppStyle(jl_specID, null, APP_COLOR_SPEC);// ID選單
+		setAppStyle4ComboBox(jcb_specID, null, APP_COLOR_DEFAULT);
 		setAppStyle(jb_readFile, null, APP_COLOR_DEFAULT);
-
 		setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
 	}
 
@@ -102,12 +111,21 @@ public class SpecInfoView extends SpecInfoConstant {
 			}
 		});
 
+		// 選id
+		jcb_specID.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				jb_readFile.doClick();
+			}
+		});
+
 		// 取檔案路徑
 		btnGetPath(jb_specFilepath, jtf_specFilePath);
 
 		// 點擊複製
 		dbClickOnCopy(jtf_specFilePath);
 		dbClickOnCopy(jta_result);
+
 	}
 
 	private static void setEnd() {

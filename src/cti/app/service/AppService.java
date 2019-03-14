@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -30,6 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jdesktop.swingx.JXDatePicker;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.mozilla.universalchardet.UniversalDetector;
 
 import cti.app.constant.AppConstant;
@@ -134,13 +136,15 @@ public class AppService extends AppConstant {
 		String input = jtc.getText();
 		File f = new File(input);
 		if (!f.exists()) {
-			throw new FileNotFoundException(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_FILE_NOT_EXIST));
+			throw new FileNotFoundException(
+					String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_FILE_NOT_EXIST));
 		} else if (!f.isFile()) {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_NOT_A_FILE));
 		}
 		// 預先判斷是否皆可正常讀檔
 		boolean isFileNull = true;
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(input), getFileEncoding(input)));) {
+		try (BufferedReader br = new BufferedReader(
+				new InputStreamReader(new FileInputStream(input), getFileEncoding(input)));) {
 			if (isFileNull = (br.readLine() == null)) {
 				throw new Exception();
 			}
@@ -154,12 +158,14 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 驗證輸入框：為合法修改日期格式。 ***/
-	public static void validateInput_byModifyDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan) throws Exception {
+	public static void validateInput_byModifyDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan)
+			throws Exception {
 		validateInput_BeinEndDate(jxdpGreaterThan, jxdpLessThan);
 	}
 
 	/*** 驗證輸入框：為合法起訖日期格式。 ***/
-	public static void validateInput_BeinEndDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan) throws Exception {
+	public static void validateInput_BeinEndDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan)
+			throws Exception {
 		if (jxdpGreaterThan.getDate() != null && jxdpLessThan.getDate() != null) {
 			if (jxdpGreaterThan.getDate().after(jxdpLessThan.getDate())) {
 				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "起日不可大於起訖日", ""));
@@ -172,7 +178,8 @@ public class AppService extends AppConstant {
 		try {
 			validateInput_FilenameInExtensionList(new JTextField(new File(jtc.getText()).getName()), extensions);
 		} catch (Exception e) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME));
+			throw new Exception(
+					String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME));
 		}
 	}
 
@@ -182,19 +189,22 @@ public class AppService extends AppConstant {
 		String input = jtc.getText();
 		File f = new File(input);
 		if (!f.exists()) {
-			throw new FileNotFoundException(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_DIRECTORY_NOT_EXIST));
+			throw new FileNotFoundException(
+					String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_DIRECTORY_NOT_EXIST));
 		} else if (!f.isDirectory()) {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_NOT_A_DIRECTORY));
 		}
 	}
 
 	/*** 驗證輸入框：合法檔名並在副檔名List中。 ***/
-	public static void validateInput_FilenameInExtensionList(JTextComponent jtc, List<String> extensions) throws Exception {
+	public static void validateInput_FilenameInExtensionList(JTextComponent jtc, List<String> extensions)
+			throws Exception {
 		validateInput_Text(jtc);
 		String filenameU = jtc.getText().toUpperCase();
 		// 比對一般檔名格式
 		if (!filenameU.matches(REGEXP_LEGAL_FILEFULLNAME)) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME));
+			throw new Exception(
+					String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME));
 		}
 		// 比對特殊檔名格式
 		boolean inExtension = false;
@@ -205,7 +215,8 @@ public class AppService extends AppConstant {
 			}
 		}
 		if (!inExtension) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME_EXTENSION));
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(),
+					ERRMSG_ILLEGAL_FILENAME_EXTENSION));
 		}
 	}
 
@@ -411,14 +422,16 @@ public class AppService extends AppConstant {
 		String timeMsg = "";
 		if (isTimerOn) {
 			isTimerWork(false);
-			timeMsg = (timer >= 1000L) ? (String.format(FORMAT_MSG_TIMER_S, timer / 1000d)) : (String.format(FORMAT_MSG_TIMER_MS, timer));
+			timeMsg = (timer >= 1000L) ? (String.format(FORMAT_MSG_TIMER_S, timer / 1000d))
+					: (String.format(FORMAT_MSG_TIMER_MS, timer));
 		}
 		if (MSG_SUCCESS.equals(msgType)) {
 			setAppStyle(jl_msg, APP_MSG, APP_COLOR_MSG);
 		} else {
 			setAppStyle(jl_msg, APP_MSG, APP_COLOR_ERRMSG);
 		}
-		String msgHeader = String.format(FORMAT_MSG_HEADER, getSelectedTabName(), APP_MSG_FMT.format(System.currentTimeMillis()), msgType);
+		String msgHeader = String.format(FORMAT_MSG_HEADER, getSelectedTabName(),
+				APP_MSG_FMT.format(System.currentTimeMillis()), msgType);
 		jl_msg.setText(String.format(FORMAT_MSG, msgHeader, String.join(SIGN_SPACE, list), timeMsg).trim());
 	}
 
@@ -443,6 +456,23 @@ public class AppService extends AppConstant {
 		});
 	}
 
+	public static Object getJsonValue(Object obj, String key) {
+		if (!new JSONObject(obj.toString()).isNull(key)) {
+			String objClassType = new JSONObject(obj.toString()).get(key).getClass().getSimpleName();
+			if ("String".equals(objClassType)) {
+				return new JSONObject(obj.toString()).getString(key);
+			} else if ("Integer".equals(objClassType)) {
+				return new JSONObject(obj.toString()).getInt(key);
+			} else if ("JSONArray".equals(objClassType)) {
+				return new JSONObject(obj.toString()).getJSONArray(key);
+			} else {
+				return new JSONObject(obj.toString()).get(key);
+			}
+		} else {
+			return "";
+		}
+	}
+
 	/*** 樣式：一般(物件,命名,顏色) ***/
 	public static void setAppStyle(JComponent jc, String name, Color fontColor) {
 		if (StringUtils.isNotBlank(name)) {
@@ -464,5 +494,41 @@ public class AppService extends AppConstant {
 	public static void setAppStyle4TextArea(JComponent jc, String name, Color fontColor, boolean isEditable) {
 		setAppStyle(jc, name, fontColor);
 		((JTextComponent) jc).setEditable(isEditable);
+	}
+	
+	/*** 樣式：純顯示訊息(物件,命名,顏色) ***/
+	public static void setAppStyle4ComboBox(JComponent jc, String name, Color fontColor) {
+		setAppStyle(jc, name, fontColor);
+		jc.setBackground(Color.WHITE);
+	}
+
+	/*** 讀檔案內所有內容 ***/
+	protected static String readFileContent(String path) throws Exception {
+		StringBuffer content = new StringBuffer("");
+		try (BufferedReader br = new BufferedReader(
+				new InputStreamReader(new FileInputStream(path), getFileEncoding(path)));) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				if (StringUtils.isBlank(line)) {
+					continue;
+				}
+				content.append(line);
+			}
+		}
+		return content.toString();
+	}
+
+	/*** 重新生成下拉選單 ***/
+	protected static void genPulldownMenu(JComboBox<String> jcb, List<String> items) {
+		jcb.removeAllItems();
+		for (String item : items) {
+			jcb.addItem(item);
+		}
+		if (jcb.getSelectedItem() != null && !items.isEmpty()) {
+			String selectItem = jcb.getSelectedItem().toString();
+			if (StringUtils.isNotBlank(selectItem) && items.contains(selectItem)) {
+				jcb.setSelectedItem(selectItem);
+			}
+		}
 	}
 }

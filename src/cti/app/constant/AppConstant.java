@@ -78,6 +78,7 @@ public class AppConstant {
 	public static final String FORMAT_MSG_TIMER_MS = "(執行%d毫秒)";
 	public static final String FORMAT_MSG_EXCEPTION = "%s %s";
 	public static final String FORMAT_MSG_COPIED = "已複製 %s 至剪貼簿";
+	public static final String FORMAT_SPECINFO = "%15s：%s" + System.lineSeparator();
 	public static final String FORMAT_GUIDEBOOK_SUBTITLE = "☆ %s ☆" + System.lineSeparator();
 	public static final String FORMAT_GUIDEBOOK_CONTENT = "%d . %s " + System.lineSeparator();
 	public static final String FORMAT_EXPORTFILE_SUBTITLE = "☆ %s ☆" + System.lineSeparator();
@@ -166,6 +167,6 @@ public class AppConstant {
 	protected static final String TAG_FENAME = "f_ename";
 	protected static final String TAG_FORMAT = "format";
 
-	//clearData型態
+	// clearData型態
 	protected static final String CLEAR_ALL = "ALL";
 }

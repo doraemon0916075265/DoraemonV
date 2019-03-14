@@ -17,13 +17,15 @@ public class SpecInfoController extends SpecInfoView {
 	public static void doInitial() {
 		getAllProperties();
 		sib.setSpecFilePath(findFilePathByRootPath(getDesktopRootPath(), FILENAME_SPEC));
+		sib.setSpecID(null);
 		sib.setResult("");
 		setAllProperties();
+		
+		genPulldownMenu(jcb_specID, genJCB4SpecID(jtf_specFilePath.getText()));
 	}
 
 	/*** 讀檔 ***/
 	public static void readFile() throws Exception {
-		clearData();
 		getAllProperties();
 		validateInput_FilePath(jtf_specFilePath);
 		sib = readFileInfo(sib);
@@ -34,6 +36,10 @@ public class SpecInfoController extends SpecInfoView {
 	private static void getAllProperties() {
 		sib.setSpecFilePath(jtf_specFilePath.getText());
 		sib.setResult(jta_result.getText());
+
+		if (jcb_specID.getSelectedItem() != null) {
+			sib.setSpecID(jcb_specID.getSelectedItem().toString());
+		}
 	}
 
 	/*** 從bean中取出所有值塞入欄位 ***/

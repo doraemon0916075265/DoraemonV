@@ -11,10 +11,9 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import cti.app.bean.CutterBean;
+import cti.app.bean.SpecBean;
 
 public class CutterService extends AppService {
 	// 標誌
@@ -34,7 +33,8 @@ public class CutterService extends AppService {
 
 	/*** 取得預設匯出檔案目錄 ***/
 	public static String getExportFilePath(String name) {
-		return getDesktopRootPath() + File.separator + FILENAME_RESULT + (StringUtils.isBlank(name) ? "" : "_" + name) + FILENAME_EXTENSION_CSV;
+		return getDesktopRootPath() + File.separator + FILENAME_RESULT + (StringUtils.isBlank(name) ? "" : "_" + name)
+				+ FILENAME_EXTENSION_CSV;
 	}
 
 	/*** 讀檔 ***/
@@ -42,7 +42,8 @@ public class CutterService extends AppService {
 		String pathLog = cb.getLogFilePath();
 		String pathSpec = cb.getSpecFilePath();
 		/*** 讀log檔 ***/
-		try (BufferedReader brLog = new BufferedReader(new InputStreamReader(new FileInputStream(pathLog), getFileEncoding(pathLog)));) {
+		try (BufferedReader brLog = new BufferedReader(
+				new InputStreamReader(new FileInputStream(pathLog), getFileEncoding(pathLog)));) {
 			String line;
 			boolean isSend = false;
 			boolean isFill = false;
@@ -76,122 +77,47 @@ public class CutterService extends AppService {
 		}
 
 		/*** 讀spec檔 ***/
-		try (BufferedReader brSpec = new BufferedReader(new InputStreamReader(new FileInputStream(pathSpec), getFileEncoding(pathSpec)));) {
-			String line;
-			String lineSpec = "";
-			boolean isFoundId = false;
-			while ((line = brSpec.readLine()) != null) {
-				if (StringUtils.isBlank(line)) {
-					continue;
-				}
-				lineSpec += line;
-			}
-			try {
-				JSONArray jsonArr = new JSONObject(lineSpec).getJSONArray("Spec");
-				for (int i = 0; i < jsonArr.length(); i++) {
-					if (getJsonValue(jsonArr.get(i), TAG_ID).equals(cb.getLogInfo_ID())) {
-						JSONObject jsonObj = new JSONObject(jsonArr.get(i).toString());
-						// 必要欄位，不塞try-catch
-						cb.setSpecSendCut0(jsonObj.get(TAG_SCUT0).toString());
-						cb.setSpecSendCut(jsonObj.get(TAG_SCUT).toString());
-						cb.setSpecFillCut0(jsonObj.get(TAG_FCUT0).toString());
-						cb.setSpecFillCut(jsonObj.get(TAG_FCUT).toString());
-
-						// 隱藏欄位，非必要欄位，塞try-catch
-						try {
-							cb.setHidden_scname0(vaildObject_Array2String(jsonObj.get(TAG_SCNAME0)));
-						} catch (Exception e) {
-							cb.setHidden_scname0(INIT_JSONARRRAY);
-						}
-						try {
-							cb.setHidden_sename0(vaildObject_Array2String(jsonObj.get(TAG_SENAME0)));
-						} catch (Exception e) {
-							cb.setHidden_sename0(INIT_JSONARRRAY);
-						}
-
-						try {
-							cb.setHidden_scname(vaildObject_Array2String(jsonObj.get(TAG_SCNAME)));
-						} catch (Exception e) {
-							cb.setHidden_scname(INIT_JSONARRRAY);
-						}
-						try {
-							cb.setHidden_sename(vaildObject_Array2String(jsonObj.get(TAG_SENAME)));
-						} catch (Exception e) {
-							cb.setHidden_sename(INIT_JSONARRRAY);
-						}
-
-						try {
-							cb.setHidden_fcname0(vaildObject_Array2String(jsonObj.get(TAG_FCNAME0)));
-						} catch (Exception e) {
-							cb.setHidden_fcname0(INIT_JSONARRRAY);
-						}
-						try {
-							cb.setHidden_fename0(vaildObject_Array2String(jsonObj.get(TAG_FENAME0)));
-						} catch (Exception e) {
-							cb.setHidden_fename0(INIT_JSONARRRAY);
-						}
-
-						try {
-							cb.setHidden_fcname(vaildObject_Array2String(jsonObj.get(TAG_FCNAME)));
-						} catch (Exception e) {
-							cb.setHidden_fcname(INIT_JSONARRRAY);
-						}
-						try {
-							cb.setHidden_fename(vaildObject_Array2String(jsonObj.get(TAG_FENAME)));
-						} catch (Exception e) {
-							cb.setHidden_fename(INIT_JSONARRRAY);
-						}
-
-						// note最後塞
-						List<String> subNote = new ArrayList<>();
-						try {
-							cb.setHidden_cname(jsonObj.get(TAG_CNAME).toString());
-							if (StringUtils.isNotBlank(jsonObj.get(TAG_CNAME).toString())) {
-								subNote.add("電文名稱：" + jsonObj.get(TAG_CNAME).toString());
-							}
-						} catch (Exception e) {
-							cb.setHidden_cname("");
-						}
-						try {
-							if (StringUtils.isNotBlank(jsonObj.get(TAG_OWNER).toString())) {
-								subNote.add("負責人：" + jsonObj.get(TAG_OWNER).toString());
-							}
-						} catch (Exception e) {
-						}
-						try {
-							if (StringUtils.isNotBlank(jsonObj.get(TAG_NOTE).toString())) {
-								subNote.add("note：" + jsonObj.get(TAG_NOTE).toString());
-							}
-						} catch (Exception e) {
-						}
-						cb.setSpecInfo_note(String.join(SIGN_COMMA, subNote));
-
-						isFoundId = true;
-						break;
-					}
-				}
-				if (!isFoundId) {
-					throw new Exception("spec檔無 電文id 對應");
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-				throw new JSONException(e);
-			}
+		SpecBean spec = SpecService.readFileInfoByID(pathSpec, cb.getLogInfo_ID());
+		if (StringUtils.isBlank(spec.getId())) {
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "Spec檔無id對應", "log檔id" + cb.getLogInfo_ID()));
+		} else {
+			cb.setSpecSendCut0(spec.getS_cut0());
+			cb.setSpecSendCut(spec.getS_cut());
+			cb.setSpecFillCut0(spec.getF_cut0());
+			cb.setSpecFillCut(spec.getF_cut());
 			validFileContent(cb, FLAG_SPEC);
+			cb.setHidden_scname0(spec.getS_cname0());
+			cb.setHidden_sename0(spec.getS_ename0());
+			cb.setHidden_scname(spec.getS_cname());
+			cb.setHidden_sename(spec.getS_ename());
+			cb.setHidden_fcname0(spec.getF_cname0());
+			cb.setHidden_fename0(spec.getF_ename0());
+			cb.setHidden_fcname(spec.getF_cname());
+			cb.setHidden_fename(spec.getF_ename());
+			// note最後塞
+			List<String> subNote = new ArrayList<>();
+			if (StringUtils.isNotBlank(spec.getCname())) {
+				subNote.add("電文名稱：" + spec.getCname());
+			}
+			if (StringUtils.isNotBlank(spec.getOwner())) {
+				subNote.add("負責人：" + spec.getOwner());
+			}
+			if (StringUtils.isNotBlank(spec.getFormat())) {
+				subNote.add("格式：" + spec.getFormat());
+			}
+			if (StringUtils.isNotBlank(spec.getNote())) {
+				subNote.add("note：" + spec.getNote());
+			}
+			cb.setSpecInfo_note(String.join(SIGN_COMMA, subNote));
+			cb.setExportFilePath(getExportFilePath(cb.getLogInfo_ID()));
 		}
-		cb.setExportFilePath(getExportFilePath(cb.getLogInfo_ID()));
+
 		return cb;
 	}
 
-	// 組欄位頭
-
-	// 驗證物件為陣列並轉換成字串
-	private static String vaildObject_Array2String(Object object) {
-		return new JSONArray(object.toString()).toString();
-	}
-
 	/*** 主要切電文 ***/
-	public static String cutterPro(String telegram, JSONArray cut0, JSONArray cut, List<JSONArray> head0, List<JSONArray> head) throws Exception {
+	public static String cutterPro(String telegram, JSONArray cut0, JSONArray cut, List<JSONArray> head0,
+			List<JSONArray> head) throws Exception {
 		int cutIndex = 0;
 		StringBuffer sb = new StringBuffer();
 		int gbkLen = getGBKLen(telegram);
@@ -202,7 +128,8 @@ public class CutterService extends AppService {
 
 		for (Object obj : cut0) {
 			Integer cutSize = Integer.parseInt(obj.toString());
-			sb.append(String.format(FORMAT_CSV_CELL, telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize))));
+			sb.append(String.format(FORMAT_CSV_CELL,
+					telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize))));
 			gbkLen -= cutSize;
 		}
 
@@ -216,7 +143,8 @@ public class CutterService extends AppService {
 			while (gbkLen > cut.length()) {
 				for (Object obj : cut) {
 					Integer cutSize = Integer.parseInt(obj.toString());
-					sb.append(String.format(FORMAT_CSV_CELL, telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize))));
+					sb.append(String.format(FORMAT_CSV_CELL, telegram.substring(subStrLen(telegram, cutIndex),
+							subStrLen(telegram, cutIndex += cutSize))));
 					gbkLen -= cutSize;
 				}
 				sb.append(System.lineSeparator());
@@ -240,7 +168,8 @@ public class CutterService extends AppService {
 	}
 
 	/*** 切電文(舊方法) ***/
-	public String cutterPro(String text, boolean isAddEqual, JSONArray arr_cut0, JSONArray arr_cut) throws UnsupportedEncodingException {
+	public String cutterPro(String text, boolean isAddEqual, JSONArray arr_cut0, JSONArray arr_cut)
+			throws UnsupportedEncodingException {
 		int cutIndex = 0;
 		StringBuffer sb = new StringBuffer();
 		int gbkLen = getGBKLen(text);
@@ -318,7 +247,7 @@ public class CutterService extends AppService {
 		} else if (FLAG_SPEC.equals(type)) {
 			msg = "spec檔無";
 			if (StringUtils.isBlank(cb.getSpecSendCut0())) {
-				throw new Exception(msg + "1上行電文陣列(頭)");
+				throw new Exception(msg + "上行電文陣列(頭)");
 			} else if (StringUtils.isBlank(cb.getSpecSendCut())) {
 				throw new Exception(msg + "上行電文陣列(主要)");
 			} else if (StringUtils.isBlank(cb.getSpecFillCut0())) {
@@ -326,23 +255,6 @@ public class CutterService extends AppService {
 			} else if (StringUtils.isBlank(cb.getSpecFillCut())) {
 				throw new Exception(msg + "下行電文陣列(主要)");
 			}
-		}
-	}
-
-	private static Object getJsonValue(Object obj, String key) {
-		if (!new JSONObject(obj.toString()).isNull(key)) {
-			String objClassType = new JSONObject(obj.toString()).get(key).getClass().getSimpleName();
-			if ("String".equals(objClassType)) {
-				return new JSONObject(obj.toString()).getString(key);
-			} else if ("Integer".equals(objClassType)) {
-				return new JSONObject(obj.toString()).getInt(key);
-			} else if ("JSONArray".equals(objClassType)) {
-				return new JSONObject(obj.toString()).getJSONArray(key);
-			} else {
-				return new JSONObject(obj.toString()).get(key);
-			}
-		} else {
-			return "";
 		}
 	}
 
