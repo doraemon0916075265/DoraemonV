@@ -402,6 +402,7 @@ public class AppService extends AppConstant {
 		} else {
 			timer = System.currentTimeMillis() - now;
 		}
+		System.out.println("isTimerWork=" + isOn);
 	}
 
 	/*** 訊息欄Start ***/
@@ -495,7 +496,7 @@ public class AppService extends AppConstant {
 		setAppStyle(jc, name, fontColor);
 		((JTextComponent) jc).setEditable(isEditable);
 	}
-	
+
 	/*** 樣式：純顯示訊息(物件,命名,顏色) ***/
 	public static void setAppStyle4ComboBox(JComponent jc, String name, Color fontColor) {
 		setAppStyle(jc, name, fontColor);
@@ -530,5 +531,9 @@ public class AppService extends AppConstant {
 				jcb.setSelectedItem(selectItem);
 			}
 		}
+	}
+
+	protected static String getPulldownItem(JComboBox<String> jcb) {
+		return jcb.getSelectedItem() != null ? jcb.getSelectedItem().toString() : "";
 	}
 }

@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import cti.app.constant.SpecInfoConstant;
 import cti.app.controller.SpecInfoController;
@@ -45,8 +47,6 @@ public class SpecInfoView extends SpecInfoConstant {
 		jpSub1.setLayout(null);
 		jpSub1.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 90));
 		jpSub2.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 535));
-//		jpSub1.setBorder(new LineBorder(Color.RED));
-//		jpSub2.setBorder(new LineBorder(Color.RED));
 	}
 
 	private static void setPosition() {
@@ -93,6 +93,7 @@ public class SpecInfoView extends SpecInfoConstant {
 			public void actionPerformed(ActionEvent ae) {
 				isTimerWork(true);
 				SpecInfoController.doInitial();
+				setEnterTab();
 				showMsg(MSG_RESETDATA);
 			}
 		});
@@ -101,21 +102,15 @@ public class SpecInfoView extends SpecInfoConstant {
 		jb_readFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				isTimerWork(true);
-				try {
-					SpecInfoController.readFile();
-					showMsg(MSG_READFILE);
-				} catch (Exception e) {
-					showMsg(e);
-				}
+				readFile();
 			}
 		});
 
-		// 下拉選單for id
+		// 選單動作
 		jcb_specID.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				jb_readFile.doClick();
+				readFile();
 			}
 		});
 
@@ -132,4 +127,18 @@ public class SpecInfoView extends SpecInfoConstant {
 		SpecInfoController.doInitial();
 	}
 
+	public static void setEnterTab() {
+		genPulldownMenu(jcb_specID, genJCB4SpecID(jtf_specFilePath.getText()));
+	}
+
+	private static void readFile() {
+		isTimerWork(true);
+		try {
+			SpecInfoController.readFile();
+			setEnterTab();
+			showMsg(MSG_READFILE + getPulldownItem(jcb_specID));
+		} catch (Exception e) {
+			showMsg(e);
+		}
+	}
 }

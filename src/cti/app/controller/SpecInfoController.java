@@ -20,8 +20,6 @@ public class SpecInfoController extends SpecInfoView {
 		sib.setSpecID(null);
 		sib.setResult("");
 		setAllProperties();
-		
-		genPulldownMenu(jcb_specID, genJCB4SpecID(jtf_specFilePath.getText()));
 	}
 
 	/*** 讀檔 ***/
@@ -36,10 +34,7 @@ public class SpecInfoController extends SpecInfoView {
 	private static void getAllProperties() {
 		sib.setSpecFilePath(jtf_specFilePath.getText());
 		sib.setResult(jta_result.getText());
-
-		if (jcb_specID.getSelectedItem() != null) {
-			sib.setSpecID(jcb_specID.getSelectedItem().toString());
-		}
+		sib.setSpecID(getPulldownItem(jcb_specID));
 	}
 
 	/*** 從bean中取出所有值塞入欄位 ***/
@@ -47,4 +42,5 @@ public class SpecInfoController extends SpecInfoView {
 		jtf_specFilePath.setText(sib.getSpecFilePath());
 		jta_result.setText(sib.getResult());
 	}
+
 }

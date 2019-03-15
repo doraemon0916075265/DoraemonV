@@ -58,7 +58,10 @@ public class AppView extends AppService {
 		jtp.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent ce) {
-				showMsg(MSG_SUCCESS, Arrays.asList(MSG_WELCOME));
+				if (jtp.getSelectedIndex() == 1) {
+					SpecInfoView.setEnterTab();
+				}
+				showMsg(Arrays.asList(MSG_WELCOME));
 			}
 		});
 	}
