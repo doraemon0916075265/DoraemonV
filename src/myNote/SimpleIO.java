@@ -1,6 +1,5 @@
-package test;
+package myNote;
 
-import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,25 +15,23 @@ public class SimpleIO {
 	private static final String PATHF1 = "C:/Users/cathay/Desktop/01.txt";
 	private static final String PATHF2 = "C:/Users/cathay/Desktop/02.txt";
 
-	public static void textFile() {
+	public static void textFileWrite() {
 		try (FileWriter fw = new FileWriter(PATHF2);) {
-			 Scanner sc = new Scanner(System.in);
-			 while (sc.hasNextLine()) {
-				System.out.println(sc.nextLine());
+			Scanner sc = new Scanner(System.in);
+			StringBuffer sb = new StringBuffer();
+			String line;
+			while (sc.hasNextLine()) {
+				line = sc.nextLine();
+				if ("#".equals(line)) {
+					break;
+				} else {
+					sb.append(line + System.lineSeparator());
+				}
 			}
-			int input = System.in.read();
-			System.out.println(input);
-//			while ((input = c.readLine()) != null) {
-//				fw.write(input + System.lineSeparator());
-//			}
-//			Console c = System.console();
-//			String input;
-//			while ((input = c.readLine()) != null) {
-//				System.out.println(">>" + input);
-//				fw.write(input);
-//			}
-		} catch (Exception e) {
-			System.out.println("Exception");
+			fw.write(sb.toString());
+			fw.flush();
+		} catch (IOException e) {
+			System.out.println("IOException");
 		}
 	}
 
@@ -48,15 +45,13 @@ public class SimpleIO {
 			System.out.println("FileNotFoundException");
 		} catch (IOException e) {
 			System.out.println("IOException");
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
 	public static void largeFile4FisFos() {
 		byte[] bffer = new byte[1024];
+		int size;
 		try (FileInputStream fis = new FileInputStream(PATH1); FileOutputStream fos = new FileOutputStream(PATH3);) {
-			int size;
 			while ((size = fis.read(bffer)) != -1) {
 				fos.write(bffer, 0, size);
 			}
@@ -64,15 +59,14 @@ public class SimpleIO {
 			System.out.println("FileNotFoundException");
 		} catch (IOException e) {
 			System.out.println("IOException");
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args) {
-		SimpleIO.textFile();
+		SimpleIO.textFileWrite();
 //		SimpleIO.smallFile4FisFos();
 //		SimpleIO.largeFile4FisFos();
+
 	}
 
 }
