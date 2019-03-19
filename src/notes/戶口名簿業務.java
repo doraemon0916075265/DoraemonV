@@ -1,4 +1,4 @@
-package myNote;
+package notes;
 
 public abstract class 戶口名簿業務 {
 	protected abstract void 檢查證件();

@@ -1,4 +1,4 @@
-package myNote;
+package notes;
 
 public class 戶政業務Main {
 

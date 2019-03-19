@@ -1,4 +1,4 @@
-package myNote;
+package notes;
 
 public class 戶政業務 extends 戶口名簿業務 {
 
