@@ -91,7 +91,7 @@ public class AppConstant {
 	public static final String PATH_DISK_C = "C:" + File.separator;
 
 	public static final List<String> DIRNAME_LIST01 = Arrays.asList("USERS");
-	public static final List<String> DIRNAME_LIST02 = Arrays.asList("CATHAY");
+	public static final List<String> DIRNAME_LIST02 = Arrays.asList("CATHAY","簡叮噹");
 	public static final List<String> DIRNAME_LIST03 = Arrays.asList("DESKTOP");
 
 	public static final String DIRNAME_EXP02 = "NT[\\d]+";
