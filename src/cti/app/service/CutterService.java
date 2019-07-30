@@ -33,8 +33,7 @@ public class CutterService extends AppService {
 
 	/*** 取得預設匯出檔案目錄 ***/
 	public static String getExportFilePath(String name) {
-		return getDesktopRootPath() + File.separator + FILENAME_RESULT + (StringUtils.isBlank(name) ? "" : "_" + name)
-				+ FILENAME_EXTENSION_CSV;
+		return getDesktopRootPath() + File.separator + FILENAME_RESULT + (StringUtils.isBlank(name) ? "" : "_" + name) + FILENAME_EXTENSION_CSV;
 	}
 
 	/*** 讀檔 ***/
@@ -42,8 +41,7 @@ public class CutterService extends AppService {
 		String pathLog = cb.getLogFilePath();
 		String pathSpec = cb.getSpecFilePath();
 		/*** 讀log檔 ***/
-		try (BufferedReader brLog = new BufferedReader(
-				new InputStreamReader(new FileInputStream(pathLog), getFileEncoding(pathLog)));) {
+		try (BufferedReader brLog = new BufferedReader(new InputStreamReader(new FileInputStream(pathLog), getFileEncoding(pathLog)));) {
 			String line;
 			boolean isSend = false;
 			boolean isFill = false;
@@ -79,7 +77,7 @@ public class CutterService extends AppService {
 		/*** 讀spec檔 ***/
 		SpecBean spec = SpecService.readFileInfoByID(pathSpec, cb.getLogInfo_ID());
 		if (StringUtils.isBlank(spec.getId())) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "Spec檔無id對應", "log檔id" + cb.getLogInfo_ID()));
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "Spec檔無id對應", "log檔id=" + cb.getLogInfo_ID()));
 		} else {
 			cb.setSpecSendCut0(spec.getS_cut0());
 			cb.setSpecSendCut(spec.getS_cut());
@@ -116,8 +114,7 @@ public class CutterService extends AppService {
 	}
 
 	/*** 主要切電文 ***/
-	public static String cutterPro(String telegram, JSONArray cut0, JSONArray cut, List<JSONArray> head0,
-			List<JSONArray> head) throws Exception {
+	public static String cutterPro(String telegram, JSONArray cut0, JSONArray cut, List<JSONArray> head0, List<JSONArray> head) throws Exception {
 		int cutIndex = 0;
 		StringBuffer sb = new StringBuffer();
 		int gbkLen = getGBKLen(telegram);
@@ -128,30 +125,39 @@ public class CutterService extends AppService {
 
 		for (Object obj : cut0) {
 			Integer cutSize = Integer.parseInt(obj.toString());
-			sb.append(String.format(FORMAT_CSV_CELL,
-					telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize))));
+			sb.append(String.format(FORMAT_CSV_CELL, telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize))));
 			gbkLen -= cutSize;
 		}
 
-		sb.append(System.lineSeparator());
-		sb.append(System.lineSeparator());
+		sb.append(System.lineSeparator() + System.lineSeparator());
+
 		for (JSONArray jarr : head) {
 			sb.append(addTgHeader(jarr));// 下行表頭
 		}
 
 		try {
 			while (gbkLen > cut.length()) {
+				//可不可接受[0]陣列
+				// if (STR_ZERO.equals(getIntegerArrayLength2String(cut.toString()))) {
+				// break;
+				// }
 				for (Object obj : cut) {
 					Integer cutSize = Integer.parseInt(obj.toString());
-					sb.append(String.format(FORMAT_CSV_CELL, telegram.substring(subStrLen(telegram, cutIndex),
-							subStrLen(telegram, cutIndex += cutSize))));
+					sb.append(String.format(FORMAT_CSV_CELL, telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize))));
 					gbkLen -= cutSize;
 				}
 				sb.append(System.lineSeparator());
 			}
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw new Exception("資料大小=" + Integer.toString(gbkLen) + ";" + e);
 		}
+
+		String foot = telegram.substring(subStrLen(telegram, getGBKLen(telegram) - gbkLen));
+		if (StringUtils.isNotBlank(foot)) {
+			sb.append(System.lineSeparator());
+			sb.append(String.format(FORMAT_CSV_CELL, foot));
+		}
+
 		return sb.toString();
 	}
 
@@ -163,44 +169,6 @@ public class CutterService extends AppService {
 				sb.append(String.format(FORMAT_CSV_CELLHEADER, obj.toString()));
 			}
 			sb.append(System.lineSeparator());
-		}
-		return sb.toString();
-	}
-
-	/*** 切電文(舊方法) ***/
-	public String cutterPro(String text, boolean isAddEqual, JSONArray arr_cut0, JSONArray arr_cut)
-			throws UnsupportedEncodingException {
-		int cutIndex = 0;
-		StringBuffer sb = new StringBuffer();
-		int gbkLen = getGBKLen(text);
-		for (int i = 0; i < arr_cut0.length(); i++) {
-			Integer cutSize = Integer.parseInt(arr_cut0.get(i).toString());
-			String row;
-			if (isAddEqual) {
-				row = SIGN_EQUAL + SIGN_DBQUOTES;
-			} else {
-				row = SIGN_DBQUOTES;
-			}
-			row += text.substring(subStrLen(text, cutIndex), subStrLen(text, cutIndex += cutSize)) + SIGN_DBQUOTES;
-			row = (i < arr_cut0.length() - 1) ? row += SIGN_COMMA : row;
-			sb.append(row);
-			gbkLen -= cutSize;
-		}
-		while (gbkLen > arr_cut.length()) {
-			sb.append(System.lineSeparator());
-			for (int i = 0; i < arr_cut.length(); i++) {
-				Integer cutSize = Integer.parseInt(arr_cut.get(i).toString());
-				String row;
-				if (isAddEqual) {
-					row = SIGN_EQUAL + SIGN_DBQUOTES;
-				} else {
-					row = SIGN_DBQUOTES;
-				}
-				row += text.substring(subStrLen(text, cutIndex), subStrLen(text, cutIndex += cutSize)) + SIGN_DBQUOTES;
-				row = (i < arr_cut.length() - 1) ? row += SIGN_COMMA : row;
-				sb.append(row);
-				gbkLen -= cutSize;
-			}
 		}
 		return sb.toString();
 	}

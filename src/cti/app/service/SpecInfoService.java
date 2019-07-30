@@ -27,7 +27,7 @@ public class SpecInfoService extends AppService {
 		sb.append(String.format(FORMAT_SPECINFO, "下行電文（頭）欄位（中）"	, spec.getF_cname0()));
 		sb.append(String.format(FORMAT_SPECINFO, "下行電文（頭）欄位（英）"	, spec.getF_ename0()));
 		sb.append(String.format(FORMAT_SPECINFO, "切下行電文（身）"		, spec.getF_cut()));
-		sb.append(String.format(FORMAT_SPECINFO, "Ｎｏｔｅ"				, spec.getNote()));
+		sb.append(String.format(FORMAT_SPECINFO, "Ｎｏｔｅ"			, spec.getNote()));
 		sb.append(String.format(FORMAT_SPECINFO, "下行電文（身）欄位（中）"	, spec.getF_cname()));
 		sb.append(String.format(FORMAT_SPECINFO, "下行電文（身）欄位（英）"	, spec.getS_ename()));
 		sb.append(String.format(FORMAT_SPECINFO, "負責人"				, spec.getOwner()));

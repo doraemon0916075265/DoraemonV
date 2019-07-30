@@ -5,6 +5,7 @@ import java.util.Date;
 public class FindFileBean {
 	private String searchPath;
 	private String byText;
+	private boolean isTextCaseSensitive;
 	private String byFilename;
 	private String byFilenameExtension;
 	private String byFilenameExtension_Ignore;
@@ -26,6 +27,14 @@ public class FindFileBean {
 
 	public void setByText(String byText) {
 		this.byText = byText;
+	}
+
+	public boolean isTextCaseSensitive() {
+		return isTextCaseSensitive;
+	}
+
+	public void setTextCaseSensitive(boolean isTextCaseSensitive) {
+		this.isTextCaseSensitive = isTextCaseSensitive;
 	}
 
 	public String getByFilename() {

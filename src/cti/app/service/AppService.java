@@ -136,15 +136,13 @@ public class AppService extends AppConstant {
 		String input = jtc.getText();
 		File f = new File(input);
 		if (!f.exists()) {
-			throw new FileNotFoundException(
-					String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_FILE_NOT_EXIST));
+			throw new FileNotFoundException(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_FILE_NOT_EXIST));
 		} else if (!f.isFile()) {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_NOT_A_FILE));
 		}
 		// 預先判斷是否皆可正常讀檔
 		boolean isFileNull = true;
-		try (BufferedReader br = new BufferedReader(
-				new InputStreamReader(new FileInputStream(input), getFileEncoding(input)));) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(input), getFileEncoding(input)));) {
 			if (isFileNull = (br.readLine() == null)) {
 				throw new Exception();
 			}
@@ -158,14 +156,12 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 驗證輸入框：為合法修改日期格式。 ***/
-	public static void validateInput_byModifyDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan)
-			throws Exception {
+	public static void validateInput_byModifyDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan) throws Exception {
 		validateInput_BeinEndDate(jxdpGreaterThan, jxdpLessThan);
 	}
 
 	/*** 驗證輸入框：為合法起訖日期格式。 ***/
-	public static void validateInput_BeinEndDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan)
-			throws Exception {
+	public static void validateInput_BeinEndDate(JXDatePicker jxdpGreaterThan, JXDatePicker jxdpLessThan) throws Exception {
 		if (jxdpGreaterThan.getDate() != null && jxdpLessThan.getDate() != null) {
 			if (jxdpGreaterThan.getDate().after(jxdpLessThan.getDate())) {
 				throw new Exception(String.format(FORMAT_MSG_EXCEPTION, "起日不可大於起訖日", ""));
@@ -178,8 +174,7 @@ public class AppService extends AppConstant {
 		try {
 			validateInput_FilenameInExtensionList(new JTextField(new File(jtc.getText()).getName()), extensions);
 		} catch (Exception e) {
-			throw new Exception(
-					String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME));
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME));
 		}
 	}
 
@@ -189,22 +184,19 @@ public class AppService extends AppConstant {
 		String input = jtc.getText();
 		File f = new File(input);
 		if (!f.exists()) {
-			throw new FileNotFoundException(
-					String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_DIRECTORY_NOT_EXIST));
+			throw new FileNotFoundException(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_DIRECTORY_NOT_EXIST));
 		} else if (!f.isDirectory()) {
 			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + input, ERRMSG_NOT_A_DIRECTORY));
 		}
 	}
 
 	/*** 驗證輸入框：合法檔名並在副檔名List中。 ***/
-	public static void validateInput_FilenameInExtensionList(JTextComponent jtc, List<String> extensions)
-			throws Exception {
+	public static void validateInput_FilenameInExtensionList(JTextComponent jtc, List<String> extensions) throws Exception {
 		validateInput_Text(jtc);
 		String filenameU = jtc.getText().toUpperCase();
 		// 比對一般檔名格式
 		if (!filenameU.matches(REGEXP_LEGAL_FILEFULLNAME)) {
-			throw new Exception(
-					String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME));
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME));
 		}
 		// 比對特殊檔名格式
 		boolean inExtension = false;
@@ -215,8 +207,7 @@ public class AppService extends AppConstant {
 			}
 		}
 		if (!inExtension) {
-			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(),
-					ERRMSG_ILLEGAL_FILENAME_EXTENSION));
+			throw new Exception(String.format(FORMAT_MSG_EXCEPTION, jtc.getName() + jtc.getText(), ERRMSG_ILLEGAL_FILENAME_EXTENSION));
 		}
 	}
 
@@ -371,7 +362,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 數字陣列 的 數字和 轉字串 ***/
-	private static String getIntegerArrayLength2String(String str) {
+	protected static String getIntegerArrayLength2String(String str) {
 		Integer cutSize = Integer.valueOf(0);
 		try {
 			JSONArray ja = new JSONArray(str);
@@ -423,16 +414,14 @@ public class AppService extends AppConstant {
 		String timeMsg = "";
 		if (isTimerOn) {
 			isTimerWork(false);
-			timeMsg = (timer >= 1000L) ? (String.format(FORMAT_MSG_TIMER_S, timer / 1000d))
-					: (String.format(FORMAT_MSG_TIMER_MS, timer));
+			timeMsg = (timer >= 1000L) ? (String.format(FORMAT_MSG_TIMER_S, timer / 1000d)) : (String.format(FORMAT_MSG_TIMER_MS, timer));
 		}
 		if (MSG_SUCCESS.equals(msgType)) {
 			setAppStyle(jl_msg, APP_MSG, APP_COLOR_MSG);
 		} else {
 			setAppStyle(jl_msg, APP_MSG, APP_COLOR_ERRMSG);
 		}
-		String msgHeader = String.format(FORMAT_MSG_HEADER, getSelectedTabName(),
-				APP_MSG_FMT.format(System.currentTimeMillis()), msgType);
+		String msgHeader = String.format(FORMAT_MSG_HEADER, getSelectedTabName(), APP_MSG_FMT.format(System.currentTimeMillis()), msgType);
 		jl_msg.setText(String.format(FORMAT_MSG, msgHeader, String.join(SIGN_SPACE, list), timeMsg).trim());
 	}
 
@@ -506,8 +495,7 @@ public class AppService extends AppConstant {
 	/*** 讀檔案內所有內容 ***/
 	protected static String readFileContent(String path) throws Exception {
 		StringBuffer content = new StringBuffer("");
-		try (BufferedReader br = new BufferedReader(
-				new InputStreamReader(new FileInputStream(path), getFileEncoding(path)));) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), getFileEncoding(path)));) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				if (StringUtils.isBlank(line)) {
@@ -521,15 +509,17 @@ public class AppService extends AppConstant {
 
 	/*** 重新生成下拉選單 ***/
 	protected static void genPulldownMenu(JComboBox<String> jcb, List<String> items) {
+		String selectString = null;
+		int selectIndex = jcb.getSelectedIndex();
+		if (!items.isEmpty() && jcb.getSelectedItem() != null && selectIndex >= 0) {
+			selectString = jcb.getSelectedItem().toString();
+		}
 		jcb.removeAllItems();
 		for (String item : items) {
 			jcb.addItem(item);
 		}
-		if (jcb.getSelectedItem() != null && !items.isEmpty()) {
-			String selectItem = jcb.getSelectedItem().toString();
-			if (StringUtils.isNotBlank(selectItem) && items.contains(selectItem)) {
-				jcb.setSelectedItem(selectItem);
-			}
+		if (StringUtils.isNotBlank(selectString) && selectString.equals(items.get(selectIndex))) {
+			jcb.setSelectedItem(selectString);
 		}
 	}
 

@@ -61,7 +61,7 @@ public class SpecInfoView extends SpecInfoConstant {
 		/*** 第二區 ***/
 		row += 40;
 		jl_specID.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jcb_specID.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
+		jcb_specID.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT2, SIZE_VER_INPUT);
 		jb_readFile.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jpSub1.add(jl_specID);
 		jpSub1.add(jcb_specID);

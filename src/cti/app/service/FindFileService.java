@@ -83,12 +83,20 @@ public class FindFileService extends AppService {
 					isRunning = false;
 					try (BufferedReader brLog = new BufferedReader((new InputStreamReader(new FileInputStream(fileAbsPath), getFileEncoding(fileAbsPath))));) {
 						String line;
+						String tempText;
 						while ((line = brLog.readLine()) != null) {
 							if (StringUtils.isBlank(line)) {
 								continue;
 							}
 							// System.out.println(filePath + "," + line);
-							if (line.matches(getFuzzySearchRegexpString(ffb.getByText(), true))) {
+
+							tempText = ffb.getByText();
+							if (!ffb.isTextCaseSensitive()) {
+								line = line.toUpperCase();
+								tempText = tempText.toUpperCase();
+							}
+
+							if (line.matches(getFuzzySearchRegexpString(tempText, true))) {
 								isRunning = true;
 								break;
 							}

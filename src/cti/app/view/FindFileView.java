@@ -34,8 +34,10 @@ public class FindFileView extends FindFileConstant {
 
 	private static JLabel jl_byText = new JLabel(JL_BYTEXT);// 字串查詢
 	protected static JTextField jtf_byText = new JTextField();
-	private static JCheckBox jcb_byText = new JCheckBox();
 	private static JButton jb_search = new JButton(BTN_SEARCH);
+	
+	private static JLabel jl_byTextCaseSensitive = new JLabel(JL_BYTEXTCASESENSITIVE);// 字串查詢
+	protected static JCheckBox jcb_byTextCaseSensitive = new JCheckBox();
 
 	private static JLabel jl_byFilename = new JLabel(JL_BYFILENAME);// 檔名查詢
 	protected static JTextField jtf_byFilename = new JTextField();
@@ -89,19 +91,23 @@ public class FindFileView extends FindFileConstant {
 		row += 40;
 		jl_byText.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_byText.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
-		jcb_byText.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_VER_INPUT, SIZE_VER_INPUT);
 		jb_search.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jpSub1.add(jl_byText);
 		jpSub1.add(jtf_byText);
-		jpSub1.add(jcb_byText);
 		jpSub1.add(jb_search);
 		/*** 第四區 ***/
+		row += 40;
+		jl_byTextCaseSensitive.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
+		jcb_byTextCaseSensitive.setBounds(SIZE_HOR_COL2, row, SIZE_VER_INPUT, SIZE_VER_INPUT);
+		jpSub1.add(jl_byTextCaseSensitive);
+		jpSub1.add(jcb_byTextCaseSensitive);
+		/*** 第五區 ***/
 		row += 40;
 		jl_byFilename.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_byFilename.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT5, SIZE_VER_INPUT);
 		jpSub1.add(jl_byFilename);
 		jpSub1.add(jtf_byFilename);
-		/*** 第五區 ***/
+		/*** 第六區 ***/
 		row += 40;
 		jl_byFilenameExtension.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jtf_byFilenameExtension.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT5, SIZE_VER_INPUT);
@@ -111,7 +117,7 @@ public class FindFileView extends FindFileConstant {
 		jpSub1.add(jtf_byFilenameExtension);
 		jpSub1.add(jl_byFilenameExtension_Ignore);
 		jpSub1.add(jtf_byFilenameExtension_Ignore);
-		/*** 第六區 ***/
+		/*** 第七區 ***/
 		row += 40;
 		jl_byModify_greaterThan.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
 		jxdp_byModify_greaterThan.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_CALENDAR1, SIZE_VER_INPUT);
@@ -139,6 +145,9 @@ public class FindFileView extends FindFileConstant {
 		setAppStyle(jl_byText, null, APP_COLOR_SEARCH_CRITERIA);
 		setAppStyle(jtf_byText, NAME_BYTEXT, APP_COLOR_DEFAULT);
 		setAppStyle(jb_search, null, APP_COLOR_DEFAULT);
+		
+		setAppStyle(jl_byTextCaseSensitive, null, APP_COLOR_SEARCH_CRITERIA);
+		setAppStyle(jcb_byTextCaseSensitive, NAME_BYTEXTCASESENSITIVE, APP_COLOR_DEFAULT);
 
 		setAppStyle(jl_byFilename, null, APP_COLOR_SEARCH_CRITERIA);
 		setAppStyle(jtf_byFilename, NAME_BYFILENAME, APP_COLOR_DEFAULT);

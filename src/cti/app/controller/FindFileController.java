@@ -21,7 +21,7 @@ public class FindFileController extends FindFileView {
 		clearAllData();
 		ffb.setSearchPath(getDesktopRootPath());
 		ffb.setByFilenameExtension("[\"*\"]");
-		ffb.setByFilenameExtension_Ignore("[\"~*\",\"*.vfl\"]");
+		ffb.setByFilenameExtension_Ignore("[\"~*\",\"*.lnk\",\"*.vfl\"]");
 		ffb.setByModify_greaterThan(null);
 		ffb.setByModify_lessThan(null);
 		setAllProperties();
@@ -57,6 +57,7 @@ public class FindFileController extends FindFileView {
 	private static void getAllProperties() {
 		ffb.setSearchPath(jtf_searchPath.getText());
 		ffb.setByText(jtf_byText.getText());
+		ffb.setTextCaseSensitive(jcb_byTextCaseSensitive.isSelected());
 		ffb.setByFilename(jtf_byFilename.getText());
 		ffb.setByFilenameExtension(jtf_byFilenameExtension.getText());
 		ffb.setByFilenameExtension_Ignore(jtf_byFilenameExtension_Ignore.getText());
@@ -69,6 +70,7 @@ public class FindFileController extends FindFileView {
 	private static void setAllProperties() {
 		jtf_searchPath.setText(ffb.getSearchPath());
 		jtf_byText.setText(ffb.getByText());
+		jcb_byTextCaseSensitive.setSelected(ffb.isTextCaseSensitive());
 		jtf_byFilename.setText(ffb.getByFilename());
 		jtf_byFilenameExtension.setText(ffb.getByFilenameExtension());
 		jtf_byFilenameExtension_Ignore.setText(ffb.getByFilenameExtension_Ignore());
