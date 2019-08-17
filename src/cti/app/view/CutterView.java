@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -15,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
+import cti.app.component.JButtonSimple;
 import cti.app.constant.CutterConstant;
 import cti.app.controller.CutterController;
 
@@ -25,24 +25,24 @@ public class CutterView extends CutterConstant {
 	private static JPanel jpSub2 = new JPanel();
 
 	private static JLabel jl_logFilePath = new JLabel(JL_LOGFILEPATH); // log檔路徑
-	private static JButton jb_logFilepath = new JButton();
+	private static JButtonSimple jb_logFilepath = new JButtonSimple();
 	protected static JTextField jtf_logFilePath = new JTextField();
-	private static JButton jb_resetData = new JButton(BTN_RESETDATA);
+	private static JButtonSimple jb_resetData = new JButtonSimple(BTN_RESETDATA);
 
 	private static JLabel jl_specFilePath = new JLabel(JL_SPECFILEPATH); // spec檔路徑
 	protected static JTextField jtf_specFilePath = new JTextField();
-	private static JButton jb_specFilepath = new JButton();
-	private static JButton jb_clearData = new JButton(BTN_CLEARDATA);
+	private static JButtonSimple jb_specFilepath = new JButtonSimple();
+	private static JButtonSimple jb_clearData = new JButtonSimple(BTN_CLEARDATA);
 
 	private static JLabel jl_logInfo_send = new JLabel(JL_LOGINFO_SEND); // 上行電文
 	protected static JTextField jtf_logInfo_send = new JTextField();
 	private static JLabel jl_logInfo_sendLen = new JLabel(STR_ZERO);
-	private static JButton jb_readFile = new JButton(BTN_READFILE);
+	private static JButtonSimple jb_readFile = new JButtonSimple(BTN_READFILE);
 
 	private static JLabel jl_logInfo_fill = new JLabel(JL_LOGINFO_FILL); // 下行電文
 	protected static JTextField jtf_logInfo_fill = new JTextField();
 	private static JLabel jl_logInfo_fillLen = new JLabel(STR_ZERO);
-	private static JButton jb_analysis = new JButton(BTN_ANALYSIS);
+	private static JButtonSimple jb_analysis = new JButtonSimple(BTN_ANALYSIS);
 
 	private static JLabel jl_specInfo_send = new JLabel(JL_SPECINFO_SEND); // 上行電文陣列
 	protected static JTextField jtf_specSendCut0 = new JTextField();
@@ -57,11 +57,11 @@ public class CutterView extends CutterConstant {
 	private static JLabel jl_logInfo_ID = new JLabel(JL_LOGINFO_ID); // 電文ID/資訊
 	protected static JTextField jtf_logInfo_ID = new JTextField();
 	protected static JTextField jtf_specInfo_note = new JTextField();
-	private static JButton jb_guideBook = new JButton(BTN_GUIDEBOOK);
+	private static JButtonSimple jb_guideBook = new JButtonSimple(BTN_GUIDEBOOK);
 
 	private static JLabel jl_exportFile = new JLabel(JL_EXPORTFILE); // 匯出檔案路徑
 	protected static JTextField jtf_exportFilePath = new JTextField();
-	private static JButton jb_exportFile = new JButton(BTN_EXPORTFILE);
+	private static JButtonSimple jb_exportFile = new JButtonSimple(BTN_EXPORTFILE);
 
 	protected static JTextArea jta_resultS = new JTextArea(5, 93);
 	protected static JTextArea jta_resultF = new JTextArea(10, 93);
@@ -249,8 +249,9 @@ public class CutterView extends CutterConstant {
 		jb_readFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				isTimerWork(true);
+				System.out.println("eee");
 				try {
+					isTimerWork(true);
 					CutterController.readFile();
 					showMsg(MSG_READFILE);
 				} catch (Exception e) {
@@ -263,8 +264,8 @@ public class CutterView extends CutterConstant {
 		jb_analysis.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				isTimerWork(true);
 				try {
+					isTimerWork(true);
 					CutterController.analysis();
 					showMsg(MSG_ANALYSIS);
 				} catch (Exception e) {
@@ -288,8 +289,8 @@ public class CutterView extends CutterConstant {
 		jb_exportFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				isTimerWork(true);
 				try {
+					isTimerWork(true);
 					CutterController.export();
 					showMsg(MSG_EXPORTFILE + "於" + jtf_exportFilePath.getText());
 				} catch (Exception e) {

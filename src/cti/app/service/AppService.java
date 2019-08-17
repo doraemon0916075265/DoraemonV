@@ -526,4 +526,5 @@ public class AppService extends AppConstant {
 	protected static String getPulldownItem(JComboBox<String> jcb) {
 		return jcb.getSelectedItem() != null ? jcb.getSelectedItem().toString() : "";
 	}
+
 }

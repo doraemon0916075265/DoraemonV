@@ -13,7 +13,6 @@ import javax.swing.event.ChangeListener;
 import cti.app.service.AppService;
 
 public class AppView extends AppService {
-	private static JFrame jf;
 
 	public static void executeApp() {
 		setFrameBegin();
@@ -42,10 +41,11 @@ public class AppView extends AppService {
 
 	/*** 設定元件 ***/
 	private static void setFrameComponent() {
+		// 頁籤
 		jtp.addTab(APP_TAB_NAME[0], CutterView.createView());
 		jtp.addTab(APP_TAB_NAME[1], SpecInfoView.createView());
 		jtp.addTab(APP_TAB_NAME[2], FindFileView.createView());
-		jtp.addTab(APP_TAB_NAME[3], new JPanel());
+		jtp.addTab(APP_TAB_NAME[3], TestView.createView());
 		jtp.addTab(APP_TAB_NAME[4], new JPanel());
 		jtp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);// 左右滾動
 
@@ -71,5 +71,4 @@ public class AppView extends AppService {
 		jf.add(jtp);
 		jf.setVisible(true);// 視窗顯示
 	}
-
 }

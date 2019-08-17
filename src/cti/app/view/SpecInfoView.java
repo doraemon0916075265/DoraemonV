@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import cti.app.component.JButtonSimple;
 import cti.app.constant.SpecInfoConstant;
 import cti.app.controller.SpecInfoController;
 
@@ -23,8 +24,8 @@ public class SpecInfoView extends SpecInfoConstant {
 
 	private static JLabel jl_specFilePath = new JLabel(JL_SPECFILEPATH);// spec檔路徑
 	protected static JTextField jtf_specFilePath = new JTextField();
-	private static JButton jb_specFilepath = new JButton();
-	private static JButton jb_resetData = new JButton(BTN_RESETDATA);
+	private static JButtonSimple jb_specFilepath = new JButtonSimple();
+	private static JButtonSimple jb_resetData = new JButtonSimple(BTN_RESETDATA);
 	private static JLabel jl_specID = new JLabel("ID選單");
 	protected static JComboBox<String> jcb_specID = new JComboBox<String>();
 

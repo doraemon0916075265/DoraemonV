@@ -9,12 +9,16 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
 import javax.swing.border.LineBorder;
 
 public class AppConstant {
-	public static JLabel jl_msg = new JLabel();// 系統訊息
+	public static JFrame jf;
+	public final static JLabel jl_msg = new JLabel();// 系統訊息
+	public final static JProgressBar jpb = new JProgressBar();
 	public static JTabbedPane jtp = new JTabbedPane();
 
 	// APP設定
@@ -37,6 +41,9 @@ public class AppConstant {
 	public static final Clipboard APP_CLIPBOARD = Toolkit.getDefaultToolkit().getSystemClipboard();
 	public static final String APP_TAB = "頁籤";
 	public static final String APP_MSG = "系統訊息";
+	public static final int PROGRESS_MIN = 0;
+	public static final int PROGRESS_MAX = 100;
+	public static int currentProgress = PROGRESS_MIN;
 
 	// 訊息
 	public static final String MSG_ = "";
@@ -91,7 +98,7 @@ public class AppConstant {
 	public static final String PATH_DISK_C = "C:" + File.separator;
 
 	public static final List<String> DIRNAME_LIST01 = Arrays.asList("USERS");
-	public static final List<String> DIRNAME_LIST02 = Arrays.asList("CATHAY","簡叮噹");
+	public static final List<String> DIRNAME_LIST02 = Arrays.asList("CATHAY", "簡叮噹");
 	public static final List<String> DIRNAME_LIST03 = Arrays.asList("DESKTOP");
 
 	public static final String DIRNAME_EXP02 = "NT[\\d]+";
