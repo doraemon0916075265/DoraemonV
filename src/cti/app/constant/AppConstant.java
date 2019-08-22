@@ -9,21 +9,21 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
-import javax.swing.JTabbedPane;
 import javax.swing.border.LineBorder;
 
+import cti.app.component.JTabbedPaneSimple;
+import cti.app.component.JframeSimple;
+
 public class AppConstant {
-	public static JFrame jf;
-	public final static JLabel jl_msg = new JLabel();// 系統訊息
-	public final static JProgressBar jpb = new JProgressBar();
-	public static JTabbedPane jtp = new JTabbedPane();
+	public static final String APP_FRAME_TITLE = "★Hello～★";
+	public static final JframeSimple jf = new JframeSimple(APP_FRAME_TITLE);;
+	public static final JLabel jl_status = new JLabel();// 系統訊息
+	public static final JProgressBar jpb = new JProgressBar();
+	public static final JTabbedPaneSimple jtp = new JTabbedPaneSimple();
 
 	// APP設定
-	public static final String APP_FRAME_TITLE = "★Hello～★";
-	public final static String[] APP_TAB_NAME = { "切電文", "Spec", "找檔案", "未定2", "未定3" };
 	public static final String APP_GUIDEBOOK_TITLE = "操作說明書";
 	public static final int APP_FRAME_WIDTH = 1080;
 	public static final int APP_FRAME_HEIGHT = 720;
@@ -80,7 +80,8 @@ public class AppConstant {
 
 	// 格式
 	public static final String FORMAT_MSG_HEADER = "[%s][%s %s]";
-	public static final String FORMAT_MSG = "%s %s %s";
+	public static final String FORMAT_MSG_BODY = "%s %s %s";
+	public static final String FORMAT_MSG = FORMAT_MSG_HEADER + " %s";
 	public static final String FORMAT_MSG_TIMER_S = "(執行%.3f秒)";
 	public static final String FORMAT_MSG_TIMER_MS = "(執行%d毫秒)";
 	public static final String FORMAT_MSG_EXCEPTION = "%s %s";

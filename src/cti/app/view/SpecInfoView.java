@@ -93,7 +93,7 @@ public class SpecInfoView extends SpecInfoConstant {
 				isTimerWork(true);
 				SpecInfoController.doInitial();
 				setEnterTab();
-				showMsg(MSG_RESETDATA);
+				showSatus(MSG_RESETDATA);
 			}
 		});
 
@@ -135,9 +135,9 @@ public class SpecInfoView extends SpecInfoConstant {
 		try {
 			SpecInfoController.readFile();
 			setEnterTab();
-			showMsg(MSG_READFILE + getPulldownItem(jcb_specID));
+			showSatus(MSG_READFILE + getPulldownItem(jcb_specID));
 		} catch (Exception e) {
-			showMsg(e);
+			showSatus(e);
 		}
 	}
 }

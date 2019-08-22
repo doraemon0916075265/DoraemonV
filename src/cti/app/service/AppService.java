@@ -293,7 +293,7 @@ public class AppService extends AppConstant {
 					me.isConsumed();
 					StringSelection data = new StringSelection(jtc.getText());
 					APP_CLIPBOARD.setContents(data, data);
-					showMsg(String.format(FORMAT_MSG_COPIED, jtc.getName()));
+					showSatus(String.format(FORMAT_MSG_COPIED, jtc.getName()));
 				}
 			}
 		});
@@ -397,40 +397,40 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 訊息欄Start ***/
-	public static void showMsg(String msg) {
-		showMsg(MSG_SUCCESS, Arrays.asList(msg));
+	public static void showTabChangeSatus(String msg) {
+		showSatus(MSG_SUCCESS, Arrays.asList(msg), false);
+	}
+	
+	public static void showSatus(String msg) {
+		showSatus(MSG_SUCCESS, Arrays.asList(msg), true);
 	}
 
-	public static void showMsg(List<String> list) {
-		showMsg(MSG_SUCCESS, list);
+	public static void showSatus(List<String> list) {
+		showSatus(MSG_SUCCESS, list, true);
 	}
 
-	public static void showMsg(Exception e) {
+	public static void showSatus(Exception e) {
 		isTimerWork(false);
-		showMsg(e.getClass().getSimpleName(), Arrays.asList(e.getMessage()));
+		showSatus(e.getClass().getSimpleName(), Arrays.asList(e.getMessage()), true);
 	}
 
-	public static void showMsg(String msgType, List<String> list) {
-		String timeMsg = "";
-		if (isTimerOn) {
+	public static void showSatus(String type, List<String> list, boolean isChecktime) {
+		List<String> al = new ArrayList<String>(list);
+		if (isChecktime && isTimerOn) {
 			isTimerWork(false);
-			timeMsg = (timer >= 1000L) ? (String.format(FORMAT_MSG_TIMER_S, timer / 1000d)) : (String.format(FORMAT_MSG_TIMER_MS, timer));
+			al.add((timer >= 1000L) ? (String.format(FORMAT_MSG_TIMER_S, timer / 1000d)) : (String.format(FORMAT_MSG_TIMER_MS, timer)));
 		}
-		if (MSG_SUCCESS.equals(msgType)) {
-			setAppStyle(jl_msg, APP_MSG, APP_COLOR_MSG);
+
+		if (MSG_SUCCESS.equals(type)) {
+			setAppStyle(jl_status, APP_MSG, APP_COLOR_MSG);
 		} else {
-			setAppStyle(jl_msg, APP_MSG, APP_COLOR_ERRMSG);
+			setAppStyle(jl_status, APP_MSG, APP_COLOR_ERRMSG);
 		}
-		String msgHeader = String.format(FORMAT_MSG_HEADER, getSelectedTabName(), APP_MSG_FMT.format(System.currentTimeMillis()), msgType);
-		jl_msg.setText(String.format(FORMAT_MSG, msgHeader, String.join(SIGN_SPACE, list), timeMsg).trim());
+
+		jl_status.setText(String.format(FORMAT_MSG, jtp.getTitleAt(jtp.getSelectedIndex()), APP_MSG_FMT.format(System.currentTimeMillis()), type, String.join(SIGN_SPACE, al)).trim());
 	}
 
 	/*** 訊息欄End ***/
-
-	/*** 取得Tab名 ***/
-	public static String getSelectedTabName() {
-		return jtp.getSelectedIndex() >= 0 ? APP_TAB_NAME[jtp.getSelectedIndex()] : "";
-	}
 
 	/*** 取得檔案路徑 ***/
 	public static void btnGetPath(JButton jb, JTextField jtf) {
@@ -440,7 +440,7 @@ public class AppService extends AppConstant {
 				JFileChooser jfc = new JFileChooser();
 				if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					jtf.setText(jfc.getSelectedFile().toString());
-					showMsg(MSG_GET + jtf.getName() + SIGN_SPACE + jfc.getSelectedFile().toString());
+					showSatus(MSG_GET + jtf.getName() + SIGN_SPACE + jfc.getSelectedFile().toString());
 				}
 			}
 		});

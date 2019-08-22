@@ -173,7 +173,7 @@ public class FindFileView extends FindFileConstant {
 			public void actionPerformed(ActionEvent ae) {
 				isTimerWork(true);
 				FindFileController.doInitial();
-				showMsg(MSG_RESETDATA);
+				showSatus(MSG_RESETDATA);
 			}
 		});
 
@@ -182,7 +182,7 @@ public class FindFileView extends FindFileConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				FindFileController.clearData();
-				showMsg(MSG_CLEARDATA);
+				showSatus(MSG_CLEARDATA);
 			}
 		});
 
@@ -193,9 +193,9 @@ public class FindFileView extends FindFileConstant {
 				isTimerWork(true);
 				try {
 					FindFileController.findConditionFile();
-					showMsg(MSG_SEARCH);
+					showSatus(MSG_SEARCH);
 				} catch (Exception e) {
-					showMsg(e);
+					showSatus(e);
 				}
 			}
 		});

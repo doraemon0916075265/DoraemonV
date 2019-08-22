@@ -6,44 +6,47 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
+import cti.app.constant.AppConstant;
+
 public class JButtonSimple extends JButton {
+	private static JframeSimple jf = AppConstant.jf;
 
 	public JButtonSimple() {
 		super();
-		setButtonListener(this);
+		componentListener(this);
 	}
 
 	public JButtonSimple(String name) {
 		super(name);
-		setButtonListener(this);
+		componentListener(this);
 	}
 
-	// 按鈕設定
-	private static void setButtonListener(JButton jb) {
+	// 元件設定
+	private static void componentListener(JButton jb) {
 		jb.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent me) {
-				jb.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				jf.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			}
 
 			@Override
 			public void mousePressed(MouseEvent me) {
-				jb.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				jf.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent me) {
-				jb.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				jf.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent me) {
-				jb.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				jf.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 
 			@Override
 			public void mouseClicked(MouseEvent me) {
-				jb.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				jf.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			}
 		});
 	}

@@ -232,7 +232,7 @@ public class CutterView extends CutterConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				CutterController.doInitial();
-				showMsg(MSG_RESETDATA);
+				showSatus(MSG_RESETDATA);
 			}
 		});
 
@@ -241,7 +241,7 @@ public class CutterView extends CutterConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				CutterController.clearData(null);
-				showMsg(MSG_CLEARDATA);
+				showSatus(MSG_CLEARDATA);
 			}
 		});
 
@@ -249,13 +249,12 @@ public class CutterView extends CutterConstant {
 		jb_readFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				System.out.println("eee");
 				try {
 					isTimerWork(true);
 					CutterController.readFile();
-					showMsg(MSG_READFILE);
+					showSatus(MSG_READFILE);
 				} catch (Exception e) {
-					showMsg(e);
+					showSatus(e);
 				}
 			}
 		});
@@ -267,9 +266,9 @@ public class CutterView extends CutterConstant {
 				try {
 					isTimerWork(true);
 					CutterController.analysis();
-					showMsg(MSG_ANALYSIS);
+					showSatus(MSG_ANALYSIS);
 				} catch (Exception e) {
-					showMsg(e);
+					showSatus(e);
 				}
 			}
 		});
@@ -278,10 +277,10 @@ public class CutterView extends CutterConstant {
 		jb_guideBook.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				showMsg(MSG_OPEN_GUIDEBOOK);
+				showSatus(MSG_OPEN_GUIDEBOOK);
 				UIManager.put("OptionPane.messageFont", new FontUIResource(APP_FONT));
 				JOptionPane.showMessageDialog(null, CutterController.guidebook(), APP_GUIDEBOOK_TITLE, JOptionPane.DEFAULT_OPTION);
-				showMsg(MSG_CLOSE_GUIDEBOOK);
+				showSatus(MSG_CLOSE_GUIDEBOOK);
 			}
 		});
 
@@ -292,9 +291,9 @@ public class CutterView extends CutterConstant {
 				try {
 					isTimerWork(true);
 					CutterController.export();
-					showMsg(MSG_EXPORTFILE + "於" + jtf_exportFilePath.getText());
+					showSatus(MSG_EXPORTFILE + "於" + jtf_exportFilePath.getText());
 				} catch (Exception e) {
-					showMsg(e);
+					showSatus(e);
 				}
 			}
 		});
