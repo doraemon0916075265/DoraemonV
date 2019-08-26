@@ -33,7 +33,7 @@ public class CutterService extends AppService {
 
 	/*** 取得預設匯出檔案目錄 ***/
 	public static String getExportFilePath(String name) {
-		return getDesktopRootPath() + File.separator + FILENAME_RESULT + (StringUtils.isBlank(name) ? "" : "_" + name) + FILENAME_EXTENSION_CSV;
+		return getHomeDirectory() + File.separator + FILENAME_RESULT + (StringUtils.isBlank(name) ? "" : "_" + name) + FILENAME_EXTENSION_CSV;
 	}
 
 	/*** 讀檔 ***/

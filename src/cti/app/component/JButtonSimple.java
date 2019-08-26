@@ -13,17 +13,21 @@ public class JButtonSimple extends JButton {
 
 	public JButtonSimple() {
 		super();
-		componentListener(this);
+		selfSetting();
 	}
 
 	public JButtonSimple(String name) {
 		super(name);
-		componentListener(this);
+		setName(name);
+		selfSetting();
 	}
 
 	// 元件設定
-	private static void componentListener(JButton jb) {
-		jb.addMouseListener(new MouseListener() {
+	private void selfSetting() {
+		setFont(AppConstant.APP_FONT);
+		setForeground(AppConstant.APP_COLOR_DEFAULT);
+
+		addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent me) {
 				jf.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));

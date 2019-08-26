@@ -14,17 +14,6 @@ public class CutterConstant extends CutterService {
 	public static final String JL_LOGINFO_ID = "電文ID/資訊";
 	public static final String JL_EXPORTFILE = "匯出檔案路徑";
 
-	public static final String NAME_LOGFILEPATH = "log檔路徑";
-	public static final String NAME_SPECFILEPATH = "spec檔路徑";
-	public static final String NAME_LOGINFO_SEND = "log檔的上行電文";
-	public static final String NAME_LOGINFO_FILL = "log檔的下行電文";
-	public static final String NAME_SPECSENDCUT0 = "spec檔的上行電文(頭)";
-	public static final String NAME_SPECSENDCUT = "spec檔的上行電文(身)";
-	public static final String NAME_SPECFILLCUT0 = "spec檔的下行電文(頭)";
-	public static final String NAME_SPECFILLCUT = "spec檔的下行電文(身)";
-	public static final String NAME_LOGINFO_ID = "電文ID";
-	public static final String NAME_SPECINFO_NOTE = "電文資訊";
-	public static final String NAME_EXPORTFILEPATH = "匯出檔案路徑";
 	public static final String NAME_RESULTS = "切上行結果區";
 	public static final String NAME_RESULTF = "切下行結果區";
 

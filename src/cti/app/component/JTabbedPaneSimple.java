@@ -1,6 +1,6 @@
 package cti.app.component;
 
-import java.awt.Color;
+import java.util.Arrays;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,17 +24,16 @@ public class JTabbedPaneSimple extends JTabbedPane {
 
 	public JTabbedPaneSimple() {
 		super();
-		SelfSetting();
+		selfSetting();
 	}
 
-	private void SelfSetting() {
-		setForeground(Color.BLACK);
+	private void selfSetting() {
+		setFont(AppConstant.APP_FONT);
+		setForeground(AppConstant.APP_COLOR_DEFAULT);
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);// 左右滾動
 	}
 
 	public void setComponent() {
-		setFont(AppConstant.APP_FONT);
-
 		addTab(CutterConstant.TAB_NAME, CutterView.createView());
 		addTab(SpecInfoConstant.TAB_NAME, SpecInfoView.createView());
 		addTab(FindFileConstant.TAB_NAME, FindFileView.createView());
@@ -47,7 +46,7 @@ public class JTabbedPaneSimple extends JTabbedPane {
 				if (SpecInfoConstant.TAB_NAME.equals(getTitleAt(getSelectedIndex()))) {
 					SpecInfoView.setEnterTab();
 				}
-				AppService.showTabChangeSatus(AppConstant.MSG_WELCOME);
+				AppService.showSatusNoTimer(Arrays.asList(AppConstant.MSG_WELCOME, getTitleAt(getSelectedIndex())));
 			}
 		});
 	}

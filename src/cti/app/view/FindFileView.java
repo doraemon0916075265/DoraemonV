@@ -4,18 +4,19 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
-import org.jdesktop.swingx.JXDatePicker;
-
+import cti.app.component.JButtonFilePath;
+import cti.app.component.JButtonSimple;
+import cti.app.component.JLabelSimple;
+import cti.app.component.JTextFieldSimple;
+import cti.app.component.JXDatePickerSimple;
 import cti.app.constant.FindFileConstant;
 import cti.app.controller.FindFileController;
+import cti.app.service.AppTimer;
 import cti.app.service.FindFileService;
 
 public class FindFileView extends FindFileConstant {
@@ -25,33 +26,34 @@ public class FindFileView extends FindFileConstant {
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
 
-	private static JLabel jl_searchPath = new JLabel(JL_SEARCHPATH);// 欲查路徑
-	protected static JTextField jtf_searchPath = new JTextField();
-	private static JButton jb_resetData = new JButton(BTN_RESETDATA);
+	private static JLabelSimple jl_searchPath = new JLabelSimple(JL_SEARCHPATH);// 欲查路徑
+	protected static JTextFieldSimple jtf_searchPath = new JTextFieldSimple(jl_searchPath);
+	protected static JButtonFilePath jb_searchPath = new JButtonFilePath(jtf_searchPath);
+	private static JButtonSimple jb_resetData = new JButtonSimple(BTN_RESETDATA);
 
-	private static JLabel jl_searchCondition = new JLabel(JL_SEARCHCONDITION);
-	private static JButton jb_clearData = new JButton(BTN_CLEARDATA);
+	private static JLabelSimple jl_searchCondition = new JLabelSimple(JL_SEARCHCONDITION);
+	private static JButtonSimple jb_clearData = new JButtonSimple(BTN_CLEARDATA);
 
-	private static JLabel jl_byText = new JLabel(JL_BYTEXT);// 字串查詢
-	protected static JTextField jtf_byText = new JTextField();
-	private static JButton jb_search = new JButton(BTN_SEARCH);
-	
-	private static JLabel jl_byTextCaseSensitive = new JLabel(JL_BYTEXTCASESENSITIVE);// 字串查詢
+	private static JLabelSimple jl_byText = new JLabelSimple(JL_BYTEXT);// 字串查詢
+	protected static JTextFieldSimple jtf_byText = new JTextFieldSimple(jl_byText);
+	private static JButtonSimple jb_search = new JButtonSimple(BTN_SEARCH);
+
+	private static JLabelSimple jl_byTextCaseSensitive = new JLabelSimple(JL_BYTEXTCASESENSITIVE);// 字串查詢
 	protected static JCheckBox jcb_byTextCaseSensitive = new JCheckBox();
 
-	private static JLabel jl_byFilename = new JLabel(JL_BYFILENAME);// 檔名查詢
-	protected static JTextField jtf_byFilename = new JTextField();
+	private static JLabelSimple jl_byFilename = new JLabelSimple(JL_BYFILENAME);// 檔名查詢
+	protected static JTextFieldSimple jtf_byFilename = new JTextFieldSimple(jl_byFilename);
 
-	private static JLabel jl_byFilenameExtension = new JLabel(JL_BYFILENAMEEXTENSION);
-	protected static JTextField jtf_byFilenameExtension = new JTextField();
+	private static JLabelSimple jl_byFilenameExtension = new JLabelSimple(JL_BYFILENAMEEXTENSION);
+	protected static JTextFieldSimple jtf_byFilenameExtension = new JTextFieldSimple(jl_byFilenameExtension);
 
-	private static JLabel jl_byFilenameExtension_Ignore = new JLabel(JL_BYFILENAMEEXTENSION_IGNORE);
-	protected static JTextField jtf_byFilenameExtension_Ignore = new JTextField();
+	private static JLabelSimple jl_byFilenameExtension_Ignore = new JLabelSimple(JL_BYFILENAMEEXTENSION_IGNORE);
+	protected static JTextFieldSimple jtf_byFilenameExtension_Ignore = new JTextFieldSimple(jl_byFilenameExtension_Ignore);
 
-	private static JLabel jl_byModify_greaterThan = new JLabel(JL_BYMODIFY_GREATERTHAN);
-	protected static JXDatePicker jxdp_byModify_greaterThan = new JXDatePicker();
-	private static JLabel jl_byModify_lessThan = new JLabel(JL_BYMODIFY_LESSTHAN);
-	protected static JXDatePicker jxdp_byModify_lessThan = new JXDatePicker();
+	private static JLabelSimple jl_byModify_greaterThan = new JLabelSimple(JL_BYMODIFY_GREATERTHAN);
+	protected static JXDatePickerSimple jxdp_byModify_greaterThan = new JXDatePickerSimple(jl_byModify_greaterThan);
+	private static JLabelSimple jl_byModify_lessThan = new JLabelSimple(JL_BYMODIFY_LESSTHAN);
+	protected static JXDatePickerSimple jxdp_byModify_lessThan = new JXDatePickerSimple(jl_byModify_lessThan);
 
 	protected static JTextArea jta_result = new JTextArea(10, 92);
 
@@ -76,10 +78,12 @@ public class FindFileView extends FindFileConstant {
 		int row = 15;// 每一列
 		/*** 上半部，第一區 ***/
 		jl_searchPath.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_searchPath.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
+		jtf_searchPath.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, SIZE_VER_INPUT);
+		jb_searchPath.setBounds(SIZE_HOR_COL2 + SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, row, SIZE_HOR_BTNF, SIZE_VER_INPUT);
 		jb_resetData.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
 		jpSub1.add(jl_searchPath);
 		jpSub1.add(jtf_searchPath);
+		jpSub1.add(jb_searchPath);
 		jpSub1.add(jb_resetData);
 		/*** 第二區 ***/
 		row += 40;
@@ -135,34 +139,15 @@ public class FindFileView extends FindFileConstant {
 	}
 
 	private static void setComponent() {
-		setAppStyle(jl_searchPath, null, APP_COLOR_DEFAULT);
-		setAppStyle(jtf_searchPath, NAME_SEARCHPATH, APP_COLOR_DEFAULT);
-		setAppStyle(jb_resetData, null, APP_COLOR_DEFAULT);
-
-		setAppStyle(jl_searchCondition, null, APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jb_clearData, null, APP_COLOR_DEFAULT);
-
-		setAppStyle(jl_byText, null, APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jtf_byText, NAME_BYTEXT, APP_COLOR_DEFAULT);
-		setAppStyle(jb_search, null, APP_COLOR_DEFAULT);
-		
-		setAppStyle(jl_byTextCaseSensitive, null, APP_COLOR_SEARCH_CRITERIA);
+		jl_searchCondition.setForeground(APP_COLOR_SEARCH_CRITERIA);
+		jl_byText.setForeground(APP_COLOR_SEARCH_CRITERIA);
+		jl_byTextCaseSensitive.setForeground(APP_COLOR_SEARCH_CRITERIA);
 		setAppStyle(jcb_byTextCaseSensitive, NAME_BYTEXTCASESENSITIVE, APP_COLOR_DEFAULT);
-
-		setAppStyle(jl_byFilename, null, APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jtf_byFilename, NAME_BYFILENAME, APP_COLOR_DEFAULT);
-
-		setAppStyle(jl_byFilenameExtension, null, APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jtf_byFilenameExtension, NAME_BYFILENAMEEXTENSION, APP_COLOR_DEFAULT);
-
-		setAppStyle(jl_byFilenameExtension_Ignore, null, APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jtf_byFilenameExtension_Ignore, NAME_BYFILENAMEEXTENSION_IGNORE, APP_COLOR_DEFAULT);
-
-		setAppStyle(jl_byModify_greaterThan, null, APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jxdp_byModify_greaterThan, NAME_BYMODIFY_GREATERTHAN, APP_COLOR_DEFAULT);
-		setAppStyle(jl_byModify_lessThan, null, APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle(jxdp_byModify_lessThan, NAME_BYMODIFY_LESSTHAN, APP_COLOR_DEFAULT);
-
+		jl_byFilename.setForeground(APP_COLOR_SEARCH_CRITERIA);
+		jl_byFilenameExtension.setForeground(APP_COLOR_SEARCH_CRITERIA);
+		jl_byFilenameExtension_Ignore.setForeground(APP_COLOR_SEARCH_CRITERIA);
+		jl_byModify_greaterThan.setForeground(APP_COLOR_SEARCH_CRITERIA);
+		jl_byModify_lessThan.setForeground(APP_COLOR_SEARCH_CRITERIA);
 		setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
 	}
 
@@ -171,9 +156,9 @@ public class FindFileView extends FindFileConstant {
 		jb_resetData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				isTimerWork(true);
+				AppTimer.setTimerWork(true);
 				FindFileController.doInitial();
-				showSatus(MSG_RESETDATA);
+				showStatus(MSG_RESETDATA);
 			}
 		});
 
@@ -182,7 +167,7 @@ public class FindFileView extends FindFileConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				FindFileController.clearData();
-				showSatus(MSG_CLEARDATA);
+				showStatus(MSG_CLEARDATA);
 			}
 		});
 
@@ -190,20 +175,20 @@ public class FindFileView extends FindFileConstant {
 		jb_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				isTimerWork(true);
+				AppTimer.setTimerWork(true);
 				try {
 					FindFileController.findConditionFile();
-					showSatus(MSG_SEARCH);
+					showStatus(MSG_SEARCH);
 				} catch (Exception e) {
 					showSatus(e);
 				}
 			}
 		});
 
-		dbClickOnCopy(jtf_searchPath);
-		dbClickOnCopy(jtf_byText);
-		dbClickOnCopy(jtf_byFilename);
-		dbClickOnCopy(jta_result);
+		setDbClickForCopy(jtf_searchPath);
+		setDbClickForCopy(jtf_byText);
+		setDbClickForCopy(jtf_byFilename);
+		setDbClickForCopy(jta_result);
 	}
 
 	private static void setEnd() {

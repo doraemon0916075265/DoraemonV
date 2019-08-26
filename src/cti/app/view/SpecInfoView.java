@@ -5,16 +5,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import cti.app.component.JButtonFilePath;
 import cti.app.component.JButtonSimple;
+import cti.app.component.JComboBoxSimple;
 import cti.app.constant.SpecInfoConstant;
 import cti.app.controller.SpecInfoController;
+import cti.app.service.AppTimer;
 
 public class SpecInfoView extends SpecInfoConstant {
 	private static JPanel jp = new JPanel();
@@ -24,10 +26,10 @@ public class SpecInfoView extends SpecInfoConstant {
 
 	private static JLabel jl_specFilePath = new JLabel(JL_SPECFILEPATH);// spec檔路徑
 	protected static JTextField jtf_specFilePath = new JTextField();
-	private static JButtonSimple jb_specFilepath = new JButtonSimple();
+	private static JButtonFilePath jb_specFilepath = new JButtonFilePath(jtf_specFilePath);
 	private static JButtonSimple jb_resetData = new JButtonSimple(BTN_RESETDATA);
 	private static JLabel jl_specID = new JLabel("ID選單");
-	protected static JComboBox<String> jcb_specID = new JComboBox<String>();
+	protected static JComboBoxSimple<String> jcb_specID = new JComboBoxSimple<String>();
 
 	private static JButton jb_readFile = new JButton(BTN_READFILE);
 
@@ -77,10 +79,8 @@ public class SpecInfoView extends SpecInfoConstant {
 	private static void setComponent() {
 		setAppStyle(jl_specFilePath, null, APP_COLOR_SPEC);// spec檔路徑
 		setAppStyle(jtf_specFilePath, NAME_SPECFILEPATH, APP_COLOR_DEFAULT);
-		setAppStyle(jb_specFilepath, null, APP_COLOR_DEFAULT);
 		setAppStyle(jb_resetData, null, APP_COLOR_DEFAULT);
 		setAppStyle(jl_specID, null, APP_COLOR_SPEC);// ID選單
-		setAppStyle4ComboBox(jcb_specID, null, APP_COLOR_DEFAULT);
 		setAppStyle(jb_readFile, null, APP_COLOR_DEFAULT);
 		setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
 	}
@@ -90,10 +90,10 @@ public class SpecInfoView extends SpecInfoConstant {
 		jb_resetData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				isTimerWork(true);
+				AppTimer.setTimerWork(true);
 				SpecInfoController.doInitial();
 				setEnterTab();
-				showSatus(MSG_RESETDATA);
+				showStatus(MSG_RESETDATA);
 			}
 		});
 
@@ -113,13 +113,9 @@ public class SpecInfoView extends SpecInfoConstant {
 			}
 		});
 
-		// 取檔案路徑
-		btnGetPath(jb_specFilepath, jtf_specFilePath);
-
 		// 點擊複製
-		dbClickOnCopy(jtf_specFilePath);
-		dbClickOnCopy(jta_result);
-
+		setDbClickForCopy(jtf_specFilePath);
+		setDbClickForCopy(jta_result);
 	}
 
 	private static void setEnd() {
@@ -131,11 +127,11 @@ public class SpecInfoView extends SpecInfoConstant {
 	}
 
 	private static void readFile() {
-		isTimerWork(true);
+		AppTimer.setTimerWork(true);
 		try {
 			SpecInfoController.readFile();
 			setEnterTab();
-			showSatus(MSG_READFILE + getPulldownItem(jcb_specID));
+			showStatus(MSG_READFILE + getPulldownItem(jcb_specID));
 		} catch (Exception e) {
 			showSatus(e);
 		}

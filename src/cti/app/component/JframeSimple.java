@@ -11,15 +11,15 @@ public class JframeSimple extends JFrame {
 
 	public JframeSimple() {
 		super();
-		SelfSetting();
+		selfSetting();
 	}
 
 	public JframeSimple(String name) {
 		super(name);
-		SelfSetting();
+		selfSetting();
 	}
 
-	private void SelfSetting() {
+	private void selfSetting() {
 		setLocale(JComponent.getDefaultLocale());
 		setSize(AppConstant.APP_FRAME_WIDTH, AppConstant.APP_FRAME_HEIGHT);// 視窗大小
 		setLocationRelativeTo(null);// 視窗置中

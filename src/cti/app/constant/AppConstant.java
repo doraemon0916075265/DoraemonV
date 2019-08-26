@@ -9,17 +9,18 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.border.LineBorder;
 
+import cti.app.component.JLabelStatus;
 import cti.app.component.JTabbedPaneSimple;
 import cti.app.component.JframeSimple;
+import cti.app.service.AppTimer;
 
 public class AppConstant {
 	public static final String APP_FRAME_TITLE = "★Hello～★";
-	public static final JframeSimple jf = new JframeSimple(APP_FRAME_TITLE);;
-	public static final JLabel jl_status = new JLabel();// 系統訊息
+	public static final JframeSimple jf = new JframeSimple(APP_FRAME_TITLE);
+	public static final JLabelStatus jl_status = new JLabelStatus();// 系統訊息
 	public static final JProgressBar jpb = new JProgressBar();
 	public static final JTabbedPaneSimple jtp = new JTabbedPaneSimple();
 
@@ -81,7 +82,7 @@ public class AppConstant {
 	// 格式
 	public static final String FORMAT_MSG_HEADER = "[%s][%s %s]";
 	public static final String FORMAT_MSG_BODY = "%s %s %s";
-	public static final String FORMAT_MSG = FORMAT_MSG_HEADER + " %s";
+	public static final String FORMAT_MSG = "[%s][%s %s] %s";
 	public static final String FORMAT_MSG_TIMER_S = "(執行%.3f秒)";
 	public static final String FORMAT_MSG_TIMER_MS = "(執行%d毫秒)";
 	public static final String FORMAT_MSG_EXCEPTION = "%s %s";
@@ -129,6 +130,7 @@ public class AppConstant {
 
 	// 按鈕
 	public static final String BTN_CLEARDATA = "清除";
+	public static final String BTN_CONFIRM = "確定";
 	public static final String BTN_RESETDATA = "重設";
 	public static final String BTN_READFILE = "讀檔";
 	public static final String BTN_ANALYSIS = "解析";

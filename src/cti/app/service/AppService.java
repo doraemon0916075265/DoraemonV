@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.text.JTextComponent;
 
 import org.apache.commons.lang3.StringUtils;
@@ -37,43 +38,13 @@ import org.mozilla.universalchardet.UniversalDetector;
 import cti.app.constant.AppConstant;
 
 public class AppService extends AppConstant {
-	private static long now;
-	private static boolean isTimerOn;
-	private static long timer;
-	private static String desktopRootPath;
 	private static String filePathByRootPath;
 
 	protected static final String INIT_JSONARRRAY = new JSONArray().toString();
 
 	/*** 取得桌面根目錄 ***/
-	public static String getDesktopRootPath() {
-		desktopRootPath = "";
-		findRootPath(PATH_DISK_C, false, false);
-		return StringUtils.isNotBlank(desktopRootPath) ? desktopRootPath : PATH_DISK_C;
-	}
-
-	/*** 遞迴：取得桌面根目錄錄 ***/
-	private static void findRootPath(String filePath, boolean isDir1, boolean isDir2) {
-		File file = new File(filePath);
-		try {
-			if (file.isDirectory()) {
-				for (String fileName : file.list()) {
-					String fileNameU = fileName.toUpperCase();
-					String newFilePath = file.getAbsolutePath() + File.separator + fileName;
-					if (!isDir1 && DIRNAME_LIST01.contains(fileNameU)) {
-						findRootPath(newFilePath, true, false);
-					}
-					if (isDir1 && !isDir2 && (fileNameU.matches(DIRNAME_EXP02) || DIRNAME_LIST02.contains(fileNameU))) {
-						findRootPath(newFilePath, true, true);
-					}
-					if (isDir1 && isDir2 && DIRNAME_LIST03.contains(fileNameU)) {
-						desktopRootPath = newFilePath;
-					}
-				}
-			}
-		} catch (Exception e) {
-
-		}
+	public static String getHomeDirectory() {
+		return FileSystemView.getFileSystemView().getHomeDirectory().toString();
 	}
 
 	/*** 找目錄下的檔案路徑 ***/
@@ -265,7 +236,7 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 雙擊複製到剪貼簿 ***/
-	public static void dbClickOnCopy(JTextComponent jtc) {
+	public static void setDbClickForCopy(JTextComponent jtc) {
 		jtc.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent me) {
@@ -293,7 +264,7 @@ public class AppService extends AppConstant {
 					me.isConsumed();
 					StringSelection data = new StringSelection(jtc.getText());
 					APP_CLIPBOARD.setContents(data, data);
-					showSatus(String.format(FORMAT_MSG_COPIED, jtc.getName()));
+					showStatus(String.format(FORMAT_MSG_COPIED, jtc.getName()));
 				}
 			}
 		});
@@ -385,49 +356,46 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 計時器 ***/
-	public static void isTimerWork(boolean isOn) {
-		timer = 0;
-		isTimerOn = isOn;
-		if (isOn) {
-			now = System.currentTimeMillis();
-		} else {
-			timer = System.currentTimeMillis() - now;
-		}
-		System.out.println("isTimerWork=" + isOn);
-	}
+	// public static void isTimerWork(boolean isOn) {
+	// timer = 0;
+	// isTimerOn = isOn;
+	// if (isOn) {
+	// now = System.currentTimeMillis();
+	// } else {
+	// timer = System.currentTimeMillis() - now;
+	// }
+	// System.out.println("isTimerWork=" + isOn);
+	// }
 
 	/*** 訊息欄Start ***/
-	public static void showTabChangeSatus(String msg) {
-		showSatus(MSG_SUCCESS, Arrays.asList(msg), false);
+	public static void showSatusNoTimer(String msg) {
+		showStatus(MSG_SUCCESS, Arrays.asList(msg), false);
 	}
-	
-	public static void showSatus(String msg) {
-		showSatus(MSG_SUCCESS, Arrays.asList(msg), true);
+
+	public static void showSatusNoTimer(List<String> list) {
+		showStatus(MSG_SUCCESS, list, false);
+	}
+
+	public static void showStatus(String msg) {
+		showStatus(MSG_SUCCESS, Arrays.asList(msg), true);
 	}
 
 	public static void showSatus(List<String> list) {
-		showSatus(MSG_SUCCESS, list, true);
+		showStatus(MSG_SUCCESS, list, true);
 	}
 
 	public static void showSatus(Exception e) {
-		isTimerWork(false);
-		showSatus(e.getClass().getSimpleName(), Arrays.asList(e.getMessage()), true);
+		AppTimer.setTimerWork(false);
+		showStatus(e.getClass().getSimpleName(), Arrays.asList(e.getMessage()), true);
 	}
 
-	public static void showSatus(String type, List<String> list, boolean isChecktime) {
+	public static void showStatus(String status, List<String> list, boolean isChecktimer) {
 		List<String> al = new ArrayList<String>(list);
-		if (isChecktime && isTimerOn) {
-			isTimerWork(false);
-			al.add((timer >= 1000L) ? (String.format(FORMAT_MSG_TIMER_S, timer / 1000d)) : (String.format(FORMAT_MSG_TIMER_MS, timer)));
+		if (isChecktimer && AppTimer.isTimerOn()) {
+			AppTimer.setTimerWork(false);
+			al.add(AppTimer.getTimerString());
 		}
-
-		if (MSG_SUCCESS.equals(type)) {
-			setAppStyle(jl_status, APP_MSG, APP_COLOR_MSG);
-		} else {
-			setAppStyle(jl_status, APP_MSG, APP_COLOR_ERRMSG);
-		}
-
-		jl_status.setText(String.format(FORMAT_MSG, jtp.getTitleAt(jtp.getSelectedIndex()), APP_MSG_FMT.format(System.currentTimeMillis()), type, String.join(SIGN_SPACE, al)).trim());
+		jl_status.setText(status, al);
 	}
 
 	/*** 訊息欄End ***/
@@ -440,7 +408,7 @@ public class AppService extends AppConstant {
 				JFileChooser jfc = new JFileChooser();
 				if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					jtf.setText(jfc.getSelectedFile().toString());
-					showSatus(MSG_GET + jtf.getName() + SIGN_SPACE + jfc.getSelectedFile().toString());
+					showStatus(MSG_GET + jtf.getName() + SIGN_SPACE + jfc.getSelectedFile().toString());
 				}
 			}
 		});
@@ -472,24 +440,10 @@ public class AppService extends AppConstant {
 		jc.setForeground(fontColor);
 	}
 
-	/*** 樣式：純顯示訊息(物件,命名,顏色) ***/
-	public static void setAppStyle4Info(JComponent jc, String name, Color fontColor) {
-		setAppStyle(jc, name, fontColor);
-		jc.setBackground(null);
-		jc.setBorder(null);
-		((JTextComponent) jc).setEditable(false);
-	}
-
 	/*** 樣式：一般TextArea(物件,命名,顏色,可編輯) ***/
 	public static void setAppStyle4TextArea(JComponent jc, String name, Color fontColor, boolean isEditable) {
 		setAppStyle(jc, name, fontColor);
 		((JTextComponent) jc).setEditable(isEditable);
-	}
-
-	/*** 樣式：純顯示訊息(物件,命名,顏色) ***/
-	public static void setAppStyle4ComboBox(JComponent jc, String name, Color fontColor) {
-		setAppStyle(jc, name, fontColor);
-		jc.setBackground(Color.WHITE);
 	}
 
 	/*** 讀檔案內所有內容 ***/

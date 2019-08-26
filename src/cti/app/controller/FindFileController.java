@@ -1,5 +1,7 @@
 package cti.app.controller;
 
+import javax.swing.filechooser.FileSystemView;
+
 import cti.app.bean.FindFileBean;
 import cti.app.view.FindFileView;
 
@@ -19,7 +21,7 @@ public class FindFileController extends FindFileView {
 	/*** 初始化欄位 ***/
 	public static void doInitial() {
 		clearAllData();
-		ffb.setSearchPath(getDesktopRootPath());
+		ffb.setSearchPath(getHomeDirectory());
 		ffb.setByFilenameExtension("[\"*\"]");
 		ffb.setByFilenameExtension_Ignore("[\"~*\",\"*.lnk\",\"*.vfl\"]");
 		ffb.setByModify_greaterThan(null);
