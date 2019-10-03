@@ -3,8 +3,6 @@ package cti.app.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.filechooser.FileSystemView;
-
 import org.json.JSONArray;
 
 import cti.app.bean.CutterBean;
@@ -48,8 +46,8 @@ public class CutterController extends CutterView {
 	public static void doInitial() {
 		clearData(CLEAR_ALL);
 		cb.setExportFilePath(getExportFilePath(""));
-		cb.setLogFilePath(findFilePathByRootPath(getHomeDirectory(), FILENAME_LOG));
-		cb.setSpecFilePath(findFilePathByRootPath(getHomeDirectory(), FILENAME_SPEC));
+		cb.setLogFilePath(findFilePathByRootPath(MY_HOME_DIRECTORY, FILENAME_LOG));
+		cb.setSpecFilePath(findFilePathByRootPath(MY_HOME_DIRECTORY, FILENAME_SPEC));
 		setAllProperties();
 	}
 

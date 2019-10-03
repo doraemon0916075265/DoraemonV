@@ -11,11 +11,11 @@ import java.util.List;
 
 import javax.swing.JProgressBar;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileSystemView;
 
 import cti.app.component.JLabelStatus;
 import cti.app.component.JTabbedPaneSimple;
 import cti.app.component.JframeSimple;
-import cti.app.service.AppTimer;
 
 public class AppConstant {
 	public static final String APP_FRAME_TITLE = "★Hello～★";
@@ -39,12 +39,16 @@ public class AppConstant {
 	public static final SimpleDateFormat APP_MSG_FMT = new SimpleDateFormat("HH:mm:ss");
 	public static final SimpleDateFormat APP_DATE_FMT = new SimpleDateFormat("yyyy/MM/dd");
 	public static final Font APP_FONT = new Font("微軟正黑體", Font.PLAIN, 12);
-	public static final Clipboard APP_CLIPBOARD = Toolkit.getDefaultToolkit().getSystemClipboard();
 	public static final String APP_TAB = "頁籤";
 	public static final String APP_MSG = "系統訊息";
 	public static final int PROGRESS_MIN = 0;
 	public static final int PROGRESS_MAX = 100;
 	public static int currentProgress = PROGRESS_MIN;
+
+	/** 剪貼簿 **/
+	public static final Clipboard MY_CLIPBOARD = Toolkit.getDefaultToolkit().getSystemClipboard();
+	/** 桌面路徑 **/
+	public static final String MY_HOME_DIRECTORY = FileSystemView.getFileSystemView().getHomeDirectory().toString();
 
 	// 訊息
 	public static final String MSG_ = "";

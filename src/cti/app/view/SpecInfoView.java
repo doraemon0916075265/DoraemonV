@@ -5,15 +5,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import cti.app.component.JButtonFilePath;
 import cti.app.component.JButtonSimple;
 import cti.app.component.JComboBoxSimple;
+import cti.app.component.JLabelSimple;
+import cti.app.component.JTextFieldSimple;
 import cti.app.constant.SpecInfoConstant;
 import cti.app.controller.SpecInfoController;
 import cti.app.service.AppTimer;
@@ -24,11 +24,12 @@ public class SpecInfoView extends SpecInfoConstant {
 	private static JPanel jpSub1 = new JPanel();
 	private static JPanel jpSub2 = new JPanel();
 
-	private static JLabel jl_specFilePath = new JLabel(JL_SPECFILEPATH);// spec檔路徑
-	protected static JTextField jtf_specFilePath = new JTextField();
+	private static JLabelSimple jl_specFilePath = new JLabelSimple(JL_SPECFILEPATH);// spec檔路徑
+	protected static JTextFieldSimple jtf_specFilePath = new JTextFieldSimple(jl_specFilePath);
 	private static JButtonFilePath jb_specFilepath = new JButtonFilePath(jtf_specFilePath);
+
 	private static JButtonSimple jb_resetData = new JButtonSimple(BTN_RESETDATA);
-	private static JLabel jl_specID = new JLabel("ID選單");
+	private static JLabelSimple jl_specID = new JLabelSimple("ID選單");
 	protected static JComboBoxSimple<String> jcb_specID = new JComboBoxSimple<String>();
 
 	private static JButton jb_readFile = new JButton(BTN_READFILE);
@@ -77,11 +78,8 @@ public class SpecInfoView extends SpecInfoConstant {
 	}
 
 	private static void setComponent() {
-		setAppStyle(jl_specFilePath, null, APP_COLOR_SPEC);// spec檔路徑
-		setAppStyle(jtf_specFilePath, NAME_SPECFILEPATH, APP_COLOR_DEFAULT);
-		setAppStyle(jb_resetData, null, APP_COLOR_DEFAULT);
-		setAppStyle(jl_specID, null, APP_COLOR_SPEC);// ID選單
-		setAppStyle(jb_readFile, null, APP_COLOR_DEFAULT);
+		jl_specFilePath.setForeground(APP_COLOR_SPEC);
+		jl_specID.setForeground(APP_COLOR_SPEC);
 		setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
 	}
 

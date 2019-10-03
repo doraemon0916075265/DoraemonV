@@ -21,7 +21,7 @@ public class FindFileController extends FindFileView {
 	/*** 初始化欄位 ***/
 	public static void doInitial() {
 		clearAllData();
-		ffb.setSearchPath(getHomeDirectory());
+		ffb.setSearchPath(MY_HOME_DIRECTORY);
 		ffb.setByFilenameExtension("[\"*\"]");
 		ffb.setByFilenameExtension_Ignore("[\"~*\",\"*.lnk\",\"*.vfl\"]");
 		ffb.setByModify_greaterThan(null);

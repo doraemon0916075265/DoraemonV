@@ -2,8 +2,6 @@ package cti.app.service;
 
 import java.awt.Color;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -17,15 +15,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.filechooser.FileSystemView;
 import javax.swing.text.JTextComponent;
 
 import org.apache.commons.lang3.StringUtils;
@@ -41,11 +36,6 @@ public class AppService extends AppConstant {
 	private static String filePathByRootPath;
 
 	protected static final String INIT_JSONARRRAY = new JSONArray().toString();
-
-	/*** 取得桌面根目錄 ***/
-	public static String getHomeDirectory() {
-		return FileSystemView.getFileSystemView().getHomeDirectory().toString();
-	}
 
 	/*** 找目錄下的檔案路徑 ***/
 	public static String findFilePathByRootPath(String path, String name) {
@@ -263,7 +253,7 @@ public class AppService extends AppConstant {
 				if (me.getClickCount() >= 2 && !me.isConsumed() && !jtc.getText().isEmpty()) {
 					me.isConsumed();
 					StringSelection data = new StringSelection(jtc.getText());
-					APP_CLIPBOARD.setContents(data, data);
+					MY_CLIPBOARD.setContents(data, data);
 					showStatus(String.format(FORMAT_MSG_COPIED, jtc.getName()));
 				}
 			}
@@ -355,18 +345,6 @@ public class AppService extends AppConstant {
 		}
 	}
 
-	/*** 計時器 ***/
-	// public static void isTimerWork(boolean isOn) {
-	// timer = 0;
-	// isTimerOn = isOn;
-	// if (isOn) {
-	// now = System.currentTimeMillis();
-	// } else {
-	// timer = System.currentTimeMillis() - now;
-	// }
-	// System.out.println("isTimerWork=" + isOn);
-	// }
-
 	/*** 訊息欄Start ***/
 	public static void showSatusNoTimer(String msg) {
 		showStatus(MSG_SUCCESS, Arrays.asList(msg), false);
@@ -399,20 +377,6 @@ public class AppService extends AppConstant {
 	}
 
 	/*** 訊息欄End ***/
-
-	/*** 取得檔案路徑 ***/
-	public static void btnGetPath(JButton jb, JTextField jtf) {
-		jb.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				JFileChooser jfc = new JFileChooser();
-				if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					jtf.setText(jfc.getSelectedFile().toString());
-					showStatus(MSG_GET + jtf.getName() + SIGN_SPACE + jfc.getSelectedFile().toString());
-				}
-			}
-		});
-	}
 
 	public static Object getJsonValue(Object obj, String key) {
 		if (!new JSONObject(obj.toString()).isNull(key)) {

@@ -33,7 +33,7 @@ public class CutterService extends AppService {
 
 	/*** 取得預設匯出檔案目錄 ***/
 	public static String getExportFilePath(String name) {
-		return getHomeDirectory() + File.separator + FILENAME_RESULT + (StringUtils.isBlank(name) ? "" : "_" + name) + FILENAME_EXTENSION_CSV;
+		return MY_HOME_DIRECTORY + File.separator + FILENAME_RESULT + (StringUtils.isBlank(name) ? "" : "_" + name) + FILENAME_EXTENSION_CSV;
 	}
 
 	/*** 讀檔 ***/
@@ -137,7 +137,7 @@ public class CutterService extends AppService {
 
 		try {
 			while (gbkLen > cut.length()) {
-				//可不可接受[0]陣列
+				// 可不可接受[0]陣列
 				// if (STR_ZERO.equals(getIntegerArrayLength2String(cut.toString()))) {
 				// break;
 				// }

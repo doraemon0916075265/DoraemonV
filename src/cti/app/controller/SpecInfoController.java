@@ -16,7 +16,7 @@ public class SpecInfoController extends SpecInfoView {
 	/*** 初始化欄位 ***/
 	public static void doInitial() {
 		getAllProperties();
-		sib.setSpecFilePath(findFilePathByRootPath(getHomeDirectory(), FILENAME_SPEC));
+		sib.setSpecFilePath(findFilePathByRootPath(MY_HOME_DIRECTORY, FILENAME_SPEC));
 		sib.setSpecID(null);
 		sib.setResult("");
 		setAllProperties();
