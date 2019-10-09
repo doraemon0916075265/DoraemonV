@@ -9,6 +9,9 @@ import javax.swing.JButton;
 import cti.app.constant.AppConstant;
 
 public class JButtonSimple extends JButton {
+
+	private static final long serialVersionUID = 1L;
+
 	private static JframeSimple jf = AppConstant.jf;
 
 	public JButtonSimple() {

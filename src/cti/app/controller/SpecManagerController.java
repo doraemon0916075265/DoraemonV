@@ -1,10 +1,10 @@
 package cti.app.controller;
 
-import cti.app.bean.SpecInfoBean;
-import cti.app.view.SpecInfoView;
+import cti.app.bean.SpecManagerBean;
+import cti.app.view.SpecManagerView;
 
-public class SpecInfoController extends SpecInfoView {
-	private static SpecInfoBean sib = new SpecInfoBean();
+public class SpecManagerController extends SpecManagerView {
+	private static SpecManagerBean sib = new SpecManagerBean();
 
 	/*** 清除 ***/
 	public static void clearData() {

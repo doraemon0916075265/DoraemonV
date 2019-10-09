@@ -143,7 +143,13 @@ public class CutterService extends AppService {
 				// }
 				for (Object obj : cut) {
 					Integer cutSize = Integer.parseInt(obj.toString());
-					sb.append(String.format(FORMAT_CSV_CELL, telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize))));
+					String tempStr = telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize));
+					if (tempStr.contains(SIGN_COMMA)) {// 字串有特殊符號，csv欄位不加等於
+						sb.append(String.format(FORMAT_CSV_CELL_FIX, tempStr));
+					} else {
+						sb.append(String.format(FORMAT_CSV_CELL, tempStr));
+					}
+					// System.out.println(sb);
 					gbkLen -= cutSize;
 				}
 				sb.append(System.lineSeparator());

@@ -9,6 +9,8 @@ import cti.app.constant.AppConstant;
 
 public class JframeSimple extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	public JframeSimple() {
 		super();
 		selfSetting();

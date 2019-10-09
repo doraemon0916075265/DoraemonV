@@ -98,6 +98,7 @@ public class AppConstant {
 	public static final String FORMAT_EXPORTFILE_CONTENT = "%s" + System.lineSeparator();
 
 	public static final String FORMAT_CSV_CELL = "=\"%s\",";
+	public static final String FORMAT_CSV_CELL_FIX = "\"%s\",";
 	public static final String FORMAT_CSV_CELLHEADER = "=\"[%s]\",";
 
 	// 檔案路徑

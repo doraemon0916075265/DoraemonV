@@ -1,6 +1,6 @@
 package cti.app.bean;
 
-public class SpecInfoBean {
+public class SpecManagerBean {
 	private String specFilePath;
 	private String specID;
 	private String result;

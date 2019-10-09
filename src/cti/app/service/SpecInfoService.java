@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cti.app.bean.SpecBean;
-import cti.app.bean.SpecInfoBean;
+import cti.app.bean.SpecManagerBean;
 
 public class SpecInfoService extends AppService {
 
@@ -16,7 +16,7 @@ public class SpecInfoService extends AppService {
 	}
 
 	/*** 讀檔 ***/
-	protected static SpecInfoBean readFileInfo(SpecInfoBean sib) throws Exception {
+	protected static SpecManagerBean readFileInfo(SpecManagerBean sib) throws Exception {
 
 		///////////////////
 
@@ -26,12 +26,12 @@ public class SpecInfoService extends AppService {
 			System.out.println(o.next().toString());
 		}
 
-		for (Object objJA : jsonArrs) {
-			// if (getJsonValue(objJA, TAG_ID).equals(id)) {
-			// sb = readFileInfo4OneJSON(new JSONObject(objJA.toString()));
-			// break;
-			// }
-		}
+		// for (Object objJA : jsonArrs) {
+		// if (getJsonValue(objJA, TAG_ID).equals(id)) {
+		// sb = readFileInfo4OneJSON(new JSONObject(objJA.toString()));
+		// break;
+		// }
+		// }
 
 		////////////////////
 

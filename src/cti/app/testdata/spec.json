@@ -1,4 +1,4 @@
-/*{
+{
 	"Spec" 	:
 	[
 		{
@@ -643,6 +643,35 @@
 			"f_ename"	: ['TxnDate','TxnTime','VipType','TxnBranch','TxnTeller','TxnCode','FeeType','FeeRecAmt','FeeActAmt','FeeECFlag','FeeECJrnl'],
 			"f_cname"	: ['交易日期','交易時間','VIP客戶種類','交易分行','交易櫃員','交易代號','費用項目','應收費用金額','實收費用金額','沖正註記','被沖正原始Journal No'],
 		},{
+			"id" 		: "FNSCIF0037",
+			"s_cut0" 	: [4,20,13,4,128,4,12,20,6,8,8,4,5,1],
+			"s_cut" 	: [3,16,3,1,8,8,5,1,24,2],
+			"f_cut0" 	: [4,20,13,4,128,4,12,20,6,8,8],
+			"f_cut" 	: [3,16,3,1,8,8,5,1,24,2],
+			"cname"		: "信用卡卡費自動扣繳申辦設定交易",
+			"owner"		: '[後台]陳淑茹#7742',
+			"s_ename0"	: ['MWHEADER','MSGID','SOURCECHANNEL','RETURNCODE','RETURNDESC','RETURNCODECHANNEL','TXNSEQ','O360SEQ','Bancs Journal No','BANCS Posting Date','BANCS Timestamp','BranchId','TellerId','FnsFlagX'],
+			"s_ename"	: ['Bkno','AcctNo','AutoRate','Status','EffDate','ExpDate','PromoTeller','Function','IdNo','IdType'],
+			"s_cname"	: ['銀行代號','銀行帳號','自動扣繳比例','生效狀態','預定生效日','預定失效日','推廣行員','功能','ID號碼','ID型態'],
+			"f_ename0"	: ['MWHEADER','MSGID','SOURCECHANNEL','RETURNCODE','RETURNDESC','RETURNCODECHANNEL','TXNSEQ','O360SEQ','HostJournalNo','HostPostingDate','HostTimestamp'],
+			"f_ename"	: ['Bkno','AcctNo','AutoRate','Status','EffDate','ExpDate','PromoTeller','Function','IdNo','IdType'],
+			"f_cname"	: ['銀行代號','銀行帳號','自動扣繳比例','生效狀態','預定生效日','預定失效日','推廣行員','功能','ID號碼','ID類別'],
+		},{
+			"id" 		: "FNSCIF0038",
+			"s_cut0" 	: [4,20,13,4,128,4,12,20,6,8,8,4,5,1],
+			"s_cut" 	: [24,2,4],
+			"f_cut0" 	: [4,20,13,4,128,4,12,20,6,8,8,80,24,2,4,2,1],
+			"f_cut" 	: [1,3,3,16,3,8,8,12,8,5,4],
+			"cname"		: "信用卡卡費自動扣繳申辦查詢交易",
+			"owner"		: '[後台]陳淑茹#7742',
+			"s_ename0"	: ['MWHEADER','MSGID','SOURCECHANNEL','RETURNCODE','RETURNDESC','RETURNCODECHANNEL','TXNSEQ','O360SEQ','Bancs Journal No','BANCS Posting Date','BANCS Timestamp','BranchId','TellerId','FnsFlagX'],
+			"s_ename"	: ['IdNo','IdType','NextKey'],
+			"s_cname"	: ['銀行代號','銀行帳號','自動扣繳比例','生效狀態','預定生效日','預定失效日','推廣行員','功能','ID號碼','ID型態'],
+			"f_ename0"	: ['MWHEADER','MSGID','SOURCECHANNEL','RETURNCODE','RETURNDESC','RETURNCODECHANNEL','TXNSEQ','O360SEQ','HostJournalNo','HostPostingDate','HostTimestamp','CustName','IdNo','IdType','NextKey','OccursTimes','EndFlag'],
+			"f_cname0"	: ['','','','','','','','','','','','戶名','ID號碼','ID類別','下次查詢Key 值','本次回應資料筆數','是否為最後一頁'],
+			"f_ename"	: ['Function','AutoPay','BankId','AcctNo','CcyCode','StartDt','EndDt','Channel','UdpTime','UpdTeller','UpdBranch'],
+			"f_cname"	: ['功能','自扣比例','銀行代號','銀行帳號','幣別','預定生效日','預定失效日','通路','異動時間','維護櫃員','維護分行'],
+		},{
 			"id" 		: "FNSCIF0058",
 			"s_cut0" 	: [4,20,13,136,12,20],
 			"s_cut" 	: [6,8,8,4,5,1,1,16,10,2,16,3,20,2,1,2,1,1,8,1,4,5,2,2,1,16,16,10,10,2,1,1,8,8,11,10,8,6,5],
@@ -724,6 +753,33 @@
 			"s_cut" 	: [17],
 			"f_cut0" 	: [4,20,13,4,128,36,6,8,8],
 			"f_cut" 	: [24,2,60,40,40,40,3,40,8,4,4,1,17,4,2,1,1,1,8,1,4,1,15,7,1,1,1,4,5,17,2,3,4,2,1,1,1,1,1,17,6,2,2,4,4,4,6,1,17,15,5,2,2,2,1,2,2,1,8,1,1,6,5,1,1,5,1,7,5,1,5,8,8,8,14],
+		},{
+			"id" 		: "FNSLON0000",
+			"s_cut0" 	: [4,20,13,4,128,4,12,20,6,8,8,4,5,1],
+			"s_cut" 	: [17,24,2],
+			"f_cut0" 	: [4,20,13,4,128,4,12,20,6,8,8],
+			"f_cut" 	: [17,40,17,2,4,8,8,8,18,1,3,5,1,1,18,3,18,18,4,8,40,8,16,8,1,18,18,2,8,18,18,8,8,8,18,2,18,1,8,8,14,18,18,1,18,18,17,11,5,18,18,11,1,1,18,16,1,18,8,18,18,18,18,18,18,18,18,18,8,8,16,1,1,1],
+			"cname"		: "設定各類額度入口",
+			"s_ename0"	: ['MWHEADER','MSGID','SOURCECHANNEL','RETURNCODE','RETURNDESC','RETURNCODECHANNEL','O360SEQ','TRANRQ','JournalNo','FnsPostDate','FnsTimestamp','BranchId','TellerId','FnsFlagX'],
+			"s_ename"	: ['FacilityNo','IdNo','IdType'],
+			"s_cname"	: ['額度號碼','身分證字號','ID類別'],
+			"f_ename0"	: ['MWHEADER','MSGID','SOURCECHANNEL','RETURNCODE','RETURNDESC','RETURNCODECHANNEL','TXNSEQ','O360SEQ','HostJournalNo','HostPostingDate','HostTimestamp'],
+			"f_ename"	: ['CustNo','CustName','FacilityNo','Status','FacilityBranchNo','FacilityStartDate','FacilityExpireDate','NextReviewDate','ReviewAmt','ReviewFreqType','ReviewFreqValue','CreditOfficer','CreditType','DrawdownType','LimitAmt','CurrencyCode','UtilizedAmt','UtilizedMtmAmt','StopCode','StopDate','StopDesc','LastOverlimitDate','SignNo','TmpLimitExpireDate','TmpLimitRepayFlag','LegalUtilizedAmt','CustomerLimit','AuthorityCapability','MaturityDate','TotalTmpLimitAmt','EfficientLimitAmt','FirstDrawdownDate','ApprovedDate','PercentgeLimit','AvailableLimit','RepayDay','AccuDrawdownAmt','SyndLoanSource','SyndLoanContractDate','SyndLoanPercent','AuthorizedId','SecuredLimitAmt','UnsecuredLimitAmt','RevocableLimitFlag','SecuredUtilizedAmt','UnsecuredUtilizedAmt','SOAAcctNo','BusiDeptSupervisor','OtherAcctOfficerFrom','ExtSysRefNo1','ExtSysRefNo2','SettlementOfficer','SyndLoanRoleInd','SecondLimitType','FloatingAvailableAmt','SecondLimitNo','SacFlag','SacValue','SecurePercentGuarLoan','TotalAdvancedAmt','TotalRepaidAmt','TotAmtRepaidNonRev','TotSecuredAmtAdvance','TotSecuredAmtRepaid','TotSecuredAmtRepaidNonRev','TotUnsecuredAmtAdvance','TotUnsecuredAmtRepaid','TotUnsecuredAmtRepaidNonRev','FACMCreateDate','ExtSyApprovalDate','ApprovalRefNo','PendingStatus','CollectDownldCls','TDLendingType'],
+			"f_cname"	: ['客戶號碼','借款人姓名','額度號碼','狀態','額度所屬行','額度生效日','額度到期日','下次覆審日','覆審金額','覆審類別','覆審週期','徵信人員','撥款方式','佔用方式','授信額度','幣別','動用金額','額度餘額','止付代碼','止付日期','止付說明','上次透支日期','C集團核准號碼','臨時額度到期日','利害關係人授信案是否已查詢62011授信總額度','法定動用餘額','客戶限額','核准層級','期滿日期','臨時額度總額','有效額度','首撥日','核准日期','限額百分比','可用額度','還款日期','累計動撥金額','參貸來源','聯貸合約訂定日','參貸比例','授權人','核貸有擔保金額','核貸無擔保金額','額度可否撤銷','有擔保動用金額','無擔保動用金額','授扣帳號','業務主管','簽案單位經理','簽報書號碼','業務聯繫單號碼','設定地政士','聯貸銀行註記','共用/流用註記','共用/流用額度','共用額度號碼','股票質押註記','股票質押可貸額度','中小信保之擔保比率','累計撥款金額','累計還款金額','非循環之累計還款金額','有擔保累計撥款金額','有擔保累計還款金額','有擔保非循環之累計還款金額','無擔保累計撥款金額','無擔保累計還款金額','無擔保非循環之累計還款金額','建檔日期/開戶日期','簽報書核准日期','額度核准號碼','核准狀態','強制下傳註記','存單質借註記'],
+		},{
+			"id" 		: "FNSLON0034",
+			"s_cut0" 	: [4,20,13,4,128,4,12,20,6,8,8,4,5,1],
+			"s_cut" 	: [17,8,6,4,4,30,8,8],
+			"f_cut0" 	: [4,20,13,4,128,4,12,20,6,8,8,40,19,19,19,19,30,1,4],
+			"f_cut" 	: [19,10,8,8,3,19,19,19,11,4,8],
+			"cname"		: "放款明細查詢",
+			"s_ename0"	: ['MWHEADER','MSGID','SOURCECHANNEL','RETURNCODE','RETURNDESC','RETURNCODECHANNEL','O360SEQ','TRANRQ','JournalNo','FnsPostDate','FnsTimestamp','BranchId','TellerId','FnsFlagX'],
+			"s_ename"	: ['AccountNo','RepayDate','TxnJournalNo','FromTermLength','ToTermLength','InquiryKey','StartDate','ExpiryDate'],
+			"s_cname"	: ['帳號','還款交易日','還款交易序號','期數-起','期數-迄','續查Key值','日期-起','日期-迄'],
+			"f_ename0"	: ['MWHEADER','MSGID','SOURCECHANNEL','RETURNCODE','RETURNDESC','RETURNCODECHANNEL','TXNSEQ','O360SEQ','HostJournalNo','HostPostingDate','HostTimestamp','CustName','TotalAmountPaid','TotalPrincipalPaid','TotalPrincipalOutstand','TotalPrepaidAmount','Inquiry Key','DataEndFlag','Occurs Times'],
+			"f_cname0"	: ['','','','','','','','','','','','客戶姓名','已收金額','已收本金','待放餘額','暫收款','續查Key值','','本次回應筆數'],
+			"f_ename"	: ['BasedAmt','InterestRate','InterestFromDate','InterestToDate','Days','AmtDue','CollectedAmt','RepayAmt','Description','TermNo','TxnDate'],
+			"f_cname"	: ['Base Amt','利率','計息起日','計息迄日','天數','應收金額','應繳金額','已收金額','說明','期數','交易日期'],
 		},{
 			"id" 		: "FNSTXN0005",
 			"s_cut0" 	: [4,20,13,4,128,4,12,20],
@@ -935,4 +991,4 @@
 			"note"		: '投資組合明細(frmRoboPortfolioDetail)',
 		}
 	]
-}*/
+}

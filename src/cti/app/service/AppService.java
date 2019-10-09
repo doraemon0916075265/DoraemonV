@@ -369,9 +369,9 @@ public class AppService extends AppConstant {
 
 	public static void showStatus(String status, List<String> list, boolean isChecktimer) {
 		List<String> al = new ArrayList<String>(list);
-		if (isChecktimer && AppTimer.isTimerOn()) {
+		if (isChecktimer && AppTimer.isTimerOn) {
 			AppTimer.setTimerWork(false);
-			al.add(AppTimer.getTimerString());
+			al.add(AppTimer.timerString);
 		}
 		jl_status.setText(status, al);
 	}

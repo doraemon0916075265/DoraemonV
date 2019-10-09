@@ -14,11 +14,11 @@ import cti.app.component.JButtonSimple;
 import cti.app.component.JComboBoxSimple;
 import cti.app.component.JLabelSimple;
 import cti.app.component.JTextFieldSimple;
-import cti.app.constant.SpecInfoConstant;
-import cti.app.controller.SpecInfoController;
+import cti.app.constant.SpecManagerConstant;
+import cti.app.controller.SpecManagerController;
 import cti.app.service.AppTimer;
 
-public class SpecInfoView extends SpecInfoConstant {
+public class SpecManagerView extends SpecManagerConstant {
 	private static JPanel jp = new JPanel();
 
 	private static JPanel jpSub1 = new JPanel();
@@ -89,7 +89,7 @@ public class SpecInfoView extends SpecInfoConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				AppTimer.setTimerWork(true);
-				SpecInfoController.doInitial();
+				SpecManagerController.doInitial();
 				setEnterTab();
 				showStatus(MSG_RESETDATA);
 			}
@@ -117,7 +117,7 @@ public class SpecInfoView extends SpecInfoConstant {
 	}
 
 	private static void setEnd() {
-		SpecInfoController.doInitial();
+		SpecManagerController.doInitial();
 	}
 
 	public static void setEnterTab() {
@@ -127,7 +127,7 @@ public class SpecInfoView extends SpecInfoConstant {
 	private static void readFile() {
 		AppTimer.setTimerWork(true);
 		try {
-			SpecInfoController.readFile();
+			SpecManagerController.readFile();
 			setEnterTab();
 			showStatus(MSG_READFILE + getPulldownItem(jcb_specID));
 		} catch (Exception e) {

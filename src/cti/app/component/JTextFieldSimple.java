@@ -6,6 +6,9 @@ import javax.swing.JTextField;
 import cti.app.constant.AppConstant;
 
 public class JTextFieldSimple extends JTextField {
+
+	private static final long serialVersionUID = 1L;
+
 	public JTextFieldSimple() {
 		super();
 		selfSetting();

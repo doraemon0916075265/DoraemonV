@@ -1,7 +1,5 @@
 package cti.app.controller;
 
-import javax.swing.filechooser.FileSystemView;
-
 import cti.app.bean.FindFileBean;
 import cti.app.view.FindFileView;
 

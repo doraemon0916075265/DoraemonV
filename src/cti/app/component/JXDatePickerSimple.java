@@ -8,6 +8,8 @@ import cti.app.constant.AppConstant;
 
 public class JXDatePickerSimple extends JXDatePicker {
 
+	private static final long serialVersionUID = 1L;
+
 	public JXDatePickerSimple() {
 		super();
 		selfSetting();

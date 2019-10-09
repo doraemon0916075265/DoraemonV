@@ -15,7 +15,7 @@ public class SimpleIO {
 	private static final String PATH1 = "C:/Users/cathay/Desktop/01.png";
 	private static final String PATH2 = "C:/Users/cathay/Desktop/02.png";
 	private static final String PATH3 = "C:/Users/cathay/Desktop/03.png";
-	private static final String PATH_TXT1 = "C:/Users/cathay/Desktop/01.txt";
+//	private static final String PATH_TXT1 = "C:/Users/cathay/Desktop/01.txt";
 	private static final String PATH_TXT2 = "C:/Users/cathay/Desktop/02.txt";
 	private static final String PATH_TXT3 = "C:/Users/cathay/Desktop/03.txt";
 

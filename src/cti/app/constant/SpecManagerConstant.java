@@ -2,7 +2,7 @@ package cti.app.constant;
 
 import cti.app.service.SpecInfoService;
 
-public class SpecInfoConstant extends SpecInfoService {
+public class SpecManagerConstant extends SpecInfoService {
 	public static final String TAB_NAME = "spec";
 	
 	public static final String JL_SPECFILEPATH = "spec檔路徑";

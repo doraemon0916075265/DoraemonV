@@ -8,6 +8,8 @@ import cti.app.constant.AppConstant;
 
 public class JComboBoxSimple<E> extends JComboBox<E> {
 
+	private static final long serialVersionUID = 1L;
+
 	public JComboBoxSimple() {
 		super();
 		selfSetting();

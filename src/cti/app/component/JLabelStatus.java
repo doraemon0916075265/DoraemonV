@@ -6,6 +6,8 @@ import cti.app.constant.AppConstant;
 
 public class JLabelStatus extends JLabelSimple {
 
+	private static final long serialVersionUID = 1L;
+
 	public JLabelStatus() {
 		super();
 		selfSetting();

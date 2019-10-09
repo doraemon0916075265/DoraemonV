@@ -15,6 +15,8 @@ import cti.app.service.AppService;
 
 public class JButtonFilePath extends JButtonSimple {
 
+	private static final long serialVersionUID = 1L;
+
 	public JButtonFilePath() {
 		super();
 	}
@@ -35,7 +37,7 @@ public class JButtonFilePath extends JButtonSimple {
 					JFileChooser jfc = new JFileChooser();
 					jfc.setCurrentDirectory(FileSystemView.getFileSystemView().getHomeDirectory());// 預設桌面
 					jfc.setApproveButtonText(AppConstant.BTN_CONFIRM);
-					jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+					jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 					if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 						jtc.setText(jfc.getSelectedFile().toString());
 						AppService.showStatus(AppConstant.MSG_GET + jtc.getName() + AppConstant.SIGN_SPACE + jfc.getSelectedFile().toString());
