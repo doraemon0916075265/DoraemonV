@@ -16,7 +16,7 @@ public class SpecService extends AppService {
 	protected static List<String> readFileInfoID(String pathSpec) {
 		List<String> list = new ArrayList<String>();
 		try {
-			JSONArray jsonArrs = new JSONObject(readFileContent(pathSpec)).getJSONArray("Spec");
+			JSONArray jsonArrs = new JSONObject(FileManagerService.readFileContent(pathSpec)).getJSONArray(SPEC);
 			for (Object objJA : jsonArrs) {
 				String itemID = getJsonValue(objJA, TAG_ID).toString();
 				if (StringUtils.isNotBlank(itemID)) {
@@ -31,7 +31,7 @@ public class SpecService extends AppService {
 	/*** 從Json格式取出by id ***/
 	protected static SpecBean readFileInfoByID(String pathSpec, String id) throws Exception {
 		SpecBean sb = new SpecBean();
-		JSONArray jsonArrs = new JSONObject(readFileContent(pathSpec)).getJSONArray("Spec");
+		JSONArray jsonArrs = new JSONObject(FileManagerService.readFileContent(pathSpec)).getJSONArray(SPEC);
 		for (Object objJA : jsonArrs) {
 			if (getJsonValue(objJA, TAG_ID).equals(id)) {
 				sb = readFileInfo4OneJSON(new JSONObject(objJA.toString()));

@@ -3,27 +3,27 @@ package cti.app.view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import cti.app.appService.Style;
 import cti.app.component.JButtonFilePath;
 import cti.app.component.JButtonSimple;
 import cti.app.component.JLabelSimple;
+import cti.app.component.JPanelSimple;
 import cti.app.component.JTextFieldSimple;
 import cti.app.constant.LogManagerConstant;
-import cti.app.controller.FindFileController;
+import cti.app.controller.LogManagerController;
 import cti.app.service.AppTimer;
-import cti.app.service.FindFileService;
 
 public class LogManagerView extends LogManagerConstant {
-	private static JPanel jp = new JPanel();
-	public static FindFileService fs = new FindFileService();
+	private static JPanelSimple jp = new JPanelSimple();
 
-	private static JPanel jpSub1 = new JPanel();
-	private static JPanel jpSub2 = new JPanel();
+	private static JPanelSimple jpSub1 = new JPanelSimple();
+	private static JPanelSimple jpSub2 = new JPanelSimple();
 
 	private static JLabelSimple jl_logFilePath = new JLabelSimple(JL_LOGFILEPATH); // log檔路徑
 	protected static JTextFieldSimple jtf_logFilePath = new JTextFieldSimple(jl_logFilePath);
@@ -57,46 +57,28 @@ public class LogManagerView extends LogManagerConstant {
 	}
 
 	private static void setPosition() {
-		int row = 15;// 每一列
+		Style.resetRow();
 		/*** 上半部，第一區 ***/
-		jl_logFilePath.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_logFilePath.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, SIZE_VER_INPUT);
-		jb_logFilepath.setBounds(SIZE_HOR_COL2 + SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, row, SIZE_HOR_BTNF, SIZE_VER_INPUT);
-		jb_resetData.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_logFilePath);
-		jpSub1.add(jtf_logFilePath);
-		jpSub1.add(jb_logFilepath);
-		jpSub1.add(jb_resetData);
+		Style.setBounds(Style.MODEL_JL_JTF_JB_JC_BTN, Arrays.asList(null, jl_logFilePath, jtf_logFilePath, jb_logFilepath, null, jb_resetData, null));
+		jpSub1.add(Arrays.asList(jl_logFilePath, jtf_logFilePath, jb_logFilepath, jb_resetData));
 		/*** 第二區 ***/
-		row += 40;
-		jl_searchCondition.setBounds(SIZE_HOR_COLMID, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jb_clearData.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_searchCondition);
-		jpSub1.add(jb_clearData);
+		Style.setBounds(Style.MODEL_NULL_JL_NULL_JC_BTN, Arrays.asList(null, null, jl_searchCondition, null, null, jb_clearData, null));
+		jpSub1.add(Arrays.asList(jl_searchCondition, jb_clearData));
 		/*** 第三區 ***/
-		row += 40;
-		jl_byTime.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_byTime.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT2, SIZE_VER_INPUT);
-		jb_search.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_byTime);
-		jpSub1.add(jtf_byTime);
-		jpSub1.add(jb_search);
+		Style.setBounds(Style.MODEL_JL_JC1_NULL_JC2_NULL_JC3_NULL_JC4_JC5_BTN, Arrays.asList(null, jl_byTime, jtf_byTime, null, null, null, null, null, null, null, jb_search, null));
+		jpSub1.add(Arrays.asList(jl_byTime, jtf_byTime, jb_search));
 		/*** 第四區 ***/
-		row += 40;
 		/*** 第五區 ***/
-		row += 40;
 		/*** 第六區 ***/
-		row += 40;
 		/*** 第七區 ***/
-		row += 40;
 		/*** 下半部 ***/
 		jpSub2.add(new JScrollPane(jta_result));
 
-		jp.add(jpSub1);
-		jp.add(jpSub2);
+		jp.add(Arrays.asList(jpSub1, jpSub2));
 	}
 
 	private static void setComponent() {
+		jl_logFilePath.setForeground(APP_COLOR_SEARCH_CRITERIA);
 		jl_searchCondition.setForeground(APP_COLOR_SEARCH_CRITERIA);
 		jl_byTime.setForeground(APP_COLOR_SEARCH_CRITERIA);
 		setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
@@ -108,7 +90,7 @@ public class LogManagerView extends LogManagerConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				AppTimer.setTimerWork(true);
-				FindFileController.doInitial();
+				LogManagerController.resetData();
 				showStatus(MSG_RESETDATA);
 			}
 		});
@@ -117,7 +99,7 @@ public class LogManagerView extends LogManagerConstant {
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				FindFileController.clearData();
+				LogManagerController.clearData();
 				showStatus(MSG_CLEARDATA);
 			}
 		});
@@ -128,7 +110,7 @@ public class LogManagerView extends LogManagerConstant {
 			public void actionPerformed(ActionEvent ae) {
 				AppTimer.setTimerWork(true);
 				try {
-					FindFileController.findConditionFile();
+					// FindFileController.findConditionFile();
 					showStatus(MSG_SEARCH);
 				} catch (Exception e) {
 					showSatus(e);
@@ -141,7 +123,7 @@ public class LogManagerView extends LogManagerConstant {
 	}
 
 	private static void setEnd() {
-		FindFileController.doInitial();
+		LogManagerController.formShow();
 	}
 
 }

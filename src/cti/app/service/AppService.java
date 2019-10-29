@@ -33,35 +33,7 @@ import org.mozilla.universalchardet.UniversalDetector;
 import cti.app.constant.AppConstant;
 
 public class AppService extends AppConstant {
-	private static String filePathByRootPath;
-
 	protected static final String INIT_JSONARRRAY = new JSONArray().toString();
-
-	/*** 找目錄下的檔案路徑 ***/
-	public static String findFilePathByRootPath(String path, String name) {
-		filePathByRootPath = "";
-		recursive4FilePathByRootPath(path, name);
-		return StringUtils.isBlank(filePathByRootPath) ? path : filePathByRootPath;
-	}
-
-	/*** 遞迴：找目錄下的檔案路徑 ***/
-	private static void recursive4FilePathByRootPath(String path, String name) {
-		try {
-			File file = new File(path);
-			if (file.isDirectory()) {
-				for (String fileName : file.list()) {
-					recursive4FilePathByRootPath(path + File.separator + fileName, name);
-				}
-			} else {
-				String fileNameU = file.getName().toUpperCase();
-				if (name.equals(fileNameU)) {
-					filePathByRootPath = path;
-				}
-			}
-		} catch (Exception e) {
-
-		}
-	}
 
 	/*** 驗證輸入框：為非空輸入框。 ***/
 	public static void validateInput_Text(JTextComponent jtc) throws Exception {
@@ -381,6 +353,7 @@ public class AppService extends AppConstant {
 	public static Object getJsonValue(Object obj, String key) {
 		if (!new JSONObject(obj.toString()).isNull(key)) {
 			String objClassType = new JSONObject(obj.toString()).get(key).getClass().getSimpleName();
+
 			if ("String".equals(objClassType)) {
 				return new JSONObject(obj.toString()).getString(key);
 			} else if ("Integer".equals(objClassType)) {
@@ -408,21 +381,6 @@ public class AppService extends AppConstant {
 	public static void setAppStyle4TextArea(JComponent jc, String name, Color fontColor, boolean isEditable) {
 		setAppStyle(jc, name, fontColor);
 		((JTextComponent) jc).setEditable(isEditable);
-	}
-
-	/*** 讀檔案內所有內容 ***/
-	protected static String readFileContent(String path) throws Exception {
-		StringBuffer content = new StringBuffer("");
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), getFileEncoding(path)));) {
-			String line;
-			while ((line = br.readLine()) != null) {
-				if (StringUtils.isBlank(line)) {
-					continue;
-				}
-				content.append(line);
-			}
-		}
-		return content.toString();
 	}
 
 	/*** 重新生成下拉選單 ***/

@@ -3,36 +3,37 @@ package cti.app.view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import cti.app.appService.Style;
 import cti.app.component.JButtonFilePath;
 import cti.app.component.JButtonSimple;
 import cti.app.component.JComboBoxSimple;
 import cti.app.component.JLabelSimple;
+import cti.app.component.JPanelSimple;
 import cti.app.component.JTextFieldSimple;
 import cti.app.constant.SpecManagerConstant;
 import cti.app.controller.SpecManagerController;
 import cti.app.service.AppTimer;
 
 public class SpecManagerView extends SpecManagerConstant {
-	private static JPanel jp = new JPanel();
+	private static JPanelSimple jp = new JPanelSimple();
 
-	private static JPanel jpSub1 = new JPanel();
-	private static JPanel jpSub2 = new JPanel();
+	private static JPanelSimple jpSub1 = new JPanelSimple();
+	private static JPanelSimple jpSub2 = new JPanelSimple();
 
 	private static JLabelSimple jl_specFilePath = new JLabelSimple(JL_SPECFILEPATH);// spec檔路徑
 	protected static JTextFieldSimple jtf_specFilePath = new JTextFieldSimple(jl_specFilePath);
 	private static JButtonFilePath jb_specFilepath = new JButtonFilePath(jtf_specFilePath);
-
 	private static JButtonSimple jb_resetData = new JButtonSimple(BTN_RESETDATA);
+
 	private static JLabelSimple jl_specID = new JLabelSimple("ID選單");
 	protected static JComboBoxSimple<String> jcb_specID = new JComboBoxSimple<String>();
-
-	private static JButton jb_readFile = new JButton(BTN_READFILE);
+	private static JButtonSimple jb_readFile = new JButtonSimple(BTN_READFILE);
 
 	protected static JTextArea jta_result = new JTextArea(30, 93);
 
@@ -52,29 +53,17 @@ public class SpecManagerView extends SpecManagerConstant {
 	}
 
 	private static void setPosition() {
-		int row = 15;// 每一列
+		Style.resetRow();
 		/*** 上半部，第一區 ***/
-		jl_specFilePath.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_specFilePath.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, SIZE_VER_INPUT);
-		jb_specFilepath.setBounds(SIZE_HOR_COL2 + SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, row, SIZE_HOR_BTNF, SIZE_VER_INPUT);
-		jb_resetData.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_specFilePath);
-		jpSub1.add(jtf_specFilePath);
-		jpSub1.add(jb_specFilepath);
-		jpSub1.add(jb_resetData);
+		Style.setBounds(Style.MODEL_JL_JTF_JB_JC_BTN, Arrays.asList(null, jl_specFilePath, jtf_specFilePath, jb_specFilepath, null, jb_resetData, null));
+		jpSub1.add(Arrays.asList(jl_specFilePath, jtf_specFilePath, jb_specFilepath, jb_resetData));
 		/*** 第二區 ***/
-		row += 40;
-		jl_specID.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jcb_specID.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT2, SIZE_VER_INPUT);
-		jb_readFile.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_specID);
-		jpSub1.add(jcb_specID);
-		jpSub1.add(jb_readFile);
+		Style.setBounds(Style.MODEL_JL_JC1_NULL_JC2_NULL_JC3_NULL_JC4_JC5_BTN, Arrays.asList(null, jl_specID, jcb_specID, null, null, null, null, null, null, null, jb_readFile, null));
+		jpSub1.add(Arrays.asList(jl_specID, jcb_specID, jb_readFile));
 		/*** 下半部 ***/
 		jpSub2.add(new JScrollPane(jta_result));
 
-		jp.add(jpSub1);
-		jp.add(jpSub2);
+		jp.add(Arrays.asList(jpSub1, jpSub2));
 	}
 
 	private static void setComponent() {
@@ -89,7 +78,7 @@ public class SpecManagerView extends SpecManagerConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				AppTimer.setTimerWork(true);
-				SpecManagerController.doInitial();
+				SpecManagerController.resetData();
 				setEnterTab();
 				showStatus(MSG_RESETDATA);
 			}
@@ -117,7 +106,7 @@ public class SpecManagerView extends SpecManagerConstant {
 	}
 
 	private static void setEnd() {
-		SpecManagerController.doInitial();
+		SpecManagerController.formShow();
 	}
 
 	public static void setEnterTab() {
@@ -125,10 +114,10 @@ public class SpecManagerView extends SpecManagerConstant {
 	}
 
 	private static void readFile() {
-		AppTimer.setTimerWork(true);
 		try {
+			AppTimer.setTimerWork(true);
 			SpecManagerController.readFile();
-			setEnterTab();
+			// setEnterTab();
 			showStatus(MSG_READFILE + getPulldownItem(jcb_specID));
 		} catch (Exception e) {
 			showSatus(e);

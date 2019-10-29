@@ -13,19 +13,21 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
+import cti.app.appService.Style;
 import cti.app.component.JButtonFilePath;
 import cti.app.component.JButtonSimple;
 import cti.app.component.JLabelSimple;
+import cti.app.component.JPanelSimple;
 import cti.app.component.JTextFieldSimple;
 import cti.app.constant.CutterConstant;
 import cti.app.controller.CutterController;
 import cti.app.service.AppTimer;
 
 public class CutterView extends CutterConstant {
-	private static JPanel jp = new JPanel();
+	private static JPanelSimple jp = new JPanelSimple();
 
-	private static JPanel jpSub1 = new JPanel();
-	private static JPanel jpSub2 = new JPanel();
+	private static JPanelSimple jpSub1 = new JPanelSimple();
+	private static JPanelSimple jpSub2 = new JPanelSimple();
 
 	private static JLabelSimple jl_logFilePath = new JLabelSimple(JL_LOGFILEPATH); // log檔路徑
 	protected static JTextFieldSimple jtf_logFilePath = new JTextFieldSimple(jl_logFilePath);
@@ -98,91 +100,36 @@ public class CutterView extends CutterConstant {
 	}
 
 	private static void setPosition() {
-		int row = 15;// 每一列
 		/*** 上半部，第一區 ***/
-		jl_logFilePath.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_logFilePath.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, SIZE_VER_INPUT);
-		jb_logFilepath.setBounds(SIZE_HOR_COL2 + SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, row, SIZE_HOR_BTNF, SIZE_VER_INPUT);
-		jb_resetData.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_logFilePath);
-		jpSub1.add(jtf_logFilePath);
-		jpSub1.add(jb_logFilepath);
-		jpSub1.add(jb_resetData);
+		Style.resetRow();
+		Style.setBounds(Style.MODEL_JL_JTF_JB_JC_BTN, Arrays.asList(null, jl_logFilePath, jtf_logFilePath, jb_logFilepath, null, jb_resetData, null));
+		jpSub1.add(Arrays.asList(jl_logFilePath, jtf_logFilePath, jb_logFilepath, jb_resetData));
 		/*** 第二區 ***/
-		row += 40;
-		jl_specFilePath.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_specFilePath.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, SIZE_VER_INPUT);
-		jb_specFilepath.setBounds(SIZE_HOR_COL2 + SIZE_HOR_TEXT1 - SIZE_HOR_BTNF, row, SIZE_HOR_BTNF, SIZE_VER_INPUT);
-		jb_clearData.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_specFilePath);
-		jpSub1.add(jtf_specFilePath);
-		jpSub1.add(jb_specFilepath);
-		jpSub1.add(jb_clearData);
+		Style.setBounds(Style.MODEL_JL_JTF_JB_JC_BTN, Arrays.asList(null, jl_specFilePath, jtf_specFilePath, jb_specFilepath, null, jb_clearData, null));
+		jpSub1.add(Arrays.asList(jl_specFilePath, jtf_specFilePath, jb_specFilepath, jb_clearData));
 		/*** 第三區 ***/
-		row += 40;
-		jl_logInfo_send.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_logInfo_send.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
-		jl_logInfo_sendLen.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_HOR_COL7, SIZE_VER_INPUT);
-		jb_readFile.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_logInfo_send);
-		jpSub1.add(jtf_logInfo_send);
-		jpSub1.add(jl_logInfo_sendLen);
-		jpSub1.add(jb_readFile);
+		Style.setBounds(Style.MODEL_JL1_JTF_NULL_JL2_BTN, Arrays.asList(null, jl_logInfo_send, jtf_logInfo_send, null, jl_logInfo_sendLen, jb_readFile, null));
+		jpSub1.add(Arrays.asList(jl_logInfo_send, jtf_logInfo_send, jl_logInfo_sendLen, jb_readFile));
 		/*** 第四區 ***/
-		row += 40;
-		jl_logInfo_fill.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_logInfo_fill.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
-		jl_logInfo_fillLen.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_HOR_COL7, SIZE_VER_INPUT);
-		jb_analysis.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_logInfo_fill);
-		jpSub1.add(jtf_logInfo_fill);
-		jpSub1.add(jl_logInfo_fillLen);
-		jpSub1.add(jb_analysis);
+		Style.setBounds(Style.MODEL_JL1_JTF_NULL_JL2_BTN, Arrays.asList(null, jl_logInfo_fill, jtf_logInfo_fill, null, jl_logInfo_fillLen, jb_analysis, null));
+		jpSub1.add(Arrays.asList(jl_logInfo_fill, jtf_logInfo_fill, jl_logInfo_fillLen, jb_analysis));
 		/*** 第五區 ***/
-		row += 40;
-		jl_specInfo_send.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_specSendCut0.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT2, SIZE_VER_INPUT);
-		jtf_specSendCut.setBounds(SIZE_HOR_COL3, row, SIZE_HOR_TEXT3, SIZE_VER_INPUT);
-		jl_specInfo_sendLen.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_specInfo_send);
-		jpSub1.add(jtf_specSendCut0);
-		jpSub1.add(jtf_specSendCut);
-		jpSub1.add(jl_specInfo_sendLen);
+		Style.setBounds(Style.MODEL_JL_JTF1_NULL_JTF2_NULL_JL_BTN, Arrays.asList(null, jl_specInfo_send, jtf_specSendCut0, null, jtf_specSendCut, null, jl_specInfo_sendLen, null, null));
+		jpSub1.add(Arrays.asList(jl_specInfo_send, jtf_specSendCut0, jtf_specSendCut, jl_specInfo_sendLen));
 		/*** 第六區 ***/
-		row += 40;
-		jl_specInfo_fill.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_specFillCut0.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT2, SIZE_VER_INPUT);
-		jtf_specFillCut.setBounds(SIZE_HOR_COL3, row, SIZE_HOR_TEXT3, SIZE_VER_INPUT);
-		jl_specInfo_fillLen.setBounds(SIZE_HOR_COL4_MSG, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_specInfo_fill);
-		jpSub1.add(jtf_specFillCut0);
-		jpSub1.add(jtf_specFillCut);
-		jpSub1.add(jl_specInfo_fillLen);
+		Style.setBounds(Style.MODEL_JL_JTF1_NULL_JTF2_NULL_JL_BTN, Arrays.asList(null, jl_specInfo_fill, jtf_specFillCut0, null, jtf_specFillCut, null, jl_specInfo_fillLen, null, null));
+		jpSub1.add(Arrays.asList(jl_specInfo_fill, jtf_specFillCut0, jtf_specFillCut, jl_specInfo_fillLen));
 		/*** 第七區 ***/
-		row += 40;
-		jl_logInfo_ID.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_logInfo_ID.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT2, SIZE_VER_INPUT);
-		jtf_specInfo_note.setBounds(SIZE_HOR_COL3, row, SIZE_HOR_TEXT3, SIZE_VER_INPUT);
-		jb_guideBook.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_logInfo_ID);
-		jpSub1.add(jtf_logInfo_ID);
-		jpSub1.add(jtf_specInfo_note);
-		jpSub1.add(jb_guideBook);
+		Style.setBounds(Style.MODEL_JL_JTF1_NULL_JTF2_NULL_JL_BTN, Arrays.asList(null, jl_logInfo_ID, jtf_logInfo_ID, null, jtf_specInfo_note, null, null, jb_guideBook, null));
+		jpSub1.add(Arrays.asList(jl_logInfo_ID, jtf_logInfo_ID, jtf_specInfo_note, jb_guideBook));
 		/*** 第八區 ***/
-		row += 40;
-		jl_exportFile.setBounds(SIZE_HOR_COL1, row, SIZE_HOR_LABEL1, SIZE_VER_INPUT);
-		jtf_exportFilePath.setBounds(SIZE_HOR_COL2, row, SIZE_HOR_TEXT1, SIZE_VER_INPUT);
-		jb_exportFile.setBounds(SIZE_HOR_COL8, row, SIZE_HOR_BTN, SIZE_VER_INPUT);
-		jpSub1.add(jl_exportFile);
-		jpSub1.add(jtf_exportFilePath);
-		jpSub1.add(jb_exportFile);
+		Style.setBounds(Style.MODEL_JL1_JTF_NULL_JL2_BTN, Arrays.asList(null, jl_exportFile, jtf_exportFilePath, null, null, jb_exportFile, null));
+		jpSub1.add(Arrays.asList(jl_exportFile, jtf_exportFilePath, jb_exportFile));
 
 		/*** 下半部 ***/
-		jpSub2.add(new JScrollPane(jta_resultS));
-		jpSub2.add(new JScrollPane(jta_resultF));
+		jpSub2.add(Arrays.asList(new JScrollPane(jta_resultS), new JScrollPane(jta_resultF)));
 
-		jp.add(jpSub1);
-		jp.add(jpSub2);
+		jp.add(Arrays.asList(jpSub1, jpSub2));
 	}
 
 	private static void setComponent() {
@@ -207,7 +154,7 @@ public class CutterView extends CutterConstant {
 		jb_resetData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				CutterController.doInitial();
+				CutterController.resetData();
 				showStatus(MSG_RESETDATA);
 			}
 		});
@@ -216,7 +163,7 @@ public class CutterView extends CutterConstant {
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				CutterController.clearData(null);
+				CutterController.clearData();
 				showStatus(MSG_CLEARDATA);
 			}
 		});
@@ -297,7 +244,7 @@ public class CutterView extends CutterConstant {
 	}
 
 	private static void setEnd() {
-		CutterController.doInitial();
+		CutterController.formShow();
 	}
 
 }

@@ -4,24 +4,33 @@ import cti.app.bean.FindFileBean;
 import cti.app.view.FindFileView;
 
 public class FindFileController extends FindFileView {
+
 	private static FindFileBean ffb = new FindFileBean();
 
-	/*** 清除 ***/
-	public static void clearData() {
-		getAllProperties();
-		ffb.setByText("");
-		ffb.setByFilename("");
+	/*** 畫面初始化欄位 ***/
+	public static void formShow() {
+		clearAllData();
+		ffb.setSearchPath(MY_HOME_DIRECTORY);
+		ffb.setByFileName_Extension("[\"*\"]");
+		ffb.setByFileName_Extension_Ignore("[\"~*\",\"*.lnk\",\"*.vfl\"]");
 		ffb.setByModify_greaterThan(null);
 		ffb.setByModify_lessThan(null);
 		setAllProperties();
 	}
 
-	/*** 初始化欄位 ***/
-	public static void doInitial() {
-		clearAllData();
-		ffb.setSearchPath(MY_HOME_DIRECTORY);
-		ffb.setByFilenameExtension("[\"*\"]");
-		ffb.setByFilenameExtension_Ignore("[\"~*\",\"*.lnk\",\"*.vfl\"]");
+	/*** 重設 ***/
+	public static void resetData() {
+		formShow();
+	}
+
+	/*** 清除 ***/
+	public static void clearData() {
+		getAllProperties();
+		ffb.setResultType(0);
+		ffb.setByFileText("");
+		ffb.setFileText_CaseSensitive(false);
+		ffb.setByFileName("");
+		ffb.setFileName_CaseSensitive(false);
 		ffb.setByModify_greaterThan(null);
 		ffb.setByModify_lessThan(null);
 		setAllProperties();
@@ -31,10 +40,13 @@ public class FindFileController extends FindFileView {
 	private static void clearAllData() {
 		getAllProperties();
 		ffb.setSearchPath("");
-		ffb.setByText("");
-		ffb.setByFilename("");
-		ffb.setByFilenameExtension("");
-		ffb.setByFilenameExtension_Ignore("");
+		ffb.setResultType(0);
+		ffb.setByFileText("");
+		ffb.setFileText_CaseSensitive(false);
+		ffb.setByFileName("");
+		ffb.setFileName_CaseSensitive(false);
+		ffb.setByFileName_Extension("");
+		ffb.setByFileName_Extension_Ignore("");
 		ffb.setByModify_greaterThan(null);
 		ffb.setByModify_lessThan(null);
 		ffb.setResult("");
@@ -45,8 +57,8 @@ public class FindFileController extends FindFileView {
 		ffb.setResult("");
 		getAllProperties();
 		validateInput_DirectoryPath(jtf_searchPath);
-		ffb.setByFilenameExtension(transInput_SimpleArray2String(jtf_byFilenameExtension));
-		ffb.setByFilenameExtension_Ignore(transInput_SimpleArray2String(jtf_byFilenameExtension_Ignore));
+		ffb.setByFileName_Extension(transInput_SimpleArray2String(jtf_byFileNameExtension));
+		ffb.setByFileName_Extension_Ignore(transInput_SimpleArray2String(jtf_byFileNameExtension_Ignore));
 		validateInput_byModifyDate(jxdp_byModify_greaterThan, jxdp_byModify_lessThan);
 
 		ffb = findConditionFile(ffb);
@@ -56,11 +68,13 @@ public class FindFileController extends FindFileView {
 	/*** 從欄位中取出所有值塞入bean ***/
 	private static void getAllProperties() {
 		ffb.setSearchPath(jtf_searchPath.getText());
-		ffb.setByText(jtf_byText.getText());
-		ffb.setTextCaseSensitive(jcb_byTextCaseSensitive.isSelected());
-		ffb.setByFilename(jtf_byFilename.getText());
-		ffb.setByFilenameExtension(jtf_byFilenameExtension.getText());
-		ffb.setByFilenameExtension_Ignore(jtf_byFilenameExtension_Ignore.getText());
+		ffb.setResultType(jcb_resultType.getSelectedIndex());
+		ffb.setByFileText(jtf_byFileText.getText());
+		ffb.setFileText_CaseSensitive(jcb_byFileTextCaseSensitive.isSelected());
+		ffb.setByFileName(jtf_byFileName.getText());
+		ffb.setFileName_CaseSensitive(jcb_byFileNameCaseSensitive.isSelected());
+		ffb.setByFileName_Extension(jtf_byFileNameExtension.getText());
+		ffb.setByFileName_Extension_Ignore(jtf_byFileNameExtension_Ignore.getText());
 		ffb.setByModify_greaterThan(jxdp_byModify_greaterThan.getDate());
 		ffb.setByModify_lessThan(jxdp_byModify_lessThan.getDate());
 		ffb.setResult(jta_result.getText());
@@ -69,11 +83,13 @@ public class FindFileController extends FindFileView {
 	/*** 從bean中取出所有值塞入欄位 ***/
 	private static void setAllProperties() {
 		jtf_searchPath.setText(ffb.getSearchPath());
-		jtf_byText.setText(ffb.getByText());
-		jcb_byTextCaseSensitive.setSelected(ffb.isTextCaseSensitive());
-		jtf_byFilename.setText(ffb.getByFilename());
-		jtf_byFilenameExtension.setText(ffb.getByFilenameExtension());
-		jtf_byFilenameExtension_Ignore.setText(ffb.getByFilenameExtension_Ignore());
+		jcb_resultType.setSelectedIndex(ffb.getResultType());
+		jtf_byFileText.setText(ffb.getByFileText());
+		jcb_byFileTextCaseSensitive.setSelected(ffb.isFileText_CaseSensitive());
+		jtf_byFileName.setText(ffb.getByFileName());
+		jcb_byFileNameCaseSensitive.setSelected(ffb.isFileName_CaseSensitive());
+		jtf_byFileNameExtension.setText(ffb.getByFileName_Extension());
+		jtf_byFileNameExtension_Ignore.setText(ffb.getByFileName_Extension_Ignore());
 		jxdp_byModify_greaterThan.setDate(ffb.getByModify_greaterThan());
 		jxdp_byModify_lessThan.setDate(ffb.getByModify_lessThan());
 		jta_result.setText(ffb.getResult());

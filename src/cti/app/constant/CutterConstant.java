@@ -16,10 +16,4 @@ public class CutterConstant extends CutterService {
 
 	public static final String NAME_RESULTS = "切上行結果區";
 	public static final String NAME_RESULTF = "切下行結果區";
-
-	// 初始化路徑
-	public static final String DFT_PATH_LOG = "C:\\Users\\NT83382\\Desktop\\log.txt";
-	public static final String DFT_PATH_SPEC = "C:\\Users\\NT83382\\Desktop\\spec.json";
-	public static final String FILENAME_LOG = "LOG.TXT";
-	public static final String FILENAME_SPEC = "SPEC.JSON";
 }

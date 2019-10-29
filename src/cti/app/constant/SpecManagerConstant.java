@@ -1,8 +1,8 @@
 package cti.app.constant;
 
-import cti.app.service.SpecInfoService;
+import cti.app.service.SpecManagerService;
 
-public class SpecManagerConstant extends SpecInfoService {
+public class SpecManagerConstant extends SpecManagerService {
 	public static final String TAB_NAME = "spec";
 	
 	public static final String JL_SPECFILEPATH = "spec檔路徑";

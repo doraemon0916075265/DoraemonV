@@ -4,13 +4,20 @@ import java.util.Date;
 
 public class FindFileBean {
 	private String searchPath;
-	private String byText;
-	private boolean isTextCaseSensitive;
-	private String byFilename;
-	private String byFilenameExtension;
-	private String byFilenameExtension_Ignore;
+	private int resultType;
+
+	private String byFileText;
+	private boolean isFileText_CaseSensitive = false;
+
+	private String byFileName;
+	private boolean isFileName_CaseSensitive = false;
+
+	private String byFileName_Extension;
+	private String byFileName_Extension_Ignore;
+
 	private Date byModify_greaterThan;
 	private Date byModify_lessThan;
+
 	private String result;
 
 	public String getSearchPath() {
@@ -21,44 +28,60 @@ public class FindFileBean {
 		this.searchPath = searchPath;
 	}
 
-	public String getByText() {
-		return byText;
+	public int getResultType() {
+		return resultType;
 	}
 
-	public void setByText(String byText) {
-		this.byText = byText;
+	public void setResultType(int resultType) {
+		this.resultType = resultType;
 	}
 
-	public boolean isTextCaseSensitive() {
-		return isTextCaseSensitive;
+	public String getByFileText() {
+		return byFileText;
 	}
 
-	public void setTextCaseSensitive(boolean isTextCaseSensitive) {
-		this.isTextCaseSensitive = isTextCaseSensitive;
+	public void setByFileText(String byFileText) {
+		this.byFileText = byFileText;
 	}
 
-	public String getByFilename() {
-		return byFilename;
+	public boolean isFileText_CaseSensitive() {
+		return isFileText_CaseSensitive;
 	}
 
-	public void setByFilename(String byFilename) {
-		this.byFilename = byFilename;
+	public void setFileText_CaseSensitive(boolean isFileText_CaseSensitive) {
+		this.isFileText_CaseSensitive = isFileText_CaseSensitive;
 	}
 
-	public String getByFilenameExtension() {
-		return byFilenameExtension;
+	public String getByFileName() {
+		return byFileName;
 	}
 
-	public void setByFilenameExtension(String byFilenameExtension) {
-		this.byFilenameExtension = byFilenameExtension;
+	public void setByFileName(String byFileName) {
+		this.byFileName = byFileName;
 	}
 
-	public String getByFilenameExtension_Ignore() {
-		return byFilenameExtension_Ignore;
+	public boolean isFileName_CaseSensitive() {
+		return isFileName_CaseSensitive;
 	}
 
-	public void setByFilenameExtension_Ignore(String byFilenameExtension_Ignore) {
-		this.byFilenameExtension_Ignore = byFilenameExtension_Ignore;
+	public void setFileName_CaseSensitive(boolean isFileName_CaseSensitive) {
+		this.isFileName_CaseSensitive = isFileName_CaseSensitive;
+	}
+
+	public String getByFileName_Extension() {
+		return byFileName_Extension;
+	}
+
+	public void setByFileName_Extension(String byFileName_Extension) {
+		this.byFileName_Extension = byFileName_Extension;
+	}
+
+	public String getByFileName_Extension_Ignore() {
+		return byFileName_Extension_Ignore;
+	}
+
+	public void setByFileName_Extension_Ignore(String byFileName_Extension_Ignore) {
+		this.byFileName_Extension_Ignore = byFileName_Extension_Ignore;
 	}
 
 	public Date getByModify_greaterThan() {

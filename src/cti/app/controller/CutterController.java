@@ -6,21 +6,36 @@ import java.util.List;
 import org.json.JSONArray;
 
 import cti.app.bean.CutterBean;
+import cti.app.service.FileManagerService;
 import cti.app.view.CutterView;
 
 public class CutterController extends CutterView {
+
 	private static CutterBean cb = new CutterBean();
 
-	/*** 清除 ***/
-	public static void clearData(String type) {
+	/*** 畫面初始化欄位 ***/
+	public static void formShow() {
+		clearData();
 		getAllProperties();
-		if (CLEAR_ALL.equals(type)) {
-			cb.setLogFilePath("");
-			cb.setSpecFilePath("");
-			cb.setExportFilePath("");
-			cb.setResultS("");
-			cb.setResultF("");
-		}
+		cb.setLogFilePath("");
+		cb.setSpecFilePath("");
+		cb.setExportFilePath("");
+		cb.setResultS("");
+		cb.setResultF("");
+		cb.setExportFilePath(getExportFilePath(""));
+		cb.setLogFilePath(FileManagerService.findFileOnDesktopByFileName(FM_FILENAME_LOG));
+		cb.setSpecFilePath(FileManagerService.findFileOnDesktopByFileName(FM_FILENAME_SPEC));
+		setAllProperties();
+	}
+
+	/*** 重設 ***/
+	public static void resetData() {
+		formShow();
+	}
+
+	/*** 清除 ***/
+	public static void clearData() {
+		getAllProperties();
 		cb.setLogInfo_send("");
 		cb.setLogInfo_fill("");
 		cb.setSpecSendCut0("");
@@ -42,18 +57,9 @@ public class CutterController extends CutterView {
 		setAllProperties();
 	}
 
-	/*** 初始化欄位 ***/
-	public static void doInitial() {
-		clearData(CLEAR_ALL);
-		cb.setExportFilePath(getExportFilePath(""));
-		cb.setLogFilePath(findFilePathByRootPath(MY_HOME_DIRECTORY, FILENAME_LOG));
-		cb.setSpecFilePath(findFilePathByRootPath(MY_HOME_DIRECTORY, FILENAME_SPEC));
-		setAllProperties();
-	}
-
 	/*** 讀檔 ***/
 	public static void readFile() throws Exception {
-		clearData(null);
+		clearData();
 		getAllProperties();
 
 		validateInput_FilePath(jtf_logFilePath);

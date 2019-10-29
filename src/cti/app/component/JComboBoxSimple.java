@@ -1,6 +1,7 @@
 package cti.app.component;
 
 import java.awt.Color;
+import java.util.List;
 
 import javax.swing.JComboBox;
 
@@ -13,6 +14,14 @@ public class JComboBoxSimple<E> extends JComboBox<E> {
 	public JComboBoxSimple() {
 		super();
 		selfSetting();
+	}
+
+	public JComboBoxSimple(List<E> items) {
+		super();
+		selfSetting();
+		for (E string : items) {
+			addItem(string);
+		}
 	}
 
 	private void selfSetting() {
