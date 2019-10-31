@@ -21,12 +21,7 @@ public class FileManagerService extends AppService {
 		fmb.setByFileName(fileName);
 		fileManager(fmb);
 
-		StringBuffer sb = new StringBuffer();
-		for (String item : fmb.getResultList()) {
-			sb.append(item + System.lineSeparator());
-		}
-
-		return StringUtils.trimToEmpty(sb.toString());
+		return fmb.getResultString();
 	}
 
 	/*** 主要執行點 ***/
