@@ -20,7 +20,6 @@ public class FileManagerService extends AppService {
 		fmb.setResultType(FM_RESULTTYPE_FILE);
 		fmb.setByFileName(fileName);
 		fileManager(fmb);
-
 		return fmb.getResultString();
 	}
 
@@ -113,7 +112,6 @@ public class FileManagerService extends AppService {
 				isRunning = (fmb.getByDirName().compareToIgnoreCase(fileName) == 0);
 			}
 		}
-
 		if (isRunning) {
 			fmb.getResultList().add(path);
 		}

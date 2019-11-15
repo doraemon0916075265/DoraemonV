@@ -37,7 +37,7 @@ public class LogManagerView extends LogManagerConstant {
 	protected static JTextFieldSimple jtf_byTime = new JTextFieldSimple(jl_byTime);
 	private static JButtonSimple jb_search = new JButtonSimple(BTN_SEARCH);
 
-	protected static JTextArea jta_result = new JTextArea(10, 92);
+	protected static JTextArea jta_result = new JTextArea(10, Style.TEXTAREA_WIDTH);
 
 	public static JPanel createView() {
 		setBegin();

@@ -17,6 +17,7 @@ public class JTextFieldSimple extends JTextField {
 	public JTextFieldSimple(JLabel jl) {
 		super();
 		setName(jl.getName());
+		selfSetting();
 	}
 
 	private void selfSetting() {

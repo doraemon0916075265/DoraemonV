@@ -31,11 +31,11 @@ public class SpecManagerView extends SpecManagerConstant {
 	private static JButtonFilePath jb_specFilepath = new JButtonFilePath(jtf_specFilePath);
 	private static JButtonSimple jb_resetData = new JButtonSimple(BTN_RESETDATA);
 
-	private static JLabelSimple jl_specID = new JLabelSimple("ID選單");
+	private static JLabelSimple jl_specID = new JLabelSimple(JL_SPECID);
 	protected static JComboBoxSimple<String> jcb_specID = new JComboBoxSimple<String>();
 	private static JButtonSimple jb_readFile = new JButtonSimple(BTN_READFILE);
 
-	protected static JTextArea jta_result = new JTextArea(30, 93);
+	protected static JTextArea jta_result = new JTextArea(30, Style.TEXTAREA_WIDTH);
 
 	public static JPanel createView() {
 		setBegin();
@@ -70,6 +70,7 @@ public class SpecManagerView extends SpecManagerConstant {
 		jl_specFilePath.setForeground(APP_COLOR_SPEC);
 		jl_specID.setForeground(APP_COLOR_SPEC);
 		setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
+		jta_result.setFont(APP_FONT);
 	}
 
 	private static void setListener() {

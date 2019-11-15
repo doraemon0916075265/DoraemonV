@@ -12,6 +12,8 @@ public class Style {
 	public static final int FRAME_WIDTH = 1080;
 	public static final int FRAME_HEIGHT = 720;
 
+	public static final int TEXTAREA_WIDTH = 146;
+	
 	// Label-TextField-null-Label-Button
 	public static final List<Integer> MODEL_JL1_JTF_NULL_JL2_BTN = Arrays.asList(20, 80, 710, 5, 75, 90, 20);
 

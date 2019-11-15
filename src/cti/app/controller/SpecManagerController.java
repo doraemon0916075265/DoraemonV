@@ -12,7 +12,7 @@ public class SpecManagerController extends SpecManagerView {
 	public static void formShow() {
 		getAllProperties();
 		smb.setSpecFilePath(FileManagerService.findFileOnDesktopByFileName(FILENAME_SPEC));
-		smb.setSpecID(null);
+		smb.setSpecID(genJCB4SpecID(smb.getSpecFilePath()).get(0));
 		smb.setResult("");
 		setAllProperties();
 	}
@@ -48,6 +48,7 @@ public class SpecManagerController extends SpecManagerView {
 	private static void setAllProperties() {
 		jtf_specFilePath.setText(smb.getSpecFilePath());
 		jta_result.setText(smb.getResult());
+		jcb_specID.setSelectedItem(smb.getSpecID());
 	}
 
 }

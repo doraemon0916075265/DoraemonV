@@ -32,6 +32,7 @@ public class FindFileService extends AppService {
 		FileManagerService.fileManager(fmb);
 
 		ffb.setResultType(FM_RESULTTYPE_LIST.indexOf(fmb.getResultType()));
+
 		ffb.setResult(fmb.getResultString());
 		return ffb;
 	}
