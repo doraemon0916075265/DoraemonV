@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import cti.app.appService.Style;
 import cti.app.component.JButtonFilePath;
@@ -16,6 +15,7 @@ import cti.app.component.JButtonSimple;
 import cti.app.component.JComboBoxSimple;
 import cti.app.component.JLabelSimple;
 import cti.app.component.JPanelSimple;
+import cti.app.component.JTextAreaSimple;
 import cti.app.component.JTextFieldSimple;
 import cti.app.constant.SpecManagerConstant;
 import cti.app.controller.SpecManagerController;
@@ -36,7 +36,7 @@ public class SpecManagerView extends SpecManagerConstant {
 	protected static JComboBoxSimple<String> jcb_specID = new JComboBoxSimple<String>();
 	private static JButtonSimple jb_readFile = new JButtonSimple(BTN_READFILE);
 
-	protected static JTextArea jta_result = new JTextArea(30, Style.TEXTAREA_WIDTH);
+	protected static JTextAreaSimple jta_result = new JTextAreaSimple(30, false);
 
 	public static JPanel createView() {
 		setBegin();
@@ -71,8 +71,6 @@ public class SpecManagerView extends SpecManagerConstant {
 		jl_specFilePath.setForeground(APP_COLOR_SPEC);
 		jcb_specID.setEditable(true);
 		jl_specID.setForeground(APP_COLOR_SPEC);
-		setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
-		jta_result.setFont(APP_FONT);
 	}
 
 	private static void setListener() {

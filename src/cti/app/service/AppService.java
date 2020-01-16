@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -377,12 +378,6 @@ public class AppService extends AppConstant {
 		jc.setForeground(fontColor);
 	}
 
-	/*** 樣式：一般TextArea(物件,命名,顏色,可編輯) ***/
-	public static void setAppStyle4TextArea(JComponent jc, String name, Color fontColor, boolean isEditable) {
-		setAppStyle(jc, name, fontColor);
-		((JTextComponent) jc).setEditable(isEditable);
-	}
-
 	/*** 重新生成下拉選單 ***/
 	protected static void genPulldownMenu(JComboBox<String> jcb, List<String> items) {
 		String selectString = null;
@@ -402,6 +397,14 @@ public class AppService extends AppConstant {
 
 	protected static String getPulldownItem(JComboBox<String> jcb) {
 		return jcb.getSelectedItem() != null ? jcb.getSelectedItem().toString() : "";
+	}
+
+	public static String now(SimpleDateFormat sdf) {
+		if (sdf != null) {
+			return sdf.format(System.currentTimeMillis());
+		} else {
+			return Long.toString(System.currentTimeMillis());
+		}
 	}
 
 }

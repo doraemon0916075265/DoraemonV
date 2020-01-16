@@ -3,6 +3,7 @@ package cti.app.component;
 import java.util.List;
 
 import cti.app.constant.AppConstant;
+import cti.app.service.AppService;
 
 public class JLabelStatus extends JLabelSimple {
 
@@ -32,7 +33,7 @@ public class JLabelStatus extends JLabelSimple {
 
 		JTabbedPaneSimple jtp = AppConstant.jtp;
 		String page = (jtp == null ? "" : jtp.getTitleAt(jtp.getSelectedIndex()));
-		String now = AppConstant.APP_MSG_FMT.format(System.currentTimeMillis());
+		String now = AppService.now(AppConstant.SDF_HHMMSS_1);
 		String msg = String.join(AppConstant.SIGN_SPACE, msgs);
 
 		super.setText(String.format(AppConstant.FORMAT_MSG, page, now, status, msg).trim());

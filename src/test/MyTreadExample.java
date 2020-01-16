@@ -1,6 +1,6 @@
 package test;
 
-public class Example1 {
+public class MyTreadExample {
 	public static void main(String[] args) {
         Thread t1 = new MyThread(1);
         Thread t2 = new MyThread(2);

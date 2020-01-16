@@ -36,8 +36,10 @@ public class AppConstant {
 	public static final Color APP_COLOR_SEARCH_CRITERIA = Color.BLUE;
 	public static final Color APP_COLOR_MSG = Color.BLUE; // 成功訊息
 	public static final Color APP_COLOR_ERRMSG = Color.RED; // 錯誤訊息
-	public static final SimpleDateFormat APP_MSG_FMT = new SimpleDateFormat("HH:mm:ss");
-	public static final SimpleDateFormat APP_DATE_FMT = new SimpleDateFormat("yyyy/MM/dd");
+	public static final SimpleDateFormat SDF_YYYYMMDDHHMMSS_1 = new SimpleDateFormat("yyyyMMddHHmmss");
+	public static final SimpleDateFormat SDF_YYYYMMDDHHMMSS_2 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	public static final SimpleDateFormat SDF_YYYYMMDD_1 = new SimpleDateFormat("yyyy/MM/dd");
+	public static final SimpleDateFormat SDF_HHMMSS_1 = new SimpleDateFormat("HH:mm:ss");
 	public static final Font APP_FONT = Style.APP_FONT;
 	public static final String APP_TAB = "頁籤";
 	public static final String APP_MSG = "系統訊息";
@@ -125,6 +127,7 @@ public class AppConstant {
 	public static final String SIGN_VERTICAL_BAR = "|";
 	public static final String SIGN_VERTICAL_BAR01 = " | ";
 	public static final String SIGN_COMMA = ",";
+	public static final String SIGN_UNDERLINE = "_";
 
 	public static final String STR_ZERO = "0";
 

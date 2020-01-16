@@ -7,13 +7,13 @@ import java.util.Arrays;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import cti.app.appService.Style;
 import cti.app.component.JButtonFilePath;
 import cti.app.component.JButtonSimple;
 import cti.app.component.JLabelSimple;
 import cti.app.component.JPanelSimple;
+import cti.app.component.JTextAreaSimple;
 import cti.app.component.JTextFieldSimple;
 import cti.app.constant.LogManagerConstant;
 import cti.app.controller.LogManagerController;
@@ -37,7 +37,7 @@ public class LogManagerView extends LogManagerConstant {
 	protected static JTextFieldSimple jtf_byTime = new JTextFieldSimple(jl_byTime);
 	private static JButtonSimple jb_search = new JButtonSimple(BTN_SEARCH);
 
-	protected static JTextArea jta_result = new JTextArea(10, Style.TEXTAREA_WIDTH);
+	protected static JTextAreaSimple jta_result = new JTextAreaSimple(10, false);
 
 	public static JPanel createView() {
 		setBegin();
@@ -81,7 +81,6 @@ public class LogManagerView extends LogManagerConstant {
 		jl_logFilePath.setForeground(APP_COLOR_SEARCH_CRITERIA);
 		jl_searchCondition.setForeground(APP_COLOR_SEARCH_CRITERIA);
 		jl_byTime.setForeground(APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
 	}
 
 	private static void setListener() {

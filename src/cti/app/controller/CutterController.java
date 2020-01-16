@@ -22,7 +22,7 @@ public class CutterController extends CutterView {
 		cb.setExportFilePath("");
 		cb.setResultS("");
 		cb.setResultF("");
-		cb.setExportFilePath(getExportFilePath(""));
+		cb.setExportFilePath(getHomeDirectoryFilePath("", FILENAME_EXTENSION_CSV));
 		cb.setLogFilePath(FileManagerService.findFileOnDesktopByFileName(FM_FILENAME_LOG));
 		cb.setSpecFilePath(FileManagerService.findFileOnDesktopByFileName(FM_FILENAME_SPEC));
 		setAllProperties();

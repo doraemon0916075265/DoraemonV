@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
@@ -18,6 +17,7 @@ import cti.app.component.JButtonFilePath;
 import cti.app.component.JButtonSimple;
 import cti.app.component.JLabelSimple;
 import cti.app.component.JPanelSimple;
+import cti.app.component.JTextAreaSimple;
 import cti.app.component.JTextFieldSimple;
 import cti.app.constant.CutterConstant;
 import cti.app.controller.CutterController;
@@ -68,8 +68,8 @@ public class CutterView extends CutterConstant {
 	protected static JTextFieldSimple jtf_exportFilePath = new JTextFieldSimple(jl_exportFile);
 	private static JButtonSimple jb_exportFile = new JButtonSimple(BTN_EXPORTFILE);
 
-	protected static JTextArea jta_resultS = new JTextArea(5, Style.TEXTAREA_WIDTH);
-	protected static JTextArea jta_resultF = new JTextArea(10, Style.TEXTAREA_WIDTH);
+	protected static JTextAreaSimple jta_resultS = new JTextAreaSimple(5, false);
+	protected static JTextAreaSimple jta_resultF = new JTextAreaSimple(10, false);
 
 	// 隱藏欄位
 	protected static JLabel hidden_cname = new JLabel();
@@ -144,9 +144,6 @@ public class CutterView extends CutterConstant {
 
 		// setEditable
 		jtf_specInfo_note.setEditable(false);
-
-		setAppStyle4TextArea(jta_resultS, NAME_RESULTS, APP_COLOR_DEFAULT, false);
-		setAppStyle4TextArea(jta_resultF, NAME_RESULTF, APP_COLOR_DEFAULT, false);
 	}
 
 	private static void setListener() {

@@ -32,8 +32,13 @@ public class CutterService extends AppService {
 	private static final String FILENAME_RESULT = "result";
 
 	/*** 取得預設匯出檔案目錄 ***/
-	public static String getExportFilePath(String name) {
-		return MY_HOME_DIRECTORY + File.separator + FILENAME_RESULT + (StringUtils.isBlank(name) ? "" : "_" + name) + FILENAME_EXTENSION_CSV;
+	public static String getHomeDirectoryFilePath(String fileName, String fileNameExtension) {
+		String result = MY_HOME_DIRECTORY + File.separator + FILENAME_RESULT + SIGN_UNDERLINE + now(SDF_YYYYMMDDHHMMSS_1);
+		if (StringUtils.isNotBlank(fileName)) {
+			result += (SIGN_UNDERLINE + fileName);
+		}
+		result += StringUtils.trimToEmpty(fileNameExtension);
+		return result;
 	}
 
 	/*** 讀檔 ***/
@@ -107,7 +112,7 @@ public class CutterService extends AppService {
 				subNote.add("note：" + spec.getNote());
 			}
 			cb.setSpecInfo_note(String.join(SIGN_COMMA, subNote));
-			cb.setExportFilePath(getExportFilePath(cb.getLogInfo_ID()));
+			cb.setExportFilePath(getHomeDirectoryFilePath(cb.getLogInfo_ID(), FILENAME_EXTENSION_CSV));
 		}
 
 		return cb;

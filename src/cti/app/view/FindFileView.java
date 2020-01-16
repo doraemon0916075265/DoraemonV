@@ -8,7 +8,6 @@ import java.util.Arrays;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import cti.app.appService.Style;
 import cti.app.component.JButtonFilePath;
@@ -16,6 +15,7 @@ import cti.app.component.JButtonSimple;
 import cti.app.component.JComboBoxSimple;
 import cti.app.component.JLabelSimple;
 import cti.app.component.JPanelSimple;
+import cti.app.component.JTextAreaSimple;
 import cti.app.component.JTextFieldSimple;
 import cti.app.component.JXDatePickerSimple;
 import cti.app.constant.FindFileConstant;
@@ -64,7 +64,7 @@ public class FindFileView extends FindFileConstant {
 	private static JLabelSimple jl_byModify_lessThan = new JLabelSimple(JL_BYMODIFY_LESSTHAN);
 	protected static JXDatePickerSimple jxdp_byModify_lessThan = new JXDatePickerSimple(jl_byModify_lessThan);
 
-	protected static JTextArea jta_result = new JTextArea(12, Style.TEXTAREA_WIDTH);
+	protected static JTextAreaSimple jta_result = new JTextAreaSimple(12, false);
 
 	public static JPanel createView() {
 		setBegin();
@@ -125,7 +125,6 @@ public class FindFileView extends FindFileConstant {
 		jl_byFileNameExtension_Ignore.setForeground(APP_COLOR_SEARCH_CRITERIA);
 		jl_byModify_greaterThan.setForeground(APP_COLOR_SEARCH_CRITERIA);
 		jl_byModify_lessThan.setForeground(APP_COLOR_SEARCH_CRITERIA);
-		setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
 	}
 
 	private static void setListener() {
