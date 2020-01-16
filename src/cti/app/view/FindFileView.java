@@ -39,7 +39,7 @@ public class FindFileView extends FindFileConstant {
 	private static JLabelSimple jl_searchCondition = new JLabelSimple(JL_SEARCHCONDITION);
 	private static JButtonSimple jb_clearData = new JButtonSimple(BTN_CLEARDATA);
 
-	private static JLabelSimple jl_resultType = new JLabelSimple(JL_RESULTTYPE);
+	private static JLabelSimple jl_resultType = new JLabelSimple(JL_RESULTTYPE); // 結果類型
 	protected static JComboBoxSimple<String> jcb_resultType = new JComboBoxSimple<String>(FM_RESULTTYPE_LIST);
 
 	private static JLabelSimple jl_byFileText = new JLabelSimple(JL_BYFILETEXT);// 字串查詢

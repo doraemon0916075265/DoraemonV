@@ -38,9 +38,7 @@ public class AppConstant {
 	public static final Color APP_COLOR_ERRMSG = Color.RED; // 錯誤訊息
 	public static final SimpleDateFormat APP_MSG_FMT = new SimpleDateFormat("HH:mm:ss");
 	public static final SimpleDateFormat APP_DATE_FMT = new SimpleDateFormat("yyyy/MM/dd");
-	// public static final Font APP_FONT = new Font("微軟正黑體", Font.PLAIN, 12);
-	// public static final Font APP_FONT = new Font("Consolas", Font.PLAIN, 12);
-	public static final Font APP_FONT = new Font(Font.MONOSPACED, Font.PLAIN, 12);
+	public static final Font APP_FONT = Style.APP_FONT;
 	public static final String APP_TAB = "頁籤";
 	public static final String APP_MSG = "系統訊息";
 	public static final int PROGRESS_MIN = 0;
@@ -93,7 +91,7 @@ public class AppConstant {
 	public static final String FORMAT_MSG_TIMER_MS = "(執行%d毫秒)";
 	public static final String FORMAT_MSG_EXCEPTION = "%s %s";
 	public static final String FORMAT_MSG_COPIED = "已複製 %s 至剪貼簿";
-	public static final String FORMAT_SPECINFO = "%20s：%s" + System.lineSeparator();
+	public static final String FORMAT_SPECINFO = "%10s：%s" + System.lineSeparator();
 	public static final String FORMAT_GUIDEBOOK_SUBTITLE = "☆ %s ☆" + System.lineSeparator();
 	public static final String FORMAT_GUIDEBOOK_CONTENT = "%d . %s " + System.lineSeparator();
 	public static final String FORMAT_EXPORTFILE_SUBTITLE = "☆ %s ☆" + System.lineSeparator();

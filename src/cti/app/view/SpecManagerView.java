@@ -3,6 +3,7 @@ package cti.app.view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 import javax.swing.JPanel;
@@ -26,12 +27,12 @@ public class SpecManagerView extends SpecManagerConstant {
 	private static JPanelSimple jpSub1 = new JPanelSimple();
 	private static JPanelSimple jpSub2 = new JPanelSimple();
 
-	private static JLabelSimple jl_specFilePath = new JLabelSimple(JL_SPECFILEPATH);// spec檔路徑
+	private static JLabelSimple jl_specFilePath = new JLabelSimple(JL_SPECFILEPATH); // spec檔路徑
 	protected static JTextFieldSimple jtf_specFilePath = new JTextFieldSimple(jl_specFilePath);
 	private static JButtonFilePath jb_specFilepath = new JButtonFilePath(jtf_specFilePath);
 	private static JButtonSimple jb_resetData = new JButtonSimple(BTN_RESETDATA);
 
-	private static JLabelSimple jl_specID = new JLabelSimple(JL_SPECID);
+	private static JLabelSimple jl_specID = new JLabelSimple(JL_SPECID); // ID選單
 	protected static JComboBoxSimple<String> jcb_specID = new JComboBoxSimple<String>();
 	private static JButtonSimple jb_readFile = new JButtonSimple(BTN_READFILE);
 
@@ -68,6 +69,7 @@ public class SpecManagerView extends SpecManagerConstant {
 
 	private static void setComponent() {
 		jl_specFilePath.setForeground(APP_COLOR_SPEC);
+		jcb_specID.setEditable(true);
 		jl_specID.setForeground(APP_COLOR_SPEC);
 		setAppStyle4TextArea(jta_result, NAME_RESULT, APP_COLOR_DEFAULT, false);
 		jta_result.setFont(APP_FONT);
@@ -118,8 +120,10 @@ public class SpecManagerView extends SpecManagerConstant {
 		try {
 			AppTimer.setTimerWork(true);
 			SpecManagerController.readFile();
-			// setEnterTab();
+			setEnterTab();
 			showStatus(MSG_READFILE + getPulldownItem(jcb_specID));
+		} catch (FileNotFoundException fnfe) {
+			jcb_specID.removeAllItems();
 		} catch (Exception e) {
 			showSatus(e);
 		}

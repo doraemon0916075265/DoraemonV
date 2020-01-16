@@ -200,10 +200,10 @@ public class CutterView extends CutterConstant {
 		jb_guideBook.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				showStatus(MSG_OPEN_GUIDEBOOK);
+				// showStatus(MSG_OPEN_GUIDEBOOK);
 				UIManager.put("OptionPane.messageFont", new FontUIResource(APP_FONT));
 				JOptionPane.showMessageDialog(null, CutterController.guidebook(), APP_GUIDEBOOK_TITLE, JOptionPane.DEFAULT_OPTION);
-				showStatus(MSG_CLOSE_GUIDEBOOK);
+				// showStatus(MSG_CLOSE_GUIDEBOOK);
 			}
 		});
 

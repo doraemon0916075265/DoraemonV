@@ -387,6 +387,7 @@ public class AppService extends AppConstant {
 	protected static void genPulldownMenu(JComboBox<String> jcb, List<String> items) {
 		String selectString = null;
 		int selectIndex = jcb.getSelectedIndex();
+		// System.out.println("items=" + items);
 		if (!items.isEmpty() && jcb.getSelectedItem() != null && selectIndex >= 0) {
 			selectString = jcb.getSelectedItem().toString();
 		}

@@ -1,5 +1,6 @@
 package cti.app.appService;
 
+import java.awt.Font;
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,13 +8,25 @@ import javax.swing.JComponent;
 
 public class Style {
 	private static int row;
-	private static final int HEIGHT = 25;
+	private static final int SINGLE_ROW_HEIGHT = 25;
 
 	public static final int FRAME_WIDTH = 1080;
 	public static final int FRAME_HEIGHT = 720;
 
-	public static final int TEXTAREA_WIDTH = 146;
-	
+	// 字型一
+	// public static final Font APP_FONT = new Font(Font.MONOSPACED, Font.PLAIN,
+	// 12);
+	// public static final int TEXTAREA_WIDTH = (int) ((FRAME_WIDTH / 7.2) * 0.97);
+
+	// 字型二
+	public static final Font APP_FONT = new Font(Font.DIALOG_INPUT, Font.PLAIN, 12);
+	public static final int TEXTAREA_WIDTH = (int) ((FRAME_WIDTH / 7.2) * 0.98);
+
+	// 字型三
+	// public static final Font APP_FONT = new Font("Microsoft YaHei UI Light",
+	// Font.PLAIN, 12);
+	// public static final int TEXTAREA_WIDTH = (int) ((FRAME_WIDTH / 7.2) * 0.62);
+
 	// Label-TextField-null-Label-Button
 	public static final List<Integer> MODEL_JL1_JTF_NULL_JL2_BTN = Arrays.asList(20, 80, 710, 5, 75, 90, 20);
 
@@ -50,7 +63,7 @@ public class Style {
 				for (int i = 0; i < models.size(); i++) {
 					JComponent jc = jcs.get(i);
 					if (jc != null) {
-						jc.setBounds(FRAME_WIDTH * modelTemp / modelSum, row, FRAME_WIDTH * models.get(i) / modelSum, HEIGHT);
+						jc.setBounds(FRAME_WIDTH * modelTemp / modelSum, row, FRAME_WIDTH * models.get(i) / modelSum, SINGLE_ROW_HEIGHT);
 					}
 					modelTemp += models.get(i);
 				}

@@ -24,6 +24,7 @@ public class SpecService extends AppService {
 				}
 			}
 		} catch (Exception e) {
+
 		}
 		return list;
 	}
