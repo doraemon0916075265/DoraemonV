@@ -1,6 +1,10 @@
 package cti.app.component;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
+
+import javax.swing.Timer;
 
 import cti.app.constant.AppConstant;
 import cti.app.service.AppService;
@@ -35,6 +39,7 @@ public class JLabelStatus extends JLabelSimple {
 		String page = (jtp == null ? "" : jtp.getTitleAt(jtp.getSelectedIndex()));
 		String now = AppService.now(AppConstant.SDF_HHMMSS_1);
 		String msg = String.join(AppConstant.SIGN_SPACE, msgs);
+		System.out.println("msg=" + msgs);
 
 		super.setText(String.format(AppConstant.FORMAT_MSG, page, now, status, msg).trim());
 	}
