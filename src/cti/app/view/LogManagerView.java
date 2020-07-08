@@ -33,11 +33,11 @@ public class LogManagerView extends LogManagerConstant {
 	private static JLabelSimple jl_searchCondition = new JLabelSimple(JL_SEARCHCONDITION);
 	private static JButtonSimple jb_clearData = new JButtonSimple(BTN_CLEARDATA);
 
-	private static JLabelSimple jl_byTime = new JLabelSimple(JL_BYTIME);
-	protected static JTextFieldSimple jtf_byTime = new JTextFieldSimple(jl_byTime);
+	private static JLabelSimple jl_byExecuteTime = new JLabelSimple(JL_BYTIME);
+	protected static JTextFieldSimple jtf_byExecuteTime = new JTextFieldSimple(jl_byExecuteTime);
 	private static JButtonSimple jb_search = new JButtonSimple(BTN_SEARCH);
 
-	protected static JTextAreaSimple jta_result = new JTextAreaSimple(10, false);
+	protected static JTextAreaSimple jta_result = new JTextAreaSimple("結果", 10, false);
 
 	public static JPanel createView() {
 		setBegin();
@@ -52,8 +52,6 @@ public class LogManagerView extends LogManagerConstant {
 		jpSub1.setLayout(null);
 		jpSub1.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 415));
 		jpSub2.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 210));
-		// jpSub1.setBorder(new LineBorder(Color.RED));
-		// jpSub2.setBorder(new LineBorder(Color.RED));
 	}
 
 	private static void setPosition() {
@@ -65,8 +63,8 @@ public class LogManagerView extends LogManagerConstant {
 		Style.setBounds(Style.MODEL_NULL_JL_NULL_JC_BTN, Arrays.asList(null, null, jl_searchCondition, null, null, jb_clearData, null));
 		jpSub1.add(Arrays.asList(jl_searchCondition, jb_clearData));
 		/*** 第三區 ***/
-		Style.setBounds(Style.MODEL_JL_JC1_NULL_JC2_NULL_JC3_NULL_JC4_JC5_BTN, Arrays.asList(null, jl_byTime, jtf_byTime, null, null, null, null, null, null, null, jb_search, null));
-		jpSub1.add(Arrays.asList(jl_byTime, jtf_byTime, jb_search));
+		Style.setBounds(Style.MODEL_JL_JC1_NULL_JC2_NULL_JC3_NULL_JC4_JC5_BTN, Arrays.asList(null, jl_byExecuteTime, jtf_byExecuteTime, null, null, null, null, null, null, null, jb_search, null));
+		jpSub1.add(Arrays.asList(jl_byExecuteTime, jtf_byExecuteTime, jb_search));
 		/*** 第四區 ***/
 		/*** 第五區 ***/
 		/*** 第六區 ***/
@@ -80,7 +78,7 @@ public class LogManagerView extends LogManagerConstant {
 	private static void setComponent() {
 		jl_logFilePath.setForeground(APP_COLOR_SEARCH_CRITERIA);
 		jl_searchCondition.setForeground(APP_COLOR_SEARCH_CRITERIA);
-		jl_byTime.setForeground(APP_COLOR_SEARCH_CRITERIA);
+		jl_byExecuteTime.setForeground(APP_COLOR_SEARCH_CRITERIA);
 	}
 
 	private static void setListener() {
@@ -117,7 +115,7 @@ public class LogManagerView extends LogManagerConstant {
 			}
 		});
 
-		setDbClickForCopy(jtf_byTime);
+		setDbClickForCopy(jtf_byExecuteTime);
 		setDbClickForCopy(jta_result);
 	}
 

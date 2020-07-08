@@ -7,9 +7,6 @@ import java.util.Arrays;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import cti.app.appService.Style;
 import cti.app.component.JButtonFilePath;
@@ -18,9 +15,7 @@ import cti.app.component.JLabelSimple;
 import cti.app.component.JPanelSimple;
 import cti.app.component.JTextAreaSimple;
 import cti.app.component.JTextFieldSimple;
-import cti.app.constant.AppConstant;
 import cti.app.constant.TestConstant;
-import cti.app.service.AppService;
 
 public class TestView extends TestConstant {
 	private static JPanelSimple jp = new JPanelSimple();
@@ -45,7 +40,7 @@ public class TestView extends TestConstant {
 	private static JLabelSimple jl6 = new JLabelSimple(STR_ZERO);
 	private static JButtonSimple jb6 = new JButtonSimple("btn4");
 
-	private static JTextAreaSimple jta_result = new JTextAreaSimple(10, true);
+	private static JTextAreaSimple jta_result = new JTextAreaSimple("Test內容", 10, true);
 	private static JPanelSimple jpSub1 = new JPanelSimple();
 	private static JPanelSimple jpSub2 = new JPanelSimple();
 
@@ -90,24 +85,12 @@ public class TestView extends TestConstant {
 	}
 
 	private static void setListener() {
-		// new Timer(100, new ActionListener() {
-		// @Override
-		// public void actionPerformed(ActionEvent ae) {
-		// currentProgress++;
-		// if (currentProgress > PROGRESS_MAX) {
-		// currentProgress = PROGRESS_MIN;
-		// }
-		// jtf1.setText("" + currentProgress++);
-		// // jpb.setValue(currentProgress);
-		// }
-		// }).start();
-
-		// new Timer(100, new ActionListener() {
-		// @Override
-		// public void actionPerformed(ActionEvent ae) {
-		// jtf2.setText(AppService.now(AppConstant.SDF_YYYYMMDDHHMMSS_2));
-		// }
-		// }).start();
+		jb4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				String endpoint = "http://dicagap01.cathdevelop.intra.uwccb/CTIService/CTIService.svc?wsdl";
+			}
+		});
 
 	}
 

@@ -64,7 +64,7 @@ public class FindFileView extends FindFileConstant {
 	private static JLabelSimple jl_byModify_lessThan = new JLabelSimple(JL_BYMODIFY_LESSTHAN);
 	protected static JXDatePickerSimple jxdp_byModify_lessThan = new JXDatePickerSimple(jl_byModify_lessThan);
 
-	protected static JTextAreaSimple jta_result = new JTextAreaSimple(12, false);
+	protected static JTextAreaSimple jta_result = new JTextAreaSimple("結果", 12, false);
 
 	public static JPanel createView() {
 		setBegin();

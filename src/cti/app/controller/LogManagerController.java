@@ -13,6 +13,7 @@ public class LogManagerController extends LogManagerView {
 		getAllProperties();
 		lmb.setResult("");
 		lmb.setLogFilePath(FileManagerService.findFileOnDesktopByFileName(FM_FILENAME_LOG));
+		lmb.setByExecuteTime("3000");
 		setAllProperties();
 	}
 

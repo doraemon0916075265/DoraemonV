@@ -56,6 +56,11 @@ public class SpecService extends AppService {
 
 			// 隱藏欄位or非必要欄位，塞try-catch
 			try {
+				sb.setOccurs(jsonObj.get(TAG_OCCURS).toString());
+			} catch (Exception e) {
+				sb.setOccurs("");
+			}
+			try {
 				sb.setNote(jsonObj.get(TAG_NOTE).toString());
 			} catch (Exception e) {
 				sb.setNote("");

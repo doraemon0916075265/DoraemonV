@@ -7,6 +7,7 @@ public class SpecBean {
 	private String s_cut;
 	private String f_cut0;
 	private String f_cut;
+	private String occurs;
 	private String note;
 	private String owner;
 	private String cname;
@@ -58,6 +59,14 @@ public class SpecBean {
 
 	public void setF_cut(String f_cut) {
 		this.f_cut = f_cut;
+	}
+
+	public String getOccurs() {
+		return occurs;
+	}
+
+	public void setOccurs(String occurs) {
+		this.occurs = occurs;
 	}
 
 	public String getNote() {

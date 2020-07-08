@@ -85,8 +85,8 @@ public class CutterController extends CutterView {
 		List<JSONArray> fhead0 = Arrays.asList(new JSONArray(cb.getHidden_fcname0()), new JSONArray(cb.getHidden_fename0()));
 		List<JSONArray> fhead = Arrays.asList(new JSONArray(cb.getHidden_fcname()), new JSONArray(cb.getHidden_fename()));
 
-		cb.setResultS(cutterPro(cb.getLogInfo_send(), new JSONArray(cb.getSpecSendCut0()), new JSONArray(cb.getSpecSendCut()), shead0, shead));
-		cb.setResultF(cutterPro(cb.getLogInfo_fill(), new JSONArray(cb.getSpecFillCut0()), new JSONArray(cb.getSpecFillCut()), fhead0, fhead));
+		cb.setResultS(cutterPro(cb.getLogInfo_send(), new JSONArray(cb.getSpecSendCut0()), new JSONArray(cb.getSpecSendCut()), TryPosStrToInt(""), shead0, shead));
+		cb.setResultF(cutterPro(cb.getLogInfo_fill(), new JSONArray(cb.getSpecFillCut0()), new JSONArray(cb.getSpecFillCut()), TryPosStrToInt(cb.getSpecOccurs()), fhead0, fhead));
 
 		setAllProperties();
 	}

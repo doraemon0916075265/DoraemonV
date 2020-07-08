@@ -14,8 +14,9 @@ public class JTextAreaSimple extends JTextArea {
 		selfSetting();
 	}
 
-	public JTextAreaSimple(int rowCount, boolean isEditable) {
+	public JTextAreaSimple(String name,int rowCount, boolean isEditable) {
 		super(rowCount, Style.TEXTAREA_WIDTH);
+		setName(name);
 		setEditable(isEditable);
 		selfSetting();
 	}

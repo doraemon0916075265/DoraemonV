@@ -10,6 +10,7 @@ public class CutterBean {
 	private String specFillCut0;
 	private String specFillCut;
 	private String logInfo_ID;
+	private String specOccurs;
 	private String specInfo_note;
 	private String exportFilePath;
 	private String resultS;
@@ -94,6 +95,14 @@ public class CutterBean {
 
 	public void setLogInfo_ID(String logInfo_ID) {
 		this.logInfo_ID = logInfo_ID;
+	}
+
+	public String getSpecOccurs() {
+		return specOccurs;
+	}
+
+	public void setSpecOccurs(String specOccurs) {
+		this.specOccurs = specOccurs;
 	}
 
 	public String getSpecInfo_note() {

@@ -36,7 +36,7 @@ public class SpecManagerView extends SpecManagerConstant {
 	protected static JComboBoxSimple<String> jcb_specID = new JComboBoxSimple<String>();
 	private static JButtonSimple jb_readFile = new JButtonSimple(BTN_READFILE);
 
-	protected static JTextAreaSimple jta_result = new JTextAreaSimple(30, false);
+	protected static JTextAreaSimple jta_result = new JTextAreaSimple("spec內容", 30, false);
 
 	public static JPanel createView() {
 		setBegin();

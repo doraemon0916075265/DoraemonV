@@ -150,6 +150,7 @@ public class AppConstant {
 	protected static final String TAG_SCUT = "s_cut";
 	protected static final String TAG_FCUT0 = "f_cut0";
 	protected static final String TAG_FCUT = "f_cut";
+	protected static final String TAG_OCCURS = "occurs";
 	protected static final String TAG_NOTE = "note";
 	protected static final String TAG_OWNER = "owner";
 	protected static final String TAG_CNAME = "cname";

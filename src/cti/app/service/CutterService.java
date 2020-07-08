@@ -89,6 +89,7 @@ public class CutterService extends AppService {
 			cb.setSpecFillCut0(spec.getF_cut0());
 			cb.setSpecFillCut(spec.getF_cut());
 			validFileContent(cb, FLAG_SPEC);
+			cb.setSpecOccurs(spec.getOccurs());
 			cb.setHidden_scname0(spec.getS_cname0());
 			cb.setHidden_sename0(spec.getS_ename0());
 			cb.setHidden_scname(spec.getS_cname());
@@ -99,6 +100,9 @@ public class CutterService extends AppService {
 			cb.setHidden_fename(spec.getF_ename());
 			// note最後塞
 			List<String> subNote = new ArrayList<>();
+			if (StringUtils.isNotBlank(spec.getOccurs())) {
+				subNote.add("Occurs：" + spec.getOccurs());
+			}
 			if (StringUtils.isNotBlank(spec.getCname())) {
 				subNote.add("電文名稱：" + spec.getCname());
 			}
@@ -119,13 +123,16 @@ public class CutterService extends AppService {
 	}
 
 	/*** 主要切電文 ***/
-	public static String cutterPro(String telegram, JSONArray cut0, JSONArray cut, List<JSONArray> head0, List<JSONArray> head) throws Exception {
+	public static String cutterPro(String telegram, JSONArray cut0, JSONArray cut, Integer occurs, List<JSONArray> head0, List<JSONArray> head) throws Exception {
 		int cutIndex = 0;
+		int loopTimes = 0;
 		StringBuffer sb = new StringBuffer();
 		int gbkLen = getGBKLen(telegram);
+		System.out.println("occurs=" + occurs);
 
+		// --- 第一段 ---
 		for (JSONArray jarr0 : head0) {
-			sb.append(addTgHeader(jarr0));// 上行表頭
+			sb.append(addTgHeader(jarr0)); // 上行表頭
 		}
 
 		for (Object obj : cut0) {
@@ -136,12 +143,13 @@ public class CutterService extends AppService {
 
 		sb.append(System.lineSeparator() + System.lineSeparator());
 
+		// --- 第二段 ---
 		for (JSONArray jarr : head) {
-			sb.append(addTgHeader(jarr));// 下行表頭
+			sb.append(addTgHeader(jarr)); // 下行表頭
 		}
 
 		try {
-			while (gbkLen > cut.length()) {
+			while ((occurs > 0) && (gbkLen > cut.length())) {
 				// 可不可接受[0]陣列
 				// if (STR_ZERO.equals(getIntegerArrayLength2String(cut.toString()))) {
 				// break;
@@ -158,18 +166,35 @@ public class CutterService extends AppService {
 					gbkLen -= cutSize;
 				}
 				sb.append(System.lineSeparator());
+				loopTimes++;
+				occurs--;
 			}
 		} catch (Exception e) {
-			throw new Exception("資料大小=" + Integer.toString(gbkLen) + ";" + e);
+			throw new Exception("已執行" + loopTimes + "次迴圈，資料大小=" + Integer.toString(gbkLen));
 		}
 
+		// --- 第三段 ---
 		String foot = telegram.substring(subStrLen(telegram, getGBKLen(telegram) - gbkLen));
 		if (StringUtils.isNotBlank(foot)) {
 			sb.append(System.lineSeparator());
+			sb.append(addTgHeader(new JSONArray("[剩餘部分]")));
 			sb.append(String.format(FORMAT_CSV_CELL, foot));
 		}
 
 		return sb.toString();
+	}
+
+	/*** 非負整數字串轉成非負數字 ***/
+	protected static Integer TryPosStrToInt(String str) {
+		Integer result = 0;
+		Integer defaultInt = Integer.MAX_VALUE;
+		try {
+			result = StringUtils.isBlank(str) ? defaultInt : Integer.parseInt(str);
+			result = (result < 1) ? defaultInt : result;
+		} catch (Exception e) {
+			result = defaultInt;
+		}
+		return result;
 	}
 
 	// 組表頭顯示

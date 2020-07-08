@@ -9,7 +9,7 @@ public class LogManagerConstant extends FindFileService {
 	public static final String JL_LOGFILEPATH = "log檔路徑";
 	public static final String JL_SEARCHCONDITION = "搜尋條件";
 	
-	public static final String JL_BYTIME = "執行時間(≧)";
+	public static final String JL_BYTIME = "執行時間ms(≧)";
 
 	public static final String NAME_RESULT = "結果區";
 }

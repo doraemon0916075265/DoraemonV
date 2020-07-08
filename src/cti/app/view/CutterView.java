@@ -68,8 +68,8 @@ public class CutterView extends CutterConstant {
 	protected static JTextFieldSimple jtf_exportFilePath = new JTextFieldSimple(jl_exportFile);
 	private static JButtonSimple jb_exportFile = new JButtonSimple(BTN_EXPORTFILE);
 
-	protected static JTextAreaSimple jta_resultS = new JTextAreaSimple(5, false);
-	protected static JTextAreaSimple jta_resultF = new JTextAreaSimple(10, false);
+	protected static JTextAreaSimple jta_resultS = new JTextAreaSimple("切上行結果", 5, false);
+	protected static JTextAreaSimple jta_resultF = new JTextAreaSimple("切下行結果", 10, false);
 
 	// 隱藏欄位
 	protected static JLabel hidden_cname = new JLabel();
