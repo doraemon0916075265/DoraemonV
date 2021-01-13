@@ -112,6 +112,7 @@ public class AppConstant {
 	public static final String BTN_EXPORTFILE = "匯出";
 	public static final String BTN_GUIDEBOOK = "說明書";
 	public static final String BTN_SEARCH = "查詢";
+	public static final String BTN_EXECUTE = "執行";
 
 	// 正規表示法
 	public static final String REGEXP_FORALL = ".*";

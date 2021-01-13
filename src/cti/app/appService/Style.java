@@ -22,11 +22,6 @@ public class Style {
 	public static final Font APP_FONT = new Font(Font.DIALOG_INPUT, Font.PLAIN, 12);
 	public static final int TEXTAREA_WIDTH = (int) ((FRAME_WIDTH / 7.2) * 0.98);
 
-	// 字型三
-	// public static final Font APP_FONT = new Font("Microsoft YaHei UI Light",
-	// Font.PLAIN, 12);
-	// public static final int TEXTAREA_WIDTH = (int) ((FRAME_WIDTH / 7.2) * 0.62);
-
 	// Label-TextField-null-Label-Button
 	public static final List<Integer> MODEL_JL1_JTF_NULL_JL2_BTN = Arrays.asList(20, 80, 710, 5, 75, 90, 20);
 

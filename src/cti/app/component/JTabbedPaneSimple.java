@@ -9,16 +9,16 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import cti.app.constant.AppConstant;
-import cti.app.constant.CutterConstant;
-import cti.app.constant.FindFileConstant;
-import cti.app.constant.SpecManagerConstant;
-import cti.app.constant.TestConstant;
+import cti.app.constant.Tab01_CutterConstant;
+import cti.app.constant.Tab03_FindFileConstant;
+import cti.app.constant.Tab02_SpecManagerConstant;
+import cti.app.constant.Tab05_TestConstant;
 import cti.app.service.AppService;
-import cti.app.view.CutterView;
-import cti.app.view.FindFileView;
-import cti.app.view.LogManagerView;
-import cti.app.view.SpecManagerView;
-import cti.app.view.TestView;
+import cti.app.view.Tab01_CutterView;
+import cti.app.view.Tab03_FindFileView;
+import cti.app.view.Tab04_LogManagerView;
+import cti.app.view.Tab02_SpecManagerView;
+import cti.app.view.Tab05_TestView;
 
 public class JTabbedPaneSimple extends JTabbedPane {
 
@@ -38,18 +38,18 @@ public class JTabbedPaneSimple extends JTabbedPane {
 	public void setComponent() {
 		setForeground(AppConstant.APP_COLOR_DEFAULT);
 		setFont(AppConstant.APP_FONT);
-		addTab(CutterConstant.TAB_NAME, CutterView.createView());
-		addTab(SpecManagerConstant.TAB_NAME, SpecManagerView.createView());
-		addTab(FindFileConstant.TAB_NAME, FindFileView.createView());
-		addTab(LogManagerView.TAB_NAME, LogManagerView.createView());
-		addTab(TestConstant.TAB_NAME, TestView.createView());
+		addTab(Tab01_CutterConstant.TAB_NAME, Tab01_CutterView.createView());
+		addTab(Tab02_SpecManagerConstant.TAB_NAME, Tab02_SpecManagerView.createView());
+		addTab(Tab03_FindFileConstant.TAB_NAME, Tab03_FindFileView.createView());
+		addTab(Tab04_LogManagerView.TAB_NAME, Tab04_LogManagerView.createView());
+		addTab(Tab05_TestConstant.TAB_NAME, Tab05_TestView.createView());
 		addTab("未定", new JPanel());
 
 		addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent ce) {
-				if (SpecManagerConstant.TAB_NAME.equals(getTitleAt(getSelectedIndex()))) {
-					SpecManagerView.setEnterTab();
+				if (Tab02_SpecManagerConstant.TAB_NAME.equals(getTitleAt(getSelectedIndex()))) {
+					Tab02_SpecManagerView.setEnterTab();
 				}
 				AppService.showSatusNoTimer(Arrays.asList(AppConstant.MSG_WELCOME, getTitleAt(getSelectedIndex())));
 			}

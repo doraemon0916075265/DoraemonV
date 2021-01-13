@@ -1,19 +1,38 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cti.app.service.AppService;
 
 public class Test4 {
 
 	public static void main(String[] args) {
-//		String str = "";
-//		for (int i = 0; i < 10; i++) {
-//			str = str + "xx幣" + i + ",";
-//		}
-//		System.out.println(StringUtils.isBlank(""));
-//		System.out.println(StringUtils.isBlank("　"));
-		// System.out.println(String.format("Hello%sMen", str));
-//		System.out.println(Integer.parseInt("1.2"));
-
+		String format = "132======%s==%s==%s";
+		String sa [] = {"123131","123131"};
+		
+		String Input = "123131";
+List<String> s = new ArrayList();
+s.add(Input);
+s.add(Input);
+s.add(Input);
+		StringBuffer sOutput = new StringBuffer();
+		for (String sInputLine : Input.split("\\r?\\n")) {
+			sInputLine = sInputLine.trim();
+			sOutput.append(String.format(format, s) + System.lineSeparator());
+		}
+		 System.out.println(sOutput.toString().trim());
+//		System.out.println("" + appearCount(format, "%s"));
 	}
 
+	public static int appearCount(String str, String key) {
+		int count = 0;
+		int index = 0;
+		while ((index = str.indexOf(key, index)) != -1) {
+			str = str.substring(index + key.length());
+			index = 0;
+			count++;
+		}
+		return count;
+	}
 }
