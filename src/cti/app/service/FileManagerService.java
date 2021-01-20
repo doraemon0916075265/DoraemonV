@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -236,17 +238,17 @@ public class FileManagerService extends AppService {
 
 	/*** 讀檔案內所有內容 ***/
 	public static FileManagerBean readFileContent(FileManagerBean fmb) throws Exception {
+		List<String> list = new ArrayList<>();
 		String path = fmb.getPath();
-		StringBuffer content = new StringBuffer();
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), getFileEncoding(path)));) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				if (StringUtils.isNotBlank(line)) {
-					content.append(line);
+					list.add(line);
 				}
 			}
 		}
-		fmb.setResultString(StringUtils.trimToEmpty(content.toString()));
+		fmb.setResultString(String.join(System.lineSeparator(), list));
 		return fmb;
 	}
 

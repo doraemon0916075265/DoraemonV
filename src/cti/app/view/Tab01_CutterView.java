@@ -99,32 +99,32 @@ public class Tab01_CutterView extends Tab01_CutterConstant {
 
 	private static void setPosition() {
 		Style.resetRow();
-		/*** 上半部，第一區 ***/
+		/*** Block1，Row1 ***/
 		Style.setBounds(Style.MODEL_JL_JTF_JB_JC_BTN, Arrays.asList(null, jl_logFilePath, jtf_logFilePath, jb_logFilepath, null, jb_resetData, null));
 		jpSub1.add(Arrays.asList(jl_logFilePath, jtf_logFilePath, jb_logFilepath, jb_resetData));
-		/*** 第二區 ***/
+		/*** Block1，Row2 ***/
 		Style.setBounds(Style.MODEL_JL_JTF_JB_JC_BTN, Arrays.asList(null, jl_specFilePath, jtf_specFilePath, jb_specFilepath, null, jb_clearData, null));
 		jpSub1.add(Arrays.asList(jl_specFilePath, jtf_specFilePath, jb_specFilepath, jb_clearData));
-		/*** 第三區 ***/
+		/*** Block1，Row3 ***/
 		Style.setBounds(Style.MODEL_JL1_JTF_NULL_JL2_BTN, Arrays.asList(null, jl_logInfo_send, jtf_logInfo_send, null, jl_logInfo_sendLen, jb_readFile, null));
 		jpSub1.add(Arrays.asList(jl_logInfo_send, jtf_logInfo_send, jl_logInfo_sendLen, jb_readFile));
-		/*** 第四區 ***/
+		/*** Block1，Row4 ***/
 		Style.setBounds(Style.MODEL_JL1_JTF_NULL_JL2_BTN, Arrays.asList(null, jl_logInfo_fill, jtf_logInfo_fill, null, jl_logInfo_fillLen, jb_analysis, null));
 		jpSub1.add(Arrays.asList(jl_logInfo_fill, jtf_logInfo_fill, jl_logInfo_fillLen, jb_analysis));
-		/*** 第五區 ***/
+		/*** Block1，Row5 ***/
 		Style.setBounds(Style.MODEL_JL_JTF1_NULL_JTF2_NULL_JL_BTN, Arrays.asList(null, jl_specInfo_send, jtf_specSendCut0, null, jtf_specSendCut, null, jl_specInfo_sendLen, null, null));
 		jpSub1.add(Arrays.asList(jl_specInfo_send, jtf_specSendCut0, jtf_specSendCut, jl_specInfo_sendLen));
-		/*** 第六區 ***/
+		/*** Block1，Row6 ***/
 		Style.setBounds(Style.MODEL_JL_JTF1_NULL_JTF2_NULL_JL_BTN, Arrays.asList(null, jl_specInfo_fill, jtf_specFillCut0, null, jtf_specFillCut, null, jl_specInfo_fillLen, null, null));
 		jpSub1.add(Arrays.asList(jl_specInfo_fill, jtf_specFillCut0, jtf_specFillCut, jl_specInfo_fillLen));
-		/*** 第七區 ***/
+		/*** Block1，Row7 ***/
 		Style.setBounds(Style.MODEL_JL_JTF1_NULL_JTF2_NULL_JL_BTN, Arrays.asList(null, jl_logInfo_ID, jtf_logInfo_ID, null, jtf_specInfo_note, null, null, jb_guideBook, null));
 		jpSub1.add(Arrays.asList(jl_logInfo_ID, jtf_logInfo_ID, jtf_specInfo_note, jb_guideBook));
-		/*** 第八區 ***/
+		/*** Block1，Row8 ***/
 		Style.setBounds(Style.MODEL_JL1_JTF_NULL_JL2_BTN, Arrays.asList(null, jl_exportFile, jtf_exportFilePath, null, null, jb_exportFile, null));
 		jpSub1.add(Arrays.asList(jl_exportFile, jtf_exportFilePath, jb_exportFile));
 
-		/*** 下半部 ***/
+		/*** Block2，Area1,Area2 ***/
 		jpSub2.add(Arrays.asList(new JScrollPane(jta_resultS), new JScrollPane(jta_resultF)));
 
 		jp.add(Arrays.asList(jpSub1, jpSub2));
@@ -139,7 +139,6 @@ public class Tab01_CutterView extends Tab01_CutterConstant {
 		jl_specInfo_send.setForeground(APP_COLOR_SPEC);
 		jl_specInfo_fill.setForeground(APP_COLOR_SPEC);
 		jl_logInfo_ID.setForeground(APP_COLOR_LOG);
-
 		// setEditable
 		jtf_specInfo_note.setEditable(false);
 	}
@@ -149,7 +148,7 @@ public class Tab01_CutterView extends Tab01_CutterConstant {
 		jb_resetData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				Tab01_CutterController.resetData();
+				Tab01_CutterController.doFormShow();
 				showStatus(MSG_RESETDATA);
 			}
 		});
@@ -158,7 +157,7 @@ public class Tab01_CutterView extends Tab01_CutterConstant {
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				Tab01_CutterController.clearData();
+				Tab01_CutterController.doClearData();
 				showStatus(MSG_CLEARDATA);
 			}
 		});
@@ -169,7 +168,7 @@ public class Tab01_CutterView extends Tab01_CutterConstant {
 			public void actionPerformed(ActionEvent ae) {
 				try {
 					AppTimer.setTimerWork(true);
-					Tab01_CutterController.readFile();
+					Tab01_CutterController.doReadFile();
 					showStatus(MSG_READFILE);
 				} catch (Exception e) {
 					showSatus(e);
@@ -183,7 +182,7 @@ public class Tab01_CutterView extends Tab01_CutterConstant {
 			public void actionPerformed(ActionEvent ae) {
 				try {
 					AppTimer.setTimerWork(true);
-					Tab01_CutterController.analysis();
+					Tab01_CutterController.doAnalysis();
 					showStatus(MSG_ANALYSIS);
 				} catch (Exception e) {
 					showSatus(e);
@@ -208,7 +207,7 @@ public class Tab01_CutterView extends Tab01_CutterConstant {
 			public void actionPerformed(ActionEvent ae) {
 				try {
 					AppTimer.setTimerWork(true);
-					Tab01_CutterController.export();
+					Tab01_CutterController.doExport();
 					showStatus(MSG_EXPORTFILE + "於" + jtf_exportFilePath.getText());
 				} catch (Exception e) {
 					showSatus(e);
@@ -239,7 +238,7 @@ public class Tab01_CutterView extends Tab01_CutterConstant {
 	}
 
 	private static void setEnd() {
-		Tab01_CutterController.formShow();
+		Tab01_CutterController.doFormShow();
 	}
 
 }

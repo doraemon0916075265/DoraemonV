@@ -85,28 +85,29 @@ public class Tab03_FindFileView extends Tab03_FindFileConstant {
 
 	private static void setPosition() {
 		Style.resetRow();
-		/*** 上半部，第一區 ***/
+		/*** Block1，Row1 ***/
 		Style.setBounds(Style.MODEL_JL_JTF_JB_JC_BTN, Arrays.asList(null, jl_searchPath, jtf_searchPath, jb_searchPath, null, jb_resetData, null));
 		jpSub1.add(Arrays.asList(jl_searchPath, jtf_searchPath, jb_searchPath, jb_resetData));
-		/*** 第二區 ***/
+		/*** Block1，Row2 ***/
 		Style.setBounds(Style.MODEL_NULL_JL_NULL_JC_BTN, Arrays.asList(null, null, jl_searchCondition, null, null, jb_clearData, null));
 		jpSub1.add(Arrays.asList(jl_searchCondition, jb_clearData));
-		/*** 第三區 ***/
+		/*** Block1，Row3 ***/
 		Style.setBounds(Style.MODEL_JL_JC1_NULL_JC2_NULL_JC3_NULL_JC4_JC5_BTN, Arrays.asList(null, jl_resultType, jcb_resultType, null, null, null, null, null, null, null, jb_search, null));
 		jpSub1.add(Arrays.asList(jl_resultType, jcb_resultType, jb_search));
-		/*** 第四區 ***/
+		/*** Block1，Row4 ***/
 		Style.setBounds(Style.MODEL_JL1_JTF_NULL_JL2_JCB_JC_BTN, Arrays.asList(null, jl_byFileText, jtf_byFileText, null, jl_byFileTextCaseSensitive, jcb_byFileTextCaseSensitive, null, null, null));
 		jpSub1.add(Arrays.asList(jl_byFileText, jtf_byFileText, jl_byFileTextCaseSensitive, jcb_byFileTextCaseSensitive));
-		/*** 第六區 ***/
+		/*** Block1，Row5 ***/
 		Style.setBounds(Style.MODEL_JL1_JTF_NULL_JL2_JCB_JC_BTN, Arrays.asList(null, jl_byFileName, jtf_byFileName, null, jl_byFileNameCaseSensitive, jcb_byFileNameCaseSensitive, null, null, null));
 		jpSub1.add(Arrays.asList(jl_byFileName, jtf_byFileName, jl_byFileNameCaseSensitive, jcb_byFileNameCaseSensitive));
-		/*** 第七區 ***/
+		/*** Block1，Row6 ***/
 		Style.setBounds(Style.MODEL_JL1_JC1_NULL_JL2_JC2_JC_BTN, Arrays.asList(null, jl_byFileNameExtension, jtf_byFileNameExtension, null, jl_byFileNameExtension_Ignore, jtf_byFileNameExtension_Ignore, null, null, null));
 		jpSub1.add(Arrays.asList(jl_byFileNameExtension, jtf_byFileNameExtension, jl_byFileNameExtension_Ignore, jtf_byFileNameExtension_Ignore));
-		/*** 第八區 ***/
+		/*** Block1，Row7 ***/
 		Style.setBounds(Style.MODEL_JL1_JC1_NULL_JL2_JC2_JC_BTN, Arrays.asList(null, jl_byModify_greaterThan, jxdp_byModify_greaterThan, null, jl_byModify_lessThan, jxdp_byModify_lessThan, null, null, null));
 		jpSub1.add(Arrays.asList(jl_byModify_greaterThan, jxdp_byModify_greaterThan, jl_byModify_lessThan, jxdp_byModify_lessThan));
-		/*** 下半部 ***/
+
+		/*** Block2，Area1 ***/
 		jpSub2.add(new JScrollPane(jta_result));
 
 		jp.add(Arrays.asList(jpSub1, jpSub2));
@@ -133,7 +134,7 @@ public class Tab03_FindFileView extends Tab03_FindFileConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				AppTimer.setTimerWork(true);
-				Tab03_FindFileController.resetData();
+				Tab03_FindFileController.doResetData();
 				showStatus(MSG_RESETDATA);
 			}
 		});
@@ -142,7 +143,7 @@ public class Tab03_FindFileView extends Tab03_FindFileConstant {
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				Tab03_FindFileController.clearData();
+				Tab03_FindFileController.doClearData();
 				showStatus(MSG_CLEARDATA);
 			}
 		});
@@ -153,7 +154,7 @@ public class Tab03_FindFileView extends Tab03_FindFileConstant {
 			public void actionPerformed(ActionEvent ae) {
 				AppTimer.setTimerWork(true);
 				try {
-					Tab03_FindFileController.findConditionFile();
+					Tab03_FindFileController.doFindConditionFile();
 					showStatus(MSG_SEARCH);
 				} catch (Exception e) {
 					showSatus(e);
@@ -161,6 +162,7 @@ public class Tab03_FindFileView extends Tab03_FindFileConstant {
 			}
 		});
 
+		// 雙擊複製
 		setDbClickForCopy(jtf_searchPath);
 		setDbClickForCopy(jtf_byFileText);
 		setDbClickForCopy(jtf_byFileName);
@@ -168,7 +170,7 @@ public class Tab03_FindFileView extends Tab03_FindFileConstant {
 	}
 
 	private static void setEnd() {
-		Tab03_FindFileController.formShow();
+		Tab03_FindFileController.doFormShow();
 	}
 
 }

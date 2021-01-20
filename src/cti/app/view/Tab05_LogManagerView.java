@@ -15,11 +15,11 @@ import cti.app.component.JLabelSimple;
 import cti.app.component.JPanelSimple;
 import cti.app.component.JTextAreaSimple;
 import cti.app.component.JTextFieldSimple;
-import cti.app.constant.Tab04_LogManagerConstant;
-import cti.app.controller.Tab04_LogManagerController;
+import cti.app.constant.Tab05_LogManagerConstant;
+import cti.app.controller.Tab05_LogManagerController;
 import cti.app.service.AppTimer;
 
-public class Tab04_LogManagerView extends Tab04_LogManagerConstant {
+public class Tab05_LogManagerView extends Tab05_LogManagerConstant {
 	private static JPanelSimple jp = new JPanelSimple();
 
 	private static JPanelSimple jpSub1 = new JPanelSimple();
@@ -87,7 +87,7 @@ public class Tab04_LogManagerView extends Tab04_LogManagerConstant {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				AppTimer.setTimerWork(true);
-				Tab04_LogManagerController.resetData();
+				Tab05_LogManagerController.doResetData();
 				showStatus(MSG_RESETDATA);
 			}
 		});
@@ -96,7 +96,7 @@ public class Tab04_LogManagerView extends Tab04_LogManagerConstant {
 		jb_clearData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				Tab04_LogManagerController.clearData();
+				Tab05_LogManagerController.doClearData();
 				showStatus(MSG_CLEARDATA);
 			}
 		});
@@ -120,7 +120,7 @@ public class Tab04_LogManagerView extends Tab04_LogManagerConstant {
 	}
 
 	private static void setEnd() {
-		Tab04_LogManagerController.formShow();
+		Tab05_LogManagerController.formShow();
 	}
 
 }

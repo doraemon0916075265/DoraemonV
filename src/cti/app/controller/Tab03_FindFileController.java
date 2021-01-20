@@ -8,7 +8,7 @@ public class Tab03_FindFileController extends Tab03_FindFileView {
 	private static FindFileBean ffb = new FindFileBean();
 
 	/*** 畫面初始化欄位 ***/
-	public static void formShow() {
+	public static void doFormShow() {
 		clearAllData();
 		ffb.setSearchPath(MY_HOME_DIRECTORY);
 		ffb.setByFileName_Extension("[\"*\"]");
@@ -19,12 +19,12 @@ public class Tab03_FindFileController extends Tab03_FindFileView {
 	}
 
 	/*** 重設 ***/
-	public static void resetData() {
-		formShow();
+	public static void doResetData() {
+		doFormShow();
 	}
 
 	/*** 清除 ***/
-	public static void clearData() {
+	public static void doClearData() {
 		getAllProperties();
 		ffb.setResultType(0);
 		ffb.setByFileText("");
@@ -53,7 +53,7 @@ public class Tab03_FindFileController extends Tab03_FindFileView {
 		setAllProperties();
 	}
 
-	public static void findConditionFile() throws Exception {
+	public static void doFindConditionFile() throws Exception {
 		ffb.setResult("");
 		getAllProperties();
 		validateInput_DirectoryPath(jtf_searchPath);

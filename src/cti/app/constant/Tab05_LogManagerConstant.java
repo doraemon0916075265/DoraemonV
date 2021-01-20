@@ -2,7 +2,7 @@ package cti.app.constant;
 
 import cti.app.service.Tab03_FindFileService;
 
-public class Tab04_LogManagerConstant extends Tab03_FindFileService {
+public class Tab05_LogManagerConstant extends Tab03_FindFileService {
 
 	public static final String TAB_NAME = "log";
 

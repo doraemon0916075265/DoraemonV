@@ -14,6 +14,8 @@ import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -196,6 +198,27 @@ public class AppService extends AppConstant {
 		} catch (Exception e) {
 			return System.getProperty("file.encoding");
 		}
+	}
+
+	/*** Iterator排序 ***/
+	public static Iterator<String> sortedIterator(Iterator<String> it) {
+		List<String> list = new ArrayList<String>();
+		while (it.hasNext()) {
+			list.add(it.next());
+		}
+
+		Collections.sort(list, null);
+		return list.iterator();
+	}
+
+	/*** 取得預設匯出檔案目錄 ***/
+	public static String getHomeDirectoryFilePath(String fileName, String fileNameExtension) {
+		String result = MY_HOME_DIRECTORY + File.separator + FILENAME_RESULT + SIGN_UNDERLINE + now(SDF_YYYYMMDDHHMMSS_1);
+		if (StringUtils.isNotBlank(fileName)) {
+			result += (SIGN_UNDERLINE + fileName);
+		}
+		result += StringUtils.trimToEmpty(fileNameExtension);
+		return result;
 	}
 
 	/*** 雙擊複製到剪貼簿 ***/

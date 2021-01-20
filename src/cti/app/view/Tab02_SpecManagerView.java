@@ -55,13 +55,14 @@ public class Tab02_SpecManagerView extends Tab02_SpecManagerConstant {
 
 	private static void setPosition() {
 		Style.resetRow();
-		/*** 上半部，第一區 ***/
+		/*** Block1，Row1 ***/
 		Style.setBounds(Style.MODEL_JL_JTF_JB_JC_BTN, Arrays.asList(null, jl_specFilePath, jtf_specFilePath, jb_specFilepath, null, jb_resetData, null));
 		jpSub1.add(Arrays.asList(jl_specFilePath, jtf_specFilePath, jb_specFilepath, jb_resetData));
-		/*** 第二區 ***/
+		/*** Block1，Row2 ***/
 		Style.setBounds(Style.MODEL_JL_JC1_NULL_JC2_NULL_JC3_NULL_JC4_JC5_BTN, Arrays.asList(null, jl_specID, jcb_specID, null, null, null, null, null, null, null, jb_readFile, null));
 		jpSub1.add(Arrays.asList(jl_specID, jcb_specID, jb_readFile));
-		/*** 下半部 ***/
+		
+		/*** Block2，Area1 ***/
 		jpSub2.add(new JScrollPane(jta_result));
 
 		jp.add(Arrays.asList(jpSub1, jpSub2));
@@ -78,9 +79,7 @@ public class Tab02_SpecManagerView extends Tab02_SpecManagerConstant {
 		jb_resetData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				AppTimer.setTimerWork(true);
-				Tab02_SpecManagerController.resetData();
-				setEnterTab();
+				Tab02_SpecManagerController.doFormShow();
 				showStatus(MSG_RESETDATA);
 			}
 		});
@@ -89,6 +88,7 @@ public class Tab02_SpecManagerView extends Tab02_SpecManagerConstant {
 		jb_readFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
+				AppTimer.setTimerWork(true);
 				readFile();
 			}
 		});
@@ -107,18 +107,13 @@ public class Tab02_SpecManagerView extends Tab02_SpecManagerConstant {
 	}
 
 	private static void setEnd() {
-		Tab02_SpecManagerController.formShow();
-	}
-
-	public static void setEnterTab() {
-		genPulldownMenu(jcb_specID, genJCB4SpecID(jtf_specFilePath.getText()));
+		Tab02_SpecManagerController.doFormShow();
 	}
 
 	private static void readFile() {
 		try {
-			AppTimer.setTimerWork(true);
-			Tab02_SpecManagerController.readFile();
-			setEnterTab();
+			Tab02_SpecManagerController.doReadFile();
+			genPulldownMenu(jcb_specID, genJCB4SpecID(jtf_specFilePath.getText()));
 			showStatus(MSG_READFILE + getPulldownItem(jcb_specID));
 		} catch (FileNotFoundException fnfe) {
 			jcb_specID.removeAllItems();

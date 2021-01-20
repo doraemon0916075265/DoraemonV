@@ -29,8 +29,6 @@ public class Tab01_CutterService extends AppService {
 	private static final String REGEXP_FILL1 = "收到:" + REGEXP_FORALL;
 	private static final String REGEXP_FILL2 = REGEXP_FORALL + "收到";
 
-	private static final String FILENAME_RESULT = "result";
-
 	/*** 取得預設匯出檔案目錄 ***/
 	public static String getHomeDirectoryFilePath(String fileName, String fileNameExtension) {
 		String result = MY_HOME_DIRECTORY + File.separator + FILENAME_RESULT + SIGN_UNDERLINE + now(SDF_YYYYMMDDHHMMSS_1);

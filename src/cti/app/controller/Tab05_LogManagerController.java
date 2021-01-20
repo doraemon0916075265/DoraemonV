@@ -2,9 +2,9 @@ package cti.app.controller;
 
 import cti.app.bean.LogManagerBean;
 import cti.app.service.FileManagerService;
-import cti.app.view.Tab04_LogManagerView;
+import cti.app.view.Tab05_LogManagerView;
 
-public class Tab04_LogManagerController extends Tab04_LogManagerView {
+public class Tab05_LogManagerController extends Tab05_LogManagerView {
 
 	private static LogManagerBean lmb = new LogManagerBean();
 
@@ -18,12 +18,12 @@ public class Tab04_LogManagerController extends Tab04_LogManagerView {
 	}
 
 	/*** 重設 ***/
-	public static void resetData() {
+	public static void doResetData() {
 		formShow();
 	}
 
 	/*** 清除 ***/
-	public static void clearData() {
+	public static void doClearData() {
 		// formShow();
 	}
 

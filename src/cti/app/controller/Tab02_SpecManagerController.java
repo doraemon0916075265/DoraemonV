@@ -9,17 +9,12 @@ public class Tab02_SpecManagerController extends Tab02_SpecManagerView {
 	private static SpecManagerBean smb = new SpecManagerBean();
 
 	/*** 初始化欄位 ***/
-	public static void formShow() {
+	public static void doFormShow() {
 		getAllProperties();
-		smb.setSpecFilePath(FileManagerService.findFileOnDesktopByFileName(FILENAME_SPEC));
+		smb.setSpecFilePath(FileManagerService.findFileOnDesktopByFileName(FM_FILENAME_SPEC));
 		smb.setSpecID(genJCB4SpecID(smb.getSpecFilePath()).get(0));
 		smb.setResult("");
 		setAllProperties();
-	}
-
-	/*** 重設 ***/
-	public static void resetData() {
-		formShow();
 	}
 
 	/*** 清除 ***/
@@ -30,7 +25,7 @@ public class Tab02_SpecManagerController extends Tab02_SpecManagerView {
 	}
 
 	/*** 讀檔 ***/
-	public static void readFile() throws Exception {
+	public static void doReadFile() throws Exception {
 		getAllProperties();
 		validateInput_FilePath(jtf_specFilePath);
 		smb = readJsonSpecInfo(smb);

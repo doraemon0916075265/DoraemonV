@@ -37,6 +37,9 @@ public class Style {
 	// Label-Component-null-Component-null-Button
 	public static final List<Integer> MODEL_JL_JC1_NULL_JC2_NULL_BTN = Arrays.asList(20, 80, 350, 10, 350, 80, 90, 20);
 
+	// Label-Component-null-Component-null-Button
+	public static final List<Integer> MODEL_JL_JC_NULL_JTF_NULL_BTN = Arrays.asList(20, 80, 172, 10, 528, 80, 90, 20);
+
 	// Label-Component-null-Label-Component-Component-Button
 	public static final List<Integer> MODEL_JL1_JC1_NULL_JL2_JC2_JC_BTN = Arrays.asList(20, 80, 310, 10, 80, 310, 80, 90, 20);
 

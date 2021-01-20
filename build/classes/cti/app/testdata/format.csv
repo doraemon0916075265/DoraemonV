@@ -1,0 +1,15 @@
+AcctNo,17,帳號
+Type,2,優惠類別
+IdType,2,身份證號類別
+IdNo,24,身份證號
+CustName,60,客戶姓名
+Status,1,目前狀態，C:有效，D:無效
+Branch,4,申請/異動分行
+Teller,5,申請/異動櫃員
+SetDate,8,申請/異動日期
+WaiveCnt,3,優惠次數
+UsedCnt,3,已使用次數
+DueDate,8,身心障礙證件到期日
+LastTxnDate,8,最後交易日期
+SetFunc,1,功能選項
+,,

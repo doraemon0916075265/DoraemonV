@@ -1,6 +1,7 @@
 package cti.app.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +13,7 @@ import cti.app.bean.SpecBean;
 
 public class SpecService extends AppService {
 
-	/*** 從Json格式取出所有id ***/
+	/*** 從Json格式取出所有id的List ***/
 	protected static List<String> readFileInfoID(String pathSpec) {
 		List<String> list = new ArrayList<String>();
 		try {
@@ -40,6 +41,31 @@ public class SpecService extends AppService {
 			}
 		}
 		return sb;
+	}
+
+	/*** 從Json格式取出所有id=Format的List，其中key=id忽略 ***/
+	protected static List<String> readFileInfoID_Format(String pathSpec) {
+		List<String> list = new ArrayList<String>();
+		try {
+			JSONArray jsonArrs = new JSONObject(FileManagerService.readFileContent(pathSpec)).getJSONArray(SPEC);
+			for (Object o : jsonArrs) {
+				JSONObject jo = new JSONObject(o.toString());
+				if (TAG_FORMAT.equals(getJsonValue(jo, TAG_ID).toString())) {
+					Iterator<String> i = sortedIterator(jo.keys());
+					while (i.hasNext()) {
+						String key = i.next();
+						if (TAG_ID.equals(key)) { // key=id時，忽略
+							continue;
+						}
+						list.add(key);
+					}
+					return list;
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return list;
 	}
 
 	/*** 從單一個Json格式取出所有tag ***/

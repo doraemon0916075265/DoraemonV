@@ -32,6 +32,7 @@ public class AppConstant {
 	public static final LineBorder APP_COLOR_COMPONENT_BORDER = new LineBorder(new Color(140, 140, 140));
 	public static final Color APP_COLOR_LOG = Color.BLUE;
 	public static final Color APP_COLOR_SPEC = Color.MAGENTA;
+	public static final Color APP_COLOR_FORMAT = new Color(0, 100, 0); // 深綠色
 	public static final Color APP_COLOR_DEFAULT = Color.BLACK;
 	public static final Color APP_COLOR_SEARCH_CRITERIA = Color.BLUE;
 	public static final Color APP_COLOR_MSG = Color.BLUE; // 成功訊息
@@ -140,8 +141,11 @@ public class AppConstant {
 
 	public static final String FM_FILENAME_LOG = "LOG.TXT";
 	public static final String FM_FILENAME_SPEC = "SPEC.JSON";
+	public static final String FM_FILENAME_FORMAT = "FORMAT.CSV";
+	public static final String FILENAME_RESULT = "result";
 
 	// 副檔名
+	public static final String FILENAME_EXTENSION_TXT = ".txt";
 	public static final String FILENAME_EXTENSION_CSV = ".csv";
 
 	// spec檔標籤

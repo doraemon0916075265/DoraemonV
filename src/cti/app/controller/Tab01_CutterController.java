@@ -14,8 +14,8 @@ public class Tab01_CutterController extends Tab01_CutterView {
 	private static CutterBean cb = new CutterBean();
 
 	/*** 畫面初始化欄位 ***/
-	public static void formShow() {
-		clearData();
+	public static void doFormShow() {
+		doClearData();
 		getAllProperties();
 		cb.setLogFilePath("");
 		cb.setSpecFilePath("");
@@ -28,13 +28,8 @@ public class Tab01_CutterController extends Tab01_CutterView {
 		setAllProperties();
 	}
 
-	/*** 重設 ***/
-	public static void resetData() {
-		formShow();
-	}
-
 	/*** 清除 ***/
-	public static void clearData() {
+	public static void doClearData() {
 		getAllProperties();
 		cb.setLogInfo_send("");
 		cb.setLogInfo_fill("");
@@ -58,8 +53,8 @@ public class Tab01_CutterController extends Tab01_CutterView {
 	}
 
 	/*** 讀檔 ***/
-	public static void readFile() throws Exception {
-		clearData();
+	public static void doReadFile() throws Exception {
+		doClearData();
 		getAllProperties();
 
 		validateInput_FilePath(jtf_logFilePath);
@@ -70,7 +65,7 @@ public class Tab01_CutterController extends Tab01_CutterView {
 	}
 
 	/*** 解析 ***/
-	public static void analysis() throws Exception {
+	public static void doAnalysis() throws Exception {
 		getAllProperties();
 
 		validateInput_Text(jtf_logInfo_send);
@@ -92,7 +87,7 @@ public class Tab01_CutterController extends Tab01_CutterView {
 	}
 
 	/*** 匯出 ***/
-	public static void export() throws Exception {
+	public static void doExport() throws Exception {
 		getAllProperties();
 
 		validateInput_ExportPath(jtf_exportFilePath, Arrays.asList("TXT", "LOG", "CSV"));

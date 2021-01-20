@@ -1,7 +1,5 @@
 package cti.app.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,7 +27,6 @@ public class Tab02_SpecManagerService extends AppService {
 		for (Object o : jsonArrs) {
 			JSONObject jo = new JSONObject(o.toString());
 			if (smb.getSpecID().equals(getJsonValue(jo, TAG_ID).toString())) {
-				// Iterator<String> i = jo.keys();
 				Iterator<String> i = sortedIterator(jo.keys());
 				while (i.hasNext()) {
 					String key = i.next();
@@ -41,16 +38,6 @@ public class Tab02_SpecManagerService extends AppService {
 		smb.setResult(sb.toString());
 
 		return smb;
-	}
-
-	public static Iterator<String> sortedIterator(Iterator<String> it) {
-		List<String> list = new ArrayList<String>();
-		while (it.hasNext()) {
-			list.add(it.next());
-		}
-
-		Collections.sort(list, null);
-		return list.iterator();
 	}
 
 }
