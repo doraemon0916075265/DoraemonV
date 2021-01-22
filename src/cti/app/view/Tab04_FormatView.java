@@ -39,8 +39,8 @@ public class Tab04_FormatView extends Tab04_FormatConstant {
 	protected static JTextFieldSimple jtf_format = new JTextFieldSimple(jl_specID_format);
 	private static JButtonSimple jb_execute = new JButtonSimple(BTN_EXECUTE);
 
-	protected static JTextAreaSimple jta_input = new JTextAreaSimple("輸入內容", 12, true);
-	protected static JTextAreaSimple jta_output = new JTextAreaSimple("輸出內容", 12, true);
+	protected static JTextAreaSimple jta_input = new JTextAreaSimple("輸入內容", 11, true);
+	protected static JTextAreaSimple jta_output = new JTextAreaSimple("輸出內容", 11, true);
 
 	private static JLabelSimple jl_exportFile = new JLabelSimple(JL_EXPORTFILE); // 匯出檔案路徑
 	protected static JTextFieldSimple jtf_exportFilePath = new JTextFieldSimple(jl_exportFile);

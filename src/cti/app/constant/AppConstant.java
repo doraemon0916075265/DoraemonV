@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +29,7 @@ public class AppConstant {
 	public static final String APP_GUIDEBOOK_TITLE = "操作說明書";
 	public static final int APP_FRAME_WIDTH = Style.FRAME_WIDTH;
 	public static final int APP_FRAME_HEIGHT = Style.FRAME_HEIGHT;
-	public static final String APP_FRAME_ENCODING = "UTF-8";
+	public static final String APP_FRAME_ENCODING = StandardCharsets.UTF_8.toString();
 	public static final LineBorder APP_COLOR_COMPONENT_BORDER = new LineBorder(new Color(140, 140, 140));
 	public static final Color APP_COLOR_LOG = Color.BLUE;
 	public static final Color APP_COLOR_SPEC = Color.MAGENTA;

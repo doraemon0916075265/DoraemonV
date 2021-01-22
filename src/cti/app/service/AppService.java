@@ -5,12 +5,15 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -165,18 +168,38 @@ public class AppService extends AppConstant {
 
 	/*** 匯出檔案 ***/
 	public static void exportFile(String exportPath, List<String> contents) throws Exception {
-		try (FileWriter fw = new FileWriter(new File(exportPath).getAbsolutePath())) {
-			fw.write(new String(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF }));
+		try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(exportPath), true), StandardCharsets.UTF_8))) {
+			// 檔案頭設定BOM，避免亂碼
+			bw.write('\ufeff');
+
 			for (String content : contents) {
-				fw.write(content);
+				bw.write(content);
 			}
-			fw.flush();
+
+			bw.flush();
 		} catch (FileNotFoundException e) {
 			throw new FileNotFoundException(e.getMessage());
 		} catch (Exception e) {
 			throw new Exception(ERRMSG_DONOT_WRITE_FILE);
 		}
 	}
+
+	/*** 匯出檔案 ***/
+	// public static void exportFile(String exportPath, List<String> contents)
+	// throws Exception {
+	// try (FileWriter fw = new FileWriter(new File(exportPath).getAbsolutePath()))
+	// {
+	// fw.write(new String(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF }));
+	// for (String content : contents) {
+	// fw.write(content);
+	// }
+	// fw.flush();
+	// } catch (FileNotFoundException e) {
+	// throw new FileNotFoundException(e.getMessage());
+	// } catch (Exception e) {
+	// throw new Exception(ERRMSG_DONOT_WRITE_FILE);
+	// }
+	// }
 
 	/*** 找編碼 ***/
 	public static String getFileEncoding(String filepath) {

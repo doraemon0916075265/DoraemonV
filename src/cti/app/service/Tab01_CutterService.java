@@ -125,12 +125,15 @@ public class Tab01_CutterService extends AppService {
 		int cutIndex = 0;
 		int loopTimes = 0;
 		StringBuffer sb = new StringBuffer();
+		List<String> list = new ArrayList<>();
 		int gbkLen = getGBKLen(telegram);
 
 		// --- 第一段 ---
 		for (JSONArray jarr0 : head0) {
-			sb.append(addTgHeader(jarr0)); // 上行表頭
+			sb.append(addTgHeader(jarr0));
 		}
+		list.add(sb.toString()); // 上行表頭
+		sb.setLength(0); // 清空sb
 
 		for (Object obj : cut0) {
 			Integer cutSize = Integer.parseInt(obj.toString());
@@ -138,19 +141,19 @@ public class Tab01_CutterService extends AppService {
 			gbkLen -= cutSize;
 		}
 
-		sb.append(System.lineSeparator() + System.lineSeparator());
+		list.add(sb.toString());
+		sb.setLength(0); // 清空sb3
+		list.add("");
 
 		// --- 第二段 ---
 		for (JSONArray jarr : head) {
-			sb.append(addTgHeader(jarr)); // 下行表頭
+			sb.append(addTgHeader(jarr));
 		}
+		list.add(sb.toString()); // 下行表頭
+		sb.setLength(0); // 清空sb
 
 		try {
 			while ((occurs > 0) && (gbkLen > cut.length())) {
-				// 可不可接受[0]陣列
-				// if (STR_ZERO.equals(getIntegerArrayLength2String(cut.toString()))) {
-				// break;
-				// }
 				for (Object obj : cut) {
 					Integer cutSize = Integer.parseInt(obj.toString());
 					String tempStr = telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize));
@@ -159,10 +162,10 @@ public class Tab01_CutterService extends AppService {
 					} else {
 						sb.append(String.format(FORMAT_CSV_CELL, tempStr));
 					}
-					// System.out.println(sb);
 					gbkLen -= cutSize;
 				}
-				sb.append(System.lineSeparator());
+				list.add(sb.toString());
+				sb.setLength(0); // 清空sb
 				loopTimes++;
 				occurs--;
 			}
@@ -173,12 +176,12 @@ public class Tab01_CutterService extends AppService {
 		// --- 第三段 ---
 		String foot = telegram.substring(subStrLen(telegram, getGBKLen(telegram) - gbkLen));
 		if (StringUtils.isNotBlank(foot)) {
-			sb.append(System.lineSeparator());
-			sb.append(addTgHeader(new JSONArray("[剩餘部分]")));
-			sb.append(String.format(FORMAT_CSV_CELL, foot));
+			list.add("");
+			list.add(addTgHeader(new JSONArray("[剩餘部分]")));
+			list.add(String.format(FORMAT_CSV_CELL, foot));
 		}
 
-		return sb.toString();
+		return String.join(System.lineSeparator(), list);
 	}
 
 	/*** 非負整數字串轉成非負數字 ***/
@@ -201,7 +204,7 @@ public class Tab01_CutterService extends AppService {
 			for (Object obj : arr) {
 				sb.append(String.format(FORMAT_CSV_CELLHEADER, obj.toString()));
 			}
-			sb.append(System.lineSeparator());
+			// sb.append(System.lineSeparator());
 		}
 		return sb.toString();
 	}

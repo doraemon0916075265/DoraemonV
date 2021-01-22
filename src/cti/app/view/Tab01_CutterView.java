@@ -69,7 +69,7 @@ public class Tab01_CutterView extends Tab01_CutterConstant {
 	private static JButtonSimple jb_exportFile = new JButtonSimple(BTN_EXPORTFILE);
 
 	protected static JTextAreaSimple jta_resultS = new JTextAreaSimple("切上行結果", 5, false);
-	protected static JTextAreaSimple jta_resultF = new JTextAreaSimple("切下行結果", 10, false);
+	protected static JTextAreaSimple jta_resultF = new JTextAreaSimple("切下行結果", 8, false);
 
 	// 隱藏欄位
 	protected static JLabel hidden_cname = new JLabel();
@@ -95,6 +95,9 @@ public class Tab01_CutterView extends Tab01_CutterConstant {
 		jpSub1.setLayout(null);
 		jpSub1.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 325));
 		jpSub2.setPreferredSize(new Dimension(APP_FRAME_WIDTH, 300));
+
+		// jpSub1.setBorder(BorderFactory.createLineBorder(Color.RED));
+		// jpSub2.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 	}
 
 	private static void setPosition() {
