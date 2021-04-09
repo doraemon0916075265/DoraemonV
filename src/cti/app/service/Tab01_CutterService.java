@@ -131,9 +131,9 @@ public class Tab01_CutterService extends AppService {
 		// --- 第一段 ---
 		for (JSONArray jarr0 : head0) {
 			sb.append(addTgHeader(jarr0));
+			list.add(sb.toString()); // 上行表頭
+			sb.setLength(0); // 清空sb
 		}
-		list.add(sb.toString()); // 上行表頭
-		sb.setLength(0); // 清空sb
 
 		for (Object obj : cut0) {
 			Integer cutSize = Integer.parseInt(obj.toString());
@@ -148,12 +148,12 @@ public class Tab01_CutterService extends AppService {
 		// --- 第二段 ---
 		for (JSONArray jarr : head) {
 			sb.append(addTgHeader(jarr));
+			list.add(sb.toString()); // 下行表頭
+			sb.setLength(0); // 清空sb
 		}
-		list.add(sb.toString()); // 下行表頭
-		sb.setLength(0); // 清空sb
 
 		try {
-			while ((occurs > 0) && (gbkLen > cut.length())) {
+			while ((occurs > 0) && (gbkLen >= cut.length())) {
 				for (Object obj : cut) {
 					Integer cutSize = Integer.parseInt(obj.toString());
 					String tempStr = telegram.substring(subStrLen(telegram, cutIndex), subStrLen(telegram, cutIndex += cutSize));
