@@ -228,10 +228,10 @@ public class Tab01_CutterService extends AppService {
 	/*** 匯出檔案 ***/
 	public static void exportFile(CutterBean cb) throws Exception {
 		List<String> contents = new ArrayList<>();
-		contents.add(String.format(FORMAT_EXPORTFILE_SUBTITLE, "Send or Up"));
+		contents.add(String.format(FORMAT_EXPORTFILE_SUBTITLE, "送出電文"));
 		contents.add(String.format(FORMAT_EXPORTFILE_CONTENT, cb.getResultS()));
 		contents.add(System.lineSeparator());
-		contents.add(String.format(FORMAT_EXPORTFILE_SUBTITLE, "Fill or Down"));
+		contents.add(String.format(FORMAT_EXPORTFILE_SUBTITLE, "收到電文"));
 		contents.add(String.format(FORMAT_EXPORTFILE_CONTENT, cb.getResultF()));
 		exportFile(cb.getExportFilePath(), contents);
 	}
