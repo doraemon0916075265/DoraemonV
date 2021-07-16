@@ -8,5 +8,7 @@ public class App extends MainView {
 		AppTimer.setTimerWork(true);
 		executeApp();
 		showStatus(MSG_INITIAL);
+		
+		//
 	}
 }
